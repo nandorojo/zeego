@@ -1,0 +1,22 @@
+{
+  "name": "zeeg-example",
+  "displayName": "Zeeg Example",
+  "expo": {
+    "name": "zeeg-example",
+    "slug": "zeeg-example",
+    "description": "Example app for zeeg",
+    "privacy": "public",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
