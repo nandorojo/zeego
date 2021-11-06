@@ -1,4 +1,6 @@
 {
+  "name": "zeeg",
+  "version": "0.1.0",
   "description": "Logical UI primitives, made for screens.",
   "private": true,
   "workspaces": {
@@ -7,13 +9,32 @@
       "examples/*"
     ]
   },
+  "main": "lib/commonjs/index",
+  "module": "lib/module/index",
+  "types": "lib/typescript/index.d.ts",
+  "react-native": "src/index",
+  "source": "src/index",
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios",
+    "cpp",
+    "zeeg.podspec",
+    "!lib/typescript/example",
+    "!android/build",
+    "!ios/build",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
+  ],
   "scripts": {
     "test": "jest",
     "typescript": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "prepare": "lerna run prepare",
+    "prepare": "bob build",
     "release": "release-it",
-    "example": "yarn --cwd examples/expo",
+    "example": "yarn --cwd example",
     "pods": "cd example && pod-install --quiet",
     "bootstrap": "yarn example && yarn && yarn pods"
   },
@@ -51,8 +72,7 @@
     "react-native": "0.63.4",
     "react-native-builder-bob": "^0.18.0",
     "release-it": "^14.2.2",
-    "typescript": "^4.4",
-    "lerna": "^3.22.1"
+    "typescript": "^4.1.3"
   },
   "peerDependencies": {
     "react": "*",
