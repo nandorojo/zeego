@@ -4,6 +4,7 @@ import type {
   ContextMenuRootProps,
   ContextMenuTriggerProps,
 } from './types';
+import { Children, ReactChild } from 'react';
 // @ts-expect-error
 import { ContextMenuView } from 'react-native-ios-context-menu';
 import { pickChildren } from './pick-children';
@@ -23,11 +24,24 @@ const Item = ({ children }: ContextMenuItemProps) => {
 
 const Root = ({ children }: ContextMenuRootProps) => {
   const trigger = pickChildren(children, Trigger);
-  const content = pickChildren(children, Content);
+  const content = pickChildren(trigger.withoutTargetChildren, Content);
 
-  const contentChildren = content.targetChildren;
+  const items = pickChildren(
+    content.targetChildren?.[0]?.props?.children,
+    Item
+  );
 
-  console.log(trigger.withoutTargetChildren);
+  const menuItems: { actionKey: string; actionTitle: string }[] = Children.map(
+    items.targetChildren,
+    (child, index) => {
+      return {
+        actionKey: `key-${index}`,
+        actionTitle: child.props.children,
+      };
+    }
+  );
+
+  console.log(items);
 
   return (
     <ContextMenuView
@@ -38,20 +52,7 @@ const Root = ({ children }: ContextMenuRootProps) => {
       onPressMenuPreview={() => alert('onPressMenuPreview')}
       menuConfig={{
         menuTitle: '',
-        menuItems: [
-          {
-            actionKey: 'key-01',
-            actionTitle: 'Action #1',
-          },
-          {
-            actionKey: 'key-02',
-            actionTitle: 'Action #2',
-          },
-          {
-            actionKey: 'key-03',
-            actionTitle: 'Action #3',
-          },
-        ],
+        menuItems,
       }}
     >
       <>{trigger.targetChildren?.[0]}</>
