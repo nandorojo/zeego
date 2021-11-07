@@ -1,40 +1,45 @@
 import type {
-  ContextMenuContentProps,
-  ContextMenuItemProps,
-  ContextMenuItemSubtitleProps,
-  ContextMenuItemTitleProps,
-  ContextMenuRootProps,
-  ContextMenuTriggerItemProps,
-  ContextMenuTriggerProps,
-} from './types'
+  MenuContentProps,
+  MenuGroupProps,
+  MenuItemProps,
+  MenuItemSubtitleProps,
+  MenuItemTitleProps,
+  MenuRootProps,
+  MenuTriggerItemProps,
+  MenuTriggerProps,
+} from '@zeeg/menu'
 import React, { Children, ReactElement } from 'react'
 // @ts-expect-error
 import { ContextMenuView } from 'react-native-ios-context-menu'
-import { flattenChildren, pickChildren } from './pick-children'
+import { flattenChildren, pickChildren } from '@zeeg/menu'
 import { filterNull } from './filter-null'
 
-const Trigger = ({ children }: ContextMenuTriggerProps) => {
+const Trigger = ({ children }: MenuTriggerProps) => {
   const child = <>{children}</>
 
-  return <>{child}</>
+  return <>{Children.only(child)}</>
 }
 
-const Content = ({ children }: ContextMenuContentProps) => {
+const Group = ({ children }: MenuGroupProps) => {
   return <>{children}</>
 }
-const ItemTitle = ({ children }: ContextMenuItemTitleProps) => {
+
+const Content = ({ children }: MenuContentProps) => {
+  return <>{children}</>
+}
+const ItemTitle = ({ children }: MenuItemTitleProps) => {
   if (typeof children != 'string') {
     throw new Error('[zeeg] <ItemTitle /> child must be a string')
   }
   return <>{children}</>
 }
-const ItemSubtitle = ({ children }: ContextMenuItemSubtitleProps) => {
+const ItemSubtitle = ({ children }: MenuItemSubtitleProps) => {
   if (children && typeof children != 'string') {
     throw new Error('[zeeg] <ItemSubtitle /> child must be a string')
   }
   return <>{children}</>
 }
-const Item = ({ children }: ContextMenuItemProps) => {
+const Item = ({ children }: MenuItemProps) => {
   const titleChild = pickChildren(children, ItemTitle).targetChildren
   if (typeof children != 'string' && !titleChild?.length) {
     console.error(
@@ -57,7 +62,7 @@ const Item = ({ children }: ContextMenuItemProps) => {
   return <>{children}</>
 }
 
-const TriggerItem = ({ children }: ContextMenuTriggerItemProps) => {
+const TriggerItem = ({ children }: MenuTriggerItemProps) => {
   const titleChild = pickChildren(children, ItemTitle).targetChildren
   if (typeof children != 'string' && !titleChild?.length) {
     console.error(
@@ -80,13 +85,17 @@ const TriggerItem = ({ children }: ContextMenuTriggerItemProps) => {
   return <>{children}</>
 }
 
-type MenuAttribute = 'disabled' | 'destructive' | 'displayinline'
+type MenuOption = 'destructive' | 'displayInline'
+type MenuAttribute = 'disabled' | 'destructive' | 'hidden'
 
 type MenuAttributes = MenuAttribute[]
+type MenuOptions = MenuOption[]
 
 type MenuConfig = {
   menuTitle: string
   menuItems: (MenuItem | MenuConfig)[]
+  menuAttributes?: MenuAttributes
+  menuOptions?: MenuOptions
 }
 
 type MenuItem = {
@@ -94,15 +103,10 @@ type MenuItem = {
   actionTitle: string
   discoverabilityTitle?: string
   menuAttributes?: MenuAttributes
+  menuOptions?: MenuOptions
 }
 
-function isMenuConfig(
-  configOrItem: MenuItem | MenuConfig
-): configOrItem is MenuConfig {
-  return (configOrItem as MenuConfig).menuItems !== undefined
-}
-
-const Root = (props: ContextMenuRootProps) => {
+const Root = (props: MenuRootProps) => {
   const trigger = pickChildren(props.children, Trigger)
 
   const callbacks: Record<string, () => void> = {}
@@ -111,8 +115,8 @@ const Root = (props: ContextMenuRootProps) => {
     children: React.ReactNode
   ): (typeof menuItems[number] | null)[] => {
     return Children.map(flattenChildren(children), (_child, index) => {
-      if ((_child as ReactElement<ContextMenuItemProps>).type === Item) {
-        const child = _child as ReactElement<ContextMenuItemProps>
+      if ((_child as ReactElement<MenuItemProps>).type === Item) {
+        const child = _child as ReactElement<MenuItemProps>
         let title: string | undefined
         const key: string = child.key ? `${child.key}` : `item-${index}`
         let subtitle: string | undefined
@@ -121,17 +125,17 @@ const Root = (props: ContextMenuRootProps) => {
         if (typeof child.props.children == 'string') {
           title = child.props.children
         } else {
-          const titleChild = pickChildren<ContextMenuItemTitleProps>(
+          const titleChild = pickChildren<MenuItemTitleProps>(
             child.props.children,
             ItemTitle
           ).targetChildren
-          const subtitleChild = pickChildren<ContextMenuItemSubtitleProps>(
+          const subtitleChild = pickChildren<MenuItemSubtitleProps>(
             child.props.children,
             ItemSubtitle
           ).targetChildren
 
-          title = titleChild?.[0].props.children
-          if (typeof subtitleChild?.[0].props.children == 'string') {
+          title = titleChild?.[0]?.props.children
+          if (typeof subtitleChild?.[0]?.props.children == 'string') {
             subtitle = subtitleChild[0].props.children
           }
         }
@@ -158,9 +162,9 @@ const Root = (props: ContextMenuRootProps) => {
             menuAttributes,
           }
         }
-      } else if ((_child as ReactElement<ContextMenuRootProps>).type === Root) {
-        const child = _child as ReactElement<ContextMenuRootProps>
-        const triggerItemChildren = pickChildren<ContextMenuTriggerItemProps>(
+      } else if ((_child as ReactElement<MenuRootProps>).type === Root) {
+        const child = _child as ReactElement<MenuRootProps>
+        const triggerItemChildren = pickChildren<MenuTriggerItemProps>(
           child.props.children,
           TriggerItem
         ).targetChildren
@@ -168,33 +172,49 @@ const Root = (props: ContextMenuRootProps) => {
 
         if (typeof triggerItemChildren?.[0].props.children == 'string') {
           menuTitle = triggerItemChildren[0].props.children
-        } else {
-          const titleChild = pickChildren<ContextMenuItemTitleProps>(
+        } else if (triggerItemChildren?.[0]) {
+          const titleChild = pickChildren<MenuItemTitleProps>(
             triggerItemChildren?.[0].props.children,
             ItemTitle
           ).targetChildren
-          menuTitle = titleChild?.[0].props.children
+          menuTitle = titleChild?.[0]?.props.children
         }
 
-        const nestedContent = pickChildren(
+        const nestedContent = pickChildren<MenuContentProps>(
           child.props.children,
           Content
-        ).targetChildren
+        ).targetChildren?.[0]
 
-        if (menuTitle) {
-          if (nestedContent?.[0]) {
-            const nestedItems = mapItemsChildren(
-              nestedContent?.[0].props.children
-            ).filter(filterNull)
+        if (nestedContent) {
+          const nestedItems = mapItemsChildren(
+            nestedContent.props.children
+          ).filter(filterNull)
 
+          if (menuTitle) {
             if (nestedItems.length) {
+              const menuOptions: MenuOptions = []
               const menuConfig: MenuConfig = {
                 menuTitle,
                 menuItems: nestedItems,
+                menuOptions,
               }
               return menuConfig
             }
           }
+        }
+      } else if ((_child as ReactElement<MenuGroupProps>).type === Group) {
+        const child = _child as ReactElement<MenuGroupProps>
+
+        const groupItems = mapItemsChildren(child.props.children).filter(
+          filterNull
+        )
+
+        console.log({ groupItems })
+
+        return {
+          menuTitle: '',
+          menuItems: groupItems,
+          menuOptions: ['displayInline'],
         }
       }
       return null
@@ -208,7 +228,7 @@ const Root = (props: ContextMenuRootProps) => {
     if (child.type === Content) {
       menuItems.push(
         ...mapItemsChildren(
-          (child as ReactElement<ContextMenuContentProps>).props.children
+          (child as ReactElement<MenuContentProps>).props.children
         ).filter(filterNull)
       )
     }
@@ -216,7 +236,6 @@ const Root = (props: ContextMenuRootProps) => {
 
   return (
     <ContextMenuView
-      // `ContextMenuView` Props
       onPressMenuItem={({
         nativeEvent,
       }: {
@@ -235,15 +254,24 @@ const Root = (props: ContextMenuRootProps) => {
           callbacks[nativeEvent.actionKey]()
         }
       }}
-      onPressMenuPreview={() => alert('onPressMenuPreview')}
+      // onPressMenuPreview={() => alert('onPressMenuPreview')}
       menuConfig={{
         menuTitle: '',
         menuItems: menuItems,
       }}
     >
-      <>{trigger.targetChildren}</>
+      <>{trigger.targetChildren?.[0]}</>
     </ContextMenuView>
   )
 }
 
-export { Root, Trigger, Content, Item, ItemTitle, ItemSubtitle, TriggerItem }
+export {
+  Root,
+  Trigger,
+  Content,
+  Item,
+  ItemTitle,
+  ItemSubtitle,
+  TriggerItem,
+  Group,
+}

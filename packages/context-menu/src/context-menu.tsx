@@ -1,29 +1,49 @@
 import type {
-  ContextMenuContentProps,
-  ContextMenuItemProps,
-  ContextMenuItemSubtitleProps,
-  ContextMenuItemTitleProps,
-  ContextMenuRootProps,
-  ContextMenuTriggerItemProps,
-  ContextMenuTriggerProps,
-} from './types'
+  MenuContentProps,
+  MenuGroupProps,
+  MenuItemProps,
+  MenuItemSubtitleProps,
+  MenuItemTitleProps,
+  MenuRootProps,
+  MenuTriggerItemProps,
+  MenuTriggerProps,
+} from '@zeeg/menu'
 
-const Root = ({ children }: ContextMenuRootProps) => <>{children}</>
-const Trigger = ({ children }: ContextMenuTriggerProps) => <>{children}</>
-const Content = ({ children }: ContextMenuContentProps) => {
-  return <>{children}</>
-}
-const Item = ({ children }: ContextMenuItemProps) => {
-  return <>{children}</>
-}
-const TriggerItem = ({ children }: ContextMenuTriggerItemProps) => {
-  return <>{children}</>
-}
-const ItemTitle = ({ children }: ContextMenuItemTitleProps) => {
-  return <>{children}</>
-}
-const ItemSubtitle = ({ children }: ContextMenuItemSubtitleProps) => {
+const Root = ({ children }: MenuRootProps) => <>{children}</>
+
+const Trigger = ({ children }: MenuTriggerProps) => <>{children}</>
+
+const Content = ({ children }: MenuContentProps) => {
   return <>{children}</>
 }
 
-export { Root, Trigger, Content, Item, ItemTitle, ItemSubtitle, TriggerItem }
+const Item = ({ children }: MenuItemProps) => {
+  return <>{children}</>
+}
+
+const TriggerItem = ({ children }: MenuTriggerItemProps) => {
+  return <>{children}</>
+}
+
+const ItemTitle = ({ children }: MenuItemTitleProps) => {
+  return <>{children}</>
+}
+
+const ItemSubtitle = ({ children }: MenuItemSubtitleProps) => {
+  return <>{children}</>
+}
+
+const Group = ({ children }: MenuGroupProps) => {
+  return <>{children}</>
+}
+
+export {
+  Root,
+  Trigger,
+  Content,
+  Item,
+  ItemTitle,
+  ItemSubtitle,
+  TriggerItem,
+  Group,
+}

@@ -7,6 +7,13 @@
   "types": "lib/typescript/index.d.ts",
   "react-native": "src/index",
   "source": "src/index",
+  "exports": {
+    "create-ios-menu": {
+      "import": "./lib/module/ios/index",
+      "default": "./lib/commonjs/ios/index",
+      "require": "./lib/commonjs/ios/index"
+    }
+  },
   "files": [
     "src",
     "lib",
@@ -103,13 +110,6 @@
     "node_modules/",
     "lib/"
   ],
-  "prettier": {
-    "quoteProps": "consistent",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false
-  },
   "react-native-builder-bob": {
     "source": "src",
     "output": "lib",

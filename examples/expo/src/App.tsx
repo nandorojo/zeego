@@ -1,6 +1,4 @@
-import * as React from 'react'
-
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import * as ContextMenu from '@zeeg/context-menu'
 
@@ -15,7 +13,8 @@ export default function App() {
         </ContextMenu.Trigger>
         <ContextMenu.Content>
           <ContextMenu.Item onSelect={select(1)} key="first">
-            Action #1
+            <ContextMenu.ItemTitle>Action #1</ContextMenu.ItemTitle>
+            <ContextMenu.ItemSubtitle>Description!</ContextMenu.ItemSubtitle>
           </ContextMenu.Item>
           <ContextMenu.Item onSelect={select(2)} key="second">
             Action #2
@@ -26,12 +25,35 @@ export default function App() {
 
           <ContextMenu.Root>
             <ContextMenu.TriggerItem key="nested">
-              Nested
+              Submenu
             </ContextMenu.TriggerItem>
             <ContextMenu.Content>
-              <ContextMenu.Item key="nested-1">Nested Option</ContextMenu.Item>
+              <ContextMenu.Item key="nested-1">
+                Submenu Option 1
+              </ContextMenu.Item>
             </ContextMenu.Content>
           </ContextMenu.Root>
+
+          <ContextMenu.Group>
+            <ContextMenu.Item key="group-1">Group Item 1</ContextMenu.Item>
+            <ContextMenu.Item key="group-2">Group Item 2</ContextMenu.Item>
+          </ContextMenu.Group>
+
+          <ContextMenu.Group>
+            <ContextMenu.Root>
+              <ContextMenu.TriggerItem key="nested-group-trigger">
+                Group Submenu
+              </ContextMenu.TriggerItem>
+              <ContextMenu.Content>
+                <ContextMenu.Item key="nested-group-1">
+                  Group Submenu Option 1
+                </ContextMenu.Item>
+                <ContextMenu.Item key="nested-group-2">
+                  Group Submenu Option 2
+                </ContextMenu.Item>
+              </ContextMenu.Content>
+            </ContextMenu.Root>
+          </ContextMenu.Group>
         </ContextMenu.Content>
       </ContextMenu.Root>
     </View>
