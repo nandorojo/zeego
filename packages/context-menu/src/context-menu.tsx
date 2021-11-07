@@ -1,6 +1,8 @@
 import type {
   ContextMenuContentProps,
   ContextMenuItemProps,
+  ContextMenuItemSubtitleProps,
+  ContextMenuItemTitleProps,
   ContextMenuRootProps,
   ContextMenuTriggerProps,
 } from './types';
@@ -13,5 +15,11 @@ const Content = ({ children }: ContextMenuContentProps) => {
 const Item = ({ children }: ContextMenuItemProps) => {
   return <>{children}</>;
 };
+const ItemTitle = ({ children }: ContextMenuItemTitleProps) => {
+  return <>{children}</>;
+};
+const ItemSubtitle = ({ children }: ContextMenuItemSubtitleProps) => {
+  return <>{children}</>;
+};
 
-export { Root, Trigger, Content, Item };
+export { Root, Trigger, Content, Item, ItemTitle, ItemSubtitle };

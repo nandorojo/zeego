@@ -8,9 +8,27 @@ import React, {
   ReactChild,
   isValidElement,
   cloneElement,
+  ReactElement,
 } from 'react';
 
-function flattenChildren(
+type ReactChildArray = ReturnType<typeof React.Children.toArray>;
+
+export function flattenChildrenKeyless(
+  children: React.ReactNode
+): ReactChildArray {
+  const childrenArray = React.Children.toArray(children);
+  return childrenArray.reduce((flatChildren: ReactChildArray, child) => {
+    if ((child as React.ReactElement<any>).type === React.Fragment) {
+      return flatChildren.concat(
+        flattenChildren((child as React.ReactElement<any>).props.children)
+      );
+    }
+    flatChildren.push(child);
+    return flatChildren;
+  }, []);
+}
+
+export function flattenChildren(
   children: ReactNode,
   depth: number = 0,
   keys: (string | number)[] = []
@@ -43,16 +61,16 @@ function flattenChildren(
   );
 }
 
-export const pickChildren = (
+export const pickChildren = <Props = any>(
   children: React.ReactNode | undefined,
   targetChild: React.ElementType
 ) => {
   // const children = flattenChildren(_children);
-  const target: ReactNode[] = [];
+  const target: ReactElement<Props>[] = [];
   const withoutTargetChildren = React.Children.map(children, (item) => {
-    if (!React.isValidElement(item)) return item;
+    if (!isValidElement(item)) return item;
     if (item.type === targetChild) {
-      target.push(item);
+      target.push(cloneElement(item));
       return null;
     }
     return item;

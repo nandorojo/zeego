@@ -6,7 +6,7 @@
   "main": "index",
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "expo start --dev-client --ios",
     "web": "expo start --web",
     "start": "react-native start",
     "test": "jest"
@@ -32,6 +32,6 @@
     "@babel/runtime": "^7.9.6",
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-preset-expo": "8.5.1",
-    "expo-cli": "^4.0.13"
+    "expo-cli": "latest"
   }
 }

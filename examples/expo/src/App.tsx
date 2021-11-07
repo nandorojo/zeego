@@ -16,9 +16,9 @@ export default function App() {
           <View style={styles.box} />
         </ContextMenu.Trigger>
         <ContextMenu.Content>
-          <ContextMenu.Item>Action #1</ContextMenu.Item>
-          <ContextMenu.Item>Action #2</ContextMenu.Item>
-          <ContextMenu.Item>Action #3</ContextMenu.Item>
+          <ContextMenu.Item key="#1">Action #1</ContextMenu.Item>
+          <ContextMenu.Item key="#2">Action #2</ContextMenu.Item>
+          <ContextMenu.Item key="#3">Action #3</ContextMenu.Item>
         </ContextMenu.Content>
       </ContextMenu.Root>
     </View>

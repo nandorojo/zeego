@@ -9,5 +9,11 @@ export type ContextMenuContentProps = {
 };
 
 export type ContextMenuItemProps = {
-  children: React.ReactNode;
+  children: string | React.ReactNode;
+};
+export type ContextMenuItemTitleProps = {
+  children: string;
+};
+export type ContextMenuItemSubtitleProps = {
+  children: string;
 };
