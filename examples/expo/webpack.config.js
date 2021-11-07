@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const createExpoWebpackConfigAsync = require('@expo/webpack-config');
 const fs = require('fs');
 const path = require('path');
+const { alias } = require('./alias');
 
 const node_modules = path.resolve(__dirname, '../..', 'node_modules');
 const packages = path.resolve(__dirname, '../..', 'packages');
@@ -25,17 +25,16 @@ module.exports = async function (env, argv) {
     '@expo/vector-icons': path.resolve(node_modules, '@expo/vector-icons'),
   });
 
-  fs.readdirSync(packages)
-    .filter((name) => !name.startsWith('.'))
-    .forEach((name) => {
-      console.log(name, packages);
-      config.resolve.alias[name === 'zeeg' ? 'zeeg' : `@zeeg/${name}`] =
-        path.resolve(
-          packages,
-          name,
-          require(`../../packages/${name}/package.json`).source
-        );
-    });
+  config.resolve.alias = alias;
+
+  // fs.readdirSync(packages).forEach((name) => {
+  //   config.resolve.alias[name === 'zeeg' ? 'zeeg' : `@zeeg/${name}`] =
+  //     path.resolve(
+  //       packages,
+  //       name,
+  //       require(`../../packages/${name}/package.json`).source
+  //     );
+  // });
 
   return config;
 };
