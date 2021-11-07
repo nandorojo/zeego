@@ -62,10 +62,10 @@ export function flattenChildren(
 }
 
 export const pickChildren = <Props = any>(
-  children: React.ReactNode | undefined,
+  _children: React.ReactNode | undefined,
   targetChild: React.ElementType
 ) => {
-  // const children = flattenChildren(_children);
+  const children = flattenChildren(_children);
   const target: ReactElement<Props>[] = [];
   const withoutTargetChildren = React.Children.map(children, (item) => {
     if (!isValidElement(item)) return item;

@@ -4,42 +4,40 @@ import type {
   ContextMenuItemSubtitleProps,
   ContextMenuItemTitleProps,
   ContextMenuRootProps,
+  ContextMenuTriggerItemProps,
   ContextMenuTriggerProps,
-} from './types';
-import React, { Children, ReactElement, ReactNode } from 'react';
+} from './types'
+import React, { Children, ReactElement } from 'react'
 // @ts-expect-error
-import { ContextMenuView } from 'react-native-ios-context-menu';
-import {
-  flattenChildren,
-  flattenChildrenKeyless,
-  pickChildren,
-} from './pick-children';
+import { ContextMenuView } from 'react-native-ios-context-menu'
+import { flattenChildren, pickChildren } from './pick-children'
+import { filterNull } from './filter-null'
 
 const Trigger = ({ children }: ContextMenuTriggerProps) => {
-  const child = <>{children}</>;
+  const child = <>{children}</>
 
-  return <>{child}</>;
-};
+  return <>{child}</>
+}
 
 const Content = ({ children }: ContextMenuContentProps) => {
-  return <>{children}</>;
-};
+  return <>{children}</>
+}
 const ItemTitle = ({ children }: ContextMenuItemTitleProps) => {
   if (typeof children != 'string') {
-    throw new Error('[zeeg] <ContextMenu.ItemTitle /> child must be a string');
+    throw new Error('[zeeg] <ContextMenu.ItemTitle /> child must be a string')
   }
-  return <>{children}</>;
-};
+  return <>{children}</>
+}
 const ItemSubtitle = ({ children }: ContextMenuItemSubtitleProps) => {
   if (children && typeof children != 'string') {
     throw new Error(
       '[zeeg] <ContextMenu.ItemSubtitle /> child must be a string'
-    );
+    )
   }
-  return <>{children}</>;
-};
+  return <>{children}</>
+}
 const Item = ({ children }: ContextMenuItemProps) => {
-  const titleChild = pickChildren(children, ItemTitle).targetChildren;
+  const titleChild = pickChildren(children, ItemTitle).targetChildren
   if (typeof children != 'string' && !titleChild?.length) {
     console.error(
       `[zeeg] Invalid <ContextMenu.Item />. It either needs a string as the children, or a <ContextMenu.ItemTitle /> in the children. However, it got neither.
@@ -56,47 +54,54 @@ const Item = ({ children }: ContextMenuItemProps) => {
  </ContextMenu.ItemTitle>
 </ContextMenu.Item>
   `
-    );
+    )
   }
-  return <>{children}</>;
-};
+  return <>{children}</>
+}
+
+const TriggerItem = Item
+
+type MenuConfig = {
+  menuTitle: string
+  menuItems: (MenuItem | MenuConfig)[]
+}
 
 type MenuItem = {
-  actionKey: string;
-  actionTitle: string;
-  discoverabilityTitle?: string;
-  menuItems?: MenuItem[];
-};
+  actionKey: string
+  actionTitle: string
+  discoverabilityTitle?: string
+}
 
 const Root = (props: ContextMenuRootProps) => {
-  const trigger = pickChildren(props.children, Trigger);
-  const content = pickChildren(props.children, Content);
+  const trigger = pickChildren(props.children, Trigger)
 
-  const itemz: MenuItem[] = [];
+  let menuItems: (MenuItem | MenuConfig)[] = []
 
-  const mapItemsChildren = (children: React.ReactNode) => {
-    Children.forEach(flattenChildrenKeyless(children), (_child, index) => {
+  const mapItemsChildren = (
+    children: React.ReactNode
+  ): (typeof menuItems[number] | null)[] => {
+    return Children.map(flattenChildren(children), (_child, index) => {
       if ((_child as ReactElement<ContextMenuItemProps>).type === Item) {
-        const child = _child as ReactElement<ContextMenuItemProps>;
-        let title: string | undefined;
-        const key: string = child.key ? `${child.key}` : `item-${index}`;
-        let subtitle: string | undefined;
+        const child = _child as ReactElement<ContextMenuItemProps>
+        let title: string | undefined
+        const key: string = child.key ? `${child.key}` : `item-${index}`
+        let subtitle: string | undefined
 
         if (typeof child.props.children == 'string') {
-          title = child.props.children;
+          title = child.props.children
         } else {
           const titleChild = pickChildren<ContextMenuItemTitleProps>(
             child.props.children,
             ItemTitle
-          ).targetChildren;
+          ).targetChildren
           const subtitleChild = pickChildren<ContextMenuItemSubtitleProps>(
             child.props.children,
             ItemSubtitle
-          ).targetChildren;
+          ).targetChildren
 
-          title = titleChild?.[0].props.children;
+          title = titleChild?.[0].props.children
           if (typeof subtitleChild?.[0].props.children == 'string') {
-            subtitle = subtitleChild[0].props.children;
+            subtitle = subtitleChild[0].props.children
           }
         }
         if (title) {
@@ -110,88 +115,69 @@ const Root = (props: ContextMenuRootProps) => {
               `[zeeg] <ContextMenu.Item /> is missing a unique key. Pass a unique key string for each item, such as: <ContextMenu.Item key="${
                 title.toLowerCase().replace(/ /g, '-') || `action-${index}`
               }" />. Falling back to index instead, but this may have negative consequences.`
-            );
+            )
           }
-          itemz.push({
+          return {
             actionKey: key,
             actionTitle: title,
             discoverabilityTitle: subtitle,
-          });
+          }
+        }
+      } else if ((_child as ReactElement<ContextMenuRootProps>).type === Root) {
+        const child = _child as ReactElement<ContextMenuRootProps>
+        const triggerItemChildren = pickChildren<ContextMenuTriggerItemProps>(
+          child.props.children,
+          TriggerItem
+        ).targetChildren
+        let menuTitle: string | undefined
+
+        if (typeof triggerItemChildren?.[0].props.children == 'string') {
+          menuTitle = triggerItemChildren[0].props.children
+        } else {
+          const titleChild = pickChildren<ContextMenuItemTitleProps>(
+            triggerItemChildren?.[0].props.children,
+            ItemTitle
+          ).targetChildren
+          menuTitle = titleChild?.[0].props.children
+        }
+
+        const nestedContent = pickChildren(
+          child.props.children,
+          Content
+        ).targetChildren
+
+        if (menuTitle) {
+          if (nestedContent?.[0]) {
+            const nestedItems = mapItemsChildren(
+              nestedContent?.[0].props.children
+            ).filter(filterNull)
+
+            if (nestedItems.length) {
+              const menuConfig: MenuConfig = {
+                menuTitle,
+                menuItems: nestedItems,
+              }
+              return menuConfig
+            }
+          }
         }
       }
-    });
-  };
+      return null
+    })
+  }
 
   Children.forEach(flattenChildren(props.children), (_child, index) => {
-    const child = _child as ReactElement;
+    const child = _child as ReactElement
     if (child.type === Content) {
-      mapItemsChildren(
-        (child as ReactElement<ContextMenuContentProps>).props.children
-      );
+      menuItems.push(
+        ...mapItemsChildren(
+          (child as ReactElement<ContextMenuContentProps>).props.children
+        ).filter(filterNull)
+      )
     }
-  });
+  })
 
-  // const pickMenuItems = (children: ReactNode) => {
-  //   const content = pickChildren(children, Content);
-
-  //   const items = pickChildren(
-  //     content.targetChildren?.[0]?.props?.children,
-  //     Item
-  //   );
-
-  //   const menuItems: { actionKey: string; actionTitle: string }[] | undefined =
-  //     Children.map(items.targetChildren, (_child, index) => {
-  //       const child = _child as ReactElement<ContextMenuItemProps>;
-  //       const actionTitle = child.props?.children;
-  //       if (actionTitle && typeof actionTitle !== 'string') {
-  //         throw new Error('[zeeg] <ContextMenu.Item /> child must be a string');
-  //       }
-  //       if (!child.key) {
-  //         console.warn(
-  //           `[zeeg] <ContextMenu.Item /> is missing a unique key. Pass a unique key string for each item, such as: <ContextMenu.Item key="${
-  //             actionTitle.toLowerCase().replace(/ /g, '-') || 'action-1'
-  //           }" />`
-  //         );
-  //       }
-  //       return {
-  //         actionKey: child.key ? child.key + '' : `key-${index}`,
-  //         actionTitle,
-  //       };
-  //     });
-
-  //   return {
-  //     menuItems,
-  //   };
-  // };
-
-  // // const menuItems = pickMenuItems(props.children);
-
-  // const items = pickChildren(
-  //   content.targetChildren?.[0]?.props?.children,
-  //   Item
-  // );
-
-  // const menuItems: { actionKey: string; actionTitle: string }[] | undefined =
-  //   Children.map(items.targetChildren, (_child, index) => {
-  //     const child = _child as ReactElement<ContextMenuItemProps>;
-  //     const actionTitle = child.props?.children;
-  //     if (actionTitle && typeof actionTitle !== 'string') {
-  //       throw new Error('[zeeg] <ContextMenu.Item /> child must be a string');
-  //     }
-  //     if (!child.key) {
-  //       console.warn(
-  //         `[zeeg] <ContextMenu.Item /> is missing a unique key. Pass a unique key string for each item, such as: <ContextMenu.Item key="${
-  //           actionTitle.toLowerCase().replace(/ /g, '-') || 'action-1'
-  //         }" />`
-  //       );
-  //     }
-  //     return {
-  //       actionKey: child.key ? child.key + '' : `key-${index}`,
-  //       actionTitle,
-  //     };
-  //   });
-
-  console.log(itemz);
+  console.log(menuItems)
 
   return (
     <ContextMenuView
@@ -202,12 +188,12 @@ const Root = (props: ContextMenuRootProps) => {
       onPressMenuPreview={() => alert('onPressMenuPreview')}
       menuConfig={{
         menuTitle: '',
-        menuItems: itemz || [],
+        menuItems: menuItems,
       }}
     >
-      <>{trigger.targetChildren?.[0]}</>
+      <>{trigger.targetChildren}</>
     </ContextMenuView>
-  );
-};
+  )
+}
 
-export { Root, Trigger, Content, Item, ItemTitle, ItemSubtitle };
+export { Root, Trigger, Content, Item, ItemTitle, ItemSubtitle, TriggerItem }
