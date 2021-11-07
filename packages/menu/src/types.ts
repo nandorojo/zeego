@@ -1,27 +1,30 @@
+import type { ViewStyle } from 'react-native'
+
 export type MenuRootProps = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+  style?: ViewStyle
+}
 export type MenuTriggerProps = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 export type MenuContentProps = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 export type MenuGroupProps = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 export type MenuItemProps = {
-  children: string | React.ReactNode;
-  onSelect?: () => void;
-  textValue?: string;
-  disabled?: boolean;
-};
-export type MenuTriggerItemProps = MenuItemProps;
+  children: string | React.ReactNode
+  onSelect?: () => void
+  textValue?: string
+  disabled?: boolean
+}
+export type MenuTriggerItemProps = MenuItemProps
 export type MenuItemTitleProps = {
-  children: string;
-};
+  children: string
+}
 export type MenuItemSubtitleProps = {
-  children: string;
-};
+  children: string
+}

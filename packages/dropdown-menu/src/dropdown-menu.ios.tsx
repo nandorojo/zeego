@@ -9,7 +9,7 @@ const {
   ItemSubtitle,
   TriggerItem,
   Group,
-} = createIosMenu('ContextMenu')
+} = createIosMenu('DropdownMenu')
 
 export {
   Root,

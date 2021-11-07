@@ -7,13 +7,6 @@
   "types": "lib/typescript/index.d.ts",
   "react-native": "src/index",
   "source": "src/index",
-  "exports": {
-    "create-ios-menu": {
-      "import": "./lib/module/ios/index",
-      "default": "./lib/commonjs/ios/index",
-      "require": "./lib/commonjs/ios/index"
-    }
-  },
   "files": [
     "src",
     "lib",
