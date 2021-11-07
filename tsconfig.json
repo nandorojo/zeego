@@ -2,14 +2,15 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "zeeg": ["./src/index"]
+      "@zeeg/*": ["./packages/*/src"],
+      "zeeg": ["./packages/zeeg/src"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
     "importsNotUsedAsValues": "error",
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "lib": ["esnext", "DOM"],
     "module": "esnext",
     "moduleResolution": "node",

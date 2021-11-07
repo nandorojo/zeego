@@ -2,13 +2,6 @@
   "name": "@zeeg/context-menu",
   "version": "0.1.0",
   "description": "The core for dropdown-menu & context-menu, made for screens.",
-  "private": true,
-  "workspaces": {
-    "packages": [
-      "packages/*",
-      "examples/*"
-    ]
-  },
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -150,5 +143,8 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "react-native-ios-context-menu": "^1.3.0"
   }
 }

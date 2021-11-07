@@ -2,13 +2,6 @@
   "name": "zeeg",
   "version": "0.1.0",
   "description": "Logical UI primitives, made for screens.",
-  "private": true,
-  "workspaces": {
-    "packages": [
-      "packages/*",
-      "examples/*"
-    ]
-  },
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
