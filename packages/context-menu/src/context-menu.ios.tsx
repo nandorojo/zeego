@@ -24,15 +24,13 @@ const Content = ({ children }: ContextMenuContentProps) => {
 }
 const ItemTitle = ({ children }: ContextMenuItemTitleProps) => {
   if (typeof children != 'string') {
-    throw new Error('[zeeg] <ContextMenu.ItemTitle /> child must be a string')
+    throw new Error('[zeeg] <ItemTitle /> child must be a string')
   }
   return <>{children}</>
 }
 const ItemSubtitle = ({ children }: ContextMenuItemSubtitleProps) => {
   if (children && typeof children != 'string') {
-    throw new Error(
-      '[zeeg] <ContextMenu.ItemSubtitle /> child must be a string'
-    )
+    throw new Error('[zeeg] <ItemSubtitle /> child must be a string')
   }
   return <>{children}</>
 }
@@ -40,26 +38,51 @@ const Item = ({ children }: ContextMenuItemProps) => {
   const titleChild = pickChildren(children, ItemTitle).targetChildren
   if (typeof children != 'string' && !titleChild?.length) {
     console.error(
-      `[zeeg] Invalid <ContextMenu.Item />. It either needs a string as the children, or a <ContextMenu.ItemTitle /> in the children. However, it got neither.
+      `[zeeg] Invalid <Item />. It either needs a string as the children, or a <ItemTitle /> in the children. However, it got neither.
 
-<ContextMenu.Item>
+<Item>
   Title here
-</ContextMenu.Item>
+</Item>
 
   Or:
 
-<ContextMenu.Item>
- <ContextMenu.ItemTitle>
+<Item>
+ <ItemTitle>
   Title here
- </ContextMenu.ItemTitle>
-</ContextMenu.Item>
+ </ItemTitle>
+</Item>
   `
     )
   }
   return <>{children}</>
 }
 
-const TriggerItem = Item
+const TriggerItem = ({ children }: ContextMenuTriggerItemProps) => {
+  const titleChild = pickChildren(children, ItemTitle).targetChildren
+  if (typeof children != 'string' && !titleChild?.length) {
+    console.error(
+      `[zeeg] Invalid <TriggerItem />. It either needs a string as the children, or a <ItemTitle /> in the children. However, it got neither.
+
+<TriggerItem>
+  Title here
+</TriggerItem>
+
+  Or:
+
+<TriggerItem>
+ <ItemTitle>
+  Title here
+ </ItemTitle>
+</TriggerItem>
+  `
+    )
+  }
+  return <>{children}</>
+}
+
+type MenuAttribute = 'disabled' | 'destructive' | 'displayinline'
+
+type MenuAttributes = MenuAttribute[]
 
 type MenuConfig = {
   menuTitle: string
@@ -70,12 +93,19 @@ type MenuItem = {
   actionKey: string
   actionTitle: string
   discoverabilityTitle?: string
+  menuAttributes?: MenuAttributes
+}
+
+function isMenuConfig(
+  configOrItem: MenuItem | MenuConfig
+): configOrItem is MenuConfig {
+  return (configOrItem as MenuConfig).menuItems !== undefined
 }
 
 const Root = (props: ContextMenuRootProps) => {
   const trigger = pickChildren(props.children, Trigger)
 
-  let menuItems: (MenuItem | MenuConfig)[] = []
+  const callbacks: Record<string, () => void> = {}
 
   const mapItemsChildren = (
     children: React.ReactNode
@@ -86,6 +116,7 @@ const Root = (props: ContextMenuRootProps) => {
         let title: string | undefined
         const key: string = child.key ? `${child.key}` : `item-${index}`
         let subtitle: string | undefined
+        const menuAttributes: MenuAttributes = []
 
         if (typeof child.props.children == 'string') {
           title = child.props.children
@@ -112,15 +143,19 @@ const Root = (props: ContextMenuRootProps) => {
             (child.key.startsWith('.') && !isNaN(Number(child.key[1])))
           ) {
             console.warn(
-              `[zeeg] <ContextMenu.Item /> is missing a unique key. Pass a unique key string for each item, such as: <ContextMenu.Item key="${
+              `[zeeg] <Item /> is missing a unique key. Pass a unique key string for each item, such as: <Item key="${
                 title.toLowerCase().replace(/ /g, '-') || `action-${index}`
               }" />. Falling back to index instead, but this may have negative consequences.`
             )
+          }
+          if (child.props.onSelect) {
+            callbacks[key] = child.props.onSelect
           }
           return {
             actionKey: key,
             actionTitle: title,
             discoverabilityTitle: subtitle,
+            menuAttributes,
           }
         }
       } else if ((_child as ReactElement<ContextMenuRootProps>).type === Root) {
@@ -166,6 +201,8 @@ const Root = (props: ContextMenuRootProps) => {
     })
   }
 
+  let menuItems: (MenuItem | MenuConfig)[] = []
+
   Children.forEach(flattenChildren(props.children), (_child, index) => {
     const child = _child as ReactElement
     if (child.type === Content) {
@@ -177,14 +214,27 @@ const Root = (props: ContextMenuRootProps) => {
     }
   })
 
-  console.log(menuItems)
-
   return (
     <ContextMenuView
       // `ContextMenuView` Props
-      onPressMenuItem={({ nativeEvent }) =>
-        alert(`onPressMenuItem nativeEvent: ${JSON.stringify(nativeEvent)}`)
-      }
+      onPressMenuItem={({
+        nativeEvent,
+      }: {
+        nativeEvent: {
+          target?: number
+          actionKey: string
+          actionTitle: string
+          menuAttributes?: []
+          icon: {
+            iconType: string
+            iconValue: string
+          } | null
+        }
+      }) => {
+        if (callbacks[nativeEvent.actionKey]) {
+          callbacks[nativeEvent.actionKey]()
+        }
+      }}
       onPressMenuPreview={() => alert('onPressMenuPreview')}
       menuConfig={{
         menuTitle: '',

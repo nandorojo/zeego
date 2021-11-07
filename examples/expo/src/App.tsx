@@ -5,9 +5,7 @@ import { StyleSheet, View, Text } from 'react-native'
 import * as ContextMenu from '@zeeg/context-menu'
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>()
-
-  React.useEffect(() => {}, [])
+  const select = (val: unknown) => () => console.log(val)
 
   return (
     <View style={styles.container}>
@@ -16,9 +14,15 @@ export default function App() {
           <View style={styles.box} />
         </ContextMenu.Trigger>
         <ContextMenu.Content>
-          <ContextMenu.Item key="first">Action #1</ContextMenu.Item>
-          <ContextMenu.Item key="second">Action #2</ContextMenu.Item>
-          <ContextMenu.Item key="third">Action #3</ContextMenu.Item>
+          <ContextMenu.Item onSelect={select(1)} key="first">
+            Action #1
+          </ContextMenu.Item>
+          <ContextMenu.Item onSelect={select(2)} key="second">
+            Action #2
+          </ContextMenu.Item>
+          <ContextMenu.Item onSelect={select(3)} key="third">
+            Action #3
+          </ContextMenu.Item>
 
           <ContextMenu.Root>
             <ContextMenu.TriggerItem key="nested">

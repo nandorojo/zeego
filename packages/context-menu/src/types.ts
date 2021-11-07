@@ -10,6 +10,8 @@ export type ContextMenuContentProps = {
 
 export type ContextMenuItemProps = {
   children: string | React.ReactNode
+  onSelect?: () => void
+  textValue?: string
 }
 export type ContextMenuTriggerItemProps = ContextMenuItemProps
 export type ContextMenuItemTitleProps = {
