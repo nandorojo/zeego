@@ -1,6 +1,7 @@
 import type {
   MenuContentProps,
   MenuGroupProps,
+  MenuItemIconProps,
   MenuItemProps,
   MenuItemSubtitleProps,
   MenuItemTitleProps,
@@ -24,6 +25,11 @@ const Item = ({ children }: MenuItemProps) => {
   return <>{children}</>
 }
 Item.displayName = 'Item'
+
+const ItemIcon = ({}: MenuItemIconProps) => {
+  return <>{}</>
+}
+ItemIcon.displayName = 'ItemIcon'
 
 const TriggerItem = ({ children }: MenuTriggerItemProps) => {
   return <>{children}</>
@@ -54,4 +60,5 @@ export {
   ItemSubtitle,
   TriggerItem,
   Group,
+  ItemIcon,
 }

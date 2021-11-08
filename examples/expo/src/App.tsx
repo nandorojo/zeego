@@ -70,18 +70,20 @@ const DropdownMenuExample = () => {
           key="first"
         >
           <DropdownMenu.ItemTitle style={dropdownStyles.itemTitle}>
-            Action #1
+            See more
           </DropdownMenu.ItemTitle>
           <DropdownMenu.ItemSubtitle style={dropdownStyles.itemSubtitle}>
-            Description!
+            12 artists fit your search
           </DropdownMenu.ItemSubtitle>
+          <DropdownMenu.ItemIcon iosIconName="list.star" />
         </DropdownMenuItem>
         <DropdownMenuItem
           style={dropdownStyles.item}
           onSelect={select(2)}
           key="second"
         >
-          Action #2
+          <DropdownMenu.ItemTitle>Favorite</DropdownMenu.ItemTitle>
+          <DropdownMenu.ItemIcon iosIconName="star.fill" />
         </DropdownMenuItem>
         <DropdownMenuItem
           style={dropdownStyles.item}

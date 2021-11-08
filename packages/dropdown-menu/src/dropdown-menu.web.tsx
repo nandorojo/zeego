@@ -52,6 +52,24 @@ const Content = ({ children, style }: MenuContentProps) => {
 }
 Content.displayName = 'Content'
 
+const ItemPrimitive = ({ children, style }: MenuItemProps) => {
+  const Component = typeof children == 'string' ? Text : View
+
+  return (
+    <View>
+      {createElement(
+        Component,
+        {
+          style,
+          // @ts-expect-error
+          selectable: false,
+        },
+        children
+      )}
+    </View>
+  )
+}
+
 const Item = ({ children, disabled, onSelect, style }: MenuItemProps) => {
   const Component = typeof children == 'string' ? Text : View
   return (
@@ -118,3 +136,5 @@ export {
   TriggerItem,
   Group,
 }
+
+export { ItemIcon } from './web/item-icon'

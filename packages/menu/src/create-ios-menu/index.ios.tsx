@@ -7,6 +7,7 @@ import type {
   MenuRootProps,
   MenuTriggerItemProps,
   MenuTriggerProps,
+  MenuItemIconProps,
 } from '../types'
 import React, { Children, ReactElement } from 'react'
 import {
@@ -32,12 +33,14 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   const Group = ({ children }: MenuGroupProps) => {
     return <>{children}</>
   }
+
   Group.displayName = 'Group'
 
   const Content = ({ children }: MenuContentProps) => {
     return <>{children}</>
   }
   Content.displayName = 'Content'
+
   const ItemTitle = ({ children }: MenuItemTitleProps) => {
     if (typeof children != 'string') {
       throw new Error('[zeeg] <ItemTitle /> child must be a string')
@@ -45,6 +48,17 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     return <>{children}</>
   }
   ItemTitle.displayName = 'ItemTitle'
+
+  const ItemIcon = (props: MenuItemIconProps) => {
+    if (!Object.values(props).length) {
+      console.error(
+        '[zeeg] <ItemIcon /> missing source, iosIconName or children.'
+      )
+    }
+    return <>{}</>
+  }
+  ItemIcon.displayName = 'ItemIcon'
+
   const ItemSubtitle = ({ children }: MenuItemSubtitleProps) => {
     if (children && typeof children != 'string') {
       throw new Error('[zeeg] <ItemSubtitle /> child must be a string')
@@ -52,6 +66,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     return <>{children}</>
   }
   ItemSubtitle.displayName = 'ItemSubtitle'
+
   const Item = ({ children }: MenuItemProps) => {
     const titleChild = pickChildren(children, ItemTitle).targetChildren
     if (typeof children != 'string' && !titleChild?.length) {
@@ -113,18 +128,111 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     menuOptions?: MenuOptions
   }
 
+  type MenuItemIcon =
+    | {
+        iconType: 'SYSTEM'
+        iconValue: string
+      }
+    | {
+        iconType: 'REQUIRE'
+        iconValue: unknown
+      }
+
   type MenuItem = {
     actionKey: string
     actionTitle: string
     discoverabilityTitle?: string
     menuAttributes?: MenuAttributes
     menuOptions?: MenuOptions
+    icon?: MenuItemIcon
   }
 
   const Root = (props: MenuRootProps) => {
     const trigger = pickChildren(props.children, Trigger)
 
     const callbacks: Record<string, () => void> = {}
+
+    const getItemFromChild = (
+      child: ReactElement<MenuItemProps | MenuTriggerItemProps>,
+      index: number
+    ) => {
+      let title: string | undefined
+      const key: string = child.key ? `${child.key}` : `item-${index}`
+      let subtitle: string | undefined
+      const menuAttributes: MenuAttributes = []
+
+      if (child.props.disabled) {
+        menuAttributes.push('disabled')
+      }
+
+      let icon: MenuItem['icon']
+
+      if (typeof child.props.children == 'string') {
+        title = child.props.children
+      } else {
+        const titleChild = pickChildren<MenuItemTitleProps>(
+          child.props.children,
+          ItemTitle
+        ).targetChildren
+
+        title = titleChild?.[0]?.props.children
+
+        const subtitleChild = pickChildren<MenuItemSubtitleProps>(
+          child.props.children,
+          ItemSubtitle
+        ).targetChildren
+        if (typeof subtitleChild?.[0]?.props.children == 'string') {
+          subtitle = subtitleChild[0].props.children
+        }
+
+        const iconChildren = pickChildren<MenuItemIconProps>(
+          child.props.children,
+          ItemIcon
+        ).targetChildren
+
+        if (iconChildren?.[0]) {
+          if (iconChildren?.[0].props.iosIconName) {
+            icon = {
+              iconType: 'SYSTEM',
+              iconValue: iconChildren[0].props.iosIconName,
+            }
+          } else if (iconChildren?.[0].props.source) {
+            const { Image } =
+              require('react-native') as typeof import('react-native')
+            icon = {
+              iconType: 'REQUIRE',
+              iconValue: Image.resolveAssetSource(iconChildren[0].props.source),
+            }
+          }
+        }
+      }
+      if (title) {
+        if (
+          // if the key doesn't exist as a string
+          typeof child.key != 'string' ||
+          // or if flattenChildren assigned the key as `.${key}${index}`
+          (child.key.startsWith('.') && !isNaN(Number(child.key[1])))
+        ) {
+          console.warn(
+            `[zeeg] <Item /> is missing a unique key. Pass a unique key string for each item, such as: <Item key="${
+              title.toLowerCase().replace(/ /g, '-') || `action-${index}`
+            }" />. Falling back to index instead, but this may have negative consequences.`
+          )
+        }
+        if (child.props.onSelect) {
+          callbacks[key] = child.props.onSelect
+        }
+
+        return {
+          actionKey: key,
+          actionTitle: title,
+          discoverabilityTitle: subtitle,
+          menuAttributes,
+          icon,
+        }
+      }
+      return
+    }
 
     const mapItemsChildren = (
       children: React.ReactNode
@@ -133,54 +241,9 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
         if (isInstanceOfComponent(_child, Item)) {
           const child = _child as ReactElement<MenuItemProps>
 
-          let title: string | undefined
-          const key: string = child.key ? `${child.key}` : `item-${index}`
-          let subtitle: string | undefined
-          const menuAttributes: MenuAttributes = []
-
-          if (child.props.disabled) {
-            menuAttributes.push('disabled')
-          }
-
-          if (typeof child.props.children == 'string') {
-            title = child.props.children
-          } else {
-            const titleChild = pickChildren<MenuItemTitleProps>(
-              child.props.children,
-              ItemTitle
-            ).targetChildren
-            const subtitleChild = pickChildren<MenuItemSubtitleProps>(
-              child.props.children,
-              ItemSubtitle
-            ).targetChildren
-
-            title = titleChild?.[0]?.props.children
-            if (typeof subtitleChild?.[0]?.props.children == 'string') {
-              subtitle = subtitleChild[0].props.children
-            }
-          }
-          if (title) {
-            if (
-              // if the key doesn't exist as a string
-              typeof child.key != 'string' ||
-              // or if flattenChildren assigned the key as `.${key}${index}`
-              (child.key.startsWith('.') && !isNaN(Number(child.key[1])))
-            ) {
-              console.warn(
-                `[zeeg] <Item /> is missing a unique key. Pass a unique key string for each item, such as: <Item key="${
-                  title.toLowerCase().replace(/ /g, '-') || `action-${index}`
-                }" />. Falling back to index instead, but this may have negative consequences.`
-              )
-            }
-            if (child.props.onSelect) {
-              callbacks[key] = child.props.onSelect
-            }
-            return {
-              actionKey: key,
-              actionTitle: title,
-              discoverabilityTitle: subtitle,
-              menuAttributes,
-            }
+          const item = getItemFromChild(child, index)
+          if (item) {
+            return item
           }
           // } else if ((_child as ReactElement<MenuRootProps>).type === Root) {
         } else if (isInstanceOfComponent(_child, Root)) {
@@ -301,6 +364,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     ItemSubtitle,
     TriggerItem,
     Group,
+    ItemIcon,
   }
 }
 

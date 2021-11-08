@@ -9,6 +9,7 @@ const {
   ItemSubtitle,
   TriggerItem,
   Group,
+  ItemIcon,
 } = createIosMenu('DropdownMenu')
 
 export {
@@ -20,4 +21,5 @@ export {
   ItemSubtitle,
   TriggerItem,
   Group,
+  ItemIcon,
 }

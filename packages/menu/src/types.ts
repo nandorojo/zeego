@@ -33,6 +33,23 @@ export type MenuItemProps = (
   disabled?: boolean
 }
 
+export type MenuItemIconProps = {
+  /**
+   * `source={require('path/to/image')}`
+   */
+  source?: any
+  /**
+   * The name of an iOS-only SF Symbol. For a full list, see https://developer.apple.com/sf-symbols/.
+   *
+   * @platform ios
+   */
+  iosIconName?: string
+  /**
+   * You can also pass the icon as a React Native component child. This will only work on Web, not iOS.
+   */
+  children?: React.ReactNode
+}
+
 export type MenuTriggerItemProps = MenuItemProps
 export type MenuItemTitleProps = {
   children: string
