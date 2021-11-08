@@ -1,6 +1,6 @@
 {
   "name": "@zeego/dropdown-menu",
-  "version": "0.0.2-alpha.1",
+  "version": "0.0.2-alpha.2",
   "description": "The core for dropdown-menu & context-menu, made for screens.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -40,7 +40,7 @@
   "author": "Fernando Rojo <frojo@sas.upenn.edu> (https://twitter.com/fernandotherojo)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nandorojo/zeeg/issues"
+    "url": "https://github.com/nandorojo/zeego/issues"
   },
   "homepage": "https://github.com/nandorojo/zeeg#readme",
   "publishConfig": {
@@ -121,5 +121,5 @@
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^0.1.1"
   },
-  "gitHead": "ced3b9c76480dcd517c1cdd96721d8e09bdb55aa"
+  "gitHead": "515b556354ba5cdd46a00dd423515c7de77fda77"
 }

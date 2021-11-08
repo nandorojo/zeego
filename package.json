@@ -26,7 +26,7 @@
   "author": "Fernando Rojo <frojo@sas.upenn.edu> (https://twitter.com/fernandotherojo)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nandorojo/zeeg/issues"
+    "url": "https://github.com/nandorojo/zeego/issues"
   },
   "homepage": "https://github.com/nandorojo/zeeg#readme",
   "publishConfig": {
