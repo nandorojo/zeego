@@ -8,7 +8,7 @@ import type {
   MenuTriggerItemProps,
   MenuTriggerProps,
 } from '../types'
-import React, { Children, ComponentType, ReactElement } from 'react'
+import React, { Children, ReactElement } from 'react'
 import { flattenChildren, pickChildren } from '../children'
 import { filterNull } from '../filter-null'
 import {
@@ -126,6 +126,10 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
           let subtitle: string | undefined
           const menuAttributes: MenuAttributes = []
 
+          if (child.props.disabled) {
+            menuAttributes.push('disabled')
+          }
+
           if (typeof child.props.children == 'string') {
             title = child.props.children
           } else {
@@ -213,8 +217,6 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
             filterNull
           )
 
-          console.log({ groupItems })
-
           return {
             menuTitle: '',
             menuItems: groupItems,
@@ -227,7 +229,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
 
     let menuItems: (MenuItem | MenuConfig)[] = []
 
-    Children.forEach(flattenChildren(props.children), (_child, index) => {
+    Children.forEach(flattenChildren(props.children), (_child) => {
       const child = _child as ReactElement
       if (child.type === Content) {
         menuItems.push(

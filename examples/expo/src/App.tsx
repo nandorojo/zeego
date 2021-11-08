@@ -119,8 +119,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <DropdownMenuExample />
-      <View style={{ height: 30 }} />
-      <ContextMenuExample />
+      {/* <View style={{ height: 30 }} />
+      <ContextMenuExample /> */}
     </View>
   )
 }
