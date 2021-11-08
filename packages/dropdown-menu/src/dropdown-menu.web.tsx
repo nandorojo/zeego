@@ -7,7 +7,7 @@ import {
   MenuSeparatorProps,
   MenuTriggerItemProps,
   MenuTriggerProps,
-} from '@zeeg/menu'
+} from '@zeego/menu'
 import { View } from 'react-native'
 import { forwardRef } from 'react'
 
@@ -87,4 +87,4 @@ export { Root, Trigger, Content, Item, TriggerItem, Group, Separator }
 
 export { ItemIcon } from './web/item-icon'
 
-export { ItemTitle, ItemSubtitle } from '@zeeg/menu'
+export { ItemTitle, ItemSubtitle } from '@zeego/menu'

@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, Platform } from 'react-native'
 
-import * as ContextMenu from '@zeeg/context-menu'
-import * as DropdownMenu from '@zeeg/dropdown-menu'
+import * as ContextMenu from '@zeego/context-menu'
+import * as DropdownMenu from '@zeego/dropdown-menu'
 import type { ComponentProps } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 const select = (val: unknown) => () => alert(val)

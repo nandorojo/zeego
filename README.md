@@ -11,11 +11,11 @@ npm install zeeg
 ## Usage
 
 ```js
-import { multiply } from "zeeg";
+import { multiply } from 'zeego'
 
 // ...
 
-const result = await multiply(3, 7);
+const result = await multiply(3, 7)
 ```
 
 ## Contributing

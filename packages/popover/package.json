@@ -1,6 +1,6 @@
 {
-  "name": "@zeeg/popover",
-  "version": "0.0.2-alpha.0",
+  "name": "@zeego/popover",
+  "version": "0.0.2-alpha.1",
   "description": "A popover component, made for screens.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -36,7 +36,7 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/nandorojo/zeeg",
+  "repository": "https://github.com/nandorojo/zeego",
   "author": "Fernando Rojo <frojo@sas.upenn.edu> (https://twitter.com/fernandotherojo)",
   "license": "MIT",
   "bugs": {
@@ -64,7 +64,8 @@
     "react": "17.0.1",
     "react-native": "0.64.2",
     "react-native-builder-bob": "^0.18.0",
-    "release-it": "^14.2.2"
+    "release-it": "^14.2.2",
+    "typescript": "^4.4"
   },
   "peerDependencies": {
     "react": "*",
@@ -126,5 +127,6 @@
         }
       ]
     ]
-  }
+  },
+  "gitHead": "ced3b9c76480dcd517c1cdd96721d8e09bdb55aa"
 }

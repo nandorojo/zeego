@@ -22,7 +22,7 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/nandorojo/zeeg",
+  "repository": "https://github.com/nandorojo/zeego",
   "author": "Fernando Rojo <frojo@sas.upenn.edu> (https://twitter.com/fernandotherojo)",
   "license": "MIT",
   "bugs": {

@@ -1,4 +1,4 @@
-import type { MenuItemIconProps } from '@zeeg/menu'
+import type { MenuItemIconProps } from '@zeego/menu'
 import { Image, StyleSheet, View } from 'react-native'
 
 const ItemIcon = ({ children, source }: MenuItemIconProps) => {

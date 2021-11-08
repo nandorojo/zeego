@@ -9,7 +9,7 @@ import type {
   MenuSeparatorProps,
   MenuTriggerItemProps,
   MenuTriggerProps,
-} from '@zeeg/menu'
+} from '@zeego/menu'
 
 const Root = ({ children }: MenuRootProps) => <>{children}</>
 Root.displayName = 'Root'
