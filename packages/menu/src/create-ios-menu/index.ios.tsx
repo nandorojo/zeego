@@ -27,26 +27,31 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
 
     return <>{Children.only(child)}</>
   }
+  Trigger.displayName = 'Trigger'
 
   const Group = ({ children }: MenuGroupProps) => {
     return <>{children}</>
   }
+  Group.displayName = 'Group'
 
   const Content = ({ children }: MenuContentProps) => {
     return <>{children}</>
   }
+  Content.displayName = 'Content'
   const ItemTitle = ({ children }: MenuItemTitleProps) => {
     if (typeof children != 'string') {
       throw new Error('[zeeg] <ItemTitle /> child must be a string')
     }
     return <>{children}</>
   }
+  ItemTitle.displayName = 'ItemTitle'
   const ItemSubtitle = ({ children }: MenuItemSubtitleProps) => {
     if (children && typeof children != 'string') {
       throw new Error('[zeeg] <ItemSubtitle /> child must be a string')
     }
     return <>{children}</>
   }
+  ItemSubtitle.displayName = 'ItemSubtitle'
   const Item = ({ children }: MenuItemProps) => {
     const titleChild = pickChildren(children, ItemTitle).targetChildren
     if (typeof children != 'string' && !titleChild?.length) {
@@ -69,6 +74,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     }
     return <>{children}</>
   }
+  Item.displayName = 'Item'
 
   const TriggerItem = ({ children }: MenuTriggerItemProps) => {
     const titleChild = pickChildren(children, ItemTitle).targetChildren
@@ -92,6 +98,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     }
     return <>{children}</>
   }
+  TriggerItem.displayName = 'TriggerItem'
 
   type MenuOption = 'destructive' | 'displayInline'
   type MenuAttribute = 'disabled' | 'destructive' | 'hidden'
@@ -283,6 +290,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
       </Component>
     )
   }
+  Root.displayName = 'Root'
 
   return {
     Root,

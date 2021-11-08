@@ -2,6 +2,7 @@ import { StyleSheet, View, Text, Platform } from 'react-native'
 
 import * as ContextMenu from '@zeeg/context-menu'
 import * as DropdownMenu from '@zeeg/dropdown-menu'
+import type { ComponentProps } from 'react'
 
 const select = (val: unknown) => () => console.log(val)
 
@@ -48,6 +49,12 @@ const dropdownStyles = StyleSheet.create({
   },
 })
 
+const DropdownMenuItem = (props: ComponentProps<typeof DropdownMenu.Item>) => (
+  <DropdownMenu.Item {...props} style={dropdownStyles.item} />
+)
+
+DropdownMenuItem.displayName = DropdownMenu.Item.displayName
+
 const DropdownMenuExample = () => {
   return (
     <DropdownMenu.Root>
@@ -57,7 +64,7 @@ const DropdownMenuExample = () => {
         </View>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content style={dropdownStyles.content}>
-        <DropdownMenu.Item
+        <DropdownMenuItem
           style={dropdownStyles.item}
           onSelect={select(1)}
           key="first"
@@ -68,40 +75,40 @@ const DropdownMenuExample = () => {
           <DropdownMenu.ItemSubtitle style={dropdownStyles.itemSubtitle}>
             Description!
           </DropdownMenu.ItemSubtitle>
-        </DropdownMenu.Item>
-        <DropdownMenu.Item
+        </DropdownMenuItem>
+        <DropdownMenuItem
           style={dropdownStyles.item}
           onSelect={select(2)}
           key="second"
         >
           Action #2
-        </DropdownMenu.Item>
-        <DropdownMenu.Item
+        </DropdownMenuItem>
+        <DropdownMenuItem
           style={dropdownStyles.item}
           onSelect={select(3)}
           key="third"
         >
           Action #3
-        </DropdownMenu.Item>
+        </DropdownMenuItem>
 
         <DropdownMenu.Root>
           <DropdownMenu.TriggerItem style={dropdownStyles.item} key="nested">
             Submenu
           </DropdownMenu.TriggerItem>
           <DropdownMenu.Content style={dropdownStyles.content}>
-            <DropdownMenu.Item style={dropdownStyles.item} key="nested-1">
+            <DropdownMenuItem style={dropdownStyles.item} key="nested-1">
               Submenu Option 1
-            </DropdownMenu.Item>
+            </DropdownMenuItem>
           </DropdownMenu.Content>
         </DropdownMenu.Root>
 
         <DropdownMenu.Group>
-          <DropdownMenu.Item style={dropdownStyles.item} key="group-1">
+          <DropdownMenuItem style={dropdownStyles.item} key="group-1">
             Group Item 1
-          </DropdownMenu.Item>
-          <DropdownMenu.Item style={dropdownStyles.item} key="group-2">
+          </DropdownMenuItem>
+          <DropdownMenuItem style={dropdownStyles.item} key="group-2">
             Group Item 2
-          </DropdownMenu.Item>
+          </DropdownMenuItem>
         </DropdownMenu.Group>
 
         <DropdownMenu.Group>
@@ -113,18 +120,18 @@ const DropdownMenuExample = () => {
               Group Submenu
             </DropdownMenu.TriggerItem>
             <DropdownMenu.Content style={dropdownStyles.content}>
-              <DropdownMenu.Item
+              <DropdownMenuItem
                 style={dropdownStyles.item}
                 key="nested-group-1"
               >
                 Group Submenu Option 1
-              </DropdownMenu.Item>
-              <DropdownMenu.Item
+              </DropdownMenuItem>
+              <DropdownMenuItem
                 style={dropdownStyles.item}
                 key="nested-group-2"
               >
                 Group Submenu Option 2
-              </DropdownMenu.Item>
+              </DropdownMenuItem>
             </DropdownMenu.Content>
           </DropdownMenu.Root>
         </DropdownMenu.Group>

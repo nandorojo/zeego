@@ -88,10 +88,13 @@ export const isInstanceOfComponent = (
   element: React.ReactElement | React.ReactChild | undefined,
   targetElement: React.ElementType
 ) => {
-  return (
+  const matches =
     (element as any)?.type === targetElement ||
-    (typeof (element as any)?.type == 'object' &&
+    (typeof (element as any)?.type == 'function' &&
       (element as any)?.type?.displayName ===
         (targetElement as any).displayName)
-  )
+  if (targetElement.displayName === 'Item') {
+    console.log('[maybe item]', element.type.displayName, matches)
+  }
+  return matches
 }

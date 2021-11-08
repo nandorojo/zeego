@@ -16,6 +16,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 const Root = ({ children }: MenuRootProps) => {
   return <DropdownMenu.Root>{children}</DropdownMenu.Root>
 }
+Root.displayName = 'Root'
 
 const TriggerView = forwardRef<unknown, any>((props, ref) => {
   return (
@@ -32,6 +33,7 @@ const Trigger = ({ children, style }: MenuTriggerProps) => {
     </DropdownMenu.Trigger>
   )
 }
+Trigger.displayName = 'Trigger'
 
 const ContentView = forwardRef<unknown, any>((props, ref) => {
   return (
@@ -48,6 +50,7 @@ const Content = ({ children, style }: MenuContentProps) => {
     </DropdownMenu.Content>
   )
 }
+Content.displayName = 'Content'
 
 const Item = ({ children, disabled, onSelect, style }: MenuItemProps) => {
   const Component = typeof children == 'string' ? Text : View
@@ -67,6 +70,7 @@ const Item = ({ children, disabled, onSelect, style }: MenuItemProps) => {
     </DropdownMenu.Item>
   )
 }
+Item.displayName = 'Item'
 
 const TriggerItem = ({ children, style }: MenuTriggerItemProps) => {
   return (
@@ -79,6 +83,7 @@ const TriggerItem = ({ children, style }: MenuTriggerItemProps) => {
     </DropdownMenu.TriggerItem>
   )
 }
+TriggerItem.displayName = 'TriggerItem'
 
 const ItemTitle = ({ children, style }: MenuItemTitleProps) => {
   return (
@@ -87,6 +92,7 @@ const ItemTitle = ({ children, style }: MenuItemTitleProps) => {
     </Text>
   )
 }
+ItemTitle.displayName = 'ItemTitle'
 
 const ItemSubtitle = ({ children, style }: MenuItemSubtitleProps) => {
   return (
@@ -95,10 +101,12 @@ const ItemSubtitle = ({ children, style }: MenuItemSubtitleProps) => {
     </Text>
   )
 }
+ItemSubtitle.displayName = 'ItemSubtitle'
 
 const Group = ({ children }: MenuGroupProps) => {
   return <DropdownMenu.Group>{children}</DropdownMenu.Group>
 }
+Group.displayName = 'Group'
 
 export {
   Root,
