@@ -9,7 +9,11 @@ import type {
   MenuTriggerProps,
 } from '../types'
 import React, { Children, ReactElement } from 'react'
-import { flattenChildren, pickChildren } from '../children'
+import {
+  flattenChildren,
+  pickChildren,
+  isInstanceOfComponent,
+} from '../children'
 import { filterNull } from '../filter-null'
 import {
   ContextMenuButton,
@@ -119,8 +123,9 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
       children: React.ReactNode
     ): (typeof menuItems[number] | null)[] => {
       return Children.map(flattenChildren(children), (_child, index) => {
-        if ((_child as ReactElement<MenuItemProps>).type === Item) {
+        if (isInstanceOfComponent(_child, Item)) {
           const child = _child as ReactElement<MenuItemProps>
+
           let title: string | undefined
           const key: string = child.key ? `${child.key}` : `item-${index}`
           let subtitle: string | undefined
@@ -170,7 +175,8 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
               menuAttributes,
             }
           }
-        } else if ((_child as ReactElement<MenuRootProps>).type === Root) {
+          // } else if ((_child as ReactElement<MenuRootProps>).type === Root) {
+        } else if (isInstanceOfComponent(_child, Root)) {
           const child = _child as ReactElement<MenuRootProps>
           const triggerItemChildren = pickChildren<MenuTriggerItemProps>(
             child.props.children,
@@ -210,7 +216,8 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
               }
             }
           }
-        } else if ((_child as ReactElement<MenuGroupProps>).type === Group) {
+        } else if (isInstanceOfComponent(_child, Group)) {
+          // } else if ((_child as ReactElement<MenuGroupProps>).type === Group) {
           const child = _child as ReactElement<MenuGroupProps>
 
           const groupItems = mapItemsChildren(child.props.children).filter(
@@ -231,7 +238,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
 
     Children.forEach(flattenChildren(props.children), (_child) => {
       const child = _child as ReactElement
-      if (child.type === Content) {
+      if (isInstanceOfComponent(child, Content)) {
         menuItems.push(
           ...mapItemsChildren(
             (child as ReactElement<MenuContentProps>).props.children

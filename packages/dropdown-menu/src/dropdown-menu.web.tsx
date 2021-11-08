@@ -8,7 +8,7 @@ import type {
   MenuTriggerItemProps,
   MenuTriggerProps,
 } from '@zeeg/menu'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View } from 'react-native'
 import { createElement, forwardRef } from 'react'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
@@ -53,13 +53,17 @@ const Item = ({ children, disabled, onSelect, style }: MenuItemProps) => {
   const Component = typeof children == 'string' ? Text : View
   return (
     <DropdownMenu.Item disabled={disabled} onSelect={onSelect}>
-      {createElement(
-        Component,
-        {
-          style,
-        },
-        children
-      )}
+      <View>
+        {createElement(
+          Component,
+          {
+            style,
+            // @ts-expect-error
+            selectable: false,
+          },
+          children
+        )}
+      </View>
     </DropdownMenu.Item>
   )
 }
@@ -67,17 +71,29 @@ const Item = ({ children, disabled, onSelect, style }: MenuItemProps) => {
 const TriggerItem = ({ children, style }: MenuTriggerItemProps) => {
   return (
     <DropdownMenu.TriggerItem>
-      <Text style={style}>{children}</Text>
+      <View>
+        <Text style={style} selectable={false}>
+          {children}
+        </Text>
+      </View>
     </DropdownMenu.TriggerItem>
   )
 }
 
 const ItemTitle = ({ children, style }: MenuItemTitleProps) => {
-  return <Text style={style}>{children}</Text>
+  return (
+    <Text style={style} selectable={false}>
+      {children}
+    </Text>
+  )
 }
 
 const ItemSubtitle = ({ children, style }: MenuItemSubtitleProps) => {
-  return <Text style={style}>{children}</Text>
+  return (
+    <Text style={style} selectable={false}>
+      {children}
+    </Text>
+  )
 }
 
 const Group = ({ children }: MenuGroupProps) => {

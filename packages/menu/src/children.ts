@@ -9,23 +9,23 @@ import React, {
   isValidElement,
   cloneElement,
   ReactElement,
-} from 'react';
+} from 'react'
 
-type ReactChildArray = ReturnType<typeof React.Children.toArray>;
+type ReactChildArray = ReturnType<typeof React.Children.toArray>
 
 export function flattenChildrenKeyless(
   children: React.ReactNode
 ): ReactChildArray {
-  const childrenArray = React.Children.toArray(children);
+  const childrenArray = React.Children.toArray(children)
   return childrenArray.reduce((flatChildren: ReactChildArray, child) => {
     if ((child as React.ReactElement<any>).type === React.Fragment) {
       return flatChildren.concat(
         flattenChildren((child as React.ReactElement<any>).props.children)
-      );
+      )
     }
-    flatChildren.push(child);
-    return flatChildren;
-  }, []);
+    flatChildren.push(child)
+    return flatChildren
+  }, [])
 }
 
 export function flattenChildren(
@@ -43,43 +43,55 @@ export function flattenChildren(
             depth + 1,
             keys.concat(node.key || nodeIndex)
           )
-        );
+        )
       } else {
         if (isValidElement(node)) {
           acc.push(
             cloneElement(node, {
               key: keys.concat(String(node.key)).join('.'),
             })
-          );
+          )
         } else if (typeof node === 'string' || typeof node === 'number') {
-          acc.push(node);
+          acc.push(node)
         }
       }
-      return acc;
+      return acc
     },
     []
-  );
+  )
 }
 
 export const pickChildren = <Props = any>(
   _children: React.ReactNode | undefined,
   targetChild: React.ElementType
 ) => {
-  const children = flattenChildren(_children);
-  const target: ReactElement<Props>[] = [];
+  const children = flattenChildren(_children)
+  const target: ReactElement<Props>[] = []
   const withoutTargetChildren = React.Children.map(children, (item) => {
-    if (!isValidElement(item)) return item;
-    if (item.type === targetChild) {
-      target.push(cloneElement(item));
-      return null;
+    if (!isValidElement(item)) return item
+    if (isInstanceOfComponent(item, targetChild)) {
+      target.push(cloneElement(item))
+      return null
     }
-    return item;
-  });
+    return item
+  })
 
-  const targetChildren = target.length >= 0 ? target : undefined;
+  const targetChildren = target.length >= 0 ? target : undefined
 
   return {
     targetChildren,
     withoutTargetChildren,
-  };
-};
+  }
+}
+
+export const isInstanceOfComponent = (
+  element: React.ReactElement | React.ReactChild | undefined,
+  targetElement: React.ElementType
+) => {
+  return (
+    (element as any)?.type === targetElement ||
+    (typeof (element as any)?.type == 'object' &&
+      (element as any)?.type?.displayName ===
+        (targetElement as any).displayName)
+  )
+}
