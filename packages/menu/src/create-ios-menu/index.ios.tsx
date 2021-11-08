@@ -21,6 +21,7 @@ import {
   ContextMenuView,
   // @ts-expect-error
 } from 'react-native-ios-context-menu'
+import type { MenuSeparatorProps } from '../types'
 
 const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   const Trigger = ({ children }: MenuTriggerProps) => {
@@ -355,6 +356,10 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   }
   Root.displayName = 'Root'
 
+  const Separator = (_: MenuSeparatorProps) => {
+    return <></>
+  }
+
   return {
     Root,
     Trigger,
@@ -364,6 +369,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     ItemSubtitle,
     TriggerItem,
     Group,
+    Separator,
     ItemIcon,
   }
 }

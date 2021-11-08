@@ -32,10 +32,9 @@ const dropdownStyles = StyleSheet.create({
   item: {
     borderRadius: 3,
     justifyContent: 'center',
-    // minHeight: 25,
     paddingRight: 5,
     paddingLeft: 25,
-    paddingVertical: 12,
+    height: 25,
   },
   itemTitle: {
     fontSize: 13,
@@ -48,6 +47,11 @@ const dropdownStyles = StyleSheet.create({
   itemIcon: {
     marginRight: 5,
   },
+  separator: {
+    backgroundColor: 'rgb(215, 207, 249)',
+    height: 1,
+    margin: 6,
+  },
 })
 
 const DropdownMenuItem = (props: ComponentProps<typeof DropdownMenu.Item>) => (
@@ -59,6 +63,10 @@ const DropdownMenuItemTitle = (
   props: ComponentProps<typeof DropdownMenu.ItemTitle>
 ) => <DropdownMenu.ItemTitle {...props} style={dropdownStyles.itemTitle} />
 DropdownMenuItemTitle.displayName = DropdownMenu.ItemTitle.displayName
+
+const DropdownMenuSeparator = (
+  props: ComponentProps<typeof DropdownMenu.Separator>
+) => <DropdownMenu.Separator {...props} style={dropdownStyles.separator} />
 
 const DropdownMenuExample = () => {
   return (
@@ -77,9 +85,11 @@ const DropdownMenuExample = () => {
           <DropdownMenuItemTitle style={dropdownStyles.itemTitle}>
             See more
           </DropdownMenuItemTitle>
-          <DropdownMenu.ItemSubtitle style={dropdownStyles.itemSubtitle}>
-            12 artists fit your search
-          </DropdownMenu.ItemSubtitle>
+          {Platform.OS === 'ios' && (
+            <DropdownMenu.ItemSubtitle style={dropdownStyles.itemSubtitle}>
+              12 artists fit your search
+            </DropdownMenu.ItemSubtitle>
+          )}
           <DropdownMenu.ItemIcon iosIconName="list.star">
             <Ionicons name="list" size={15} style={dropdownStyles.itemIcon} />
           </DropdownMenu.ItemIcon>
@@ -113,6 +123,7 @@ const DropdownMenuExample = () => {
           </DropdownMenu.Content>
         </DropdownMenu.Root>
 
+        <DropdownMenuSeparator />
         <DropdownMenu.Group>
           <DropdownMenuItem style={dropdownStyles.item} key="group-1">
             <DropdownMenuItemTitle>Group Item 1</DropdownMenuItemTitle>
@@ -121,6 +132,7 @@ const DropdownMenuExample = () => {
             <DropdownMenuItemTitle>Group Item 2</DropdownMenuItemTitle>
           </DropdownMenuItem>
         </DropdownMenu.Group>
+        <DropdownMenuSeparator />
 
         <DropdownMenu.Group>
           <DropdownMenu.Root>

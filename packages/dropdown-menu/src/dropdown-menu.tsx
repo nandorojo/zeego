@@ -6,6 +6,7 @@ import type {
   MenuItemSubtitleProps,
   MenuItemTitleProps,
   MenuRootProps,
+  MenuSeparatorProps,
   MenuTriggerItemProps,
   MenuTriggerProps,
 } from '@zeeg/menu'
@@ -51,6 +52,10 @@ const Group = ({ children }: MenuGroupProps) => {
 }
 Group.displayName = 'Group'
 
+const Separator = (_: MenuSeparatorProps) => {
+  return <></>
+}
+
 export {
   Root,
   Trigger,
@@ -61,4 +66,5 @@ export {
   TriggerItem,
   Group,
   ItemIcon,
+  Separator,
 }

@@ -4,6 +4,7 @@ import {
   MenuGroupProps,
   MenuItemProps,
   MenuRootProps,
+  MenuSeparatorProps,
   MenuTriggerItemProps,
   MenuTriggerProps,
 } from '@zeeg/menu'
@@ -74,7 +75,15 @@ const Group = ({ children }: MenuGroupProps) => {
 }
 Group.displayName = 'Group'
 
-export { Root, Trigger, Content, Item, TriggerItem, Group }
+const Separator = ({ style }: MenuSeparatorProps) => {
+  return (
+    <DropdownMenu.Separator>
+      <View style={style} />
+    </DropdownMenu.Separator>
+  )
+}
+
+export { Root, Trigger, Content, Item, TriggerItem, Group, Separator }
 
 export { ItemIcon } from './web/item-icon'
 

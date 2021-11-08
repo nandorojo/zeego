@@ -9,6 +9,7 @@ const {
   ItemSubtitle,
   TriggerItem,
   Group,
+  Separator,
   ItemIcon,
 } = createIosMenu('DropdownMenu')
 
@@ -21,5 +22,6 @@ export {
   ItemSubtitle,
   TriggerItem,
   Group,
+  Separator,
   ItemIcon,
 }

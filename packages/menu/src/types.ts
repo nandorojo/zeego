@@ -59,3 +59,6 @@ export type MenuItemSubtitleProps = {
   children: string
   style?: TextStyle
 }
+export type MenuSeparatorProps = {
+  style?: ViewStyle
+}
