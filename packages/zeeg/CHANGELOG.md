@@ -1,0 +1,11 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## 0.0.2-alpha.0 (2021-11-08)
+
+
+### Bug Fixes
+
+* expo example works with fixed reactnative,react,reanimated versions ([60eddd9](https://github.com/nandorojo/zeeg/commit/60eddd9dec54ca13fb775e45a01ce8fcb1998715))
