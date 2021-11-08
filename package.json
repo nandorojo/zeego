@@ -12,7 +12,7 @@
     "typescript": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "prepare": "lerna run prepare",
-    "release": "release-it",
+    "release": "lerna publish",
     "example": "yarn --cwd examples/expo",
     "pods": "cd examples/expo && pod-install --quiet",
     "bootstrap": "yarn example && yarn && yarn pods"
