@@ -1,15 +1,13 @@
 import {
+  ItemPrimitive,
   MenuContentProps,
   MenuGroupProps,
   MenuItemProps,
-  MenuItemSubtitleProps,
-  MenuItemTitleProps,
   MenuRootProps,
   MenuTriggerItemProps,
   MenuTriggerProps,
-  pickChildren,
 } from '@zeeg/menu'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import { forwardRef } from 'react'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
@@ -53,26 +51,6 @@ const Content = ({ children, style }: MenuContentProps) => {
 }
 Content.displayName = 'Content'
 
-const ItemPrimitive = ({ children, style }: MenuItemProps) => {
-  const titleChildren = pickChildren(children, ItemTitle)
-
-  let title = <></>
-  if (typeof children == 'string') {
-    title = <ItemTitle>{children}</ItemTitle>
-  } else {
-    title = titleChildren.targetChildren?.[0] ?? <></>
-  }
-
-  return (
-    <View style={style}>
-      {title}
-      {titleChildren.withoutTargetChildren.filter(
-        (child) => typeof child != 'string'
-      )}
-    </View>
-  )
-}
-
 const Item = ({ children, disabled, onSelect, style }: MenuItemProps) => {
   return (
     <DropdownMenu.Item disabled={disabled} onSelect={onSelect}>
@@ -91,38 +69,13 @@ const TriggerItem = ({ children, style }: MenuTriggerItemProps) => {
 }
 TriggerItem.displayName = 'TriggerItem'
 
-const ItemTitle = ({ children, style }: MenuItemTitleProps) => {
-  return (
-    <Text style={style} selectable={false}>
-      {children}
-    </Text>
-  )
-}
-ItemTitle.displayName = 'ItemTitle'
-
-const ItemSubtitle = ({ children, style }: MenuItemSubtitleProps) => {
-  return (
-    <Text style={style} selectable={false}>
-      {children}
-    </Text>
-  )
-}
-ItemSubtitle.displayName = 'ItemSubtitle'
-
 const Group = ({ children }: MenuGroupProps) => {
   return <DropdownMenu.Group>{children}</DropdownMenu.Group>
 }
 Group.displayName = 'Group'
 
-export {
-  Root,
-  Trigger,
-  Content,
-  Item,
-  ItemTitle,
-  ItemSubtitle,
-  TriggerItem,
-  Group,
-}
+export { Root, Trigger, Content, Item, TriggerItem, Group }
 
 export { ItemIcon } from './web/item-icon'
+
+export { ItemTitle, ItemSubtitle } from '@zeeg/menu'
