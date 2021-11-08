@@ -93,8 +93,5 @@ export const isInstanceOfComponent = (
     (typeof (element as any)?.type == 'function' &&
       (element as any)?.type?.displayName ===
         (targetElement as any).displayName)
-  if (targetElement.displayName === 'Item') {
-    console.log('[maybe item]', element.type.displayName, matches)
-  }
   return matches
 }

@@ -126,6 +126,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     menuItems: (MenuItem | MenuConfig)[]
     menuAttributes?: MenuAttributes
     menuOptions?: MenuOptions
+    icon?: MenuItemIcon
   }
 
   type MenuItemIcon =
@@ -224,9 +225,9 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
         }
 
         return {
-          actionKey: key,
-          actionTitle: title,
-          discoverabilityTitle: subtitle,
+          key,
+          title,
+          subtitle,
           menuAttributes,
           icon,
         }
@@ -243,51 +244,50 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
 
           const item = getItemFromChild(child, index)
           if (item) {
-            return item
+            const { icon, title, key, menuAttributes, subtitle } = item
+            const finalItem: MenuItem = {
+              actionKey: key,
+              actionTitle: title,
+              icon,
+              menuAttributes,
+              discoverabilityTitle: subtitle,
+            }
+            return finalItem
           }
-          // } else if ((_child as ReactElement<MenuRootProps>).type === Root) {
         } else if (isInstanceOfComponent(_child, Root)) {
           const child = _child as ReactElement<MenuRootProps>
-          const triggerItemChildren = pickChildren<MenuTriggerItemProps>(
+          const triggerItemChild = pickChildren<MenuTriggerItemProps>(
             child.props.children,
             TriggerItem
-          ).targetChildren
-          let menuTitle: string | undefined
-
-          if (typeof triggerItemChildren?.[0].props.children == 'string') {
-            menuTitle = triggerItemChildren[0].props.children
-          } else if (triggerItemChildren?.[0]) {
-            const titleChild = pickChildren<MenuItemTitleProps>(
-              triggerItemChildren?.[0].props.children,
-              ItemTitle
-            ).targetChildren
-            menuTitle = titleChild?.[0]?.props.children
-          }
-
-          const nestedContent = pickChildren<MenuContentProps>(
-            child.props.children,
-            Content
           ).targetChildren?.[0]
 
-          if (nestedContent) {
-            const nestedItems = mapItemsChildren(
-              nestedContent.props.children
-            ).filter(filterNull)
+          const triggerItem =
+            triggerItemChild && getItemFromChild(triggerItemChild, index)
+          if (triggerItem) {
+            const nestedContent = pickChildren<MenuContentProps>(
+              child.props.children,
+              Content
+            ).targetChildren?.[0]
 
-            if (menuTitle) {
+            if (nestedContent) {
+              const nestedItems = mapItemsChildren(
+                nestedContent.props.children
+              ).filter(filterNull)
+
               if (nestedItems.length) {
                 const menuOptions: MenuOptions = []
                 const menuConfig: MenuConfig = {
-                  menuTitle,
+                  menuTitle: triggerItem?.title,
+                  icon: triggerItem?.icon,
                   menuItems: nestedItems,
                   menuOptions,
+                  menuAttributes: triggerItem.menuAttributes,
                 }
                 return menuConfig
               }
             }
           }
         } else if (isInstanceOfComponent(_child, Group)) {
-          // } else if ((_child as ReactElement<MenuGroupProps>).type === Group) {
           const child = _child as ReactElement<MenuGroupProps>
 
           const groupItems = mapItemsChildren(child.props.children).filter(

@@ -6,20 +6,26 @@ const ItemIcon = ({ children, source }: MenuItemIconProps) => {
     return null
   }
   if (source) {
-    return <Image source={source} style={styles.icon} resizeMode="contain" />
+    return (
+      <View style={styles.container}>
+        <Image source={source} style={styles.icon} resizeMode="contain" />
+      </View>
+    )
   }
-  return <View style={styles.icon}>{children}</View>
+  return <View style={styles.container}>{children}</View>
 }
 
 const styles = StyleSheet.create({
   icon: {
+    height: 20,
+    width: 20,
+  },
+  container: {
     position: 'absolute',
     right: 0,
     top: 0,
     bottom: 0,
-    alignSelf: 'center',
-    height: 20,
-    width: 20,
+    justifyContent: 'center',
   },
 })
 

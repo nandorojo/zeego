@@ -3,8 +3,8 @@ import { StyleSheet, View, Text, Platform } from 'react-native'
 import * as ContextMenu from '@zeeg/context-menu'
 import * as DropdownMenu from '@zeeg/dropdown-menu'
 import type { ComponentProps } from 'react'
-
-const select = (val: unknown) => () => console.log(val)
+import { Ionicons } from '@expo/vector-icons'
+const select = (val: unknown) => () => alert(val)
 
 const dropdownStyles = StyleSheet.create({
   content: {
@@ -35,9 +35,7 @@ const dropdownStyles = StyleSheet.create({
     // minHeight: 25,
     paddingRight: 5,
     paddingLeft: 25,
-    fontSize: 13,
-    lineHeight: 13,
-    paddingVertical: 8,
+    paddingVertical: 12,
   },
   itemTitle: {
     fontSize: 13,
@@ -47,13 +45,20 @@ const dropdownStyles = StyleSheet.create({
     fontSize: 10,
     lineHeight: 10,
   },
+  itemIcon: {
+    marginRight: 5,
+  },
 })
 
 const DropdownMenuItem = (props: ComponentProps<typeof DropdownMenu.Item>) => (
   <DropdownMenu.Item {...props} style={dropdownStyles.item} />
 )
-
 DropdownMenuItem.displayName = DropdownMenu.Item.displayName
+
+const DropdownMenuItemTitle = (
+  props: ComponentProps<typeof DropdownMenu.ItemTitle>
+) => <DropdownMenu.ItemTitle {...props} style={dropdownStyles.itemTitle} />
+DropdownMenuItemTitle.displayName = DropdownMenu.ItemTitle.displayName
 
 const DropdownMenuExample = () => {
   return (
@@ -69,47 +74,51 @@ const DropdownMenuExample = () => {
           onSelect={select(1)}
           key="first"
         >
-          <DropdownMenu.ItemTitle style={dropdownStyles.itemTitle}>
+          <DropdownMenuItemTitle style={dropdownStyles.itemTitle}>
             See more
-          </DropdownMenu.ItemTitle>
+          </DropdownMenuItemTitle>
           <DropdownMenu.ItemSubtitle style={dropdownStyles.itemSubtitle}>
             12 artists fit your search
           </DropdownMenu.ItemSubtitle>
-          <DropdownMenu.ItemIcon iosIconName="list.star" />
+          <DropdownMenu.ItemIcon iosIconName="list.star">
+            <Ionicons name="list" size={15} style={dropdownStyles.itemIcon} />
+          </DropdownMenu.ItemIcon>
         </DropdownMenuItem>
         <DropdownMenuItem
           style={dropdownStyles.item}
           onSelect={select(2)}
           key="second"
         >
-          <DropdownMenu.ItemTitle>Favorite</DropdownMenu.ItemTitle>
-          <DropdownMenu.ItemIcon iosIconName="star.fill" />
+          <DropdownMenuItemTitle>Favorite</DropdownMenuItemTitle>
+          <DropdownMenu.ItemIcon iosIconName="star.fill">
+            <Ionicons name="star" size={15} style={dropdownStyles.itemIcon} />
+          </DropdownMenu.ItemIcon>
         </DropdownMenuItem>
         <DropdownMenuItem
           style={dropdownStyles.item}
           onSelect={select(3)}
           key="third"
         >
-          Action #3
+          <DropdownMenuItemTitle>Action #3</DropdownMenuItemTitle>
         </DropdownMenuItem>
 
         <DropdownMenu.Root>
           <DropdownMenu.TriggerItem style={dropdownStyles.item} key="nested">
-            Submenu
+            <DropdownMenuItemTitle>Submenu</DropdownMenuItemTitle>
           </DropdownMenu.TriggerItem>
           <DropdownMenu.Content style={dropdownStyles.content}>
             <DropdownMenuItem style={dropdownStyles.item} key="nested-1">
-              Submenu Option 1
+              <DropdownMenuItemTitle>Submenu Option 1</DropdownMenuItemTitle>
             </DropdownMenuItem>
           </DropdownMenu.Content>
         </DropdownMenu.Root>
 
         <DropdownMenu.Group>
           <DropdownMenuItem style={dropdownStyles.item} key="group-1">
-            Group Item 1
+            <DropdownMenuItemTitle>Group Item 1</DropdownMenuItemTitle>
           </DropdownMenuItem>
           <DropdownMenuItem style={dropdownStyles.item} key="group-2">
-            Group Item 2
+            <DropdownMenuItemTitle>Group Item 2</DropdownMenuItemTitle>
           </DropdownMenuItem>
         </DropdownMenu.Group>
 
@@ -119,20 +128,24 @@ const DropdownMenuExample = () => {
               style={dropdownStyles.item}
               key="nested-group-trigger"
             >
-              Group Submenu
+              <DropdownMenuItemTitle>Group Submenu</DropdownMenuItemTitle>
             </DropdownMenu.TriggerItem>
             <DropdownMenu.Content style={dropdownStyles.content}>
               <DropdownMenuItem
                 style={dropdownStyles.item}
                 key="nested-group-1"
               >
-                Group Submenu Option 1
+                <DropdownMenuItemTitle>
+                  Group Submenu Option 1
+                </DropdownMenuItemTitle>
               </DropdownMenuItem>
               <DropdownMenuItem
                 style={dropdownStyles.item}
                 key="nested-group-2"
               >
-                Group Submenu Option 2
+                <DropdownMenuItemTitle>
+                  Group Submenu Option 2
+                </DropdownMenuItemTitle>
               </DropdownMenuItem>
             </DropdownMenu.Content>
           </DropdownMenu.Root>

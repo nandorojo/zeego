@@ -1,4 +1,4 @@
-import type {
+import {
   MenuContentProps,
   MenuGroupProps,
   MenuItemProps,
@@ -7,9 +7,10 @@ import type {
   MenuRootProps,
   MenuTriggerItemProps,
   MenuTriggerProps,
+  pickChildren,
 } from '@zeeg/menu'
 import { Text, View } from 'react-native'
-import { createElement, forwardRef } from 'react'
+import { forwardRef } from 'react'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
@@ -53,38 +54,29 @@ const Content = ({ children, style }: MenuContentProps) => {
 Content.displayName = 'Content'
 
 const ItemPrimitive = ({ children, style }: MenuItemProps) => {
-  const Component = typeof children == 'string' ? Text : View
+  const titleChildren = pickChildren(children, ItemTitle)
+
+  let title = <></>
+  if (typeof children == 'string') {
+    title = <ItemTitle>{children}</ItemTitle>
+  } else {
+    title = titleChildren.targetChildren?.[0] ?? <></>
+  }
 
   return (
-    <View>
-      {createElement(
-        Component,
-        {
-          style,
-          // @ts-expect-error
-          selectable: false,
-        },
-        children
+    <View style={style}>
+      {title}
+      {titleChildren.withoutTargetChildren.filter(
+        (child) => typeof child != 'string'
       )}
     </View>
   )
 }
 
 const Item = ({ children, disabled, onSelect, style }: MenuItemProps) => {
-  const Component = typeof children == 'string' ? Text : View
   return (
     <DropdownMenu.Item disabled={disabled} onSelect={onSelect}>
-      <View>
-        {createElement(
-          Component,
-          {
-            style,
-            // @ts-expect-error
-            selectable: false,
-          },
-          children
-        )}
-      </View>
+      <ItemPrimitive style={style}>{children}</ItemPrimitive>
     </DropdownMenu.Item>
   )
 }
@@ -93,11 +85,7 @@ Item.displayName = 'Item'
 const TriggerItem = ({ children, style }: MenuTriggerItemProps) => {
   return (
     <DropdownMenu.TriggerItem>
-      <View>
-        <Text style={style} selectable={false}>
-          {children}
-        </Text>
-      </View>
+      <ItemPrimitive style={style}>{children}</ItemPrimitive>
     </DropdownMenu.TriggerItem>
   )
 }
