@@ -5,6 +5,7 @@ import type {
 } from '../types'
 import { Text, View } from 'react-native'
 import { pickChildren } from '../children'
+import React from 'react'
 
 const ItemPrimitive = ({ children, style }: MenuItemProps) => {
   const titleChildren = pickChildren(children, ItemTitle)

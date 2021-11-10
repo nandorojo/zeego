@@ -28,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/nandorojo/zeego/issues"
   },
-  "homepage": "https://github.com/nandorojo/zeeg#readme",
+  "homepage": "https://github.com/nandorojo/zeego#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
