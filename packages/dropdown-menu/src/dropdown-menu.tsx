@@ -12,6 +12,8 @@ import type {
 } from '@zeego/menu'
 import type { FC } from 'react'
 
+import React from 'react'
+
 const Root: FC<MenuRootProps> = ({ children }) => <>{children}</>
 Root.displayName = 'Root'
 

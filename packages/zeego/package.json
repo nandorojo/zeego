@@ -1,6 +1,6 @@
 {
   "name": "zeego",
-  "version": "0.0.2-alpha.9",
+  "version": "0.0.2-alpha.10",
   "description": "Logical UI primitives, made for screens.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -125,5 +125,5 @@
       ]
     ]
   },
-  "gitHead": "482fded931432e4eeffabfd808ee34dcfa5ac930"
+  "gitHead": "92e0f73a4fe15309017ebfcd478a934d48a8f0b6"
 }

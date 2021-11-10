@@ -1,6 +1,8 @@
 import type { MenuItemIconProps } from '@zeego/menu'
 import { Image, StyleSheet, View } from 'react-native'
 
+import React from 'react'
+
 const ItemIcon = ({ children, source }: MenuItemIconProps) => {
   if (!children && !source) {
     return null

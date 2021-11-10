@@ -8,6 +8,7 @@ import type {
   MenuTriggerItemProps,
   MenuTriggerProps,
 } from '@zeego/menu'
+import React from 'react'
 
 const Root = ({ children }: MenuRootProps) => <>{children}</>
 
