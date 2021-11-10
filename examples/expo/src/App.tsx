@@ -219,6 +219,7 @@ const DropdownMenuExample = () => {
             {bookmarked === 'on' ? 'Bookmarked' : 'Bookmark'}
           </DropdownMenuItemTitle>
           <DropdownMenuItemImage
+            iosIconName="book"
             source={require('./camera-outline.png')}
             width={20}
             resizeMode="contain"

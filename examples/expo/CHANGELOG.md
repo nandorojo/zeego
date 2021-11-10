@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.2-alpha.17](https://github.com/nandorojo/zeeg/compare/v0.0.2-alpha.14...v0.0.2-alpha.17) (2021-11-10)
+
+**Note:** Version bump only for package zeeg-example
+
+
+
+
+
 ## [0.0.2-alpha.16](https://github.com/nandorojo/zeeg/compare/v0.0.2-alpha.14...v0.0.2-alpha.16) (2021-11-10)
 
 **Note:** Version bump only for package zeeg-example

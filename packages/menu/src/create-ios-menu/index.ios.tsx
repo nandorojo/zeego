@@ -220,15 +220,18 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
                 iconValue: iosIconName,
               }
             } else {
-              require('react-native/Libraries/Network/RCTNetworking')
-              const { Image } =
-                require('react-native') as typeof import('react-native')
-              const iconValue = Image.resolveAssetSource(source)
+              // require('react-native/Libraries/Network/RCTNetworking')
+              // const { Image } =
+              //   require('react-native') as typeof import('react-native')
+              // const iconValue = Image.resolveAssetSource(source)
 
-              icon = {
-                iconType: 'REQUIRE',
-                iconValue,
-              }
+              console.warn(
+                '[zeeg] <ItemImage /> will not use the image on iOS. You should use the iosIconName prop to render an icon on iOS too.'
+              )
+              // icon = {
+              //   iconType: 'REQUIRE',
+              //   iconValue,
+              // }
             }
           }
         }
