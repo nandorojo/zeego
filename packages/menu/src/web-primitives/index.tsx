@@ -13,6 +13,8 @@ const ItemPrimitive = ({ children, style }: MenuItemProps) => {
 
   let title = <></>
   if (typeof children == 'string') {
+    // not encouraged usage. might remove later. don't document
+    // ItemTitle should be used directly instead.
     title = <ItemTitle>{children}</ItemTitle>
   } else {
     title = titleChildren.targetChildren?.[0] ?? <></>

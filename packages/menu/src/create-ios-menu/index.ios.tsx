@@ -8,6 +8,8 @@ import type {
   MenuTriggerItemProps,
   MenuTriggerProps,
   MenuItemIconProps,
+  MenuCheckboxItemProps,
+  MenuSeparatorProps,
 } from '../types'
 import React, { Children, ReactElement } from 'react'
 import {
@@ -21,7 +23,6 @@ import {
   ContextMenuView,
   // @ts-expect-error
 } from 'react-native-ios-context-menu'
-import type { MenuSeparatorProps } from '../types'
 import { MenuDisplayName } from '../display-names'
 
 const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
@@ -73,18 +74,12 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     const titleChild = pickChildren(children, ItemTitle).targetChildren
     if (typeof children != 'string' && !titleChild?.length) {
       console.error(
-        `[zeeg] Invalid <Item />. It either needs a string as the children, or a <ItemTitle /> in the children. However, it got neither.
+        `[zeeg] Invalid <Item />. It either needs <ItemTitle /> in the children.
 
 <Item>
-  Title here
-</Item>
-
-  Or:
-
-<Item>
- <ItemTitle>
-  Title here
- </ItemTitle>
+  <ItemTitle>
+    Title here
+  </ItemTitle>
 </Item>
   `
       )
@@ -99,16 +94,11 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
       console.error(
         `[zeeg] Invalid <TriggerItem />. It either needs a string as the children, or a <ItemTitle /> in the children. However, it got neither.
 
-<TriggerItem>
-  Title here
-</TriggerItem>
-
-  Or:
 
 <TriggerItem>
- <ItemTitle>
-  Title here
- </ItemTitle>
+  <ItemTitle>
+    Title here
+  </ItemTitle>
 </TriggerItem>
   `
       )
@@ -116,6 +106,11 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     return <>{children}</>
   }
   TriggerItem.displayName = MenuDisplayName.TriggerItem
+
+  const CheckboxItem = ({}: MenuCheckboxItemProps) => {
+    return <></>
+  }
+  CheckboxItem.displayName = MenuDisplayName.CheckboxItem
 
   type MenuOption = 'destructive' | 'displayInline'
   type MenuAttribute = 'disabled' | 'destructive' | 'hidden'
@@ -148,6 +143,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     menuAttributes?: MenuAttributes
     menuOptions?: MenuOptions
     icon?: MenuItemIcon
+    menuState?: 'on' | 'off' | 'mixed'
   }
 
   const Root = (props: MenuRootProps) => {
@@ -156,7 +152,9 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     const callbacks: Record<string, () => void> = {}
 
     const getItemFromChild = (
-      child: ReactElement<MenuItemProps | MenuTriggerItemProps>,
+      child: ReactElement<
+        MenuItemProps | MenuTriggerItemProps | MenuCheckboxItemProps
+      >,
       index: number
     ) => {
       let title: string | undefined
@@ -222,8 +220,16 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
             }" />. Falling back to index instead, but this may have negative consequences.`
           )
         }
-        if (child.props.onSelect) {
+        if ('onSelect' in child.props && child.props.onSelect) {
           callbacks[key] = child.props.onSelect
+        } else if ('onValueChange' in child.props) {
+          const menuState = child.props.value
+          const nextState =
+            menuState === 'mixed' || menuState === 'on' ? 'off' : 'on'
+          const { onValueChange } = child.props
+          callbacks[key] = () => {
+            onValueChange?.(nextState, menuState)
+          }
         }
 
         return {
@@ -253,6 +259,24 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
               icon,
               menuAttributes,
               discoverabilityTitle: subtitle,
+            }
+            return finalItem
+          }
+        } else if (isInstanceOfComponent(_child, CheckboxItem)) {
+          const child = _child as ReactElement<MenuCheckboxItemProps>
+
+          const item = getItemFromChild(child, index)
+          if (item) {
+            const { icon, title, key, menuAttributes, subtitle } = item
+            const menuState = child.props.value
+
+            const finalItem: MenuItem = {
+              actionKey: key,
+              actionTitle: title,
+              icon,
+              menuAttributes,
+              discoverabilityTitle: subtitle,
+              menuState,
             }
             return finalItem
           }
@@ -374,6 +398,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     Group,
     Separator,
     ItemIcon,
+    CheckboxItem,
   }
 }
 

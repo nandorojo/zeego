@@ -8,6 +8,7 @@ import {
   MenuTriggerItemProps,
   MenuTriggerProps,
   MenuDisplayName,
+  MenuCheckboxItemProps,
 } from '@zeego/menu'
 import { View } from 'react-native'
 import React, { forwardRef } from 'react'
@@ -97,7 +98,21 @@ const Separator = ({ style }: MenuSeparatorProps) => {
 }
 Separator.displayName = MenuDisplayName.Separator
 
-export { Root, Trigger, Content, Item, TriggerItem, Group, Separator }
+const CheckboxItem = ({}: MenuCheckboxItemProps) => {
+  return <></>
+}
+CheckboxItem.displayName = MenuDisplayName.CheckboxItem
+
+export {
+  Root,
+  Trigger,
+  Content,
+  Item,
+  TriggerItem,
+  Group,
+  Separator,
+  CheckboxItem,
+}
 
 export { ItemIcon } from './web/item-icon'
 

@@ -64,3 +64,10 @@ export type MenuItemSubtitleProps = {
 export type MenuSeparatorProps = {
   style?: ViewStyle
 }
+export type MenuCheckboxItemProps = Omit<MenuItemProps, 'onSelect'> & {
+  value: 'mixed' | 'on' | 'off'
+  onValueChange?: (
+    state: 'mixed' | 'on' | 'off',
+    prevState: 'mixed' | 'on' | 'off'
+  ) => void
+}

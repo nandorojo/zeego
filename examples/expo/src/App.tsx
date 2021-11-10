@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, Platform } from 'react-native'
 
 import * as ContextMenu from '@zeego/context-menu'
 import * as DropdownMenu from '@zeego/dropdown-menu'
-import type { ComponentProps } from 'react'
+import { ComponentProps, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 const select = (val: unknown) => () => alert(val)
 
@@ -54,21 +54,36 @@ const dropdownStyles = StyleSheet.create({
   },
 })
 
-const DropdownMenuItem = (props: ComponentProps<typeof DropdownMenu.Item>) => (
-  <DropdownMenu.Item {...props} style={dropdownStyles.item} />
+const DropdownMenuItem = DropdownMenu.menuify(
+  (props: ComponentProps<typeof DropdownMenu.Item>) => (
+    <DropdownMenu.Item {...props} style={dropdownStyles.item} />
+  ),
+  'Item'
 )
-DropdownMenuItem.displayName = DropdownMenu.Item.displayName
 
-const DropdownMenuItemTitle = (
-  props: ComponentProps<typeof DropdownMenu.ItemTitle>
-) => <DropdownMenu.ItemTitle {...props} style={dropdownStyles.itemTitle} />
-DropdownMenuItemTitle.displayName = DropdownMenu.ItemTitle.displayName
+const DropdownMenuCheckboxItem = DropdownMenu.menuify(
+  (props: ComponentProps<typeof DropdownMenu.CheckboxItem>) => (
+    <DropdownMenu.CheckboxItem {...props} style={dropdownStyles.item} />
+  ),
+  'CheckboxItem'
+)
 
-const DropdownMenuSeparator = (
-  props: ComponentProps<typeof DropdownMenu.Separator>
-) => <DropdownMenu.Separator {...props} style={dropdownStyles.separator} />
+const DropdownMenuItemTitle = DropdownMenu.menuify(
+  (props: ComponentProps<typeof DropdownMenu.ItemTitle>) => (
+    <DropdownMenu.ItemTitle {...props} style={dropdownStyles.itemTitle} />
+  ),
+  'ItemTitle'
+)
+
+const DropdownMenuSeparator = DropdownMenu.menuify(
+  (props: ComponentProps<typeof DropdownMenu.Separator>) => (
+    <DropdownMenu.Separator {...props} style={dropdownStyles.separator} />
+  ),
+  'Separator'
+)
 
 const DropdownMenuExample = () => {
+  const [bookmarked, setBookmarked] = useState<'on' | 'off' | 'mixed'>('on')
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
@@ -104,13 +119,16 @@ const DropdownMenuExample = () => {
             <Ionicons name="star" size={15} style={dropdownStyles.itemIcon} />
           </DropdownMenu.ItemIcon>
         </DropdownMenuItem>
-        <DropdownMenuItem
+        <DropdownMenuCheckboxItem
           style={dropdownStyles.item}
-          onSelect={select(3)}
+          value={bookmarked}
+          onValueChange={setBookmarked}
           key="third"
         >
-          <DropdownMenuItemTitle>Action #3</DropdownMenuItemTitle>
-        </DropdownMenuItem>
+          <DropdownMenuItemTitle>
+            {bookmarked === 'on' ? 'Bookmarked' : 'Bookmark'}
+          </DropdownMenuItemTitle>
+        </DropdownMenuCheckboxItem>
 
         <DropdownMenu.Root>
           <DropdownMenu.TriggerItem style={dropdownStyles.item} key="nested">

@@ -11,6 +11,7 @@ export const MenuDisplayName = {
   ItemIcon: 'ItemIcon',
   Trigger: 'Trigger',
   TriggerItem: 'TriggerItem',
+  CheckboxItem: 'CheckboxItem',
 } as const
 
 type DisplayNames = typeof MenuDisplayName

@@ -1,4 +1,5 @@
 import {
+  MenuCheckboxItemProps,
   MenuContentProps,
   MenuDisplayName,
   MenuGroupProps,
@@ -61,6 +62,9 @@ const Separator: FC<MenuSeparatorProps> = () => {
 }
 Separator.displayName = MenuDisplayName.Separator
 
+const CheckboxItem: FC<MenuCheckboxItemProps> = () => <></>
+CheckboxItem.displayName = MenuDisplayName.CheckboxItem
+
 export {
   Root,
   Trigger,
@@ -72,4 +76,5 @@ export {
   Group,
   ItemIcon,
   Separator,
+  CheckboxItem,
 }
