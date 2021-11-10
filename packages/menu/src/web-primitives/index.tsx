@@ -6,6 +6,7 @@ import type {
 import { Text, View } from 'react-native'
 import { pickChildren } from '../children'
 import React from 'react'
+import { MenuDisplayName } from '../display-names'
 
 const ItemPrimitive = ({ children, style }: MenuItemProps) => {
   const titleChildren = pickChildren(children, ItemTitle)
@@ -34,7 +35,7 @@ const ItemTitle = ({ children, style }: MenuItemTitleProps) => {
     </Text>
   )
 }
-ItemTitle.displayName = 'ItemTitle'
+ItemTitle.displayName = MenuDisplayName.ItemTitle
 
 const ItemSubtitle = ({ children, style }: MenuItemSubtitleProps) => {
   return (
@@ -43,6 +44,6 @@ const ItemSubtitle = ({ children, style }: MenuItemSubtitleProps) => {
     </Text>
   )
 }
-ItemSubtitle.displayName = 'ItemSubtitle'
+ItemSubtitle.displayName = MenuDisplayName.ItemSubtitle
 
 export { ItemPrimitive, ItemSubtitle, ItemTitle }

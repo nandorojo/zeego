@@ -7,6 +7,7 @@ import {
   MenuSeparatorProps,
   MenuTriggerItemProps,
   MenuTriggerProps,
+  MenuDisplayName,
 } from '@zeego/menu'
 import { View } from 'react-native'
 import React, { forwardRef } from 'react'
@@ -16,7 +17,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 const Root = ({ children }: MenuRootProps) => {
   return <DropdownMenu.Root>{children}</DropdownMenu.Root>
 }
-Root.displayName = 'Root'
+Root.displayName = MenuDisplayName.Root
 
 const TriggerView = forwardRef<unknown, any>((props, ref) => {
   return (
@@ -33,7 +34,7 @@ const Trigger = ({ children, style }: MenuTriggerProps) => {
     </DropdownMenu.Trigger>
   )
 }
-Trigger.displayName = 'Trigger'
+Trigger.displayName = MenuDisplayName.Trigger
 
 const ContentView = forwardRef<unknown, any>((props, ref) => {
   return (
@@ -50,7 +51,7 @@ const Content = ({ children, style }: MenuContentProps) => {
     </DropdownMenu.Content>
   )
 }
-Content.displayName = 'Content'
+Content.displayName = MenuDisplayName.Content
 
 const Item = ({
   children,
@@ -71,7 +72,7 @@ const Item = ({
     </DropdownMenu.Item>
   )
 }
-Item.displayName = 'Item'
+Item.displayName = MenuDisplayName.Item
 
 const TriggerItem = ({ children, style }: MenuTriggerItemProps) => {
   return (
@@ -80,12 +81,12 @@ const TriggerItem = ({ children, style }: MenuTriggerItemProps) => {
     </DropdownMenu.TriggerItem>
   )
 }
-TriggerItem.displayName = 'TriggerItem'
+TriggerItem.displayName = MenuDisplayName.TriggerItem
 
 const Group = ({ children }: MenuGroupProps) => {
   return <DropdownMenu.Group>{children}</DropdownMenu.Group>
 }
-Group.displayName = 'Group'
+Group.displayName = MenuDisplayName.Group
 
 const Separator = ({ style }: MenuSeparatorProps) => {
   return (
@@ -94,6 +95,7 @@ const Separator = ({ style }: MenuSeparatorProps) => {
     </DropdownMenu.Separator>
   )
 }
+Separator.displayName = MenuDisplayName.Separator
 
 export { Root, Trigger, Content, Item, TriggerItem, Group, Separator }
 

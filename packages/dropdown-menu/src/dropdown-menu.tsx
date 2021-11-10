@@ -1,5 +1,6 @@
-import type {
+import {
   MenuContentProps,
+  MenuDisplayName,
   MenuGroupProps,
   MenuItemIconProps,
   MenuItemProps,
@@ -15,49 +16,50 @@ import type { FC } from 'react'
 import React from 'react'
 
 const Root: FC<MenuRootProps> = ({ children }) => <>{children}</>
-Root.displayName = 'Root'
+Root.displayName = MenuDisplayName.Root
 
 const Trigger: FC<MenuTriggerProps> = ({ children }) => <>{children}</>
-Trigger.displayName = 'Trigger'
+Trigger.displayName = MenuDisplayName.Trigger
 
 const Content: FC<MenuContentProps> = ({ children }) => {
   return <>{children}</>
 }
-Content.displayName = 'Content'
+Content.displayName = MenuDisplayName.Content
 
 const Item: FC<MenuItemProps> = ({ children }: MenuItemProps) => {
   return <>{children}</>
 }
-Item.displayName = 'Item'
+Item.displayName = MenuDisplayName.Item
 
 const ItemIcon: FC<MenuItemIconProps> = () => {
   return <></>
 }
-ItemIcon.displayName = 'ItemIcon'
+ItemIcon.displayName = MenuDisplayName.ItemIcon
 
 const TriggerItem: FC<MenuTriggerItemProps> = ({ children }) => {
   return <>{children}</>
 }
-TriggerItem.displayName = 'TriggerItem'
+TriggerItem.displayName = MenuDisplayName.TriggerItem
 
 const ItemTitle: FC<MenuItemTitleProps> = ({ children }) => {
   return <>{children}</>
 }
-ItemTitle.displayName = 'ItemTitle'
+ItemTitle.displayName = MenuDisplayName.ItemTitle
 
 const ItemSubtitle: FC<MenuItemSubtitleProps> = ({ children }) => {
   return <>{children}</>
 }
-ItemSubtitle.displayName = 'ItemSubtitle'
+ItemSubtitle.displayName = MenuDisplayName.ItemSubtitle
 
 const Group: FC<MenuGroupProps> = ({ children }) => {
   return <>{children}</>
 }
-Group.displayName = 'Group'
+Group.displayName = MenuDisplayName.Group
 
 const Separator: FC<MenuSeparatorProps> = () => {
   return <></>
 }
+Separator.displayName = MenuDisplayName.Separator
 
 export {
   Root,

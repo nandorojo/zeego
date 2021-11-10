@@ -1,4 +1,4 @@
-import type { MenuItemIconProps } from '@zeego/menu'
+import { MenuDisplayName, MenuItemIconProps } from '@zeego/menu'
 import { Image, StyleSheet, View } from 'react-native'
 
 import React from 'react'
@@ -31,6 +31,6 @@ const styles = StyleSheet.create({
   },
 })
 
-ItemIcon.displayName = 'ItemIcon'
+ItemIcon.displayName = MenuDisplayName.ItemIcon
 
 export { ItemIcon }

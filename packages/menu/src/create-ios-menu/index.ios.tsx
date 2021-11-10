@@ -22,6 +22,7 @@ import {
   // @ts-expect-error
 } from 'react-native-ios-context-menu'
 import type { MenuSeparatorProps } from '../types'
+import { MenuDisplayName } from '../display-names'
 
 const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   const Trigger = ({ children }: MenuTriggerProps) => {
@@ -29,18 +30,18 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
 
     return <>{Children.only(child)}</>
   }
-  Trigger.displayName = 'Trigger'
+  Trigger.displayName = MenuDisplayName.Trigger
 
   const Group = ({ children }: MenuGroupProps) => {
     return <>{children}</>
   }
 
-  Group.displayName = 'Group'
+  Group.displayName = MenuDisplayName.Group
 
   const Content = ({ children }: MenuContentProps) => {
     return <>{children}</>
   }
-  Content.displayName = 'Content'
+  Content.displayName = MenuDisplayName.Content
 
   const ItemTitle = ({ children }: MenuItemTitleProps) => {
     if (typeof children != 'string') {
@@ -48,7 +49,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     }
     return <>{children}</>
   }
-  ItemTitle.displayName = 'ItemTitle'
+  ItemTitle.displayName = MenuDisplayName.ItemTitle
 
   const ItemIcon = (props: MenuItemIconProps) => {
     if (!Object.values(props).length) {
@@ -58,7 +59,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     }
     return <>{}</>
   }
-  ItemIcon.displayName = 'ItemIcon'
+  ItemIcon.displayName = MenuDisplayName.ItemIcon
 
   const ItemSubtitle = ({ children }: MenuItemSubtitleProps) => {
     if (children && typeof children != 'string') {
@@ -66,7 +67,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     }
     return <>{children}</>
   }
-  ItemSubtitle.displayName = 'ItemSubtitle'
+  ItemSubtitle.displayName = MenuDisplayName.ItemSubtitle
 
   const Item = ({ children }: MenuItemProps) => {
     const titleChild = pickChildren(children, ItemTitle).targetChildren
@@ -90,7 +91,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     }
     return <>{children}</>
   }
-  Item.displayName = 'Item'
+  Item.displayName = MenuDisplayName.Item
 
   const TriggerItem = ({ children }: MenuTriggerItemProps) => {
     const titleChild = pickChildren(children, ItemTitle).targetChildren
@@ -114,7 +115,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     }
     return <>{children}</>
   }
-  TriggerItem.displayName = 'TriggerItem'
+  TriggerItem.displayName = MenuDisplayName.TriggerItem
 
   type MenuOption = 'destructive' | 'displayInline'
   type MenuAttribute = 'disabled' | 'destructive' | 'hidden'
@@ -354,11 +355,13 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
       </Component>
     )
   }
-  Root.displayName = 'Root'
+  Root.displayName = MenuDisplayName.Root
 
   const Separator = (_: MenuSeparatorProps) => {
     return <></>
   }
+
+  Separator.displayName = MenuDisplayName.Separator
 
   return {
     Root,
