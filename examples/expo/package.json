@@ -1,7 +1,7 @@
 {
   "name": "zeeg-example",
   "description": "Example app for zeego",
-  "version": "0.0.2-alpha.14",
+  "version": "0.0.2-alpha.16",
   "private": true,
   "main": "index",
   "scripts": {

@@ -11,7 +11,7 @@ export const MenuDisplayName = {
   ItemIcon: 'ItemIcon',
   Trigger: 'Trigger',
   TriggerItem: 'TriggerItem',
-}
+} as const
 
 type DisplayNames = typeof MenuDisplayName
 
