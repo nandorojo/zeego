@@ -9,7 +9,7 @@ import {
   MenuTriggerProps,
 } from '@zeego/menu'
 import { View } from 'react-native'
-import { forwardRef } from 'react'
+import React, { forwardRef } from 'react'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
