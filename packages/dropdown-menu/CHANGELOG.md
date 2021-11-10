@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.2-alpha.5](https://github.com/nandorojo/zeego/compare/v0.0.2-alpha.0...v0.0.2-alpha.5) (2021-11-10)
+
+
+### Bug Fixes
+
+* dropdown menu TS types ([d3088bb](https://github.com/nandorojo/zeego/commit/d3088bbbf5dbac899d33672306d2bf8555536031))
+
+
+
+
+
 ## [0.0.2-alpha.4](https://github.com/nandorojo/zeego/compare/v0.0.2-alpha.0...v0.0.2-alpha.4) (2021-11-10)
 
 
