@@ -9,6 +9,7 @@ import {
   MenuItemProps,
   MenuItemSubtitleProps,
   MenuItemTitleProps,
+  MenuLabelProps,
   MenuRootProps,
   MenuSeparatorProps,
   MenuTriggerItemProps,
@@ -75,6 +76,9 @@ CheckboxItem.displayName = MenuDisplayName.CheckboxItem
 const ItemIndicator: FC<MenuItemIndicatorProps> = () => <></>
 ItemIndicator.displayName = MenuDisplayName.ItemIndicator
 
+const Label: FC<MenuLabelProps> = () => <></>
+Label.displayName = MenuDisplayName.Label
+
 export {
   Root,
   Trigger,
@@ -89,4 +93,5 @@ export {
   CheckboxItem,
   ItemIndicator,
   ItemImage,
+  Label,
 }

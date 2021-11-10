@@ -26,6 +26,7 @@ import {
   // @ts-expect-error
 } from 'react-native-ios-context-menu'
 import { MenuDisplayName } from '../display-names'
+import type { MenuLabelProps } from '..'
 
 const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   const Trigger = ({ children }: MenuTriggerProps) => {
@@ -48,7 +49,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
 
   const ItemTitle = ({ children }: MenuItemTitleProps) => {
     if (typeof children != 'string') {
-      throw new Error('[zeeg] <ItemTitle /> child must be a string')
+      throw new Error('[zeego] <ItemTitle /> child must be a string')
     }
     return <>{children}</>
   }
@@ -57,7 +58,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   const ItemIcon = (props: MenuItemIconProps) => {
     if (!props.iosIconName) {
       console.warn(
-        '[zeeg] <ItemIcon /> missing iosIconName prop. Will do nothing on iOS. Consider passing an iosIconImage or switching to <ItemImage />.'
+        '[zeego] <ItemIcon /> missing iosIconName prop. Will do nothing on iOS. Consider passing an iosIconImage or switching to <ItemImage />.'
       )
     }
     return <>{}</>
@@ -65,8 +66,13 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   ItemIcon.displayName = MenuDisplayName.ItemIcon
 
   const ItemImage = (props: MenuItemImageProps) => {
-    if (!props.source) {
-      console.error('[zeeg] <ItemImage /> missing source prop.')
+    // if (!props.source) {
+    //   console.error('[zeego] <ItemImage /> missing source prop.')
+    // }
+    if (!props.iosIconName) {
+      console.warn(
+        '[zeego] <ItemImage /> will not use your custom image on iOS. You should use the iosIconName prop to render an icon on iOS too.'
+      )
     }
     return <>{}</>
   }
@@ -74,7 +80,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
 
   const ItemSubtitle = ({ children }: MenuItemSubtitleProps) => {
     if (children && typeof children != 'string') {
-      throw new Error('[zeeg] <ItemSubtitle /> child must be a string')
+      throw new Error('[zeego] <ItemSubtitle /> child must be a string')
     }
     return <>{children}</>
   }
@@ -84,7 +90,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     const titleChild = pickChildren(children, ItemTitle).targetChildren
     if (typeof children != 'string' && !titleChild?.length) {
       console.error(
-        `[zeeg] Invalid <Item />. It either needs <ItemTitle /> in the children.
+        `[zeego] Invalid <Item />. It either needs <ItemTitle /> in the children.
 
 <Item>
   <ItemTitle>
@@ -102,7 +108,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     const titleChild = pickChildren(children, ItemTitle).targetChildren
     if (typeof children != 'string' && !titleChild?.length) {
       console.error(
-        `[zeeg] Invalid <TriggerItem />. It either needs a string as the children, or a <ItemTitle /> in the children. However, it got neither.
+        `[zeego] Invalid <TriggerItem />. It either needs a string as the children, or a <ItemTitle /> in the children. However, it got neither.
 
 
 <TriggerItem>
@@ -121,6 +127,14 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     return <></>
   }
   CheckboxItem.displayName = MenuDisplayName.CheckboxItem
+
+  const Label = ({ children }: MenuLabelProps) => {
+    if (typeof children != 'string') {
+      console.error('[zeego] <Label /> children must be a string.')
+    }
+    return <></>
+  }
+  Label.displayName = MenuDisplayName.Label
 
   type MenuOption = 'destructive' | 'displayInline'
   type MenuAttribute = 'disabled' | 'destructive' | 'hidden'
@@ -157,7 +171,9 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   }
 
   const Root = (props: MenuRootProps) => {
-    const trigger = pickChildren(props.children, Trigger)
+    const trigger = pickChildren<MenuTriggerProps>(props.children, Trigger)
+    const content = pickChildren<MenuContentProps>(props.children, Content)
+      .targetChildren?.[0]
 
     const callbacks: Record<string, () => void> = {}
 
@@ -224,10 +240,6 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
               // const { Image } =
               //   require('react-native') as typeof import('react-native')
               // const iconValue = Image.resolveAssetSource(source)
-
-              console.warn(
-                '[zeeg] <ItemImage /> will not use the image on iOS. You should use the iosIconName prop to render an icon on iOS too.'
-              )
               // icon = {
               //   iconType: 'REQUIRE',
               //   iconValue,
@@ -244,7 +256,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
           (child.key.startsWith('.') && !isNaN(Number(child.key[1])))
         ) {
           console.warn(
-            `[zeeg] <Item /> is missing a unique key. Pass a unique key string for each item, such as: <Item key="${
+            `[zeego] <Item /> is missing a unique key. Pass a unique key string for each item, such as: <Item key="${
               title.toLowerCase().replace(/ /g, '-') || `action-${index}`
             }" />. Falling back to index instead, but this may have negative consequences.`
           )
@@ -274,7 +286,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
 
     const mapItemsChildren = (
       children: React.ReactNode
-    ): (typeof menuItems[number] | null)[] => {
+    ): ((MenuItem | MenuConfig) | null)[] => {
       return Children.map(flattenChildren(children), (_child, index) => {
         if (isInstanceOfComponent(_child, Item)) {
           const child = _child as ReactElement<MenuItemProps>
@@ -359,18 +371,29 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
       })
     }
 
-    let menuItems: (MenuItem | MenuConfig)[] = []
+    // let menuItems: (MenuItem | MenuConfig)[] = []
 
-    Children.forEach(flattenChildren(props.children), (_child) => {
-      const child = _child as ReactElement
-      if (isInstanceOfComponent(child, Content)) {
-        menuItems.push(
-          ...mapItemsChildren(
-            (child as ReactElement<MenuContentProps>).props.children
-          ).filter(filterNull)
-        )
-      }
-    })
+    // Children.forEach(flattenChildren(props.children), (_child) => {
+    //   const child = _child as ReactElement
+    //   if (isInstanceOfComponent(child, Content)) {
+    //     menuItems.push(
+    //       ...mapItemsChildren(
+    //         (child as ReactElement<MenuContentProps>).props.children
+    //       ).filter(filterNull)
+    //     )
+    //   }
+    // })
+
+    const menuItems = mapItemsChildren(content?.props.children).filter(
+      filterNull
+    )
+
+    const label = pickChildren<MenuLabelProps>(content?.props.children, Label)
+      .targetChildren?.[0]?.props.children
+    let menuTitle = ''
+    if (typeof label == 'string') {
+      menuTitle = label
+    }
 
     const Component =
       Menu === 'ContextMenu' ? ContextMenuView : ContextMenuButton
@@ -399,7 +422,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
         style={[{ flexGrow: 0 }, props.style]}
         wrapNativeComponent={false}
         menuConfig={{
-          menuTitle: '',
+          menuTitle,
           menuItems: menuItems,
         }}
       >
@@ -431,6 +454,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     ItemIndicator,
     CheckboxItem,
     ItemImage,
+    Label,
   }
 }
 

@@ -1,11 +1,7 @@
-import type {
-  TextStyle,
-  View,
-  ImageRequireSource,
-  ImageProps,
-} from 'react-native'
+import type { Text, View, ImageRequireSource, ImageProps } from 'react-native'
 
 type ViewStyle = React.ComponentProps<typeof View>['style']
+type TextStyle = React.ComponentProps<typeof Text>['style']
 
 export type MenuRootProps = {
   children: React.ReactNode
@@ -100,4 +96,9 @@ export type MenuCheckboxItemProps = Omit<MenuItemProps, 'onSelect'> & {
 export type MenuItemIndicatorProps = {
   style?: ViewStyle
   children?: React.ReactNode
+}
+
+export type MenuLabelProps = {
+  children: string
+  style?: TextStyle
 }

@@ -14,6 +14,7 @@ const {
   Separator,
   ItemIndicator,
   ItemImage,
+  Label,
 } = createIosMenu('ContextMenu')
 
 export {
@@ -30,4 +31,5 @@ export {
   Separator,
   ItemIndicator,
   ItemImage,
+  Label,
 }

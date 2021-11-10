@@ -13,6 +13,7 @@ export const MenuDisplayName = {
   Trigger: 'Trigger',
   TriggerItem: 'TriggerItem',
   CheckboxItem: 'CheckboxItem',
+  Label: 'Label',
   ItemIndicator: 'ItemIndicator',
 } as const
 

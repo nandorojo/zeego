@@ -81,6 +81,12 @@ const dropdownStyles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
   },
+  label: {
+    paddingLeft: itemHeight,
+    lineHeight: itemHeight,
+    fontSize: 12,
+    color: '#555',
+  },
 })
 
 const DropdownMenuItem = DropdownMenu.menuify(
@@ -169,6 +175,13 @@ const DropdownMenuItemImage = DropdownMenu.menuify(
   'ItemImage'
 )
 
+const DropdownMenuLabel = DropdownMenu.menuify(
+  (props: ComponentProps<typeof DropdownMenu.Label>) => (
+    <DropdownMenu.Label {...props} style={dropdownStyles.label} />
+  ),
+  'ItemImage'
+)
+
 const DropdownMenuExample = () => {
   const [bookmarked, setBookmarked] = useState<'on' | 'off' | 'mixed'>('on')
   return (
@@ -179,6 +192,7 @@ const DropdownMenuExample = () => {
         </View>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content style={dropdownStyles.content}>
+        <DropdownMenuLabel>Help</DropdownMenuLabel>
         <DropdownMenuItem
           style={dropdownStyles.item}
           onSelect={select(1)}
