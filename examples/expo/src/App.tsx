@@ -1,10 +1,12 @@
-import { StyleSheet, View, Text, Platform } from 'react-native'
+import { StyleSheet, View, Text, Platform, Image } from 'react-native'
 
 import * as ContextMenu from '@zeego/context-menu'
 import * as DropdownMenu from '@zeego/dropdown-menu'
 import { ComponentProps, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 const select = (val: unknown) => () => alert(val)
+
+const itemHeight = 25
 
 const dropdownStyles = StyleSheet.create({
   content: {
@@ -33,8 +35,13 @@ const dropdownStyles = StyleSheet.create({
     borderRadius: 3,
     justifyContent: 'center',
     paddingRight: 5,
-    paddingLeft: 25,
-    height: 25,
+    paddingLeft: itemHeight,
+    height: itemHeight,
+  },
+  itemFocused: {
+    // a nice background gray
+    // a little darker
+    backgroundColor: '#000fff30',
   },
   itemTitle: {
     fontSize: 13,
@@ -46,25 +53,65 @@ const dropdownStyles = StyleSheet.create({
   },
   itemIcon: {
     marginRight: 5,
+    ...StyleSheet.absoluteFillObject,
+    left: 'auto',
+    justifyContent: 'center',
+  },
+  icon: {
+    lineHeight: itemHeight,
   },
   separator: {
     backgroundColor: 'rgb(215, 207, 249)',
     height: 1,
     margin: 6,
   },
+  itemIndicator: {
+    position: 'absolute',
+    left: 0,
+    justifyContent: 'center',
+    width: itemHeight,
+    top: 0,
+    bottom: 0,
+  },
+  itemImage: {
+    width: itemHeight,
+    height: 18,
+    position: 'absolute',
+    right: 1,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
 })
 
 const DropdownMenuItem = DropdownMenu.menuify(
-  (props: ComponentProps<typeof DropdownMenu.Item>) => (
-    <DropdownMenu.Item {...props} style={dropdownStyles.item} />
-  ),
+  (props: ComponentProps<typeof DropdownMenu.Item>) => {
+    const [focused, setFocused] = useState(false)
+    const toggleFocus = (next: boolean) => () => setFocused(next)
+    return (
+      <DropdownMenu.Item
+        onFocus={toggleFocus(true)}
+        onBlur={toggleFocus(false)}
+        {...props}
+        style={[dropdownStyles.item, focused && dropdownStyles.itemFocused]}
+      />
+    )
+  },
   'Item'
 )
 
 const DropdownMenuCheckboxItem = DropdownMenu.menuify(
-  (props: ComponentProps<typeof DropdownMenu.CheckboxItem>) => (
-    <DropdownMenu.CheckboxItem {...props} style={dropdownStyles.item} />
-  ),
+  (props: ComponentProps<typeof DropdownMenu.CheckboxItem>) => {
+    const [focused, setFocused] = useState(false)
+    const toggleFocus = (next: boolean) => () => setFocused(next)
+    return (
+      <DropdownMenu.CheckboxItem
+        onFocus={toggleFocus(true)}
+        onBlur={toggleFocus(false)}
+        {...props}
+        style={[dropdownStyles.item, focused && dropdownStyles.itemFocused]}
+      />
+    )
+  },
   'CheckboxItem'
 )
 
@@ -75,11 +122,51 @@ const DropdownMenuItemTitle = DropdownMenu.menuify(
   'ItemTitle'
 )
 
+const DropdownMenuItemIndicator = DropdownMenu.menuify(
+  (props: ComponentProps<typeof DropdownMenu.ItemIndicator>) => (
+    <DropdownMenu.ItemIndicator
+      {...props}
+      style={dropdownStyles.itemIndicator}
+    />
+  ),
+  'ItemIndicator'
+)
+
 const DropdownMenuSeparator = DropdownMenu.menuify(
   (props: ComponentProps<typeof DropdownMenu.Separator>) => (
     <DropdownMenu.Separator {...props} style={dropdownStyles.separator} />
   ),
   'Separator'
+)
+
+const DropdownMenuTriggerItem = DropdownMenu.menuify(
+  (props: ComponentProps<typeof DropdownMenu.TriggerItem>) => {
+    const [focused, setFocused] = useState(false)
+    const toggleFocus = (next: boolean) => () => setFocused(next)
+    return (
+      <DropdownMenu.TriggerItem
+        onFocus={toggleFocus(true)}
+        onBlur={toggleFocus(false)}
+        {...props}
+        style={[dropdownStyles.item, focused && dropdownStyles.itemFocused]}
+      />
+    )
+  },
+  'TriggerItem'
+)
+
+const DropdownMenuItemIcon = DropdownMenu.menuify(
+  (props: ComponentProps<typeof DropdownMenu.ItemIcon>) => (
+    <DropdownMenu.ItemIcon {...props} style={dropdownStyles.itemIcon} />
+  ),
+  'ItemIcon'
+)
+
+const DropdownMenuItemImage = DropdownMenu.menuify(
+  (props: ComponentProps<typeof DropdownMenu.ItemImage>) => (
+    <DropdownMenu.ItemImage {...props} style={dropdownStyles.itemImage} />
+  ),
+  'ItemImage'
 )
 
 const DropdownMenuExample = () => {
@@ -105,9 +192,9 @@ const DropdownMenuExample = () => {
               12 artists fit your search
             </DropdownMenu.ItemSubtitle>
           )}
-          <DropdownMenu.ItemIcon iosIconName="list.star">
-            <Ionicons name="list" size={15} style={dropdownStyles.itemIcon} />
-          </DropdownMenu.ItemIcon>
+          <DropdownMenuItemIcon iosIconName="list.star">
+            <Ionicons name="list" size={15} />
+          </DropdownMenuItemIcon>
         </DropdownMenuItem>
         <DropdownMenuItem
           style={dropdownStyles.item}
@@ -115,9 +202,9 @@ const DropdownMenuExample = () => {
           key="second"
         >
           <DropdownMenuItemTitle>Favorite</DropdownMenuItemTitle>
-          <DropdownMenu.ItemIcon iosIconName="star.fill">
-            <Ionicons name="star" size={15} style={dropdownStyles.itemIcon} />
-          </DropdownMenu.ItemIcon>
+          <DropdownMenuItemIcon iosIconName="star.fill">
+            <Ionicons name="star" size={15} />
+          </DropdownMenuItemIcon>
         </DropdownMenuItem>
         <DropdownMenuCheckboxItem
           style={dropdownStyles.item}
@@ -125,15 +212,23 @@ const DropdownMenuExample = () => {
           onValueChange={setBookmarked}
           key="third"
         >
+          <DropdownMenuItemIndicator>
+            <Ionicons name="checkmark" size={19} />
+          </DropdownMenuItemIndicator>
           <DropdownMenuItemTitle>
             {bookmarked === 'on' ? 'Bookmarked' : 'Bookmark'}
           </DropdownMenuItemTitle>
+          <DropdownMenuItemImage
+            source={require('./camera-outline.png')}
+            width={20}
+            resizeMode="contain"
+          />
         </DropdownMenuCheckboxItem>
 
         <DropdownMenu.Root>
-          <DropdownMenu.TriggerItem style={dropdownStyles.item} key="nested">
+          <DropdownMenuTriggerItem style={dropdownStyles.item} key="nested">
             <DropdownMenuItemTitle>Submenu</DropdownMenuItemTitle>
-          </DropdownMenu.TriggerItem>
+          </DropdownMenuTriggerItem>
           <DropdownMenu.Content style={dropdownStyles.content}>
             <DropdownMenuItem style={dropdownStyles.item} key="nested-1">
               <DropdownMenuItemTitle>Submenu Option 1</DropdownMenuItemTitle>
@@ -154,12 +249,12 @@ const DropdownMenuExample = () => {
 
         <DropdownMenu.Group>
           <DropdownMenu.Root>
-            <DropdownMenu.TriggerItem
+            <DropdownMenuTriggerItem
               style={dropdownStyles.item}
               key="nested-group-trigger"
             >
               <DropdownMenuItemTitle>Group Submenu</DropdownMenuItemTitle>
-            </DropdownMenu.TriggerItem>
+            </DropdownMenuTriggerItem>
             <DropdownMenu.Content style={dropdownStyles.content}>
               <DropdownMenuItem
                 style={dropdownStyles.item}

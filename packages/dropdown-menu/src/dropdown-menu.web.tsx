@@ -9,6 +9,8 @@ import {
   MenuTriggerProps,
   MenuDisplayName,
   MenuCheckboxItemProps,
+  MenuItemIndicatorProps,
+  MenuItemIconProps,
 } from '@zeego/menu'
 import { View } from 'react-native'
 import React, { forwardRef } from 'react'
@@ -54,6 +56,10 @@ const Content = ({ children, style }: MenuContentProps) => {
 }
 Content.displayName = MenuDisplayName.Content
 
+const itemStyleReset = {
+  outlineWidth: 0,
+}
+
 const Item = ({
   children,
   disabled,
@@ -61,13 +67,16 @@ const Item = ({
   style,
   onBlur,
   onFocus,
+  textValue,
 }: MenuItemProps) => {
   return (
     <DropdownMenu.Item
       onFocus={onFocus}
+      textValue={textValue}
       onBlur={onBlur}
       disabled={disabled}
       onSelect={onSelect}
+      style={itemStyleReset}
     >
       <ItemPrimitive style={style}>{children}</ItemPrimitive>
     </DropdownMenu.Item>
@@ -75,9 +84,22 @@ const Item = ({
 }
 Item.displayName = MenuDisplayName.Item
 
-const TriggerItem = ({ children, style }: MenuTriggerItemProps) => {
+const TriggerItem = ({
+  children,
+  style,
+  textValue,
+  disabled,
+  onBlur,
+  onFocus,
+}: MenuTriggerItemProps) => {
   return (
-    <DropdownMenu.TriggerItem>
+    <DropdownMenu.TriggerItem
+      disabled={disabled}
+      textValue={textValue}
+      onBlur={onBlur}
+      onFocus={onFocus}
+      style={itemStyleReset}
+    >
       <ItemPrimitive style={style}>{children}</ItemPrimitive>
     </DropdownMenu.TriggerItem>
   )
@@ -98,10 +120,44 @@ const Separator = ({ style }: MenuSeparatorProps) => {
 }
 Separator.displayName = MenuDisplayName.Separator
 
-const CheckboxItem = ({}: MenuCheckboxItemProps) => {
-  return <></>
+const CheckboxItem = ({
+  onValueChange,
+  value,
+  disabled,
+  textValue,
+  onBlur,
+  onFocus,
+  style,
+  children,
+}: MenuCheckboxItemProps) => {
+  return (
+    <DropdownMenu.CheckboxItem
+      onFocus={onFocus}
+      textValue={textValue}
+      onBlur={onBlur}
+      disabled={disabled}
+      checked={value !== 'off'}
+      onCheckedChange={(next) => onValueChange?.(next ? 'on' : 'off', value)}
+      style={itemStyleReset}
+    >
+      <ItemPrimitive style={style}>{children}</ItemPrimitive>
+    </DropdownMenu.CheckboxItem>
+  )
 }
 CheckboxItem.displayName = MenuDisplayName.CheckboxItem
+
+const ItemIndicator = ({ style, children }: MenuItemIndicatorProps) => (
+  <DropdownMenu.ItemIndicator>
+    <View style={style}>{children}</View>
+  </DropdownMenu.ItemIndicator>
+)
+ItemIndicator.displayName = MenuDisplayName.ItemIndicator
+
+const ItemIcon = ({ children, style }: MenuItemIconProps) => {
+  return <View style={style}>{children}</View>
+}
+
+ItemIcon.displayName = MenuDisplayName.ItemIcon
 
 export {
   Root,
@@ -112,8 +168,10 @@ export {
   Group,
   Separator,
   CheckboxItem,
+  ItemIndicator,
+  ItemIcon,
 }
 
-export { ItemIcon } from './web/item-icon'
+export { ItemImage } from './web/item-image'
 
 export { ItemTitle, ItemSubtitle } from '@zeego/menu'

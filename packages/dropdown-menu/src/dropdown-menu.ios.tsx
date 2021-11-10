@@ -11,6 +11,9 @@ const {
   Group,
   Separator,
   ItemIcon,
+  ItemImage,
+  CheckboxItem,
+  ItemIndicator,
 } = createIosMenu('DropdownMenu')
 
 export {
@@ -24,4 +27,7 @@ export {
   Group,
   Separator,
   ItemIcon,
+  ItemImage,
+  CheckboxItem,
+  ItemIndicator,
 }

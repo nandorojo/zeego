@@ -1,4 +1,11 @@
-import type { TextStyle, ViewStyle } from 'react-native'
+import type {
+  TextStyle,
+  View,
+  ImageRequireSource,
+  ImageProps,
+} from 'react-native'
+
+type ViewStyle = React.ComponentProps<typeof View>['style']
 
 export type MenuRootProps = {
   children: React.ReactNode
@@ -37,10 +44,6 @@ export type MenuItemProps = (
 
 export type MenuItemIconProps = {
   /**
-   * `source={require('path/to/image')}`
-   */
-  source?: any
-  /**
    * The name of an iOS-only SF Symbol. For a full list, see https://developer.apple.com/sf-symbols/.
    *
    * @platform ios
@@ -50,9 +53,31 @@ export type MenuItemIconProps = {
    * You can also pass the icon as a React Native component child. This will only work on Web, not iOS.
    */
   children?: React.ReactNode
+  style?: ViewStyle
 }
 
-export type MenuTriggerItemProps = MenuItemProps
+export type MenuItemImageProps = {
+  /**
+   * The name of an iOS-only SF Symbol. For a full list, see https://developer.apple.com/sf-symbols/.
+   *
+   * @platform ios
+   */
+  iosIconName?: string
+  /**
+   * `source={require('path/to/image')}`
+   */
+  source: ImageRequireSource
+  style?: ImageProps['style']
+  width?: number
+  height?: number
+  resizeMode?: ImageProps['resizeMode']
+  fadeDuration?: ImageProps['fadeDuration']
+}
+
+export type MenuTriggerItemProps = Omit<
+  MenuItemProps,
+  keyof Pick<MenuItemProps, 'onSelect'>
+>
 export type MenuItemTitleProps = {
   children: string
   style?: TextStyle
@@ -70,4 +95,9 @@ export type MenuCheckboxItemProps = Omit<MenuItemProps, 'onSelect'> & {
     state: 'mixed' | 'on' | 'off',
     prevState: 'mixed' | 'on' | 'off'
   ) => void
+}
+
+export type MenuItemIndicatorProps = {
+  style?: ViewStyle
+  children?: React.ReactNode
 }

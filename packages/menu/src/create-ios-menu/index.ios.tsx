@@ -10,6 +10,8 @@ import type {
   MenuItemIconProps,
   MenuCheckboxItemProps,
   MenuSeparatorProps,
+  MenuItemImageProps,
+  MenuItemIndicatorProps,
 } from '../types'
 import React, { Children, ReactElement } from 'react'
 import {
@@ -53,14 +55,22 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   ItemTitle.displayName = MenuDisplayName.ItemTitle
 
   const ItemIcon = (props: MenuItemIconProps) => {
-    if (!Object.values(props).length) {
-      console.error(
-        '[zeeg] <ItemIcon /> missing source, iosIconName or children.'
+    if (!props.iosIconName) {
+      console.warn(
+        '[zeeg] <ItemIcon /> missing iosIconName prop. Will do nothing on iOS. Consider passing an iosIconImage or switching to <ItemImage />.'
       )
     }
     return <>{}</>
   }
   ItemIcon.displayName = MenuDisplayName.ItemIcon
+
+  const ItemImage = (props: MenuItemImageProps) => {
+    if (!props.source) {
+      console.error('[zeeg] <ItemImage /> missing source prop.')
+    }
+    return <>{}</>
+  }
+  ItemImage.displayName = MenuDisplayName.ItemImage
 
   const ItemSubtitle = ({ children }: MenuItemSubtitleProps) => {
     if (children && typeof children != 'string') {
@@ -191,18 +201,34 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
           ItemIcon
         ).targetChildren
 
-        if (iconChildren?.[0]) {
-          if (iconChildren?.[0].props.iosIconName) {
-            icon = {
-              iconType: 'SYSTEM',
-              iconValue: iconChildren[0].props.iosIconName,
-            }
-          } else if (iconChildren?.[0].props.source) {
-            const { Image } =
-              require('react-native') as typeof import('react-native')
-            icon = {
-              iconType: 'REQUIRE',
-              iconValue: Image.resolveAssetSource(iconChildren[0].props.source),
+        if (iconChildren?.[0]?.props.iosIconName) {
+          icon = {
+            iconType: 'SYSTEM',
+            iconValue: iconChildren[0].props.iosIconName,
+          }
+        } else {
+          const imageChild = pickChildren<MenuItemImageProps>(
+            child.props.children,
+            ItemImage
+          ).targetChildren?.[0]
+
+          if (imageChild) {
+            const { source, iosIconName } = imageChild.props
+            if (iosIconName) {
+              icon = {
+                iconType: 'SYSTEM',
+                iconValue: iosIconName,
+              }
+            } else {
+              require('react-native/Libraries/Network/RCTNetworking')
+              const { Image } =
+                require('react-native') as typeof import('react-native')
+              const iconValue = Image.resolveAssetSource(source)
+
+              icon = {
+                iconType: 'REQUIRE',
+                iconValue,
+              }
             }
           }
         }
@@ -369,7 +395,6 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
         isMenuPrimaryAction={Menu === 'DropdownMenu'}
         style={[{ flexGrow: 0 }, props.style]}
         wrapNativeComponent={false}
-        // onPressMenuPreview={() => alert('onPressMenuPreview')}
         menuConfig={{
           menuTitle: '',
           menuItems: menuItems,
@@ -384,8 +409,10 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   const Separator = (_: MenuSeparatorProps) => {
     return <></>
   }
-
   Separator.displayName = MenuDisplayName.Separator
+
+  const ItemIndicator = (_: MenuItemIndicatorProps) => <></>
+  ItemIndicator.displayName = MenuDisplayName.ItemIndicator
 
   return {
     Root,
@@ -398,7 +425,9 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     Group,
     Separator,
     ItemIcon,
+    ItemIndicator,
     CheckboxItem,
+    ItemImage,
   }
 }
 

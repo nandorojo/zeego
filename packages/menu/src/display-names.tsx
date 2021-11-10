@@ -9,14 +9,16 @@ export const MenuDisplayName = {
   ItemTitle: 'ItemTitle',
   ItemSubtitle: 'ItemSubtitle',
   ItemIcon: 'ItemIcon',
+  ItemImage: 'ItemImage',
   Trigger: 'Trigger',
   TriggerItem: 'TriggerItem',
   CheckboxItem: 'CheckboxItem',
+  ItemIndicator: 'ItemIndicator',
 } as const
 
 type DisplayNames = typeof MenuDisplayName
 
-export const menuify = <Props extends any>(
+export const menuify = <Props extends Record<string, unknown>>(
   Component: React.ComponentType<Props>,
   displayName: DisplayNames[keyof DisplayNames]
 ) => {

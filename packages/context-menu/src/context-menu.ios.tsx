@@ -9,6 +9,11 @@ const {
   ItemSubtitle,
   TriggerItem,
   Group,
+  CheckboxItem,
+  ItemIcon,
+  Separator,
+  ItemIndicator,
+  ItemImage,
 } = createIosMenu('ContextMenu')
 
 export {
@@ -20,4 +25,9 @@ export {
   ItemSubtitle,
   TriggerItem,
   Group,
+  CheckboxItem,
+  ItemIcon,
+  Separator,
+  ItemIndicator,
+  ItemImage,
 }

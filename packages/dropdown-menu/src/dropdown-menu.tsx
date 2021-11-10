@@ -4,6 +4,8 @@ import {
   MenuDisplayName,
   MenuGroupProps,
   MenuItemIconProps,
+  MenuItemImageProps,
+  MenuItemIndicatorProps,
   MenuItemProps,
   MenuItemSubtitleProps,
   MenuItemTitleProps,
@@ -37,6 +39,11 @@ const ItemIcon: FC<MenuItemIconProps> = () => {
 }
 ItemIcon.displayName = MenuDisplayName.ItemIcon
 
+const ItemImage: FC<MenuItemImageProps> = () => {
+  return <></>
+}
+ItemImage.displayName = MenuDisplayName.ItemImage
+
 const TriggerItem: FC<MenuTriggerItemProps> = ({ children }) => {
   return <>{children}</>
 }
@@ -65,6 +72,9 @@ Separator.displayName = MenuDisplayName.Separator
 const CheckboxItem: FC<MenuCheckboxItemProps> = () => <></>
 CheckboxItem.displayName = MenuDisplayName.CheckboxItem
 
+const ItemIndicator: FC<MenuItemIndicatorProps> = () => <></>
+ItemIndicator.displayName = MenuDisplayName.ItemIndicator
+
 export {
   Root,
   Trigger,
@@ -77,4 +87,6 @@ export {
   ItemIcon,
   Separator,
   CheckboxItem,
+  ItemIndicator,
+  ItemImage,
 }
