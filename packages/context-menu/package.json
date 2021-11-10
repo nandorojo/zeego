@@ -118,8 +118,5 @@
       ]
     ]
   },
-  "dependencies": {
-    "react-native-ios-context-menu": "^1.3.0"
-  },
   "gitHead": "92e0f73a4fe15309017ebfcd478a934d48a8f0b6"
 }
