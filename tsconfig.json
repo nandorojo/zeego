@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@zeego/*": ["./packages/*/src"],
       "zeego": ["./packages/zeego/src"]

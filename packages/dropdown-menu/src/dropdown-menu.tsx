@@ -10,49 +10,50 @@ import type {
   MenuTriggerItemProps,
   MenuTriggerProps,
 } from '@zeego/menu'
+import type { FC } from 'react'
 
-const Root = ({ children }: MenuRootProps) => <>{children}</>
+const Root: FC<MenuRootProps> = ({ children }) => <>{children}</>
 Root.displayName = 'Root'
 
-const Trigger = ({ children }: MenuTriggerProps) => <>{children}</>
+const Trigger: FC<MenuTriggerProps> = ({ children }) => <>{children}</>
 Trigger.displayName = 'Trigger'
 
-const Content = ({ children }: MenuContentProps) => {
+const Content: FC<MenuContentProps> = ({ children }) => {
   return <>{children}</>
 }
 Content.displayName = 'Content'
 
-const Item = ({ children }: MenuItemProps) => {
+const Item: FC<MenuContentProps> = ({ children }: MenuItemProps) => {
   return <>{children}</>
 }
 Item.displayName = 'Item'
 
-const ItemIcon = ({}: MenuItemIconProps) => {
-  return <>{}</>
+const ItemIcon: FC<MenuItemIconProps> = () => {
+  return <></>
 }
 ItemIcon.displayName = 'ItemIcon'
 
-const TriggerItem = ({ children }: MenuTriggerItemProps) => {
+const TriggerItem: FC<MenuTriggerItemProps> = ({ children }) => {
   return <>{children}</>
 }
 TriggerItem.displayName = 'TriggerItem'
 
-const ItemTitle = ({ children }: MenuItemTitleProps) => {
+const ItemTitle: FC<MenuItemTitleProps> = ({ children }) => {
   return <>{children}</>
 }
 ItemTitle.displayName = 'ItemTitle'
 
-const ItemSubtitle = ({ children }: MenuItemSubtitleProps) => {
+const ItemSubtitle: FC<MenuItemSubtitleProps> = ({ children }) => {
   return <>{children}</>
 }
 ItemSubtitle.displayName = 'ItemSubtitle'
 
-const Group = ({ children }: MenuGroupProps) => {
+const Group: FC<MenuGroupProps> = ({ children }) => {
   return <>{children}</>
 }
 Group.displayName = 'Group'
 
-const Separator = (_: MenuSeparatorProps) => {
+const Separator: FC<MenuSeparatorProps> = () => {
   return <></>
 }
 

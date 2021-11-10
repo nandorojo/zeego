@@ -1,3 +1,6 @@
 {
-  "extends": "../../tsconfig.build"
+  "extends": "../../tsconfig.build",
+  "compilerOptions": {
+    "paths": {}
+  }
 }
