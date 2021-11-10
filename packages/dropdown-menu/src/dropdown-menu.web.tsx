@@ -52,9 +52,21 @@ const Content = ({ children, style }: MenuContentProps) => {
 }
 Content.displayName = 'Content'
 
-const Item = ({ children, disabled, onSelect, style }: MenuItemProps) => {
+const Item = ({
+  children,
+  disabled,
+  onSelect,
+  style,
+  onBlur,
+  onFocus,
+}: MenuItemProps) => {
   return (
-    <DropdownMenu.Item disabled={disabled} onSelect={onSelect}>
+    <DropdownMenu.Item
+      onFocus={onFocus}
+      onBlur={onBlur}
+      disabled={disabled}
+      onSelect={onSelect}
+    >
       <ItemPrimitive style={style}>{children}</ItemPrimitive>
     </DropdownMenu.Item>
   )

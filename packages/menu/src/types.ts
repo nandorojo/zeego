@@ -31,6 +31,8 @@ export type MenuItemProps = (
   onSelect?: () => void
   textValue?: string
   disabled?: boolean
+  onFocus?: () => void
+  onBlur?: () => void
 }
 
 export type MenuItemIconProps = {
