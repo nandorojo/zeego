@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.2-alpha.14](https://github.com/nandorojo/zeego/compare/v0.0.2-alpha.5...v0.0.2-alpha.14) (2021-11-10)
+
+
+### Bug Fixes
+
+* item types ([b7784d7](https://github.com/nandorojo/zeego/commit/b7784d7a210a74058246bba871a3b853649b760e))
+* nextjs react imports ([3d2d59e](https://github.com/nandorojo/zeego/commit/3d2d59e6af7a3d66fb9ab7f098af1db98ac97860))
+
+
+### Features
+
+* menuify for custom components ([b2fec48](https://github.com/nandorojo/zeego/commit/b2fec48626115c48564109014c2b0f8ca2e09f2e))
+
+
+
+
+
 ## [0.0.2-alpha.13](https://github.com/nandorojo/zeego/compare/v0.0.2-alpha.5...v0.0.2-alpha.13) (2021-11-10)
 
 
