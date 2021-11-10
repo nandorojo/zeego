@@ -23,7 +23,7 @@ const Content: FC<MenuContentProps> = ({ children }) => {
 }
 Content.displayName = 'Content'
 
-const Item: FC<MenuContentProps> = ({ children }: MenuItemProps) => {
+const Item: FC<MenuItemProps> = ({ children }: MenuItemProps) => {
   return <>{children}</>
 }
 Item.displayName = 'Item'
