@@ -229,7 +229,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
           ).targetChildren?.[0]
 
           if (imageChild) {
-            const { source, iosIconName } = imageChild.props
+            const { iosIconName } = imageChild.props
             if (iosIconName) {
               icon = {
                 iconType: 'SYSTEM',
