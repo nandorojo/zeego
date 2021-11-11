@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.2-alpha.20](https://github.com/nandorojo/zeego/compare/v0.0.2-alpha.14...v0.0.2-alpha.20) (2021-11-11)
+
+**Note:** Version bump only for package @zeego/popover
+
+
+
+
+
 ## [0.0.2-alpha.19](https://github.com/nandorojo/zeego/compare/v0.0.2-alpha.14...v0.0.2-alpha.19) (2021-11-11)
 
 **Note:** Version bump only for package @zeego/popover

@@ -207,6 +207,12 @@ If you want to use a custom component as your <Content />, you can use the menui
       if (child.props.disabled) {
         menuAttributes.push('disabled')
       }
+      if (child.props.destructive) {
+        menuAttributes.push('destructive')
+      }
+      if (child.props.hidden) {
+        menuAttributes.push('hidden')
+      }
 
       let icon: MenuItem['icon']
 
