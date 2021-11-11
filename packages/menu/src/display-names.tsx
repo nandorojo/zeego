@@ -19,7 +19,7 @@ export const MenuDisplayName = {
 
 type DisplayNames = typeof MenuDisplayName
 
-export const menuify = <Props extends Record<string, unknown>>(
+export const menuify = <Props extends any>(
   Component: React.ComponentType<Props>,
   displayName: DisplayNames[keyof DisplayNames]
 ) => {

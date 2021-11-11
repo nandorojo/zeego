@@ -1,4 +1,5 @@
 import type { Text, View, ImageRequireSource, ImageProps } from 'react-native'
+import type { MenuContentProps as RadixContentProps } from '@radix-ui/react-dropdown-menu'
 
 type ViewStyle = React.ComponentProps<typeof View>['style']
 type TextStyle = React.ComponentProps<typeof Text>['style']
@@ -14,7 +15,16 @@ export type MenuTriggerProps = {
 export type MenuContentProps = {
   children: React.ReactNode
   style?: ViewStyle
-}
+} & Pick<
+  RadixContentProps,
+  | 'loop'
+  | 'side'
+  | 'align'
+  | 'alignOffset'
+  | 'avoidCollisions'
+  | 'collisionTolerance'
+  | 'sideOffset'
+>
 
 export type MenuGroupProps = {
   children: React.ReactNode
@@ -34,6 +44,8 @@ export type MenuItemProps = (
   onSelect?: () => void
   textValue?: string
   disabled?: boolean
+  hidden?: boolean
+  destructive?: boolean
   onFocus?: () => void
   onBlur?: () => void
 }

@@ -47,9 +47,27 @@ const ContentView = forwardRef<unknown, any>((props, ref) => {
   )
 })
 
-const Content = ({ children, style }: MenuContentProps) => {
+const Content = ({
+  children,
+  style,
+  loop,
+  side,
+  align,
+  alignOffset,
+  avoidCollisions,
+  collisionTolerance,
+  sideOffset,
+}: MenuContentProps) => {
   return (
-    <DropdownMenu.Content>
+    <DropdownMenu.Content
+      loop={loop}
+      side={side}
+      align={align}
+      alignOffset={alignOffset}
+      avoidCollisions={avoidCollisions}
+      collisionTolerance={collisionTolerance}
+      sideOffset={sideOffset}
+    >
       <ContentView style={style}>{children}</ContentView>
     </DropdownMenu.Content>
   )
