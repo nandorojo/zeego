@@ -25,6 +25,32 @@ After installing, you'll need to rebuild your custom development client and app.
 ### Vanilla
 
 Run `pod install` in your `ios` folder.
+
+## Usage
+
+See radix-ui's dropdown menu. It's really similar.
+
+### Custom components
+
+To use a custom component, you'll first need to `menuify` it.
+
+```tsx
+import * as DropdownMenu from '@zeego/dropdown-menu'
+import { styled } from 'dripsy'
+
+const StyledMenuItem = styled(DropdownMenu.Item)({
+  height: 32
+})
+
+const DropdownMenuItem = DropdownMenu.menuify(StyledMenuItem, 'Item')
+
+export { DropdownMenuItem }
+
+// ...
+<DropdownMenuItem>
+
+</DropdownMenuItem>
+```
  
 ## TODO
 
