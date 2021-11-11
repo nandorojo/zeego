@@ -112,57 +112,6 @@ const DropdownMenuExample = () => {
             resizeMode="contain"
           />
         </DropdownMenuCheckboxItem>
-
-        <DropdownMenu.Root>
-          <DropdownMenuTriggerItem style={dropdownStyles.item} key="nested">
-            <DropdownMenuItemTitle>Submenu</DropdownMenuItemTitle>
-          </DropdownMenuTriggerItem>
-          <DropdownMenu.Content style={dropdownStyles.content}>
-            <DropdownMenuItem style={dropdownStyles.item} key="nested-1">
-              <DropdownMenuItemTitle>Submenu Option 1</DropdownMenuItemTitle>
-            </DropdownMenuItem>
-          </DropdownMenu.Content>
-        </DropdownMenu.Root>
-
-        <DropdownMenuSeparator />
-        <DropdownMenu.Group>
-          <DropdownMenuItem style={dropdownStyles.item} key="group-1">
-            <DropdownMenuItemTitle>Group Item 1</DropdownMenuItemTitle>
-          </DropdownMenuItem>
-          <DropdownMenuItem style={dropdownStyles.item} key="group-2">
-            <DropdownMenuItemTitle>Group Item 2</DropdownMenuItemTitle>
-          </DropdownMenuItem>
-        </DropdownMenu.Group>
-        <DropdownMenuSeparator />
-
-        <DropdownMenu.Group>
-          <DropdownMenu.Root>
-            <DropdownMenuTriggerItem
-              style={dropdownStyles.item}
-              key="nested-group-trigger"
-            >
-              <DropdownMenuItemTitle>Group Submenu</DropdownMenuItemTitle>
-            </DropdownMenuTriggerItem>
-            <DropdownMenu.Content style={dropdownStyles.content}>
-              <DropdownMenuItem
-                style={dropdownStyles.item}
-                key="nested-group-1"
-              >
-                <DropdownMenuItemTitle>
-                  Group Submenu Option 1
-                </DropdownMenuItemTitle>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                style={dropdownStyles.item}
-                key="nested-group-2"
-              >
-                <DropdownMenuItemTitle>
-                  Group Submenu Option 2
-                </DropdownMenuItemTitle>
-              </DropdownMenuItem>
-            </DropdownMenu.Content>
-          </DropdownMenu.Root>
-        </DropdownMenu.Group>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   )
