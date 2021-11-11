@@ -43,6 +43,22 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   Group.displayName = MenuDisplayName.Group
 
   const Content = ({ children }: MenuContentProps) => {
+    if (!children) {
+      console.error(`[zeego] <Content /> children must be written directly inline.
+
+You cannot wrap this component into its own component. It should look like this:
+
+<Root>
+  <Content>
+    <Item />
+    <Item />
+  </Content>
+</Root>
+
+Notice that the <Item /> are all children of the <Content /> component. That's important.
+
+If you want to use a custom component as your <Content />, you can use the menuify() method. But you still need to pass all items as children of <Content />.`)
+    }
     return <>{children}</>
   }
   Content.displayName = MenuDisplayName.Content
