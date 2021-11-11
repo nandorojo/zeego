@@ -46,10 +46,8 @@ const DropdownMenuItem = DropdownMenu.menuify(StyledMenuItem, 'Item')
 
 export { DropdownMenuItem }
 
-// ...
-<DropdownMenuItem>
-
-</DropdownMenuItem>
+// then, in your component:
+<DropdownMenuItem />
 ```
  
 ## TODO
