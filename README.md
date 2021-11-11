@@ -28,7 +28,26 @@ Run `pod install` in your `ios` folder.
 
 ## Usage
 
+```ts
+import * as DropdownMenu from '@zeego/dropdown-menu'
+```
+
 See radix-ui's dropdown menu. It's really similar.
+
+One difference is that `DropdownMenu.Item` needs a `DropdownMenu.ItemTitle`, since React Native separates `Text` and `View` components.
+
+```tsx
+<DropdownMenu.Item>
+  <DropdownMenu.ItemTitle>
+    Bookmark
+  </DropdownMenu.ItemTitle>
+  <DropdownMenu.ItemIcon 
+    iosIconName="bookmark"
+  >
+    <YourIconComponent />
+  </DropdownMenu.ItemIcon>
+</DropdownMenu.Item>
+```
 
 ### Custom components
 
