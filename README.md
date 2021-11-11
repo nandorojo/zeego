@@ -1,27 +1,35 @@
-# zeeg
+# zeego
 
-Logical UI primitives, made for screens.
+Logical UI primitives for screens.
 
 ## Installation
 
+Each component is tree-shaken into its own package.
+
 ```sh
-npm install zeeg
+yarn add @zeego/dropdown-menu
 ```
 
-## Usage
+Add peer deps:
 
-```js
-import { multiply } from 'zeego'
-
-// ...
-
-const result = await multiply(3, 7)
+```sh
+yarn add react-native-ios-context-menu
 ```
 
-## Contributing
+### Expo
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+You need to use a custom development client, since `react-native-ios-context-menu` uses native code. 
 
-## License
+After installing, you'll need to rebuild your custom development client and app.
 
-MIT
+### Vanilla
+
+Run `pod install` in your `ios` folder.
+ 
+## TODO
+
+- [ ] `@zeego/context-menu` (in-progress)
+- [ ] `@zeego/popover`
+- [ ] `@zeego/tooltip` (probably)
+- [ ] Android Support
+- [ ] Docs
