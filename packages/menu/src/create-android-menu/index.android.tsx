@@ -42,6 +42,7 @@ type MenuVisibleContext = {
   onClose: () => void
   onShow: () => void
   onOpenChange: (next: boolean) => void
+  closeRootMenu: () => void
 }
 
 const VirtualizedMenuContext = createContext(false)
@@ -90,16 +91,11 @@ const TriggerItem = menuify(
 function MenuProvider({ children }: { children: ReactNode }) {
   const [isOpen, setOpen] = useState(false)
 
-  const isNestedMenu = !!useMenuVisibleContext()
+  const parentContext = useMenuVisibleContext()
 
-  if (isNestedMenu) {
-    // console.log('[menu-provider] is nested', {
-    //   children: Children.map(children, (child) => child.type.displayName),
-    // })
-    // console.log('[menu-provider]', {
-    //   triggerItemName: TriggerItem.displayName,
-    // })
-  }
+  const isNestedMenu = !!parentContext
+
+  const closeRootMenu = parentContext?.closeRootMenu
 
   return (
     <MenuVisibleContext.Provider
@@ -109,6 +105,7 @@ function MenuProvider({ children }: { children: ReactNode }) {
           onShow: () => setOpen(true),
           onClose: () => setOpen(false),
           onOpenChange: setOpen,
+          closeRootMenu: closeRootMenu ?? (() => setOpen(false)),
         }),
         [isOpen]
       )}
@@ -125,11 +122,8 @@ const useTriggerElement = () => useContext(TriggerElementContext)
 
 const Root = menuify(({ children }: MenuRootProps) => {
   const rootTrigger = pickChildren(children, Trigger)
-  // const triggerItemForNestedMenu = pickChildren(children, TriggerItem)
 
   const trigger = rootTrigger.targetChildren?.[0]
-
-  // const contextTrigger = trigger.targetChildren?.[0]
 
   const isNested = useIsNestedMenu()
 
@@ -193,21 +187,6 @@ const Trigger = menuify(
   'Trigger'
 )
 
-const TriggerRefCapture = forwardRef<View, { children: React.ReactNode }>(
-  function RefCapture({ children }, ref) {
-    console.log('[ref-capture]', {
-      ref,
-    })
-    return (
-      <TriggerRefContext.Provider
-        value={ref as React.MutableRefObject<View | null>}
-      >
-        {children}
-      </TriggerRefContext.Provider>
-    )
-  }
-)
-
 const Item = menuify(
   ({
     children,
@@ -218,11 +197,11 @@ const Item = menuify(
     textValue,
     disabled,
   }: MenuItemProps) => {
-    const { onClose } = useMenuVisibleContext()
+    const { closeRootMenu } = useMenuVisibleContext()
     const onPress = useCallback(() => {
       onSelect?.()
-      onClose()
-    }, [onSelect, onClose])
+      closeRootMenu()
+    }, [onSelect, closeRootMenu])
     return (
       <Pressable
         onPress={onPress}
@@ -357,13 +336,7 @@ export const createAndroidMenu: typeof createIosMenu = (Menu) => {
       const triggerRef = useTriggerRef()
 
       if (isNestedMenu) {
-        return (
-          <>
-            {isOpen && children}
-            {/* {triggerItem}
-            {isOpen && children} */}
-          </>
-        )
+        return <>{isOpen && children}</>
       }
 
       return (
