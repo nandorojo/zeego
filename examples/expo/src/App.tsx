@@ -262,14 +262,11 @@ const DropdownMenuExample = () => {
         </DropdownMenu.Group>
         <DropdownMenuSeparator />
 
-        <DropdownMenu.Group>
+        {/* <DropdownMenu.Group>
           <DropdownMenu.Root>
-            <DropdownMenuTriggerItem
-              style={dropdownStyles.item}
-              key="nested-group-trigger"
-            >
+            <DropdownMenu.TriggerItem>
               <DropdownMenuItemTitle>Group Submenu</DropdownMenuItemTitle>
-            </DropdownMenuTriggerItem>
+            </DropdownMenu.TriggerItem>
             <DropdownMenu.Content style={dropdownStyles.content}>
               <DropdownMenuItem
                 style={dropdownStyles.item}
@@ -289,7 +286,7 @@ const DropdownMenuExample = () => {
               </DropdownMenuItem>
             </DropdownMenu.Content>
           </DropdownMenu.Root>
-        </DropdownMenu.Group>
+        </DropdownMenu.Group> */}
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   )

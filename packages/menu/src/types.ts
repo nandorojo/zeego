@@ -9,7 +9,7 @@ export type MenuRootProps = {
   style?: ViewStyle
 }
 export type MenuTriggerProps = {
-  children: React.ReactNode
+  children: React.ReactElement
   style?: ViewStyle
 }
 export type MenuContentProps = {

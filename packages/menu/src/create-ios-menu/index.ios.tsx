@@ -26,23 +26,20 @@ import {
   ContextMenuView,
   // @ts-expect-error
 } from 'react-native-ios-context-menu'
-import { MenuDisplayName } from '../display-names'
+import { menuify } from '../display-names'
 
 const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
-  const Trigger = ({ children }: MenuTriggerProps) => {
+  const Trigger = menuify(({ children }: MenuTriggerProps) => {
     const child = <>{children}</>
 
     return <>{Children.only(child)}</>
-  }
-  Trigger.displayName = MenuDisplayName.Trigger
+  }, 'Trigger')
 
-  const Group = ({ children }: MenuGroupProps) => {
+  const Group = menuify(({ children }: MenuGroupProps) => {
     return <>{children}</>
-  }
+  }, 'Group')
 
-  Group.displayName = MenuDisplayName.Group
-
-  const Content = ({ children }: MenuContentProps) => {
+  const Content = menuify(({ children }: MenuContentProps) => {
     if (!children) {
       console.error(`[zeego] <Content /> children must be written directly inline.
 
@@ -60,28 +57,25 @@ Notice that the <Item /> are all children of the <Content /> component. That's i
 If you want to use a custom component as your <Content />, you can use the menuify() method. But you still need to pass all items as children of <Content />.`)
     }
     return <>{children}</>
-  }
-  Content.displayName = MenuDisplayName.Content
+  }, 'Content')
 
-  const ItemTitle = ({ children }: MenuItemTitleProps) => {
+  const ItemTitle = menuify(({ children }: MenuItemTitleProps) => {
     if (typeof children != 'string') {
       throw new Error('[zeego] <ItemTitle /> child must be a string')
     }
     return <>{children}</>
-  }
-  ItemTitle.displayName = MenuDisplayName.ItemTitle
+  }, 'ItemTitle')
 
-  const ItemIcon = (props: MenuItemIconProps) => {
+  const ItemIcon = menuify((props: MenuItemIconProps) => {
     if (!props.iosIconName) {
       console.warn(
         '[zeego] <ItemIcon /> missing iosIconName prop. Will do nothing on iOS. Consider passing an iosIconImage or switching to <ItemImage />.'
       )
     }
     return <>{}</>
-  }
-  ItemIcon.displayName = MenuDisplayName.ItemIcon
+  }, 'ItemIcon')
 
-  const ItemImage = (props: MenuItemImageProps) => {
+  const ItemImage = menuify((props: MenuItemImageProps) => {
     // if (!props.source) {
     //   console.error('[zeego] <ItemImage /> missing source prop.')
     // }
@@ -91,18 +85,16 @@ If you want to use a custom component as your <Content />, you can use the menui
       )
     }
     return <>{}</>
-  }
-  ItemImage.displayName = MenuDisplayName.ItemImage
+  }, 'ItemImage')
 
-  const ItemSubtitle = ({ children }: MenuItemSubtitleProps) => {
+  const ItemSubtitle = menuify(({ children }: MenuItemSubtitleProps) => {
     if (children && typeof children != 'string') {
       throw new Error('[zeego] <ItemSubtitle /> child must be a string')
     }
     return <>{children}</>
-  }
-  ItemSubtitle.displayName = MenuDisplayName.ItemSubtitle
+  }, 'ItemSubtitle')
 
-  const Item = ({ children }: MenuItemProps) => {
+  const Item = menuify(({ children }: MenuItemProps) => {
     const titleChild = pickChildren(children, ItemTitle).targetChildren
     if (typeof children != 'string' && !titleChild?.length) {
       console.error(
@@ -117,10 +109,9 @@ If you want to use a custom component as your <Content />, you can use the menui
       )
     }
     return <>{children}</>
-  }
-  Item.displayName = MenuDisplayName.Item
+  }, 'ItemSubtitle')
 
-  const TriggerItem = ({ children }: MenuTriggerItemProps) => {
+  const TriggerItem = menuify(({ children }: MenuTriggerItemProps) => {
     const titleChild = pickChildren(children, ItemTitle).targetChildren
     if (typeof children != 'string' && !titleChild?.length) {
       console.error(
@@ -136,21 +127,18 @@ If you want to use a custom component as your <Content />, you can use the menui
       )
     }
     return <>{children}</>
-  }
-  TriggerItem.displayName = MenuDisplayName.TriggerItem
+  }, 'TriggerItem')
 
-  const CheckboxItem = ({}: MenuCheckboxItemProps) => {
+  const CheckboxItem = menuify(({}: MenuCheckboxItemProps) => {
     return <></>
-  }
-  CheckboxItem.displayName = MenuDisplayName.CheckboxItem
+  }, 'CheckboxItem')
 
-  const Label = ({ children }: MenuLabelProps) => {
+  const Label = menuify(({ children }: MenuLabelProps) => {
     if (typeof children != 'string') {
       console.error('[zeego] <Label /> children must be a string.')
     }
     return <></>
-  }
-  Label.displayName = MenuDisplayName.Label
+  }, 'Label')
 
   type MenuOption = 'destructive' | 'displayInline'
   type MenuAttribute = 'disabled' | 'destructive' | 'hidden'
@@ -186,7 +174,7 @@ If you want to use a custom component as your <Content />, you can use the menui
     menuState?: 'on' | 'off' | 'mixed'
   }
 
-  const Root = (props: MenuRootProps) => {
+  const Root = menuify((props: MenuRootProps) => {
     const trigger = pickChildren<MenuTriggerProps>(props.children, Trigger)
     const content = pickChildren<MenuContentProps>(props.children, Content)
       .targetChildren?.[0]
@@ -451,16 +439,16 @@ If you want to use a custom component as your <Content />, you can use the menui
         {trigger.targetChildren?.[0]}
       </Component>
     )
-  }
-  Root.displayName = MenuDisplayName.Root
+  }, 'Root')
 
-  const Separator = (_: MenuSeparatorProps) => {
+  const Separator = menuify((_: MenuSeparatorProps) => {
     return <></>
-  }
-  Separator.displayName = MenuDisplayName.Separator
+  }, 'Separator')
 
-  const ItemIndicator = (_: MenuItemIndicatorProps) => <></>
-  ItemIndicator.displayName = MenuDisplayName.ItemIndicator
+  const ItemIndicator = menuify(
+    (_: MenuItemIndicatorProps) => <></>,
+    'ItemIndicator'
+  )
 
   return {
     Root,
