@@ -29,7 +29,6 @@ import type {
   MenuTriggerItemProps,
   MenuTriggerProps,
 } from '../types'
-import type { FC } from 'react'
 
 import { menuify } from '../display-names'
 
@@ -321,6 +320,7 @@ export const createAndroidMenu: typeof createIosMenu = (Menu) => {
             placement={side}
             shouldFlip={avoidCollisions}
             onRequestClose={onClose}
+            animated={false}
             crossOffset={alignOffset}
             on={Menu === 'ContextMenu' ? 'longPress' : 'press'}
           >

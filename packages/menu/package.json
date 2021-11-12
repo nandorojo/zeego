@@ -1,6 +1,6 @@
 {
   "name": "@zeego/menu",
-  "version": "0.0.2-alpha.22",
+  "version": "0.0.2-alpha.24",
   "description": "The core for dropdown-menu & context-menu, made for screens.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -122,5 +122,5 @@
   "dependencies": {
     "react-native-ios-context-menu": "^1.3.0"
   },
-  "gitHead": "92e0f73a4fe15309017ebfcd478a934d48a8f0b6"
+  "gitHead": "87deb42c838be9db46082a2849dc5ba2c03f14f6"
 }
