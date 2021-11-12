@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.2-alpha.21](https://github.com/nandorojo/zeego/compare/v0.0.2-alpha.14...v0.0.2-alpha.21) (2021-11-11)
+
+
+### Bug Fixes
+
+* add ios error for missing children of Content ([daf4c96](https://github.com/nandorojo/zeego/commit/daf4c9611c941df5371653aa7b02ca234fe03c44))
+
+
+### Features
+
+* add destructive ([c6341dc](https://github.com/nandorojo/zeego/commit/c6341dcadbd251b66bc98f73d5b40cc422af1f50))
+
+
+
+
+
 ## [0.0.2-alpha.20](https://github.com/nandorojo/zeego/compare/v0.0.2-alpha.14...v0.0.2-alpha.20) (2021-11-11)
 
 

@@ -12,6 +12,7 @@ import type {
   MenuSeparatorProps,
   MenuItemImageProps,
   MenuItemIndicatorProps,
+  MenuLabelProps,
 } from '../types'
 import React, { Children, ReactElement } from 'react'
 import {
@@ -26,7 +27,6 @@ import {
   // @ts-expect-error
 } from 'react-native-ios-context-menu'
 import { MenuDisplayName } from '../display-names'
-import type { MenuLabelProps } from '..'
 
 const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   const Trigger = ({ children }: MenuTriggerProps) => {
