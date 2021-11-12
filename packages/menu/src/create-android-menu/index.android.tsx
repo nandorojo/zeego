@@ -320,7 +320,6 @@ export const createAndroidMenu: typeof createIosMenu = (Menu) => {
             placement={side}
             shouldFlip={avoidCollisions}
             onRequestClose={onClose}
-            animated={false}
             crossOffset={alignOffset}
             on={Menu === 'ContextMenu' ? 'longPress' : 'press'}
           >
