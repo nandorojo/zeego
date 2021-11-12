@@ -220,7 +220,7 @@ const ItemImage = menuify(
   'ItemImage'
 )
 
-const ItemTitle: FC<MenuItemTitleProps> = menuify(({ children, style }) => {
+const ItemTitle = menuify(({ children, style }: MenuItemTitleProps) => {
   return <Text style={style}>{children}</Text>
 }, 'ItemTitle')
 
@@ -228,7 +228,7 @@ const ItemSubtitle = menuify(({ children, style }: MenuItemSubtitleProps) => {
   return <Text style={style}>{children}</Text>
 }, 'ItemSubtitle')
 
-const Group: FC<MenuGroupProps> = menuify(({ children, style }) => {
+const Group = menuify(({ children, style }: MenuGroupProps) => {
   return <View style={style}>{children}</View>
 }, 'Group')
 
@@ -272,19 +272,18 @@ const CheckboxItem = menuify(
   'CheckboxItem'
 )
 
-const ItemIndicator: FC<MenuItemIndicatorProps> = menuify(
-  ({ style, children }) => {
-    const value = useCheckboxItemValue()
-    if (value !== 'on' && value !== 'mixed') {
-      return null
-    }
-    return <View style={style}>{children}</View>
-  },
-  'ItemIndicator'
-)
+const ItemIndicator = menuify(({ style, children }: MenuItemIndicatorProps) => {
+  const value = useCheckboxItemValue()
+  if (value !== 'on' && value !== 'mixed') {
+    return null
+  }
+  return <View style={style}>{children}</View>
+}, 'ItemIndicator')
 
-const Label: FC<MenuLabelProps> = menuify(
-  ({ style, children }) => <Text style={style}>{children}</Text>,
+const Label = menuify(
+  ({ style, children }: MenuLabelProps) => (
+    <Text style={style}>{children}</Text>
+  ),
   'Label'
 )
 
