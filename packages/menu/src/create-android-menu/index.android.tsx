@@ -2,7 +2,6 @@ import React, {
   Children,
   cloneElement,
   createContext,
-  forwardRef,
   ReactElement,
   ReactNode,
   useCallback,
@@ -43,6 +42,7 @@ type MenuVisibleContext = {
   onShow: () => void
   onOpenChange: (next: boolean) => void
   closeRootMenu: () => void
+  onToggleOpen: () => void
 }
 
 const VirtualizedMenuContext = createContext(false)
@@ -61,11 +61,10 @@ const TriggerItem = menuify(
     disabled,
     children,
   }: MenuTriggerItemProps) => {
-    const { isOpen, onOpenChange } = useMenuVisibleContext()
-    console.log('[trigger item]', { isOpen })
+    const { onToggleOpen } = useMenuVisibleContext()
     return (
       <Pressable
-        onPress={() => onOpenChange(!isOpen)}
+        onPress={onToggleOpen}
         style={style}
         onFocus={onFocus}
         onBlur={onBlur}
@@ -75,15 +74,6 @@ const TriggerItem = menuify(
         {children}
       </Pressable>
     )
-    // return (
-    //   <Item
-    //     {...props}
-    //     onSelect={}
-    //     // onSelect={useCallback(() => {
-    //     //   onOpenChange(!isOpen)
-    //     // }, [onOpenChange, isOpen])}
-    //   />
-    // )
   },
   'TriggerItem'
 )
@@ -106,6 +96,7 @@ function MenuProvider({ children }: { children: ReactNode }) {
           onClose: () => setOpen(false),
           onOpenChange: setOpen,
           closeRootMenu: closeRootMenu ?? (() => setOpen(false)),
+          onToggleOpen: () => setOpen((prev) => !prev),
         }),
         [isOpen]
       )}
@@ -121,26 +112,21 @@ const TriggerElementContext = createContext<ReactElement>(null as any)
 const useTriggerElement = () => useContext(TriggerElementContext)
 
 const Root = menuify(({ children }: MenuRootProps) => {
-  const rootTrigger = pickChildren(children, Trigger)
-
-  const trigger = rootTrigger.targetChildren?.[0]
-
   const isNested = useIsNestedMenu()
 
   if (isNested) {
     return <MenuProvider>{children}</MenuProvider>
   }
+  const rootTrigger = pickChildren(children, Trigger)
+
+  const trigger = rootTrigger.targetChildren?.[0]
   if (!trigger) {
-    // console.warn('[root] missing trigger?')
-    // console.warn(
-    //   `[zeeg] Missing <Trigger /> component. Are you sure you used this directly as the child of <Root />?
-    // If you're using a custom component, you need to utilize the menuify(Trigger, 'Trigger') function.`
-    // )
+    // TODO warn in the future here, but just leave it for now cause doing so breaks it unexpectedly
   }
 
   return (
     <MenuProvider>
-      <TriggerElementContext.Provider value={trigger}>
+      <TriggerElementContext.Provider value={trigger as ReactElement}>
         <TriggerRefContext.Provider value={useRef(null)}>
           {rootTrigger.withoutTargetChildren}
         </TriggerRefContext.Provider>
@@ -154,38 +140,23 @@ const TriggerRefContext = createContext<React.RefObject<View>>({
 })
 const useTriggerRef = () => useContext(TriggerRefContext)
 
-const Trigger = menuify(
-  ({
-    children,
-    style,
-    // @ts-expect-error these are internally passed from Popover
-    onPress,
-    // @ts-expect-error these are internally passed from Popover
-    onLongPress,
-  }: MenuTriggerProps) => {
-    if (Children.count(children) > 1) {
-      console.error('[zeego] <Trigger /> must have one child.')
-    }
-    const child = cloneElement(Children.only(children), {
-      onPress: undefined, // remove press handler if it exists 😬
-    })
-    const triggerRef = useTriggerRef()
+const Trigger = menuify(({ children, style }: MenuTriggerProps) => {
+  if (Children.count(children) > 1) {
+    console.error('[zeego] <Trigger /> must have one child.')
+  }
+  const child = cloneElement(Children.only(children), {
+    onPress: undefined, // remove press handler if it exists 😬
+  })
+  const triggerRef = useTriggerRef()
 
-    const { onShow } = useMenuVisibleContext()
+  const { onShow } = useMenuVisibleContext()
 
-    return (
-      <Pressable
-        onPress={onShow}
-        onLongPress={onLongPress}
-        style={style}
-        ref={triggerRef}
-      >
-        {child}
-      </Pressable>
-    )
-  },
-  'Trigger'
-)
+  return (
+    <Pressable onPress={onShow} style={style} ref={triggerRef}>
+      {child}
+    </Pressable>
+  )
+}, 'Trigger')
 
 const Item = menuify(
   ({
