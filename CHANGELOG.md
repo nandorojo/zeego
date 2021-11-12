@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.2-alpha.22](https://github.com/nandorojo/zeego/compare/v0.0.2-alpha.14...v0.0.2-alpha.22) (2021-11-12)
+
+
+### Bug Fixes
+
+* add ios error for missing children of Content ([daf4c96](https://github.com/nandorojo/zeego/commit/daf4c9611c941df5371653aa7b02ca234fe03c44))
+
+
+### Features
+
+* add destructive ([c6341dc](https://github.com/nandorojo/zeego/commit/c6341dcadbd251b66bc98f73d5b40cc422af1f50))
+* android cleanup & nested items ([0d2cef2](https://github.com/nandorojo/zeego/commit/0d2cef24cac78202c241edc1f65b2851283162da))
+* android nested menus ([02bf468](https://github.com/nandorojo/zeego/commit/02bf468814a9896c8b59415970050f241af69c7e))
+
+
+
+
+
 ## [0.0.2-alpha.21](https://github.com/nandorojo/zeego/compare/v0.0.2-alpha.14...v0.0.2-alpha.21) (2021-11-11)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@zeego/menu",
-  "version": "0.0.2-alpha.14",
+  "version": "0.0.2-alpha.22",
   "description": "The core for dropdown-menu & context-menu, made for screens.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

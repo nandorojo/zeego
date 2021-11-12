@@ -1,6 +1,6 @@
 {
   "name": "@zeego/popover",
-  "version": "0.0.2-alpha.14",
+  "version": "0.0.2-alpha.22",
   "description": "A popover component, made for screens.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
