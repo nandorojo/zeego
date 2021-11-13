@@ -109,7 +109,7 @@ If you want to use a custom component as your <Content />, you can use the menui
       )
     }
     return <>{children}</>
-  }, 'ItemSubtitle')
+  }, 'Item')
 
   const TriggerItem = menuify(({ children }: MenuTriggerItemProps) => {
     const titleChild = pickChildren(children, ItemTitle).targetChildren
