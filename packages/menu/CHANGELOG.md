@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.2-alpha.27](https://github.com/nandorojo/zeego/compare/v0.0.2-alpha.22...v0.0.2-alpha.27) (2021-11-13)
+
+
+### Bug Fixes
+
+* itemsubtitle on ios smh ([7ffdfde](https://github.com/nandorojo/zeego/commit/7ffdfde5fb077f6ee16092a8f51e19941f9245a6))
+
+
+
+
+
 ## [0.0.2-alpha.26](https://github.com/nandorojo/zeego/compare/v0.0.2-alpha.22...v0.0.2-alpha.26) (2021-11-12)
 
 **Note:** Version bump only for package @zeego/menu
