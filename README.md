@@ -142,5 +142,5 @@ const DropdownMenuExample = () => {
 - [ ] `@zeego/context-menu` (in-progress)
 - [ ] `@zeego/popover`
 - [ ] `@zeego/tooltip` (probably)
-- [ ] Android Support
+- [x] Android Support
 - [ ] Docs
