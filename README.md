@@ -13,7 +13,7 @@ yarn add @zeego/dropdown-menu
 Add peer deps:
 
 ```sh
-yarn add react-native-ios-context-menu
+yarn add react-native-ios-context-menu react-native-popper
 ```
 
 ### Expo
