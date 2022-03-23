@@ -193,6 +193,13 @@ const DropdownMenuExample = () => {
       </DropdownMenu.Trigger>
       <DropdownMenu.Content style={dropdownStyles.content}>
         <DropdownMenuLabel>Help</DropdownMenuLabel>
+
+        {[1, 2, 3].map((i) => (
+          <DropdownMenuItem key={`list-${i}`}>
+            <DropdownMenuItemTitle>{`Item ${i}`}</DropdownMenuItemTitle>
+          </DropdownMenuItem>
+        ))}
+
         <DropdownMenuItem
           style={dropdownStyles.item}
           onSelect={select(1)}
@@ -264,7 +271,7 @@ const DropdownMenuExample = () => {
 
         <DropdownMenu.Group>
           <DropdownMenu.Root>
-            <DropdownMenuTriggerItem>
+            <DropdownMenuTriggerItem key="submenu">
               <DropdownMenuItemTitle>Group Submenu</DropdownMenuItemTitle>
             </DropdownMenuTriggerItem>
             <DropdownMenu.Content style={dropdownStyles.content}>
@@ -339,10 +346,10 @@ const ContextMenuExample = () => {
             </ContextMenu.TriggerItem>
             <ContextMenu.Content>
               <ContextMenu.Item key="nested-group-1">
-                Group Submenu Option 1
+                Group Submenu Option 3
               </ContextMenu.Item>
               <ContextMenu.Item key="nested-group-2">
-                Group Submenu Option 2
+                Group Submenu Option 4
               </ContextMenu.Item>
             </ContextMenu.Content>
           </ContextMenu.Root>

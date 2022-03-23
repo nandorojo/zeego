@@ -259,16 +259,21 @@ If you want to use a custom component as your <Content />, you can use the menui
         }
       }
       if (title) {
+        const maybeIndexKey =
+          typeof child.key == 'string' && child.key.startsWith('.')
+            ? child.key.substring(1)
+            : undefined
+
         if (
           // if the key doesn't exist as a string
           typeof child.key != 'string' ||
           // or if flattenChildren assigned the key as `.${key}${index}`
-          (child.key.startsWith('.') && !isNaN(Number(child.key[1])))
+          (child.key.startsWith('.') && !isNaN(Number(maybeIndexKey)))
         ) {
           console.warn(
             `[zeego] <Item /> is missing a unique key. Pass a unique key string for each item, such as: <Item key="${
               title.toLowerCase().replace(/ /g, '-') || `action-${index}`
-            }" />. Falling back to index instead, but this may have negative consequences.`
+            }" />. Falling back to index (${key}) instead, but this may have negative consequences.`
           )
         }
         if ('onSelect' in child.props && child.props.onSelect) {
