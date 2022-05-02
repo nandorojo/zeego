@@ -48,6 +48,7 @@ export type MenuItemProps = (
   destructive?: boolean
   onFocus?: () => void
   onBlur?: () => void
+  key: string
 }
 
 export type MenuItemIconProps = {
@@ -85,7 +86,9 @@ export type MenuItemImageProps = {
 export type MenuTriggerItemProps = Omit<
   MenuItemProps,
   keyof Pick<MenuItemProps, 'onSelect'>
->
+> & {
+  key: string
+}
 export type MenuItemTitleProps = {
   children: string
   style?: TextStyle
@@ -103,6 +106,7 @@ export type MenuCheckboxItemProps = Omit<MenuItemProps, 'onSelect'> & {
     state: 'mixed' | 'on' | 'off',
     prevState: 'mixed' | 'on' | 'off'
   ) => void
+  key: string
 }
 
 export type MenuItemIndicatorProps = {
