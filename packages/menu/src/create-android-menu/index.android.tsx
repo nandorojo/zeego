@@ -262,6 +262,10 @@ const CheckboxItem = menuify(
 
             onValueChange?.(next, value)
           }, [value, onValueChange])}
+          // @ts-expect-error our types require a Key
+          // however, we don't actually need one here, since it'll be passed to the parent
+          // the types just have that to enforce it strictly
+          key={undefined}
         >
           {children}
         </Item>

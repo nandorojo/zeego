@@ -1,6 +1,6 @@
 {
   "name": "@zeego/dropdown-menu",
-  "version": "0.0.2-alpha.29",
+  "version": "0.0.2-alpha.0+3bf0c57",
   "description": "The core for dropdown-menu & context-menu, made for screens.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -120,7 +120,7 @@
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^0.1.1",
-    "@zeego/menu": "^0.0.2-alpha.29"
+    "@zeego/menu": "^0.0.2-alpha.0+3bf0c57"
   },
-  "gitHead": "87deb42c838be9db46082a2849dc5ba2c03f14f6"
+  "gitHead": "3bf0c57dd7520800f092e9572fc5693dcb444805"
 }
