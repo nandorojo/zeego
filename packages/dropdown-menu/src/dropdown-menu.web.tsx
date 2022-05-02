@@ -96,7 +96,16 @@ const Item = ({
       onSelect={onSelect}
       style={itemStyleReset}
     >
-      <ItemPrimitive style={style}>{children}</ItemPrimitive>
+      <ItemPrimitive
+        // @ts-expect-error we require a key in the types
+        // this is for consumers
+        // however, it isn't relevant locally here, since the key will be passed to the parent component
+        // so that is sufficient
+        key={undefined}
+        style={style}
+      >
+        {children}
+      </ItemPrimitive>
     </DropdownMenu.Item>
   )
 }
@@ -118,7 +127,16 @@ const TriggerItem = ({
       onFocus={onFocus}
       style={itemStyleReset}
     >
-      <ItemPrimitive style={style}>{children}</ItemPrimitive>
+      <ItemPrimitive
+        // @ts-expect-error we require a key in the types
+        // this is for consumers
+        // however, it isn't relevant locally here, since the key will be passed to the parent component
+        // so that is sufficient
+        key={undefined}
+        style={style}
+      >
+        {children}
+      </ItemPrimitive>
     </DropdownMenu.TriggerItem>
   )
 }
@@ -158,7 +176,16 @@ const CheckboxItem = ({
       onCheckedChange={(next) => onValueChange?.(next ? 'on' : 'off', value)}
       style={itemStyleReset}
     >
-      <ItemPrimitive style={style}>{children}</ItemPrimitive>
+      <ItemPrimitive
+        // @ts-expect-error we require a key in the types
+        // this is for consumers
+        // however, it isn't relevant locally here, since the key will be passed to the parent component
+        // so that is sufficient
+        key={undefined}
+        style={style}
+      >
+        {children}
+      </ItemPrimitive>
     </DropdownMenu.CheckboxItem>
   )
 }
