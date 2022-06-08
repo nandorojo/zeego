@@ -1,6 +1,6 @@
 {
   "name": "@zeego/context-menu",
-  "version": "0.0.2-alpha.31",
+  "version": "0.1.0-alpha.0+4698ab5",
   "description": "The core for dropdown-menu & context-menu, made for screens.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -118,5 +118,5 @@
       ]
     ]
   },
-  "gitHead": "87deb42c838be9db46082a2849dc5ba2c03f14f6"
+  "gitHead": "4698ab57ca2d6f112d38218bc0fb14b833b77a77"
 }
