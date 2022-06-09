@@ -12,8 +12,6 @@ Beautiful, native menus for React Native + Web, inspired by Radix UI.
 
 ## Installation
 
-Each component is tree-shaken into its own package, but you only need to install `zeego`.
-
 ```sh
 yarn add zeego
 ```
