@@ -32,7 +32,7 @@ Run `pod install` in your `ios` folder.
 
 ## Example
 
-For now, you should reference the [example in the repo](/tree/master/examples/expo/src/App.tsx).
+For now, you should reference the [example in the repo](https://github.com/nandorojo/zeego/tree/master/examples/expo/src/App.tsx).
 
 ## Usage
 
