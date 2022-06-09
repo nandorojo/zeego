@@ -1,6 +1,6 @@
-# zeego
+![Frame 32](https://user-images.githubusercontent.com/13172299/172878122-8e27ccd8-d04e-431d-85fb-099cbe48457a.png)
 
-Beautiful, native for React Native + Web, inspired by Radix UI.
+Beautiful, native menus for React Native + Web, inspired by Radix UI.
 
 ## Installation
 
@@ -29,6 +29,17 @@ After installing, you'll need to rebuild your custom development client and app.
 ### Vanilla React Native
 
 Run `pod install` in your `ios` folder.
+
+## Philosophy
+
+![Optimized](https://user-images.githubusercontent.com/13172299/172878161-7a184ae0-3a04-4b5f-9efe-2240444ed184.png)
+
+1. Use the best API possible
+2. Create the best experience for each platform, without concern for sharing styles
+3. Everything ships unstyled
+
+The API follows that of Radix UI closely.
+
 
 ## Example
 
