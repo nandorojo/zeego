@@ -54,13 +54,6 @@ Run `pod install` in your `ios` folder.
 The API follows that of Radix UI closely.
 
 
-## Example
-
-For now, you should reference the [example in the repo](https://github.com/nandorojo/zeego/tree/master/examples/expo/src/App.tsx).
-
-I also added a [Moti + Dripsy example](https://github.com/nandorojo/zeego/blob/master/moti-example.mdx).
-
-In the future, I'll make an example app with Solito too.
 
 ## Usage
 
@@ -111,7 +104,13 @@ Under the hood, `menuify` applies a `displayName` to your component. This allows
 
 ## Example
 
-See the [Example app](https://github.com/nandorojo/zeego/blob/master/examples/expo/src/App.tsx).
+
+For now, you should reference the [example in the repo](https://github.com/nandorojo/zeego/tree/master/examples/expo/src/App.tsx).
+
+I also added a [Moti + Dripsy example](https://github.com/nandorojo/zeego/blob/master/moti-example.mdx).
+
+In the future, I'll make an example app with Solito too.
+
 
 ```tsx
 const DropdownMenuExample = () => {
