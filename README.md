@@ -2,13 +2,13 @@
 
 Beautiful, native menus for React Native + Web, inspired by Radix UI.
 
-🕺 Radix UI on Web
-🛫 Native elements on iOS/Android where possible
-🌲 Same API cross-platform
-🌊 Works with Solito and Next.js
-🤖 Supports Expo (with custom dev clients)
-🍦 Vanilla React Native too
-🎨 100% unstyled components
+- 🕺 Radix UI on Web
+- 🛫 Native elements on iOS/Android where possible
+- 🌲 Same API cross-platform
+- 🌊 Works with Solito and Next.js
+- 🤖 Supports Expo (with custom dev clients)
+- 🍦 Vanilla React Native too
+- 🎨 100% unstyled components
 
 ## Installation
 
