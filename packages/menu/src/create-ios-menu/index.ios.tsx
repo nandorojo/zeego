@@ -27,12 +27,13 @@ import {
   // @ts-expect-error
 } from 'react-native-ios-context-menu'
 import { menuify } from '../display-names'
+import { View } from 'react-native'
 
 const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
-  const Trigger = menuify(({ children }: MenuTriggerProps) => {
+  const Trigger = menuify(({ children, style }: MenuTriggerProps) => {
     const child = <>{children}</>
 
-    return <>{Children.only(child)}</>
+    return <View style={style}>{Children.only(child)}</View>
   }, 'Trigger')
 
   const Group = menuify(({ children }: MenuGroupProps) => {
