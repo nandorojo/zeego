@@ -2,6 +2,14 @@
 
 Beautiful, native menus for React Native + Web, inspired by Radix UI.
 
+🕺 Radix UI on Web
+🛫 Native elements on iOS/Android where possible
+🌲 Same API cross-platform
+🌊 Works with Solito and Next.js
+🤖 Supports Expo (with custom dev clients)
+🍦 Vanilla React Native too
+🎨 100% unstyled components
+
 ## Installation
 
 Each component is tree-shaken into its own package, but you only need to install `zeego`.
@@ -45,6 +53,10 @@ The API follows that of Radix UI closely.
 ## Example
 
 For now, you should reference the [example in the repo](https://github.com/nandorojo/zeego/tree/master/examples/expo/src/App.tsx).
+
+I also added a [Moti + Dripsy example](https://github.com/nandorojo/zeego/blob/master/moti-example.mdx).
+
+In the future, I'll make an example app with Solito too.
 
 ## Usage
 
@@ -163,8 +175,9 @@ const DropdownMenuExample = () => {
 
 ## TODO
 
+- [x] `zeego/dropdown-menu`
 - [ ] `zeego/context-menu` (in-progress, missing Web implementation)
-- [x] Android Support (currently a JS implementation)
+- [x] Android native implementation (currently a JS implementation)
 - [ ] Docs
-- [ ] `zeego/tooltip` (probably)
+- [ ] `zeego/tooltip` (probably?)
 - [ ] `zeego/popover` (probably)
