@@ -1,4 +1,4 @@
-import { MenuDisplayName, MenuItemImageProps } from '@zeego/menu'
+import { MenuDisplayName, MenuItemImageProps } from '../../menu'
 import { Image } from 'react-native'
 
 import React from 'react'

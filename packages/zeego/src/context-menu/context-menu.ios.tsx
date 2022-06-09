@@ -1,4 +1,4 @@
-import { createIosMenu } from '@zeego/menu'
+import { createIosMenu } from '../menu'
 
 const {
   Root,

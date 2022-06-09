@@ -220,4 +220,4 @@ export {
 export { ItemImage } from './web/item-image'
 export { Label } from './web/label'
 
-export { ItemTitle, ItemSubtitle } from '@zeego/menu'
+export { ItemTitle, ItemSubtitle } from '../menu'

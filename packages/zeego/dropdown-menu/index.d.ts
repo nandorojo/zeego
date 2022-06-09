@@ -1,1 +1,1 @@
-export * from '../lib/typescript/zeego/src/dropdown-menu'
+export * from '../lib/typescript/dropdown-menu'

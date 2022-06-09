@@ -1,4 +1,4 @@
-import { createAndroidMenu } from '@zeego/menu'
+import { createAndroidMenu } from '../menu'
 
 const {
   Root,

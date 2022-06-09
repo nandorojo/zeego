@@ -14,7 +14,7 @@ import {
   MenuSeparatorProps,
   MenuTriggerItemProps,
   MenuTriggerProps,
-} from '@zeego/menu'
+} from '../menu'
 import type { FC } from 'react'
 
 import React from 'react'

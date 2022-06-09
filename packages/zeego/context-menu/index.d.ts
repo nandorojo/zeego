@@ -1,1 +1,1 @@
-export * from '../lib/typescript/zeego/src/context-menu'
+export * from '../lib/typescript/context-menu'
