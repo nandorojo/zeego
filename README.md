@@ -22,6 +22,12 @@ Add peer deps:
 yarn add react-native-ios-context-menu react-native-popper
 ```
 
+### Solito
+
+Be sure to install `react-native-ios-context-menu` in your Expo folder (likely `apps/expo`).
+
+You should also follow the Next.js steps below.
+
 ### Next.js
 
 You need to add `zeego` to your `next-transpile-modules` in `next.config.js`.
