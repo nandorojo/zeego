@@ -1,15 +1,16 @@
 {
   "name": "zeego",
-  "version": "0.1.0-alpha.0+4698ab5",
+  "version": "0.2.0-alpha.1",
   "description": "Logical UI primitives, made for screens.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
-  "types": "lib/typescript/index.d.ts",
-  "react-native": "src/index",
-  "source": "src/index",
+  "react-native": "src/",
+  "source": "src/index.tsx",
+  "types": "./index.d.ts",
   "files": [
     "src",
     "lib",
+    "build",
     "android",
     "ios",
     "cpp",
@@ -19,7 +20,9 @@
     "!ios/build",
     "!**/__tests__",
     "!**/__fixtures__",
-    "!**/__mocks__"
+    "!**/__mocks__",
+    "!examples",
+    "index.d.ts"
   ],
   "scripts": {
     "test": "jest",
@@ -29,7 +32,8 @@
     "release": "release-it",
     "example": "yarn --cwd example",
     "pods": "cd example && pod-install --quiet",
-    "bootstrap": "yarn example && yarn && yarn pods"
+    "bootstrap": "yarn example && yarn && yarn pods",
+    "expo-prep": "yarn expo-module prepare"
   },
   "keywords": [
     "react-native",
@@ -57,6 +61,7 @@
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-prettier": "^3.1.3",
+    "expo-module-scripts": "2.0.0",
     "husky": "^6.0.0",
     "jest": "^26.0.1",
     "pod-install": "^0.1.0",
@@ -69,7 +74,8 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-ios-context-menu": "*"
   },
   "jest": {
     "preset": "react-native",
@@ -104,13 +110,6 @@
     "node_modules/",
     "lib/"
   ],
-  "prettier": {
-    "quoteProps": "consistent",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false
-  },
   "react-native-builder-bob": {
     "source": "src",
     "output": "lib",
@@ -125,5 +124,9 @@
       ]
     ]
   },
-  "gitHead": "4698ab57ca2d6f112d38218bc0fb14b833b77a77"
+  "gitHead": "4698ab57ca2d6f112d38218bc0fb14b833b77a77",
+  "sideEffects": false,
+  "dependencies": {
+    "@radix-ui/react-dropdown-menu": "0.1.6"
+  }
 }
