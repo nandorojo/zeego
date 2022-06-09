@@ -1,13 +1,13 @@
 # zeego
 
-Logical UI primitives for screens.
+Beautiful, native for React Native + Web, inspired by Radix UI.
 
 ## Installation
 
-Each component is tree-shaken into its own package.
+Each component is tree-shaken into its own package, but you only need to install `zeego`.
 
 ```sh
-yarn add @zeego/dropdown-menu
+yarn add zeego
 ```
 
 Add peer deps:
@@ -16,34 +16,38 @@ Add peer deps:
 yarn add react-native-ios-context-menu react-native-popper
 ```
 
+### Next.js
+
+You need to add `zeego` to your `next-transpile-modules` in `next.config.js`.
+
 ### Expo
 
-You need to use a custom development client, since `react-native-ios-context-menu` uses native code. 
+You need to use a custom development client, since `react-native-ios-context-menu` uses native code.
 
 After installing, you'll need to rebuild your custom development client and app.
 
-### Vanilla
+### Vanilla React Native
 
 Run `pod install` in your `ios` folder.
+
+## Example
+
+For now, you should reference the [example in the repo](/tree/master/examples/expo/src/App.tsx).
 
 ## Usage
 
 ```ts
-import * as DropdownMenu from '@zeego/dropdown-menu'
+import * as DropdownMenu from 'zeego/dropdown-menu'
 ```
 
 See radix-ui's dropdown menu. It's really similar.
 
-One difference is that `DropdownMenu.Item` needs a `DropdownMenu.ItemTitle`, since React Native separates `Text` and `View` components.
+One difference is that `DropdownMenu.Item` needs a child `DropdownMenu.ItemTitle`, since React Native separates `Text` and `View` components.
 
 ```tsx
 <DropdownMenu.Item>
-  <DropdownMenu.ItemTitle>
-    Bookmark
-  </DropdownMenu.ItemTitle>
-  <DropdownMenu.ItemIcon 
-    iosIconName="bookmark"
-  >
+  <DropdownMenu.ItemTitle>Bookmark</DropdownMenu.ItemTitle>
+  <DropdownMenu.ItemIcon iosIconName="bookmark">
     <YourIconComponent />
   </DropdownMenu.ItemIcon>
 </DropdownMenu.Item>
@@ -53,21 +57,29 @@ One difference is that `DropdownMenu.Item` needs a `DropdownMenu.ItemTitle`, sin
 
 To use a custom component, you'll first need to `menuify` it.
 
+Here is an example of a custom component using Dripsy:
+
 ```tsx
-import * as DropdownMenu from '@zeego/dropdown-menu'
+import * as DropdownMenu from 'zeego/dropdown-menu'
 import { styled } from 'dripsy'
 
 const StyledMenuItem = styled(DropdownMenu.Item)({
-  height: 32
+  height: 32,
 })
 
-const DropdownMenuItem = DropdownMenu.menuify(StyledMenuItem, 'Item')
-
-export { DropdownMenuItem }
-
-// then, in your component:
-<DropdownMenuItem />
+// this part is important
+const DripsyMenuItem = DropdownMenu.menuify(StyledMenuItem, 'Item')
 ```
+
+And now, you can use it:
+
+```tsx
+<DripsyMenuItem key="fernando">
+  <DropdownMenu.ItemTitle>Fernando</DropdownMenu.ItemTitle>
+<DripsyMenuItem>
+```
+
+Under the hood, `menuify` applies a `displayName` to your component. This allows `zeego` to recognize it when it's mapping children for iOS and Android.
 
 ## Example
 
@@ -136,11 +148,11 @@ const DropdownMenuExample = () => {
   )
 }
 ```
- 
+
 ## TODO
 
-- [ ] `@zeego/context-menu` (in-progress)
-- [ ] `@zeego/popover`
-- [ ] `@zeego/tooltip` (probably)
-- [x] Android Support
+- [ ] `zeego/context-menu` (in-progress, missing Web implementation)
+- [x] Android Support (currently a JS implementation)
 - [ ] Docs
+- [ ] `zeego/tooltip` (probably)
+- [ ] `zeego/popover` (probably)
