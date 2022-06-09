@@ -1,0 +1,315 @@
+This example uses Moti and Dripsy. It comes "as is", meaning I just copied it from my code.
+
+You'll want to edit the icon part. Also, make sure that the Dripsy part matches your theme (or remove Dripsy from it).
+
+```tsx
+import * as Dropdown from 'zeego/dropdown-menu'
+import { styled, useSx, Sx, Theme } from 'dripsy'
+import { Platform, StyleSheet } from 'react-native'
+import { useSharedValue, useDerivedValue } from 'react-native-reanimated'
+import type Animated from 'react-native-reanimated'
+import { MotiView } from 'moti'
+import { ComponentProps, createContext, useContext } from 'react'
+import { useCallback, useMemo } from 'react'
+import Icon, { IconsBaseProps } from '../ionicons'
+
+const DropdownMenuRoot = Dropdown.Root
+
+const DropdownMenuTrigger = Dropdown.Trigger
+
+const activeSurfaceColor: keyof Theme['colors'] = 'muted3'
+
+const DripsyContent = styled(Dropdown.Content)({
+  minWidth: 220,
+  bg: 'background',
+  borderRadius: '3',
+  p: '$2',
+  borderColor: 'border',
+  borderWidth: 1,
+  ...Platform.select({
+    web: {
+      animationDuration: '275ms',
+      animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+      willChange: 'transform, opacity',
+      animationKeyframes: {
+        '0%': { opacity: 0, transform: [{ scale: 0.5 }] },
+        '100%': { opacity: 1, transform: [{ scale: 1 }] },
+      },
+      transformOrigin: 'var(--radix-dropdown-menu-content-transform-origin)',
+      boxShadow:
+        '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
+    },
+  }),
+})
+
+const DropdownMenuContent = Dropdown.menuify(DripsyContent, 'Content')
+
+const itemBorderWidth = 2
+
+const DropdownItemFocusRing = ({
+  isFocused,
+}: {
+  isFocused: Animated.SharedValue<boolean>
+}) => {
+  const sx = useSx()
+
+  return (
+    <MotiView
+      style={sx({
+        ...StyleSheet.absoluteFillObject,
+        borderWidth: itemBorderWidth,
+        borderColor: activeSurfaceColor,
+        borderRadius: '2',
+        bg: activeSurfaceColor,
+        zIndex: 0,
+      })}
+      animate={useDerivedValue(() => {
+        'worklet'
+
+        return {
+          opacity: isFocused.value ? 1 : 0,
+        }
+      })}
+      transition={useMemo(
+        () => ({
+          type: 'timing',
+          duration: 150,
+        }),
+        []
+      )}
+      pointerEvents="none"
+    />
+  )
+}
+
+const height = 32
+const x = 25
+
+const useFocusedItem = ({
+  onFocus,
+  onBlur,
+}: {
+  onFocus?: () => void
+  onBlur?: () => void
+}) => {
+  const isFocused = useSharedValue(false)
+
+  const handleFocus = useCallback(() => {
+    isFocused.value = true
+    onFocus?.()
+  }, [isFocused, onFocus])
+
+  const handleBlur = useCallback(() => {
+    isFocused.value = false
+    onBlur?.()
+  }, [isFocused, onBlur])
+
+  return {
+    isFocused,
+    handleFocus,
+    handleBlur,
+  }
+}
+
+const itemStyle: Sx = {
+  borderRadius: '1',
+  height,
+  overflow: 'hidden',
+  flex: 1,
+  justifyContent: 'center',
+  pr: '$2',
+  pl: x,
+  borderWidth: itemBorderWidth,
+  borderColor: 'transparent',
+  cursor: 'pointer',
+}
+
+const ItemPrimitive = styled(Dropdown.Item)(itemStyle)
+
+type ItemContext = Pick<ComponentProps<typeof Dropdown.Item>, 'destructive'>
+const ItemContext = createContext<ItemContext>({
+  destructive: false,
+})
+
+const DropdownMenuItem = Dropdown.menuify(
+  ({
+    children,
+    onBlur,
+    onFocus,
+    destructive = false,
+    ...props
+  }: ComponentProps<typeof Dropdown.Item>) => {
+    const { isFocused, handleBlur, handleFocus } = useFocusedItem({
+      onFocus,
+      onBlur,
+    })
+
+    return (
+      <ItemContext.Provider value={{ destructive }}>
+        <ItemPrimitive
+          {...props}
+          sx={
+            props.disabled ? { cursor: 'not-allowed', opacity: 0.7 } : undefined
+          }
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        >
+          <DropdownItemFocusRing isFocused={isFocused} />
+          {children}
+        </ItemPrimitive>
+      </ItemContext.Provider>
+    )
+  },
+  'Item'
+)
+
+const TriggerItemPrimitive = styled(Dropdown.TriggerItem)(itemStyle)
+const DropdownMenuTriggerItem = Dropdown.menuify(
+  ({
+    children,
+    onBlur,
+    onFocus,
+    destructive = false,
+    ...props
+  }: ComponentProps<typeof Dropdown.TriggerItem>) => {
+    const { isFocused, handleBlur, handleFocus } = useFocusedItem({
+      onFocus,
+      onBlur,
+    })
+
+    return (
+      <ItemContext.Provider value={{ destructive }}>
+        <TriggerItemPrimitive
+          {...props}
+          sx={props.disabled ? { cursor: 'not-allowed' } : undefined}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        >
+          <DropdownItemFocusRing isFocused={isFocused} />
+          {children}
+        </TriggerItemPrimitive>
+      </ItemContext.Provider>
+    )
+  },
+  'TriggerItem'
+)
+
+const DripsyTitle = styled(Dropdown.ItemTitle)({
+  fontSize: '1',
+  lineHeight: '1',
+  fontFamily: 'root',
+  zIndex: 1,
+})
+
+function useItemContentColor(): { color: keyof Theme['colors'] } {
+  const { destructive } = useContext(ItemContext)
+
+  return {
+    color: destructive ? 'error' : 'text',
+  }
+}
+
+const DropdownMenuItemTitle = Dropdown.menuify(
+  (props: ComponentProps<typeof Dropdown.ItemTitle>) => {
+    const { color } = useItemContentColor()
+
+    return <DripsyTitle {...props} sx={{ color }} />
+  },
+  'ItemTitle'
+)
+
+const DropdownMenuSeparator = Dropdown.menuify(
+  styled(Dropdown.Separator)({
+    m: '$2',
+    height: 1,
+    bg: 'upBorder',
+  }),
+  'Separator'
+)
+
+const DropdownMenuGroup = Dropdown.Group
+
+const DripsyIcon = styled(Dropdown.ItemIcon)({
+  position: 'absolute',
+  left: 0,
+  top: 0,
+  bottom: 0,
+  width: x,
+  justifyContent: 'center',
+})
+
+const DropdownMenuItemIcon = Dropdown.menuify(
+  (
+    props: ComponentProps<typeof Dropdown.ItemIcon> &
+      Partial<Pick<IconsBaseProps, 'name' | 'size'>>
+  ) => {
+    const { color } = useItemContentColor()
+    if (!props.name) return <></>
+
+    return (
+      <DripsyIcon {...props}>
+        <Icon name={props.name} size={props.size} color={color} />
+      </DripsyIcon>
+    )
+  },
+  'ItemIcon'
+)
+
+const ItemCheckboxPrimitive = styled(Dropdown.CheckboxItem)(itemStyle)
+
+const ItemIndicator = styled(Dropdown.ItemIndicator)({
+  position: 'absolute',
+  left: 0,
+  top: 0,
+  bottom: 0,
+  width: x,
+  justifyContent: 'center',
+})
+
+const DropdownMenuCheckboxItem = Dropdown.menuify(
+  ({
+    children,
+    onBlur,
+    onFocus,
+    ...props
+  }: ComponentProps<typeof Dropdown.CheckboxItem>) => {
+    const { isFocused, handleBlur, handleFocus } = useFocusedItem({
+      onFocus,
+      onBlur,
+    })
+
+    return (
+      <ItemCheckboxPrimitive
+        {...props}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        sx={
+          props.disabled ? { cursor: 'not-allowed', opacity: 0.7 } : undefined
+        }
+      >
+        <DropdownItemFocusRing isFocused={isFocused} />
+        <ItemIndicator>
+          <Icon name="checkmark" color="text" />
+        </ItemIndicator>
+        {children}
+      </ItemCheckboxPrimitive>
+    )
+  },
+  'CheckboxItem'
+)
+
+const DropdownMenu = {
+  Root: DropdownMenuRoot,
+  Content: DropdownMenuContent,
+  Item: DropdownMenuItem,
+  ItemTitle: DropdownMenuItemTitle,
+  Separator: DropdownMenuSeparator,
+  Group: DropdownMenuGroup,
+  ItemIcon: DropdownMenuItemIcon,
+  Trigger: DropdownMenuTrigger,
+  CheckboxItem: DropdownMenuCheckboxItem,
+  TriggerItem: DropdownMenuTriggerItem,
+}
+
+export { DropdownMenu }
+```
