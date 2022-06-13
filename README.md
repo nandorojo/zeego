@@ -2,9 +2,15 @@
 
 Beautiful, native menus for React Native + Web, inspired by Radix UI.
 
-## Installation
+- 🕺 Radix UI on Web
+- 🛫 Native elements on iOS/Android (where possible)
+- 🌲 Same API cross-platform
+- 🌊 Works with Solito and Next.js
+- 🤖 Supports Expo (with custom dev clients)
+- 🍦 Vanilla React Native too
+- 🎨 100% unstyled components
 
-Each component is tree-shaken into its own package, but you only need to install `zeego`.
+## Installation
 
 ```sh
 yarn add zeego
@@ -15,6 +21,12 @@ Add peer deps:
 ```sh
 yarn add react-native-ios-context-menu react-native-popper
 ```
+
+### Solito
+
+Be sure to install `react-native-ios-context-menu` in your Expo folder (likely `apps/expo`).
+
+You should also follow the Next.js steps below.
 
 ### Next.js
 
@@ -36,14 +48,12 @@ Run `pod install` in your `ios` folder.
 
 1. Use the best API possible
 2. Create the best experience for each platform, without concern for sharing styles
-3. Everything ships unstyled
+3. Rely on built-in native menus for iOS and Android
+4. Everything ships unstyled
 
 The API follows that of Radix UI closely.
 
 
-## Example
-
-For now, you should reference the [example in the repo](https://github.com/nandorojo/zeego/tree/master/examples/expo/src/App.tsx).
 
 ## Usage
 
@@ -94,7 +104,13 @@ Under the hood, `menuify` applies a `displayName` to your component. This allows
 
 ## Example
 
-See the [Example app](https://github.com/nandorojo/zeego/blob/master/examples/expo/src/App.tsx).
+
+For now, you should reference the [example in the repo](https://github.com/nandorojo/zeego/tree/master/examples/expo/src/App.tsx).
+
+I also added a [Moti + Dripsy example](https://github.com/nandorojo/zeego/blob/master/moti-example.mdx).
+
+In the future, I'll make an example app with Solito too.
+
 
 ```tsx
 const DropdownMenuExample = () => {
@@ -162,8 +178,9 @@ const DropdownMenuExample = () => {
 
 ## TODO
 
+- [x] `zeego/dropdown-menu`
 - [ ] `zeego/context-menu` (in-progress, missing Web implementation)
-- [x] Android Support (currently a JS implementation)
+- [x] Android native implementation (currently a JS implementation)
 - [ ] Docs
-- [ ] `zeego/tooltip` (probably)
+- [ ] `zeego/tooltip` (probably?)
 - [ ] `zeego/popover` (probably)
