@@ -69,13 +69,15 @@
     "react": "17.0.1",
     "react-native": "0.64.2",
     "react-native-builder-bob": "^0.18.0",
+    "react-native-popper": "^0.3.2",
     "release-it": "^14.2.2",
     "typescript": "^4.4"
   },
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-ios-context-menu": "*"
+    "react-native-ios-context-menu": "*",
+    "react-native-popper": "*"
   },
   "jest": {
     "preset": "react-native",
