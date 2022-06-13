@@ -1,3 +1,0 @@
-102 error HttpError: Bad credentials
-102 error     at /Users/fernandorojo/Developer/madison-hacks/zeeg/node_modules/@octokit/request/dist-node/index.js:86:21
-102 error     at processTicksAndRejections (node:internal/process/task_queues:96:5)
