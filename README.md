@@ -19,12 +19,12 @@ yarn add zeego
 Add peer deps:
 
 ```sh
-yarn add react-native-ios-context-menu react-native-popper
+yarn add react-native-ios-context-menu @react-native-menu/menu
 ```
 
 ### Solito
 
-Be sure to install `react-native-ios-context-menu` in your Expo folder (likely `apps/expo`).
+Be sure to install `react-native-ios-context-menu` (for iOS menu) and `@react-native-menu/menu` (for Android menu) in your Expo folder (likely `apps/expo`).
 
 You should also follow the Next.js steps below.
 
@@ -52,8 +52,6 @@ Run `pod install` in your `ios` folder.
 4. Everything ships unstyled
 
 The API follows that of Radix UI closely.
-
-
 
 ## Usage
 
@@ -104,13 +102,11 @@ Under the hood, `menuify` applies a `displayName` to your component. This allows
 
 ## Example
 
-
 For now, you should reference the [example in the repo](https://github.com/nandorojo/zeego/tree/master/examples/expo/src/App.tsx).
 
 I also added a [Moti + Dripsy example](https://github.com/nandorojo/zeego/blob/master/moti-example.mdx).
 
 In the future, I'll make an example app with Solito too.
-
 
 ```tsx
 const DropdownMenuExample = () => {
