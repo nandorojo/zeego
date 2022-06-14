@@ -66,9 +66,9 @@ If you want to use a custom component as your <Content />, you can use the menui
   }, 'ItemTitle')
 
   const ItemIcon = menuify((props: MenuItemIconProps) => {
-    if (!props.iosIconName) {
+    if (!props.androidIconName) {
       console.warn(
-        '[zeego] <ItemIcon /> missing iosIconName prop. Will do nothing on iOS. Consider passing an iosIconImage or switching to <ItemImage />.'
+        '[zeego] <ItemIcon /> missing androidIconName prop. Will do nothing on android. Consider passing an androidIconName or switching to <ItemImage />.'
       )
     }
     return <>{}</>
@@ -78,9 +78,9 @@ If you want to use a custom component as your <Content />, you can use the menui
     // if (!props.source) {
     //   console.error('[zeego] <ItemImage /> missing source prop.')
     // }
-    if (!props.iosIconName) {
+    if (!props.androidIconName) {
       console.warn(
-        '[zeego] <ItemImage /> will not use your custom image on iOS. You should use the iosIconName prop to render an icon on iOS too.'
+        '[zeego] <ItemImage /> will not use your custom image on android. You should use the androidIconName prop to render an icon on android too.'
       )
     }
     return <>{}</>
@@ -219,8 +219,8 @@ If you want to use a custom component as your <Content />, you can use the menui
           ItemIcon
         ).targetChildren
 
-        if (iconChildren?.[0]?.props.iosIconName) {
-          icon = iconChildren[0].props.iosIconName
+        if (iconChildren?.[0]?.props.androidIconName) {
+          icon = iconChildren[0].props.androidIconName
         } else {
           const imageChild = pickChildren<MenuItemImageProps>(
             child.props.children,
@@ -228,9 +228,9 @@ If you want to use a custom component as your <Content />, you can use the menui
           ).targetChildren?.[0]
 
           if (imageChild) {
-            const { iosIconName } = imageChild.props
-            if (iosIconName) {
-              icon = iosIconName
+            const { androidIconName } = imageChild.props
+            if (androidIconName) {
+              icon = androidIconName
             } else {
               // require('react-native/Libraries/Network/RCTNetworking')
               // const { Image } =
@@ -404,7 +404,7 @@ If you want to use a custom component as your <Content />, you can use the menui
         onPressAction={({ nativeEvent }) => {
           callbacks[nativeEvent.event]()
         }}
-        shouldOpenOnLongPress={Menu === 'ContextMenu' ? true : false}
+        shouldOpenOnLongPress={Menu === 'ContextMenu'}
         actions={menuItems}
       >
         {trigger.targetChildren?.[0]}
