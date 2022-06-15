@@ -24,7 +24,7 @@ import { filterNull } from '../filter-null'
 import {
   ContextMenuButton,
   ContextMenuView,
-  // @ts-expect-error
+  IconConfig,
 } from 'react-native-ios-context-menu'
 import { menuify } from '../display-names'
 
@@ -76,9 +76,6 @@ If you want to use a custom component as your <Content />, you can use the menui
   }, 'ItemIcon')
 
   const ItemImage = menuify((props: MenuItemImageProps) => {
-    // if (!props.source) {
-    //   console.error('[zeego] <ItemImage /> missing source prop.')
-    // }
     if (!props.iosIconName) {
       console.warn(
         '[zeego] <ItemImage /> will not use your custom image on iOS. You should use the iosIconName prop to render an icon on iOS too.'
@@ -151,18 +148,8 @@ If you want to use a custom component as your <Content />, you can use the menui
     menuItems: (MenuItem | MenuConfig)[]
     menuAttributes?: MenuAttributes
     menuOptions?: MenuOptions
-    icon?: MenuItemIcon
+    icon?: IconConfig
   }
-
-  type MenuItemIcon =
-    | {
-        iconType: 'SYSTEM'
-        iconValue: string
-      }
-    | {
-        iconType: 'REQUIRE'
-        iconValue: unknown
-      }
 
   type MenuItem = {
     actionKey: string
@@ -170,7 +157,7 @@ If you want to use a custom component as your <Content />, you can use the menui
     discoverabilityTitle?: string
     menuAttributes?: MenuAttributes
     menuOptions?: MenuOptions
-    icon?: MenuItemIcon
+    icon?: IconConfig
     menuState?: 'on' | 'off' | 'mixed'
   }
 
@@ -386,19 +373,6 @@ If you want to use a custom component as your <Content />, you can use the menui
       })
     }
 
-    // let menuItems: (MenuItem | MenuConfig)[] = []
-
-    // Children.forEach(flattenChildren(props.children), (_child) => {
-    //   const child = _child as ReactElement
-    //   if (isInstanceOfComponent(child, Content)) {
-    //     menuItems.push(
-    //       ...mapItemsChildren(
-    //         (child as ReactElement<MenuContentProps>).props.children
-    //       ).filter(filterNull)
-    //     )
-    //   }
-    // })
-
     const menuItems = mapItemsChildren(content?.props.children).filter(
       filterNull
     )
@@ -415,27 +389,13 @@ If you want to use a custom component as your <Content />, you can use the menui
 
     return (
       <Component
-        onPressMenuItem={({
-          nativeEvent,
-        }: {
-          nativeEvent: {
-            target?: number
-            actionKey: string
-            actionTitle: string
-            menuAttributes?: []
-            icon: {
-              iconType: string
-              iconValue: string
-            } | null
-          }
-        }) => {
+        onPressMenuItem={({ nativeEvent }) => {
           if (callbacks[nativeEvent.actionKey]) {
             callbacks[nativeEvent.actionKey]()
           }
         }}
         isMenuPrimaryAction={Menu === 'DropdownMenu'}
         style={[{ flexGrow: 0 }, props.style]}
-        wrapNativeComponent={false}
         menuConfig={{
           menuTitle,
           menuItems: menuItems,

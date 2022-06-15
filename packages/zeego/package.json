@@ -1,11 +1,11 @@
 {
   "name": "zeego",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Logical UI primitives, made for screens.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "react-native": "src/",
-  "source": "src/index.tsx",
+  "source": "src/",
   "types": "./index.d.ts",
   "files": [
     "src",
@@ -52,7 +52,9 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
+    "@radix-ui/react-context-menu": "^0.1.6",
     "@react-native-community/eslint-config": "^2.0.0",
+    "@react-native-menu/menu": "*",
     "@release-it/conventional-changelog": "^2.0.0",
     "@types/jest": "^26.0.0",
     "@types/react": "^17.0.1",
@@ -73,10 +75,11 @@
     "typescript": "^4.4"
   },
   "peerDependencies": {
+    "@react-native-menu/menu": "*",
     "react": "*",
     "react-native": "*",
     "react-native-ios-context-menu": "*",
-    "@react-native-menu/menu": "*"
+    "@radix-ui/react-context-menu": "*"
   },
   "jest": {
     "preset": "react-native",
