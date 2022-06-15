@@ -1,356 +1,442 @@
-import React, {
-  Children,
-  cloneElement,
-  createContext,
-  ReactElement,
-  ReactNode,
-  useCallback,
-  useContext,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
-import { View, Pressable, Image, Text } from 'react-native'
+import React, { Children, ReactElement } from 'react'
 
-import type { createIosMenu } from '../create-ios-menu'
+import { MenuView } from '@react-native-menu/menu'
+
+import {
+  flattenChildren,
+  pickChildren,
+  isInstanceOfComponent,
+} from '../children'
+import { menuify } from '../display-names'
+import { filterNull } from '../filter-null'
 import type {
-  MenuCheckboxItemProps,
   MenuContentProps,
   MenuGroupProps,
-  MenuItemIconProps,
-  MenuItemImageProps,
-  MenuItemIndicatorProps,
   MenuItemProps,
   MenuItemSubtitleProps,
   MenuItemTitleProps,
-  MenuLabelProps,
   MenuRootProps,
-  MenuSeparatorProps,
   MenuTriggerItemProps,
   MenuTriggerProps,
+  MenuItemIconProps,
+  MenuCheckboxItemProps,
+  MenuSeparatorProps,
+  MenuItemImageProps,
+  MenuItemIndicatorProps,
+  MenuLabelProps,
 } from '../types'
+import { View } from 'react-native'
 
-import { menuify } from '../display-names'
+const createAndroidMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
+  const Trigger = menuify(({ children, style }: MenuTriggerProps) => {
+    const child = <>{children}</>
 
-import { Popover } from 'react-native-popper'
-import { pickChildren } from '../children'
+    return <View style={style}>{Children.only(child)}</View>
+  }, 'Trigger')
 
-type MenuVisibleContext = {
-  isOpen: boolean
-  onClose: () => void
-  onShow: () => void
-  onOpenChange: (next: boolean) => void
-  closeRootMenu: () => void
-  onToggleOpen: () => void
-}
+  const Group = menuify(({ children }: MenuGroupProps) => {
+    return <>{children}</>
+  }, 'Group')
 
-const VirtualizedMenuContext = createContext(false)
-const useIsNestedMenu = () => useContext(VirtualizedMenuContext)
+  const Content = menuify(({ children }: MenuContentProps) => {
+    if (!children) {
+      console.error(`[zeego] <Content /> children must be written directly inline.
 
-const MenuVisibleContext = createContext<MenuVisibleContext>(null as any)
+You cannot wrap this component into its own component. It should look like this:
 
-const useMenuVisibleContext = () => useContext(MenuVisibleContext)
+<Root>
+  <Content>
+    <Item />
+    <Item />
+  </Content>
+</Root>
 
-const TriggerItem = menuify(
-  ({
-    style,
-    onFocus,
-    onBlur,
-    textValue,
-    disabled,
-    children,
-  }: MenuTriggerItemProps) => {
-    const { onToggleOpen } = useMenuVisibleContext()
-    return (
-      <Pressable
-        onPress={onToggleOpen}
-        style={style}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        accessibilityLabel={textValue}
-        disabled={disabled}
-      >
-        {children}
-      </Pressable>
-    )
-  },
-  'TriggerItem'
-)
+Notice that the <Item /> are all children of the <Content /> component. That's important.
 
-function MenuProvider({ children }: { children: ReactNode }) {
-  const [isOpen, setOpen] = useState(false)
+If you want to use a custom component as your <Content />, you can use the menuify() method. But you still need to pass all items as children of <Content />.`)
+    }
+    return <>{children}</>
+  }, 'Content')
 
-  const parentContext = useMenuVisibleContext()
+  const ItemTitle = menuify(({ children }: MenuItemTitleProps) => {
+    if (typeof children != 'string') {
+      throw new Error('[zeego] <ItemTitle /> child must be a string')
+    }
+    return <>{children}</>
+  }, 'ItemTitle')
 
-  const isNestedMenu = !!parentContext
+  const ItemIcon = menuify((props: MenuItemIconProps) => {
+    if (!props.androidIconName) {
+      console.warn(
+        '[zeego] <ItemIcon /> missing androidIconName prop. Will do nothing on android. Consider passing an androidIconName or switching to <ItemImage />.'
+      )
+    }
+    return <>{}</>
+  }, 'ItemIcon')
 
-  const closeRootMenu = parentContext?.closeRootMenu
+  const ItemImage = menuify((props: MenuItemImageProps) => {
+    // if (!props.source) {
+    //   console.error('[zeego] <ItemImage /> missing source prop.')
+    // }
+    if (!props.androidIconName) {
+      console.warn(
+        '[zeego] <ItemImage /> will not use your custom image on android. You should use the androidIconName prop to render an icon on android too.'
+      )
+    }
+    return <>{}</>
+  }, 'ItemImage')
 
-  return (
-    <MenuVisibleContext.Provider
-      value={useMemo(
-        () => ({
-          isOpen,
-          onShow: () => setOpen(true),
-          onClose: () => setOpen(false),
-          onOpenChange: setOpen,
-          closeRootMenu: closeRootMenu ?? (() => setOpen(false)),
-          onToggleOpen: () => setOpen((prev) => !prev),
-        }),
-        [isOpen]
-      )}
-    >
-      <VirtualizedMenuContext.Provider value={isNestedMenu}>
-        {children}
-      </VirtualizedMenuContext.Provider>
-    </MenuVisibleContext.Provider>
-  )
-}
+  const ItemSubtitle = menuify(({ children }: MenuItemSubtitleProps) => {
+    if (children && typeof children != 'string') {
+      throw new Error('[zeego] <ItemSubtitle /> child must be a string')
+    }
+    return <>{children}</>
+  }, 'ItemSubtitle')
 
-const TriggerElementContext = createContext<ReactElement>(null as any)
-const useTriggerElement = () => useContext(TriggerElementContext)
+  const Item = menuify(({ children }: MenuItemProps) => {
+    const titleChild = pickChildren(children, ItemTitle).targetChildren
+    if (typeof children != 'string' && !titleChild?.length) {
+      console.error(
+        `[zeego] Invalid <Item />. It either needs <ItemTitle /> in the children.
 
-const Root = menuify(({ children }: MenuRootProps) => {
-  const isNested = useIsNestedMenu()
+<Item>
+  <ItemTitle>
+    Title here
+  </ItemTitle>
+</Item>
+  `
+      )
+    }
+    return <>{children}</>
+  }, 'Item')
 
-  if (isNested) {
-    return <MenuProvider>{children}</MenuProvider>
+  const TriggerItem = menuify(({ children }: MenuTriggerItemProps) => {
+    const titleChild = pickChildren(children, ItemTitle).targetChildren
+    if (typeof children != 'string' && !titleChild?.length) {
+      console.error(
+        `[zeego] Invalid <TriggerItem />. It either needs a string as the children, or a <ItemTitle /> in the children. However, it got neither.
+
+
+<TriggerItem>
+  <ItemTitle>
+    Title here
+  </ItemTitle>
+</TriggerItem>
+  `
+      )
+    }
+    return <>{children}</>
+  }, 'TriggerItem')
+
+  const CheckboxItem = menuify(({}: MenuCheckboxItemProps) => {
+    return <></>
+  }, 'CheckboxItem')
+
+  const Label = menuify(({ children }: MenuLabelProps) => {
+    if (typeof children != 'string') {
+      console.error('[zeego] <Label /> children must be a string.')
+    }
+    return <></>
+  }, 'Label')
+
+  type MenuAttributes = {
+    disabled?: boolean
+    destructive?: boolean
+    hidden?: boolean
   }
-  const rootTrigger = pickChildren(children, Trigger)
 
-  const trigger = rootTrigger.targetChildren?.[0]
-  if (!trigger) {
-    // TODO warn in the future here, but just leave it for now cause doing so breaks it unexpectedly
+  type MenuConfig = {
+    id?: string
+    title: string
+    subactions: (MenuItem | MenuConfig)[]
+    attributes?: MenuAttributes
+    image?: MenuItemIcon
   }
 
-  return (
-    <MenuProvider>
-      <TriggerElementContext.Provider value={trigger as ReactElement}>
-        <TriggerRefContext.Provider value={useRef(null)}>
-          {rootTrigger.withoutTargetChildren}
-        </TriggerRefContext.Provider>
-      </TriggerElementContext.Provider>
-    </MenuProvider>
-  )
-}, 'Root')
+  type MenuItemIcon = string
 
-const TriggerRefContext = createContext<React.RefObject<View>>({
-  current: null,
-})
-const useTriggerRef = () => useContext(TriggerRefContext)
-
-const Trigger = menuify(({ children, style }: MenuTriggerProps) => {
-  if (Children.count(children) > 1) {
-    console.error('[zeego] <Trigger /> must have one child.')
+  type MenuItem = {
+    id: string
+    title: string
+    titleColor?: string
+    subtitle?: string
+    image?: string
+    imageColor?: string
+    state?: 'on' | 'off' | 'mixed'
+    attributes?: MenuAttributes
   }
-  const child = cloneElement(Children.only(children), {
-    onPress: undefined, // remove press handler if it exists 😬
-  })
-  const triggerRef = useTriggerRef()
 
-  const { onShow } = useMenuVisibleContext()
+  const Root = menuify((props: MenuRootProps) => {
+    const trigger = pickChildren<MenuTriggerProps>(props.children, Trigger)
+    const content = pickChildren<MenuContentProps>(props.children, Content)
+      .targetChildren?.[0]
 
-  return (
-    <Pressable onPress={onShow} style={style} ref={triggerRef}>
-      {child}
-    </Pressable>
-  )
-}, 'Trigger')
+    const callbacks: Record<string, () => void> = {}
 
-const Item = menuify(
-  ({
-    children,
-    onSelect,
-    onFocus,
-    onBlur,
-    style,
-    textValue,
-    disabled,
-  }: MenuItemProps) => {
-    const { closeRootMenu } = useMenuVisibleContext()
-    const onPress = useCallback(() => {
-      onSelect?.()
-      closeRootMenu()
-    }, [onSelect, closeRootMenu])
-    return (
-      <Pressable
-        onPress={onPress}
-        style={style}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        accessibilityLabel={textValue}
-        disabled={disabled}
-      >
-        {children}
-      </Pressable>
-    )
-  },
-  'Item'
-)
+    const getItemFromChild = (
+      child: ReactElement<
+        MenuItemProps | MenuTriggerItemProps | MenuCheckboxItemProps
+      >,
+      index: number
+    ) => {
+      let title: string | undefined
+      const key: string = child.key ? `${child.key}` : `item-${index}`
+      let subtitle: string | undefined
+      const menuAttributes: MenuAttributes = {}
 
-const ItemIcon = menuify(({ children, style }: MenuItemIconProps) => {
-  return (
-    <View style={style} pointerEvents="none">
-      {children}
-    </View>
-  )
-}, 'ItemIcon')
-
-const ItemImage = menuify(
-  ({
-    style,
-    source,
-    fadeDuration,
-    height,
-    resizeMode,
-    width,
-  }: MenuItemImageProps) => {
-    return (
-      <Image
-        style={style}
-        source={source}
-        fadeDuration={fadeDuration}
-        height={height}
-        resizeMode={resizeMode}
-        width={width}
-      />
-    )
-  },
-  'ItemImage'
-)
-
-const ItemTitle = menuify(({ children, style }: MenuItemTitleProps) => {
-  return <Text style={style}>{children}</Text>
-}, 'ItemTitle')
-
-const ItemSubtitle = menuify(({ children, style }: MenuItemSubtitleProps) => {
-  return <Text style={style}>{children}</Text>
-}, 'ItemSubtitle')
-
-const Group = menuify(({ children, style }: MenuGroupProps) => {
-  return <View style={style}>{children}</View>
-}, 'Group')
-
-const Separator = menuify(({ style }: MenuSeparatorProps) => {
-  return <View style={style} />
-}, 'Separator')
-
-const CheckboxItemContext = createContext<MenuCheckboxItemProps['value']>(
-  null as any
-)
-const useCheckboxItemValue = () => useContext(CheckboxItemContext)
-
-const CheckboxItem = menuify(
-  ({
-    children,
-    onValueChange,
-    onBlur,
-    onFocus,
-    style,
-    textValue,
-    value,
-  }: MenuCheckboxItemProps) => {
-    return (
-      <CheckboxItemContext.Provider value={value}>
-        <Item
-          style={style}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          textValue={textValue}
-          onSelect={useCallback(() => {
-            const next = value === 'off' ? 'on' : 'off'
-
-            onValueChange?.(next, value)
-          }, [value, onValueChange])}
-          // @ts-expect-error our types require a Key
-          // however, we don't actually need one here, since it'll be passed to the parent
-          // the types just have that to enforce it strictly
-          key={undefined}
-        >
-          {children}
-        </Item>
-      </CheckboxItemContext.Provider>
-    )
-  },
-  'CheckboxItem'
-)
-
-const ItemIndicator = menuify(({ style, children }: MenuItemIndicatorProps) => {
-  const value = useCheckboxItemValue()
-  if (value !== 'on' && value !== 'mixed') {
-    return null
-  }
-  return <View style={style}>{children}</View>
-}, 'ItemIndicator')
-
-const Label = menuify(
-  ({ style, children }: MenuLabelProps) => (
-    <Text style={style}>{children}</Text>
-  ),
-  'Label'
-)
-
-export const createAndroidMenu: typeof createIosMenu = (Menu) => {
-  const Content = menuify(
-    ({
-      children,
-      sideOffset,
-      style,
-      side,
-      alignOffset,
-      avoidCollisions,
-    }: MenuContentProps) => {
-      const { isOpen, onOpenChange, onClose } = useMenuVisibleContext()
-
-      const isNestedMenu = useIsNestedMenu()
-
-      const trigger = useTriggerElement()
-
-      const triggerRef = useTriggerRef()
-
-      if (isNestedMenu) {
-        return <>{isOpen && children}</>
+      if (child.props.disabled) {
+        menuAttributes.disabled = true
+      }
+      if (child.props.destructive) {
+        menuAttributes.destructive = true
+      }
+      if (child.props.hidden) {
+        menuAttributes.hidden = true
       }
 
-      return (
-        <>
-          {trigger}
-          <Popover
-            mode="single"
-            trigger={triggerRef}
-            offset={sideOffset}
-            isOpen={isOpen}
-            onOpenChange={onOpenChange}
-            placement={side}
-            shouldFlip={avoidCollisions}
-            onRequestClose={onClose}
-            crossOffset={alignOffset}
-            on={Menu === 'ContextMenu' ? 'longPress' : 'press'}
-          >
-            <Popover.Backdrop />
-            <Popover.Content>
-              <View style={style}>{children}</View>
-            </Popover.Content>
-          </Popover>
-        </>
+      let icon: MenuItem['image']
+
+      if (typeof child.props.children == 'string') {
+        title = child.props.children
+      } else {
+        const titleChild = pickChildren<MenuItemTitleProps>(
+          child.props.children,
+          ItemTitle
+        ).targetChildren
+
+        title = titleChild?.[0]?.props.children
+
+        const subtitleChild = pickChildren<MenuItemSubtitleProps>(
+          child.props.children,
+          ItemSubtitle
+        ).targetChildren
+        if (typeof subtitleChild?.[0]?.props.children == 'string') {
+          subtitle = subtitleChild[0].props.children
+        }
+
+        const iconChildren = pickChildren<MenuItemIconProps>(
+          child.props.children,
+          ItemIcon
+        ).targetChildren
+
+        if (iconChildren?.[0]?.props.androidIconName) {
+          icon = iconChildren[0].props.androidIconName
+        } else {
+          const imageChild = pickChildren<MenuItemImageProps>(
+            child.props.children,
+            ItemImage
+          ).targetChildren?.[0]
+
+          if (imageChild) {
+            const { androidIconName } = imageChild.props
+            if (androidIconName) {
+              icon = androidIconName
+            } else {
+              // require('react-native/Libraries/Network/RCTNetworking')
+              // const { Image } =
+              //   require('react-native') as typeof import('react-native')
+              // const iconValue = Image.resolveAssetSource(source)
+              // icon = {
+              //   iconType: 'REQUIRE',
+              //   iconValue,
+              // }
+            }
+          }
+        }
+      }
+      if (title) {
+        const maybeIndexKey =
+          typeof child.key == 'string' && child.key.startsWith('.')
+            ? child.key.substring(1)
+            : undefined
+
+        if (
+          // if the key doesn't exist as a string
+          typeof child.key != 'string' ||
+          // or if flattenChildren assigned the key as `.${key}${index}`
+          (child.key.startsWith('.') && !isNaN(Number(maybeIndexKey)))
+        ) {
+          console.warn(
+            `[zeego] <Item /> is missing a unique key. Pass a unique key string for each item, such as: <Item key="${
+              title.toLowerCase().replace(/ /g, '-') || `action-${index}`
+            }" />. Falling back to index (${key}) instead, but this may have negative consequences.`
+          )
+        }
+        if ('onSelect' in child.props && child.props.onSelect) {
+          callbacks[key] = child.props.onSelect
+        } else if ('onValueChange' in child.props) {
+          const menuState = child.props.value
+          const nextState =
+            menuState === 'mixed' || menuState === 'on' ? 'off' : 'on'
+          const { onValueChange } = child.props
+          callbacks[key] = () => {
+            onValueChange?.(nextState, menuState)
+          }
+        }
+
+        return {
+          key,
+          title,
+          subtitle,
+          menuAttributes,
+          icon,
+        }
+      }
+      return
+    }
+
+    const mapItemsChildren = (
+      children: React.ReactNode
+    ): ((MenuItem | MenuConfig) | null)[] => {
+      return Children.map(
+        flattenChildren(children)
+          .map((item) => {
+            // android menu doesn't support group feature like iOS `displayInline` option in menu
+            if (
+              isInstanceOfComponent(item, Group) &&
+              typeof item === 'object'
+            ) {
+              return flattenChildren(item.props.children)
+            }
+            return item
+          })
+          .flat(),
+        (_child, index) => {
+          if (isInstanceOfComponent(_child, Item)) {
+            const child = _child as ReactElement<MenuItemProps>
+
+            const item = getItemFromChild(child, index)
+            if (item) {
+              const { icon, title, key, menuAttributes, subtitle } = item
+              const finalItem: MenuItem = {
+                id: key,
+                title: title,
+                image: icon,
+                attributes: menuAttributes,
+                subtitle,
+              }
+              return finalItem
+            }
+          } else if (isInstanceOfComponent(_child, CheckboxItem)) {
+            const child = _child as ReactElement<MenuCheckboxItemProps>
+
+            const item = getItemFromChild(child, index)
+            if (item) {
+              const { icon, title, key, menuAttributes, subtitle } = item
+              const menuState = child.props.value
+
+              const finalItem: MenuItem = {
+                id: key,
+                title: title,
+                image: icon,
+                attributes: menuAttributes,
+                subtitle: subtitle,
+                state: menuState,
+              }
+              return finalItem
+            }
+          } else if (isInstanceOfComponent(_child, Root)) {
+            const child = _child as ReactElement<MenuRootProps>
+            const key: string = child.key ? `${child.key}` : `item-${index}`
+            const triggerItemChild = pickChildren<MenuTriggerItemProps>(
+              child.props.children,
+              TriggerItem
+            ).targetChildren?.[0]
+
+            const triggerItem =
+              triggerItemChild && getItemFromChild(triggerItemChild, index)
+            if (triggerItem) {
+              const nestedContent = pickChildren<MenuContentProps>(
+                child.props.children,
+                Content
+              ).targetChildren?.[0]
+
+              if (nestedContent) {
+                const nestedItems = mapItemsChildren(
+                  nestedContent.props.children
+                ).filter(filterNull)
+
+                if (nestedItems.length) {
+                  const menuConfig: MenuConfig = {
+                    id: key,
+                    title: triggerItem?.title,
+                    image: triggerItem?.icon,
+                    subactions: nestedItems,
+                    attributes: triggerItem.menuAttributes,
+                  }
+                  return menuConfig
+                }
+              }
+            }
+          }
+          return null
+        }
       )
-    },
-    'Content'
+    }
+
+    // let menuItems: (MenuItem | MenuConfig)[] = []
+
+    // Children.forEach(flattenChildren(props.children), (_child) => {
+    //   const child = _child as ReactElement
+    //   if (isInstanceOfComponent(child, Content)) {
+    //     menuItems.push(
+    //       ...mapItemsChildren(
+    //         (child as ReactElement<MenuContentProps>).props.children
+    //       ).filter(filterNull)
+    //     )
+    //   }
+    // })
+
+    const menuItems = mapItemsChildren(content?.props.children).filter(
+      filterNull
+    )
+
+    const label = pickChildren<MenuLabelProps>(content?.props.children, Label)
+      .targetChildren?.[0]?.props.children
+    let menuTitle = ''
+    if (typeof label == 'string') {
+      menuTitle = label
+    }
+
+    return (
+      <MenuView
+        title={menuTitle}
+        onPressAction={({ nativeEvent }) => {
+          callbacks[nativeEvent.event]()
+        }}
+        shouldOpenOnLongPress={Menu === 'ContextMenu'}
+        actions={menuItems}
+      >
+        {trigger.targetChildren?.[0]}
+      </MenuView>
+    )
+  }, 'Root')
+
+  const Separator = menuify((_: MenuSeparatorProps) => {
+    return <></>
+  }, 'Separator')
+
+  const ItemIndicator = menuify(
+    (_: MenuItemIndicatorProps) => <></>,
+    'ItemIndicator'
   )
+
   return {
     Root,
     Trigger,
     Content,
     Item,
-    CheckboxItem,
-    Group,
-    ItemIcon,
-    ItemImage,
-    ItemIndicator,
-    ItemSubtitle,
     ItemTitle,
-    Label,
-    Separator,
+    ItemSubtitle,
     TriggerItem,
+    Group,
+    Separator,
+    ItemIcon,
+    ItemIndicator,
+    CheckboxItem,
+    ItemImage,
+    Label,
   }
 }
+
+export { createAndroidMenu }
