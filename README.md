@@ -190,3 +190,7 @@ const DropdownMenuExample = () => {
 - [ ] Docs
 - [ ] `zeego/tooltip` (probably?)
 - [ ] `zeego/popover` (probably)
+
+## Thanks
+
+Special thanks to [Dominic Go](https://twitter.com/GoDominic) for the awesome iOS context menu. Also, thanks to the Showtime team for testing this and sending PRs.
