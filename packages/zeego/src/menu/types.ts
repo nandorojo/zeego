@@ -59,7 +59,13 @@ export type MenuItemIconProps = {
    */
   iosIconName?: string
   /**
-   * You can also pass the icon as a React Native component child. This will only work on Web, not iOS.
+   * The name of an android-only resource drawable. For a full list, see https://developer.android.com/reference/android/R.drawable.html.
+   *
+   * @platform android
+   */
+  androidIconName?: string
+  /**
+   * You can also pass the icon as a React Native component child. This will only work on Web, not iOS or android.
    */
   children?: React.ReactNode
   style?: ViewStyle
@@ -72,6 +78,12 @@ export type MenuItemImageProps = {
    * @platform ios
    */
   iosIconName?: string
+  /**
+   * The name of an android-only resource drawable. For a full list, see https://developer.android.com/reference/android/R.drawable.html.
+   *
+   * @platform android
+   */
+  androidIconName?: string
   /**
    * `source={require('path/to/image')}`
    */

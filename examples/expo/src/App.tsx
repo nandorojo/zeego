@@ -213,7 +213,10 @@ const DropdownMenuExample = () => {
               12 artists fit your search
             </DropdownMenu.ItemSubtitle>
           )}
-          <DropdownMenuItemIcon iosIconName="list.star">
+          <DropdownMenuItemIcon
+            iosIconName="list.star"
+            androidIconName="star_on"
+          >
             <Ionicons name="list" size={15} />
           </DropdownMenuItemIcon>
         </DropdownMenuItem>
@@ -223,7 +226,10 @@ const DropdownMenuExample = () => {
           key="second"
         >
           <DropdownMenuItemTitle>Favorite</DropdownMenuItemTitle>
-          <DropdownMenuItemIcon iosIconName="star.fill">
+          <DropdownMenuItemIcon
+            iosIconName="star.fill"
+            androidIconName="btn_star"
+          >
             <Ionicons name="star" size={15} />
           </DropdownMenuItemIcon>
         </DropdownMenuItem>

@@ -16,15 +16,25 @@ Beautiful, native menus for React Native + Web, inspired by Radix UI.
 yarn add zeego
 ```
 
-Add peer deps:
+### Install peer dependencies
+
+If you're in a monorepo, you should install these in the directory of your native app.
+
+#### iOS
 
 ```sh
-yarn add react-native-ios-context-menu react-native-popper
+yarn add react-native-ios-context-menu
+```
+
+#### Android
+
+```sh
+yarn add @react-native-menu/menu
 ```
 
 ### Solito
 
-Be sure to install `react-native-ios-context-menu` in your Expo folder (likely `apps/expo`).
+As shown above, sure to install `react-native-ios-context-menu` and `@react-native-menu/menu` in your Expo folder (`apps/expo`).
 
 You should also follow the Next.js steps below.
 
@@ -133,7 +143,7 @@ const DropdownMenuExample = () => {
               12 artists fit your search
             </DropdownMenu.ItemSubtitle>
           )}
-          <DropdownMenuItemIcon iosIconName="list.star">
+          <DropdownMenuItemIcon iosIconName="list.star" androidIconName="star_on">
             <Ionicons name="list" size={15} />
           </DropdownMenuItemIcon>
         </DropdownMenuItem>
@@ -143,7 +153,7 @@ const DropdownMenuExample = () => {
           key="second"
         >
           <DropdownMenuItemTitle>Favorite</DropdownMenuItemTitle>
-          <DropdownMenuItemIcon iosIconName="star.fill">
+          <DropdownMenuItemIcon iosIconName="star.fill" androidIconName="star_off">
             <Ionicons name="star" size={15} />
           </DropdownMenuItemIcon>
         </DropdownMenuItem>
