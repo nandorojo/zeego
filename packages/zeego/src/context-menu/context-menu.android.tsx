@@ -15,6 +15,7 @@ const {
   CheckboxItem,
   ItemIndicator,
   Label,
+  Preview,
 } = createAndroidMenu('ContextMenu')
 
 export {
@@ -32,4 +33,5 @@ export {
   CheckboxItem,
   ItemIndicator,
   Label,
+  Preview,
 }

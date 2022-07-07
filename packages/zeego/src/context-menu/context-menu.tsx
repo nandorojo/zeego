@@ -1,6 +1,7 @@
 import {
+  ContextMenuContentProps,
+  ContextMenuPreviewProps,
   MenuCheckboxItemProps,
-  MenuContentProps,
   MenuDisplayName,
   MenuGroupProps,
   MenuItemIconProps,
@@ -25,7 +26,7 @@ Root.displayName = MenuDisplayName.Root
 const Trigger: FC<MenuTriggerProps> = ({ children }) => <>{children}</>
 Trigger.displayName = MenuDisplayName.Trigger
 
-const Content: FC<MenuContentProps> = ({ children }) => {
+const Content: FC<ContextMenuContentProps> = ({ children }) => {
   return <>{children}</>
 }
 Content.displayName = MenuDisplayName.Content
@@ -79,6 +80,9 @@ ItemIndicator.displayName = MenuDisplayName.ItemIndicator
 const Label: FC<MenuLabelProps> = () => <></>
 Label.displayName = MenuDisplayName.Label
 
+const Preview: FC<ContextMenuPreviewProps> = () => <></>
+Preview.displayName = MenuDisplayName.Preview
+
 export {
   Root,
   Trigger,
@@ -94,4 +98,5 @@ export {
   ItemIndicator,
   ItemImage,
   Label,
+  Preview,
 }

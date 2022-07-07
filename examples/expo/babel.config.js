@@ -1,7 +1,7 @@
-const { alias } = require('./alias');
+const path = require('path')
 
 module.exports = function (api) {
-  api.cache(true);
+  api.cache(false)
 
   return {
     presets: [['babel-preset-expo', { jsxRuntime: 'automatic' }]],
@@ -10,9 +10,13 @@ module.exports = function (api) {
         'module-resolver',
         {
           extensions: ['.tsx', '.ts', '.js', '.json'],
-          alias,
+          alias: {
+            // https://github.com/tleunen/babel-plugin-module-resolver/blob/HEAD/DOCS.md#passing-a-substitute-function
+            zeego: ([, name]) =>
+              path.resolve(__dirname, `../../packages/zeego/src${name}`),
+          },
         },
       ],
     ],
-  };
-};
+  }
+}

@@ -1,6 +1,9 @@
 {
   "description": "Logical UI primitives, made for screens.",
   "private": true,
+  "nohoist": [
+    "**/*/babel-loader"
+  ],
   "workspaces": {
     "packages": [
       "packages/*",
