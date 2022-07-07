@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      "zeego/*": ["../../packages/zeego/src/*"]
+    },
+    "baseUrl": "."
   },
   "extends": "../../tsconfig"
 }

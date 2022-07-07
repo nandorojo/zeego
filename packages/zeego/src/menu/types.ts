@@ -1,5 +1,6 @@
 import type { Text, View, ImageRequireSource, ImageProps } from 'react-native'
 import type { MenuContentProps as RadixContentProps } from '@radix-ui/react-dropdown-menu'
+import type { ContextMenuView } from 'react-native-ios-context-menu'
 
 type ViewStyle = React.ComponentProps<typeof View>['style']
 type TextStyle = React.ComponentProps<typeof Text>['style']
@@ -12,6 +13,7 @@ export type MenuTriggerProps = {
   children: React.ReactElement
   style?: ViewStyle
 }
+
 export type MenuContentProps = {
   children: React.ReactNode
   style?: ViewStyle
@@ -25,6 +27,8 @@ export type MenuContentProps = {
   | 'collisionTolerance'
   | 'sideOffset'
 >
+
+export type ContextMenuContentProps = Omit<MenuContentProps, 'side' | 'align'>
 
 export type MenuGroupProps = {
   children: React.ReactNode
@@ -130,3 +134,16 @@ export type MenuLabelProps = {
   children: string
   style?: TextStyle
 }
+
+type Not<T extends object, O extends keyof NonNullable<T>> = Omit<T, O>
+
+export type ContextMenuPreviewProps = {
+  children: React.ReactNode | (() => React.ReactNode)
+  size?: NonNullable<
+    React.ComponentProps<typeof ContextMenuView>['previewConfig']
+  >['previewSize']
+  onPress?: React.ComponentProps<typeof ContextMenuView>['onPressMenuPreview']
+} & Not<
+  NonNullable<React.ComponentProps<typeof ContextMenuView>['previewConfig']>,
+  'targetViewNode' | 'previewSize' | 'previewType'
+>

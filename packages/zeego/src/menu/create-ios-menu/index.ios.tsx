@@ -13,6 +13,8 @@ import type {
   MenuItemImageProps,
   MenuItemIndicatorProps,
   MenuLabelProps,
+  ContextMenuPreviewProps,
+  ContextMenuContentProps,
 } from '../types'
 import React, { Children, ReactElement } from 'react'
 import {
@@ -39,9 +41,10 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     return <>{children}</>
   }, 'Group')
 
-  const Content = menuify(({ children }: MenuContentProps) => {
-    if (!children) {
-      console.error(`[zeego] <Content /> children must be written directly inline.
+  const Content = menuify(
+    ({ children }: MenuContentProps | ContextMenuContentProps) => {
+      if (!children) {
+        console.error(`[zeego] <Content /> children must be written directly inline.
 
 You cannot wrap this component into its own component. It should look like this:
 
@@ -55,9 +58,11 @@ You cannot wrap this component into its own component. It should look like this:
 Notice that the <Item /> are all children of the <Content /> component. That's important.
 
 If you want to use a custom component as your <Content />, you can use the menuify() method. But you still need to pass all items as children of <Content />.`)
-    }
-    return <>{children}</>
-  }, 'Content')
+      }
+      return <>{children}</>
+    },
+    'Content'
+  )
 
   const ItemTitle = menuify(({ children }: MenuItemTitleProps) => {
     if (typeof children != 'string') {
@@ -126,6 +131,14 @@ If you want to use a custom component as your <Content />, you can use the menui
     return <>{children}</>
   }, 'TriggerItem')
 
+  const Preview = menuify((_: ContextMenuPreviewProps) => {
+    return <></>
+  }, 'Preview')
+
+  Preview.defaultProps = {
+    isResizeAnimated: true,
+  }
+
   const CheckboxItem = menuify(({}: MenuCheckboxItemProps) => {
     return <></>
   }, 'CheckboxItem')
@@ -163,8 +176,10 @@ If you want to use a custom component as your <Content />, you can use the menui
 
   const Root = menuify((props: MenuRootProps) => {
     const trigger = pickChildren<MenuTriggerProps>(props.children, Trigger)
-    const content = pickChildren<MenuContentProps>(props.children, Content)
-      .targetChildren?.[0]
+    const content = pickChildren<MenuContentProps | ContextMenuContentProps>(
+      props.children,
+      Content
+    ).targetChildren?.[0]
 
     const callbacks: Record<string, () => void> = {}
 
@@ -333,10 +348,9 @@ If you want to use a custom component as your <Content />, you can use the menui
           const triggerItem =
             triggerItemChild && getItemFromChild(triggerItemChild, index)
           if (triggerItem) {
-            const nestedContent = pickChildren<MenuContentProps>(
-              child.props.children,
-              Content
-            ).targetChildren?.[0]
+            const nestedContent = pickChildren<
+              MenuContentProps | ContextMenuContentProps
+            >(child.props.children, Content).targetChildren?.[0]
 
             if (nestedContent) {
               const nestedItems = mapItemsChildren(
@@ -387,6 +401,11 @@ If you want to use a custom component as your <Content />, you can use the menui
     const Component =
       Menu === 'ContextMenu' ? ContextMenuView : ContextMenuButton
 
+    const preview = pickChildren(content?.props.children, Preview)
+      .targetChildren?.[0]
+
+    const previewProps = preview?.props as ContextMenuPreviewProps | undefined
+
     return (
       <Component
         onPressMenuItem={({ nativeEvent }) => {
@@ -398,8 +417,42 @@ If you want to use a custom component as your <Content />, you can use the menui
         style={[{ flexGrow: 0 }, props.style]}
         menuConfig={{
           menuTitle,
-          menuItems: menuItems,
+          menuItems,
         }}
+        renderPreview={
+          Menu == 'ContextMenu' && preview && previewProps?.children
+            ? () => {
+                return (
+                  <>
+                    {typeof previewProps?.children == 'function'
+                      ? previewProps.children()
+                      : previewProps?.children}
+                  </>
+                )
+              }
+            : undefined
+        }
+        lazyPreview={
+          Menu === 'ContextMenu'
+            ? typeof previewProps?.children == 'function'
+            : undefined
+        }
+        onPressMenuPreview={
+          Menu == 'ContextMenu' ? previewProps?.onPress : undefined
+        }
+        previewConfig={
+          preview
+            ? {
+                // ...previewProps,
+                previewType: 'CUSTOM',
+                previewSize: previewProps?.size,
+                backgroundColor: previewProps?.backgroundColor,
+                borderRadius: previewProps?.borderRadius,
+                isResizeAnimated: previewProps?.isResizeAnimated,
+                preferredCommitStyle: previewProps?.preferredCommitStyle,
+              }
+            : undefined
+        }
       >
         {trigger.targetChildren?.[0]}
       </Component>
@@ -430,6 +483,7 @@ If you want to use a custom component as your <Content />, you can use the menui
     CheckboxItem,
     ItemImage,
     Label,
+    Preview,
   }
 }
 

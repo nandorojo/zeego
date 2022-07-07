@@ -13,9 +13,9 @@ module.exports = async function (env, argv) {
 
   config.module.rules.push({
     test: /\.(js|ts|tsx)$/,
-    include: /(packages|example)\/.+/,
+    include: /(packages|examples)\/.+/,
     exclude: /node_modules/,
-    use: 'babel-loader',
+    use: require.resolve('babel-loader'),
   })
 
   Object.assign(config.resolve.alias, {
@@ -23,9 +23,8 @@ module.exports = async function (env, argv) {
     'react-native': path.resolve(node_modules, 'react-native-web'),
     'react-native-web': path.resolve(node_modules, 'react-native-web'),
     '@expo/vector-icons': path.resolve(node_modules, '@expo/vector-icons'),
+    'zeego$': path.resolve(__dirname, '../../packages/zeego/src'),
   })
-
-  config.resolve.alias = alias
 
   return config
 }
