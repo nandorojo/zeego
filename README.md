@@ -10,6 +10,17 @@ Beautiful, native menus for React Native + Web, inspired by Radix UI.
 - 🍦 Vanilla React Native too
 - 🎨 100% unstyled components
 
+## About Zeego
+
+To learn more about Zeego and its approach to menus, you can watch [Fernando Rojo](https://twitter.com/FernandoTheRojo)'s talk at App.js Conf.
+
+The Zeego release happens at about 9:35.
+
+<a href="https://www.youtube.com/watch?v=0FfvIuSouTU" target="_blank">
+<img width="1681" alt="Screen Shot 2022-08-29 at 8 43 30 PM" src="https://user-images.githubusercontent.com/13172299/187323254-77b33470-92c8-439a-a22b-fef7b99e93da.png">
+</a>
+
+
 ## Installation
 
 ```sh
