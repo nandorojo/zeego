@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/nandorojo/zeego/compare/v0.4.0...v0.5.0) (2022-09-01)
+
+
+### Features
+
+* Image items on iOS; onOpenChange ([bb95c2a](https://github.com/nandorojo/zeego/commit/bb95c2a3ab415ac072854ffb815fd1866b28736d))
+
+
+
+
+
 ## [0.0.2-alpha.31](https://github.com/nandorojo/zeego/compare/v0.0.2-alpha.30...v0.0.2-alpha.31) (2022-06-03)
 
 **Note:** Version bump only for package zeego
