@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig",
-  "exclude": ["example"],
+  "exclude": ["example", "**/*/__tests__/**/*", "**/*.test.ts"],
   "compilerOptions": {
     "noEmit": false
   }

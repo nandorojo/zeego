@@ -15,6 +15,7 @@ export const MenuDisplayName = {
   CheckboxItem: 'CheckboxItem',
   Label: 'Label',
   ItemIndicator: 'ItemIndicator',
+  Preview: 'Preview',
 } as const
 
 type DisplayNames = typeof MenuDisplayName

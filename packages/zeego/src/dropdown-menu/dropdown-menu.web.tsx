@@ -17,8 +17,12 @@ import React, { forwardRef } from 'react'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-const Root = ({ children }: MenuRootProps) => {
-  return <DropdownMenu.Root>{children}</DropdownMenu.Root>
+const Root = ({ children, onOpenChange }: MenuRootProps) => {
+  return (
+    <DropdownMenu.Root onOpenChange={onOpenChange}>
+      {children}
+    </DropdownMenu.Root>
+  )
 }
 Root.displayName = MenuDisplayName.Root
 
@@ -217,7 +221,7 @@ export {
   ItemIcon,
 }
 
-export { ItemImage } from './web/item-image'
+export { ItemImage } from '../menu/web-primitives/item-image'
 export { Label } from './web/label'
 
 export { ItemTitle, ItemSubtitle } from '../menu'
