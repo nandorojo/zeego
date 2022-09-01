@@ -1,5 +1,5 @@
 {
-  "description": "Logical UI primitives, made for screens.",
+  "description": "Menus for React Native (+Web)",
   "private": true,
   "nohoist": [
     "**/*/babel-loader"
