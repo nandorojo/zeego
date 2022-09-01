@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Platform } from 'react-native'
+import { StyleSheet, View, Text, Platform, Image } from 'react-native'
 
 import * as ContextMenu from 'zeego/context-menu'
 import * as DropdownMenu from 'zeego/dropdown-menu'
@@ -7,6 +7,8 @@ import { Ionicons } from '@expo/vector-icons'
 const select = (val: unknown) => () => alert(val)
 
 const itemHeight = 25
+
+const source = Image.resolveAssetSource(require('./camera-outline.png'))
 
 const contentStyle = {
   minWidth: 220,
@@ -45,7 +47,11 @@ const dropdownStyles = StyleSheet.create({
     paddingRight: 5,
     paddingLeft: itemHeight,
     height: itemHeight,
-    transformOrigin: 'var(--radix-dropdown-menu-item-transform-origin)',
+    ...Platform.select({
+      web: {
+        transformOrigin: 'var(--radix-dropdown-menu-item-transform-origin)',
+      },
+    }),
   },
   itemWithSubtitle: {
     height: itemHeight * 2,
@@ -341,7 +347,7 @@ const ContextMenuExample = () => {
         <ContextMenu.Preview>
           {() => (
             <View
-              style={{ height: 300, width: 300, backgroundColor: 'pink' }}
+              style={{ height: 300, width: 300, backgroundColor: 'black' }}
             />
           )}
         </ContextMenu.Preview>
@@ -349,10 +355,23 @@ const ContextMenuExample = () => {
         <ContextMenu.Item
           style={[dropdownStyles.item, dropdownStyles.itemWithSubtitle]}
           onSelect={select(1)}
+          key="fernando"
+        >
+          <ContextMenu.ItemTitle>@FernandoTheRojo</ContextMenu.ItemTitle>
+          <ContextMenu.ItemSubtitle>Creator of Zeego</ContextMenu.ItemSubtitle>
+
+          <ContextMenu.ItemImage source={require('./fernando.jpg')} />
+        </ContextMenu.Item>
+
+        <ContextMenu.Item
+          style={[dropdownStyles.item, dropdownStyles.itemWithSubtitle]}
+          onSelect={select(1)}
           key="first"
         >
           <ContextMenu.ItemTitle>Action #1</ContextMenu.ItemTitle>
-          <ContextMenu.ItemSubtitle>Description!</ContextMenu.ItemSubtitle>
+          <ContextMenu.ItemSubtitle>Hey!</ContextMenu.ItemSubtitle>
+
+          <ContextMenu.ItemImage source={require('./camera-outline.png')} />
         </ContextMenu.Item>
         <ContextMenu.Item
           style={dropdownStyles.item}
@@ -442,6 +461,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 8,
   },
   text: {
     color: '#fff',

@@ -22,11 +22,12 @@ import {
   pickChildren,
   isInstanceOfComponent,
 } from '../children'
+import { Image } from 'react-native'
 import { filterNull } from '../filter-null'
 import {
   ContextMenuButton,
   ContextMenuView,
-  IconConfig,
+  MenuActionConfig,
 } from 'react-native-ios-context-menu'
 import { menuify } from '../display-names'
 
@@ -161,7 +162,7 @@ If you want to use a custom component as your <Content />, you can use the menui
     menuItems: (MenuItem | MenuConfig)[]
     menuAttributes?: MenuAttributes
     menuOptions?: MenuOptions
-    icon?: IconConfig
+    icon?: MenuActionConfig['icon']
   }
 
   type MenuItem = {
@@ -170,7 +171,7 @@ If you want to use a custom component as your <Content />, you can use the menui
     discoverabilityTitle?: string
     menuAttributes?: MenuAttributes
     menuOptions?: MenuOptions
-    icon?: IconConfig
+    icon?: MenuActionConfig['icon']
     menuState?: 'on' | 'off' | 'mixed'
   }
 
@@ -243,19 +244,20 @@ If you want to use a custom component as your <Content />, you can use the menui
           if (imageChild) {
             const { iosIconName } = imageChild.props
             if (iosIconName) {
+              // @deprecated  remove icon config for newer versions
               icon = {
                 iconType: 'SYSTEM',
                 iconValue: iosIconName,
               }
-            } else {
-              // require('react-native/Libraries/Network/RCTNetworking')
-              // const { Image } =
-              //   require('react-native') as typeof import('react-native')
-              // const iconValue = Image.resolveAssetSource(source)
-              // icon = {
-              //   iconType: 'REQUIRE',
-              //   iconValue,
-              // }
+            } else if (imageChild.props.source) {
+              const imageValue = Image.resolveAssetSource(
+                imageChild.props.source
+              )
+
+              icon = {
+                type: 'IMAGE_REQUIRE',
+                imageValue,
+              }
             }
           }
         }
@@ -406,6 +408,17 @@ If you want to use a custom component as your <Content />, you can use the menui
 
     const previewProps = preview?.props as ContextMenuPreviewProps | undefined
 
+    const onMenuDidHide =
+      props.onOpenChange &&
+      (() => {
+        props.onOpenChange?.(false)
+      })
+    const onMenuDidShow =
+      props.onOpenChange &&
+      (() => {
+        props.onOpenChange?.(true)
+      })
+
     return (
       <Component
         onPressMenuItem={({ nativeEvent }) => {
@@ -453,6 +466,8 @@ If you want to use a custom component as your <Content />, you can use the menui
               }
             : undefined
         }
+        onMenuDidHide={onMenuDidHide}
+        onMenuDidShow={onMenuDidShow}
       >
         {trigger.targetChildren?.[0]}
       </Component>

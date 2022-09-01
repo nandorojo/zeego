@@ -8,6 +8,7 @@ type TextStyle = React.ComponentProps<typeof Text>['style']
 export type MenuRootProps = {
   children: React.ReactNode
   style?: ViewStyle
+  onOpenChange?: (isOpen: boolean) => void
 }
 export type MenuTriggerProps = {
   children: React.ReactElement

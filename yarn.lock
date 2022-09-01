@@ -2227,6 +2227,11 @@
   resolved "https://registry.yarnpkg.com/@commitlint/types/-/types-11.0.0.tgz#719cf05fcc1abb6533610a2e0f5dd1e61eac14fe"
   integrity sha512-VoNqai1vR5anRF5Tuh/+SWDFk7xi7oMwHrHrbm1BprYXjB2RJsWLhUrStMssDxEl5lW/z3EUdg8RvH/IUBccSQ==
 
+"@dominicstop/ts-event-emitter@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@dominicstop/ts-event-emitter/-/ts-event-emitter-1.1.0.tgz#1f3d3fa878a1ccab686931280757954719cf88e4"
+  integrity sha512-CcxmJIvUb1vsFheuGGVSQf4KdPZC44XolpUT34+vlal+LyQoBUOn31pjFET5M9ctOxEpt8xa0M3/2M7uUiAoJw==
+
 "@egjs/hammerjs@^2.0.17":
   version "2.0.17"
   resolved "https://registry.yarnpkg.com/@egjs/hammerjs/-/hammerjs-2.0.17.tgz#5dc02af75a6a06e4c2db0202cae38c9263895124"
@@ -18152,10 +18157,12 @@ react-native-gesture-handler@~1.10.2:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
-react-native-ios-context-menu@^1.3.0:
-  version "1.7.6"
-  resolved "https://registry.yarnpkg.com/react-native-ios-context-menu/-/react-native-ios-context-menu-1.7.6.tgz#f59d05fbd000c2030c620940ffb062dad16807cb"
-  integrity sha512-bYtHWM5Gtc1/Gn1jrTXN3btFi2aHYvcChCJARNmgS5lpwxFbEKyCzCH2VFN7Cv0/WoEdU5eO1EM6NxBjz45ANA==
+react-native-ios-context-menu@^1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/react-native-ios-context-menu/-/react-native-ios-context-menu-1.12.0.tgz#6aba0f681fb7fdab2690d57ce2850532b0b040f9"
+  integrity sha512-9rqenxOP/mwk2gZMPZcbDh7kLC0barbusC/EJgYVaOsk0MR5wy6LvpWS5dsNLqzJg5jsnbq18SNZM+xvV9Mpvw==
+  dependencies:
+    "@dominicstop/ts-event-emitter" "^1.1.0"
 
 react-native-reanimated@2.2.2:
   version "2.2.2"
