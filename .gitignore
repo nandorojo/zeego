@@ -65,3 +65,5 @@ lib/
 
 **/*/ios
 **/*/android
+
+lerna-debug.log
