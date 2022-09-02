@@ -31,3 +31,4 @@ export const menuify = <Props extends any>(
 
   return MenuComponent
 }
+export const create = menuify
