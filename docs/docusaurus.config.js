@@ -87,12 +87,12 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Get Started',
+                label: 'Welcome',
                 to: '/',
               },
               {
-                label: 'Installation',
-                to: '/install',
+                label: 'Get Started',
+                to: '/start',
               },
             ],
           },
