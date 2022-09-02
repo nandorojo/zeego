@@ -130,3 +130,6 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   display: none;
 }
 
+img {
+  border-radius: 16px
+}

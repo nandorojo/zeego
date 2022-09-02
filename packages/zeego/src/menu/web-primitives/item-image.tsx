@@ -12,6 +12,7 @@ const ItemImage = menuify(
     width,
     fadeDuration = 0,
     resizeMode,
+    accessibilityLabel,
   }: MenuItemImageProps) => {
     return (
       <Image
@@ -21,6 +22,7 @@ const ItemImage = menuify(
         source={source}
         width={width}
         height={height}
+        accessibilityLabel={accessibilityLabel}
       />
     )
   },

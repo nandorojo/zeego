@@ -98,7 +98,7 @@ export type MenuItemImageProps = {
   height?: number
   resizeMode?: ImageProps['resizeMode']
   fadeDuration?: ImageProps['fadeDuration']
-}
+} & Pick<ImageProps, 'accessibilityLabel'>
 
 export type MenuTriggerItemProps = Omit<
   MenuItemProps,
