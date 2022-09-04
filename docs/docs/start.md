@@ -56,7 +56,7 @@ If you aren't familiar with how Expo works / what custom development clients are
 
 #### Starter app
 
-I recommend checking out the [Solito + Zeego starter](/starter).
+I recommend checking out the [Solito + Zeego starter](/start).
 
 #### Existing Solito apps
 
