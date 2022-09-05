@@ -47,6 +47,9 @@
   --ifm-color-primary-light: #751aff;
   --ifm-color-primary-lighter: #7d26ff;
   --ifm-color-primary-lightest: #944dff; */
+
+  --ifm-menu-color-background-active: #32275F;
+  --ifm-menu-color-active: var(--ifm-color-content);
 }
 
 @font-face {
@@ -136,4 +139,8 @@ img {
 
 .navbar {
   backdrop-filter: blur(12px);
+}
+
+.menu__link, .menu__list-item-collapsible {
+  border-radius: 999px;
 }

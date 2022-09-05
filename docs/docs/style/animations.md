@@ -60,7 +60,7 @@ Here we'll have a `MotiView` as an absolute-positioned background view. It will 
 ```tsx twoslash
 import * as DropdownMenu from 'zeego/dropdown-menu'
 import { MotiView, useAnimationState } from 'moti'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 
 const itemHeight = 25
 

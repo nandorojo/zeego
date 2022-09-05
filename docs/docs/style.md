@@ -1,26 +1,26 @@
 ---
-title: Adding Styles
+title: Custom Styles
 ---
 
 By default, all Zeego components are unstyled.
 
-To apply styles, you can use the `style` prop where available:
+To apply styles, you can use the `style` prop where available.
+
+These styles will typically only affect Web since the native components are often built-in iOS and Android elements.
 
 ```tsx
 <DropdownMenu.Item style={{ height: 40 }} />
 ```
 
-However, for most cases, this will be insufficient.
+That said, the `style` prop alone will likely be insufficient.
 
-You'll likely want to wrap the built-in components to build your own.
-
-To make your own components, you'll first need to `create` them.
+To make your own components, you'll first need to `create()` them.
 
 ## Create custom components
 
-Each Zeego element has a `create` function that lets you wrap the built-in components.
+Each Zeego primitive set has a `create` function that lets you wrap the built-in components.
 
-```tsx
+```jsx twoslash
 import * as DropdownMenu from 'zeego/dropdown-menu'
 
 const DropdownMenuItem = DropdownMenu.menuify((props) => {
@@ -28,11 +28,13 @@ const DropdownMenuItem = DropdownMenu.menuify((props) => {
 }, 'Item')
 ```
 
-You can now use your custom `DropdownMenuItem` component:
+You can now use your custom `DropdownMenuItem` component.
 
-### `create` usage
+If you don't wrap custom components with `create()`, they won't work properly on iOS or Android.
 
-`create` takes two arguments: first, the component to wrap, and second, the name of the component.
+### `create(Component, displayName)`
+
+`create` takes two arguments: first, the component to wrap, and second, the name of the primitive it's wrapping.
 
 #### TypeScript Support
 

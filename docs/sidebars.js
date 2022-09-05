@@ -34,18 +34,17 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Adding Styles',
+      label: 'Styling',
       items: [
         {
           label: 'Overview',
           id: 'style',
           type: 'doc',
         },
-        'style/vanilla',
+        // 'style/vanilla',
         'style/dripsy',
         'style/tailwind',
         // 'style/tamagui',
-        'style/animations',
       ],
       collapsible: false,
       // link: {
@@ -53,6 +52,7 @@ const sidebars = {
       //   id: 'style',
       // },
     },
+    'style/animations',
   ],
 }
 
