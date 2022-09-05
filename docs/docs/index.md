@@ -3,7 +3,7 @@ title: Welcome to Zeego
 sidebar_label: Welcome
 ---
 
-![Zeego Logo](/img/og.svg)
+<img src="/img/og.svg" alt="Zeego logo" />
 
 ## About Zeego
 
@@ -38,3 +38,17 @@ The Zeego release happens at about `9:35`.
 3. Don't worry about sharing styles across platforms
 4. Rely on built-in native menus for iOS and Android
 5. Everything ships unstyled
+
+## Resources
+
+To stay up-to-date with Zeego and related libraries, you should:
+
+1. Follow [Fernando Rojo on Twitter](https://twitter.com/fernandotherojo)
+2. Star [Zeego on GitHub](https://github.com/nandorojo/zeego)
+
+You might find my other [React Native libraries](https://github.com/nandorojo) useful too:
+
+- [Moti](https://github.com/nandorojo/moti)
+- [Dripsy](https://github.com/nandorojo/dripsy)
+- [Solito](https://github.com/nandorojo/solito)
+- [React Native Anchor](https://github.com/nandorojo/react-native-anchor)

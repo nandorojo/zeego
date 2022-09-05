@@ -1,5 +1,6 @@
 ---
 title: Context Menu
+sidebar_label: <ContextMenu />
 ---
 
 ```tsx twoslash

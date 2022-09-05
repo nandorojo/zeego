@@ -46,7 +46,29 @@ yarn add @react-native-menu/menu
 
 Expo users need to use a [custom development client](https://blog.expo.dev/introducing-custom-development-clients-5a2c79a9ddf8), since Zeego uses native code.
 
-After installing Zeego and its peer dependencies, you'll need to rebuild your custom development client. If your app is on the App Store, you'll need to deploy a new build.
+After installing Zeego and its peer dependencies, you'll need to rebuild your custom development client:
+
+```bash
+expo run:ios -d
+```
+
+:::tip
+
+To install your dev client on your iPhone, make sure it's plugged in to your Mac. If it doesn't show up, you may need to run `expo prebuild -p ios`, open `ios/YourApp.xcworspace` in XCode, and make sure your Apple team is properly set up.
+
+:::
+
+After the development client build is complete, you can run your app in dev mode:
+
+```bash
+expo start --dev-client
+```
+
+If your app is on the App Store, you'll need to deploy a new build too:
+
+```
+eas build --platform ios --autosubmit
+```
 
 Zeego will not work with Expo Go.
 

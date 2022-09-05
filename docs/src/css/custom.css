@@ -26,7 +26,7 @@
   --ifm-border-color: #f4f2f4;
   --ifm-toc-border-color: var(--ifm-border-color);
   --ifm-background-color: white;
-  --ifm-navbar-background-color: var(--ifm-background-color);
+  --ifm-navbar-background-color: transparent;
 
   --ifm-navbar-shadow: 0 0 0 1px var(--ifm-border-color);
   --ifm-container-width-xl: 1140px;
@@ -132,4 +132,8 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 
 img {
   border-radius: 16px
+}
+
+.navbar {
+  backdrop-filter: blur(12px);
 }

@@ -1,5 +1,6 @@
 ---
 title: Dropdown Menu
+sidebar_label: <DropdownMenu />
 ---
 
 ```tsx twoslash
