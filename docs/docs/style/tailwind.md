@@ -13,8 +13,8 @@ import * as DropdownMenu from 'zeego/dropdown-menu'
 import { styled } from 'nativewind'
 
 // you can write them separately
-const TaiwindItem = styled(DropdownMenu.Item, 'h-[25]')
-const DropdownMenuItem = DropdownMenu.menuify(TaiwindItem, 'Item')
+const TailwindItem = styled(DropdownMenu.Item, 'h-[25]')
+const DropdownMenuItem = DropdownMenu.menuify(TailwindItem, 'Item')
 
 // or you can chain them
 const DropdownMenuItemTitle = Dropdown.menuify(
