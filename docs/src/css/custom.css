@@ -48,7 +48,7 @@
   --ifm-color-primary-lighter: #7d26ff;
   --ifm-color-primary-lightest: #944dff; */
 
-  --ifm-menu-color-background-active: #32275F;
+  --ifm-menu-color-background-active: #E4DEFC;
   --ifm-menu-color-active: var(--ifm-color-content);
 }
 
@@ -119,7 +119,10 @@ p {
   --ifm-toc-border-color: var(--ifm-border-color);
   --ifm-background-color: hsl(246 6% 9%);
 
-  --ifm-code-border-radius: 16px
+  --ifm-code-border-radius: 16px;
+
+
+  --ifm-menu-color-background-active: #32275F;
 }
 
 html[data-theme='dark'] .docusaurus-highlight-code-line {
@@ -143,4 +146,8 @@ img {
 
 .menu__link, .menu__list-item-collapsible {
   border-radius: 999px;
+}
+
+aside {
+  border-right-width: 0px!important;
 }

@@ -27,8 +27,8 @@ const sidebars = {
     },
     {
       type: 'category',
-      items: ['examples/twitter', 'examples/github', 'examples/vercel'],
-      label: 'Examples',
+      items: ['examples/linear', 'examples/vercel', 'examples/twitter'],
+      label: 'Example Menus',
       collapsed: false,
       collapsible: false,
     },
