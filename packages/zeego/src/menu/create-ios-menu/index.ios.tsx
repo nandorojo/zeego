@@ -231,9 +231,15 @@ If you want to use a custom component as your <Content />, you can use the menui
         ).targetChildren
 
         if (iconChildren?.[0]?.props.iosIconName) {
+          const iconConfiguration =
+            iconChildren?.[0]?.props.iosIconConfiguration
+
           icon = {
-            iconType: 'SYSTEM',
-            iconValue: iconChildren[0].props.iosIconName,
+            type: 'IMAGE_SYSTEM',
+            imageValue: {
+              ...iconConfiguration,
+              systemName: iconChildren[0].props.iosIconName,
+            },
           }
         } else {
           const imageChild = pickChildren<MenuItemImageProps>(
@@ -242,12 +248,14 @@ If you want to use a custom component as your <Content />, you can use the menui
           ).targetChildren?.[0]
 
           if (imageChild) {
-            const { iosIconName } = imageChild.props
+            const { iosIconName, iosIconConfiguration } = imageChild.props
             if (iosIconName) {
-              // @deprecated  remove icon config for newer versions
               icon = {
-                iconType: 'SYSTEM',
-                iconValue: iosIconName,
+                type: 'IMAGE_SYSTEM',
+                imageValue: {
+                  ...iosIconConfiguration,
+                  systemName: iosIconName,
+                },
               }
             } else if (imageChild.props.source) {
               const imageValue = Image.resolveAssetSource(
