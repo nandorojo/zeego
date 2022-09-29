@@ -1,6 +1,7 @@
 import type { Text, View, ImageRequireSource, ImageProps } from 'react-native'
 import type { MenuContentProps as RadixContentProps } from '@radix-ui/react-dropdown-menu'
 import type { ContextMenuView } from 'react-native-ios-context-menu'
+import type { ImageSystemConfig } from 'react-native-ios-context-menu/lib/typescript/types/ImageItemConfig'
 
 type ViewStyle = React.ComponentProps<typeof View>['style']
 type TextStyle = React.ComponentProps<typeof Text>['style']
@@ -56,7 +57,7 @@ export type MenuItemProps = (
   key: string
 }
 
-export type MenuItemIconProps = {
+export interface MenuItemCommonProps {
   /**
    * The name of an iOS-only SF Symbol. For a full list, see https://developer.apple.com/sf-symbols/.
    *
@@ -64,11 +65,22 @@ export type MenuItemIconProps = {
    */
   iosIconName?: string
   /**
+   * Custom configuration for the SF Symbol icon provided by `iosIconName`. This can be used for iOS15+
+   * features like weight, scale, colors etc. The options correspond to the ImageSystemConfig in
+   * react-native-ios-context-menu
+   *
+   * @platform ios
+   */
+  iosIconConfiguration?: ImageSystemConfig
+  /**
    * The name of an android-only resource drawable. For a full list, see https://developer.android.com/reference/android/R.drawable.html.
    *
    * @platform android
    */
   androidIconName?: string
+}
+
+export type MenuItemIconProps = MenuItemCommonProps & {
   /**
    * You can also pass the icon as a React Native component child. This will only work on Web, not iOS or android.
    */
@@ -76,19 +88,7 @@ export type MenuItemIconProps = {
   style?: ViewStyle
 }
 
-export type MenuItemImageProps = {
-  /**
-   * The name of an iOS-only SF Symbol. For a full list, see https://developer.apple.com/sf-symbols/.
-   *
-   * @platform ios
-   */
-  iosIconName?: string
-  /**
-   * The name of an android-only resource drawable. For a full list, see https://developer.android.com/reference/android/R.drawable.html.
-   *
-   * @platform android
-   */
-  androidIconName?: string
+export type MenuItemImageProps = MenuItemCommonProps & {
   /**
    * `source={require('path/to/image')}`
    */
