@@ -4,6 +4,7 @@ import * as ContextMenu from 'zeego/context-menu'
 import * as DropdownMenu from 'zeego/dropdown-menu'
 import { ComponentProps, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
+import { useLink } from 'expo-router'
 const select = (val: unknown) => () => alert(val)
 
 const itemHeight = 25
@@ -336,6 +337,7 @@ const DropdownMenuExample = () => {
 }
 
 const ContextMenuExample = () => {
+  const link = useLink()
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
@@ -344,7 +346,11 @@ const ContextMenuExample = () => {
         </View>
       </ContextMenu.Trigger>
       <ContextMenu.Content style={contextStyles.content}>
-        <ContextMenu.Preview>
+        <ContextMenu.Preview
+          onPress={() => {
+            link.push('/twitter')
+          }}
+        >
           {() => (
             <View
               style={{ height: 300, width: 300, backgroundColor: 'black' }}

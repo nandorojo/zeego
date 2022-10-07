@@ -117,6 +117,11 @@
     ]
   },
   "resolutions": {
-    "react-native": "0.64.2"
+    "react-native": "0.69.6",
+    "expo-modules-autolinking": "~0.10.1",
+    "@expo/config-plugins": "^5.0.0",
+    "@expo/prebuild-config": "^5.0.1",
+    "react": "18.0.0",
+    "metro": "0.72.3"
   }
 }

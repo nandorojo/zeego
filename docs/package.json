@@ -28,8 +28,6 @@
     "prism-react-renderer": "^1.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-native-gesture-handler": "^2.6.0",
-    "react-native-reanimated": "^2.10.0",
     "solito": "latest",
     "zeego": "^0.5.0"
   },
