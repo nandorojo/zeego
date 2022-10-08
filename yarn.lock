@@ -18157,10 +18157,10 @@ react-native-gesture-handler@~1.10.2:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
-react-native-ios-context-menu@^1.12.0:
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/react-native-ios-context-menu/-/react-native-ios-context-menu-1.12.0.tgz#6aba0f681fb7fdab2690d57ce2850532b0b040f9"
-  integrity sha512-9rqenxOP/mwk2gZMPZcbDh7kLC0barbusC/EJgYVaOsk0MR5wy6LvpWS5dsNLqzJg5jsnbq18SNZM+xvV9Mpvw==
+react-native-ios-context-menu@^1.14.0:
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/react-native-ios-context-menu/-/react-native-ios-context-menu-1.14.0.tgz#361f4b6073142fe25047a551c96fa25e0f6d4f1c"
+  integrity sha512-HiNZ/WTNgN7mqIO2meMRC3DYQ4L/QLUrL6AMKsD4gP8DEpUskIKeXjiiKXO1ajZImt1J1Z9jUhPORc/RGw4OKw==
   dependencies:
     "@dominicstop/ts-event-emitter" "^1.1.0"
 
