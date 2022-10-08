@@ -30,6 +30,7 @@ import {
   MenuActionConfig,
 } from 'react-native-ios-context-menu'
 import { menuify } from '../display-names'
+import type { ImageSystemConfig } from 'react-native-ios-context-menu/src/types/ImageItemConfig'
 
 const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   const Trigger = menuify(({ children }: MenuTriggerProps) => {
@@ -230,16 +231,19 @@ If you want to use a custom component as your <Content />, you can use the menui
           ItemIcon
         ).targetChildren
 
-        if (iconChildren?.[0]?.props.iosIconName) {
-          const iconConfiguration =
-            iconChildren?.[0]?.props.iosIconConfiguration
+        if (
+          iconChildren?.[0]?.props.iosIconName ||
+          iconChildren?.[0]?.props.ios
+        ) {
+          const iconConfiguration = iconChildren?.[0]?.props.ios
 
           icon = {
             type: 'IMAGE_SYSTEM',
             imageValue: {
               ...iconConfiguration,
-              systemName: iconChildren[0].props.iosIconName,
-            },
+              systemName:
+                iconConfiguration?.name ?? iconChildren[0].props.iosIconName,
+            } as ImageSystemConfig,
           }
         } else {
           const imageChild = pickChildren<MenuItemImageProps>(
@@ -248,20 +252,10 @@ If you want to use a custom component as your <Content />, you can use the menui
           ).targetChildren?.[0]
 
           if (imageChild) {
-            const { iosIconName, iosIconConfiguration } = imageChild.props
-            if (iosIconName) {
-              icon = {
-                type: 'IMAGE_SYSTEM',
-                imageValue: {
-                  ...iosIconConfiguration,
-                  systemName: iosIconName,
-                },
-              }
-            } else if (imageChild.props.source) {
+            if (imageChild.props.source) {
               const imageValue = Image.resolveAssetSource(
                 imageChild.props.source
               )
-
               icon = {
                 type: 'IMAGE_REQUIRE',
                 imageValue,
