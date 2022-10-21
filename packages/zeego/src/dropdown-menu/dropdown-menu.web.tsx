@@ -17,9 +17,9 @@ import React, { forwardRef } from 'react'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-const Root = ({ children, onOpenChange }: MenuRootProps) => {
+const Root = ({ children, onOpenChange, onExpandedChange }: MenuRootProps) => {
   return (
-    <DropdownMenu.Root onOpenChange={onOpenChange}>
+    <DropdownMenu.Root onOpenChange={onOpenChange} onExpandedChange={onExpandedChange}>
       {children}
     </DropdownMenu.Root>
   )

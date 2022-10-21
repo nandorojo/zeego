@@ -420,7 +420,16 @@ If you want to use a custom component as your <Content />, you can use the menui
       (() => {
         props.onOpenChange?.(true)
       })
-
+    const onMenuWillShow =
+      props.onExpandedChange && 
+      (() => {
+        props.onExpandedChange?.(true)
+      })
+    const onMenuWillHide = 
+      props.onExpandedChange &&
+      (() => {
+        props.onExpandedChange?.(false)
+      })
     return (
       <Component
         onPressMenuItem={({ nativeEvent }) => {
@@ -470,6 +479,8 @@ If you want to use a custom component as your <Content />, you can use the menui
         }
         onMenuDidHide={onMenuDidHide}
         onMenuDidShow={onMenuDidShow}
+        onMenuWillHide={onMenuWillHide}
+        onMenuWillShow={onMenuWillShow}
       >
         {trigger.targetChildren?.[0]}
       </Component>

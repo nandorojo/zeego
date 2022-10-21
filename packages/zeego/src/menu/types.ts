@@ -10,6 +10,9 @@ export type MenuRootProps = {
   children: React.ReactNode
   style?: ViewStyle
   onOpenChange?: (isOpen: boolean) => void
+  // onExpandedChange gets called immediately after the menu is triggered,
+  // unlike onOpenChange which gets called after the menu has been fully rendered/closed.
+  onExpandedChange?: (isOpen: boolean) => void
 }
 export type MenuTriggerProps = {
   children: React.ReactElement
