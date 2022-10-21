@@ -430,6 +430,7 @@ If you want to use a custom component as your <Content />, you can use the menui
       (() => {
         props.onExpandedChange?.(false)
       })
+
     return (
       <Component
         onPressMenuItem={({ nativeEvent }) => {
