@@ -10,7 +10,6 @@ import {
   MenuCheckboxItemProps,
   MenuItemIndicatorProps,
   MenuItemIconProps,
-  menuify,
   create,
   MenuArrowProps,
 } from '../menu'
@@ -19,7 +18,7 @@ import React, { forwardRef } from 'react'
 
 import * as ContextMenu from '@radix-ui/react-context-menu'
 
-const Root = menuify(({ children }: MenuRootProps) => {
+const Root = create(({ children }: MenuRootProps) => {
   return <ContextMenu.Root>{children}</ContextMenu.Root>
 }, 'Root')
 
@@ -31,7 +30,7 @@ const TriggerView = forwardRef<unknown, any>((props, ref) => {
   )
 })
 
-const Trigger = menuify(({ children, style }: MenuTriggerProps) => {
+const Trigger = create(({ children, style }: MenuTriggerProps) => {
   return (
     <ContextMenu.Trigger asChild>
       <TriggerView style={style}>{children}</TriggerView>
@@ -47,7 +46,7 @@ const ContentView = forwardRef<unknown, any>((props, ref) => {
   )
 })
 
-const Content = menuify(
+const Content = create(
   ({
     children,
     style,
@@ -55,7 +54,6 @@ const Content = menuify(
     alignOffset,
     avoidCollisions,
     collisionPadding,
-    sideOffset,
   }: ContextMenuContentProps) => {
     return (
       <ContextMenu.Content
@@ -63,7 +61,6 @@ const Content = menuify(
         alignOffset={alignOffset}
         avoidCollisions={avoidCollisions}
         collisionPadding={collisionPadding}
-        sideOffset={sideOffset}
       >
         <ContentView style={style}>{children}</ContentView>
       </ContextMenu.Content>
@@ -76,7 +73,7 @@ const itemStyleReset = {
   outlineWidth: 0,
 }
 
-const Item = menuify(
+const Item = create(
   ({
     children,
     disabled,
@@ -111,7 +108,7 @@ const Item = menuify(
   'Item'
 )
 
-const TriggerItem = menuify(
+const TriggerItem = create(
   ({
     children,
     style,
@@ -144,11 +141,11 @@ const TriggerItem = menuify(
   'TriggerItem'
 )
 
-const Group = menuify(({ children }: MenuGroupProps) => {
+const Group = create(({ children }: MenuGroupProps) => {
   return <ContextMenu.Group>{children}</ContextMenu.Group>
 }, 'Group')
 
-const Separator = menuify(({ style }: MenuSeparatorProps) => {
+const Separator = create(({ style }: MenuSeparatorProps) => {
   return (
     <ContextMenu.Separator>
       <View style={style} />
@@ -156,7 +153,7 @@ const Separator = menuify(({ style }: MenuSeparatorProps) => {
   )
 }, 'Separator')
 
-const CheckboxItem = menuify(
+const CheckboxItem = create(
   ({
     onValueChange,
     value,
@@ -193,7 +190,7 @@ const CheckboxItem = menuify(
   'CheckboxItem'
 )
 
-const ItemIndicator = menuify(
+const ItemIndicator = create(
   ({ style, children }: MenuItemIndicatorProps) => (
     <ContextMenu.ItemIndicator>
       <View style={style}>{children}</View>
@@ -202,11 +199,11 @@ const ItemIndicator = menuify(
   'ItemIndicator'
 )
 
-const ItemIcon = menuify(({ children, style }: MenuItemIconProps) => {
+const ItemIcon = create(({ children, style }: MenuItemIconProps) => {
   return <View style={style}>{children}</View>
 }, 'ItemIcon')
 
-const Preview = menuify(() => <></>, 'Preview')
+const Preview = create(() => <></>, 'Preview')
 
 const Arrow = create(({ style, children, width, height }: MenuArrowProps) => {
   return (

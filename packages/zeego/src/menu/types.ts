@@ -39,7 +39,10 @@ export type MenuContentProps = {
   | 'sideOffset'
 >
 
-export type ContextMenuContentProps = Omit<MenuContentProps, 'side' | 'align'>
+export type ContextMenuContentProps = Not<
+  MenuContentProps,
+  'side' | 'align' | 'sideOffset'
+>
 
 export type MenuGroupProps = {
   children: React.ReactNode
