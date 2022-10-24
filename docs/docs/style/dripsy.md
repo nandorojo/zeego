@@ -187,15 +187,15 @@ const DropdownMenuItem = Dropdown.menuify(
   'Item'
 )
 
-const TriggerItemPrimitive = styled(Dropdown.TriggerItem)(itemStyle)
-const DropdownMenuTriggerItem = Dropdown.menuify(
+const SubTriggerPrimitive = styled(Dropdown.SubTrigger)(itemStyle)
+const DropdownMenuSubTrigger = Dropdown.menuify(
   ({
     children,
     onBlur,
     onFocus,
     destructive = false,
     ...props
-  }: ComponentProps<typeof Dropdown.TriggerItem>) => {
+  }: ComponentProps<typeof Dropdown.SubTrigger>) => {
     const { motiState, handleBlur, handleFocus } = useFocusedItem({
       onFocus,
       onBlur,
@@ -203,7 +203,7 @@ const DropdownMenuTriggerItem = Dropdown.menuify(
 
     return (
       <ItemContext.Provider value={{ destructive }}>
-        <TriggerItemPrimitive
+        <SubTriggerPrimitive
           {...props}
           sx={props.disabled ? { cursor: 'not-allowed' } : undefined}
           onFocus={handleFocus}
@@ -211,11 +211,11 @@ const DropdownMenuTriggerItem = Dropdown.menuify(
         >
           <DropdownItemFocusRing motiState={motiState} />
           {children}
-        </TriggerItemPrimitive>
+        </SubTriggerPrimitive>
       </ItemContext.Provider>
     )
   },
-  'TriggerItem'
+  'SubTrigger'
 )
 
 const DripsyTitle = styled(Dropdown.ItemTitle)({
@@ -336,7 +336,7 @@ const DropdownMenu = {
   ItemIcon: DropdownMenuItemIcon,
   Trigger: DropdownMenuTrigger,
   CheckboxItem: DropdownMenuCheckboxItem,
-  TriggerItem: DropdownMenuTriggerItem,
+  SubTrigger: DropdownMenuSubTrigger,
 }
 
 export { DropdownMenu }

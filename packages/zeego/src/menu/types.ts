@@ -5,10 +5,7 @@ import type {
   ImageProps,
   ViewProps,
 } from 'react-native'
-import type {
-  MenuContentProps as RadixContentProps,
-  MenuArrowProps as RadixArrowProps,
-} from '@radix-ui/react-dropdown-menu'
+import type { MenuContentProps as RadixContentProps } from '@radix-ui/react-dropdown-menu'
 import type { ContextMenuView } from 'react-native-ios-context-menu'
 import type { ImageSystemSymbolConfiguration } from 'react-native-ios-context-menu/lib/typescript/types/ImageItemConfig'
 
@@ -122,12 +119,21 @@ export type MenuArrowProps = {
   children?: React.ReactNode
 }
 
-export type MenuTriggerItemProps = Omit<
+export type MenuSubTriggerProps = Omit<
   MenuItemProps,
   keyof Pick<MenuItemProps, 'onSelect'>
 > & {
   key: string
 }
+
+export type MenuSubProps = {
+  children?: React.ReactNode
+}
+
+export type MenuSubContentProps = Not<MenuContentProps, 'side' | 'align'>
+export type ContextMenuSubContentProps = ContextMenuContentProps &
+  Pick<MenuContentProps, 'sideOffset'>
+
 export type MenuItemTitleProps = {
   children: string
   style?: TextStyle

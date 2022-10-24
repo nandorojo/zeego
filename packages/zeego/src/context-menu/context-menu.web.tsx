@@ -5,13 +5,15 @@ import {
   MenuItemProps,
   MenuRootProps,
   MenuSeparatorProps,
-  MenuTriggerItemProps,
+  MenuSubTriggerProps,
   MenuTriggerProps,
   MenuCheckboxItemProps,
   MenuItemIndicatorProps,
   MenuItemIconProps,
   create,
   MenuArrowProps,
+  ContextMenuSubContentProps,
+  MenuSubProps,
 } from '../menu'
 import { View } from 'react-native'
 import React, { forwardRef } from 'react'
@@ -108,7 +110,7 @@ const Item = create(
   'Item'
 )
 
-const TriggerItem = create(
+const SubTrigger = create(
   ({
     children,
     style,
@@ -116,9 +118,9 @@ const TriggerItem = create(
     disabled,
     onBlur,
     onFocus,
-  }: MenuTriggerItemProps) => {
+  }: MenuSubTriggerProps) => {
     return (
-      <ContextMenu.TriggerItem
+      <ContextMenu.SubTrigger
         disabled={disabled}
         textValue={textValue}
         onBlur={onBlur}
@@ -135,10 +137,10 @@ const TriggerItem = create(
         >
           {children}
         </ItemPrimitive>
-      </ContextMenu.TriggerItem>
+      </ContextMenu.SubTrigger>
     )
   },
-  'TriggerItem'
+  'SubTrigger'
 )
 
 const Group = create(({ children }: MenuGroupProps) => {
@@ -213,12 +215,41 @@ const Arrow = create(({ style, children, width, height }: MenuArrowProps) => {
   )
 }, 'Arrow')
 
+const Sub = create(({ children }: MenuSubProps) => {
+  return <ContextMenu.Sub>{children}</ContextMenu.Sub>
+}, 'Sub')
+
+const SubContent = create(
+  ({
+    children,
+    alignOffset,
+    avoidCollisions,
+    collisionPadding,
+    loop,
+    style,
+    sideOffset,
+  }: ContextMenuSubContentProps) => (
+    <ContextMenu.Portal>
+      <ContextMenu.SubContent
+        loop={loop}
+        alignOffset={alignOffset}
+        avoidCollisions={avoidCollisions}
+        collisionPadding={collisionPadding}
+        sideOffset={sideOffset}
+      >
+        <ContentView style={style}>{children}</ContentView>
+      </ContextMenu.SubContent>
+    </ContextMenu.Portal>
+  ),
+  'SubContent'
+)
+
 export {
   Root,
   Trigger,
   Content,
   Item,
-  TriggerItem,
+  SubTrigger,
   Group,
   Separator,
   CheckboxItem,
@@ -226,6 +257,8 @@ export {
   ItemIcon,
   Preview,
   Arrow,
+  Sub,
+  SubContent,
 }
 
 export { ItemImage } from '../menu/web-primitives/item-image'

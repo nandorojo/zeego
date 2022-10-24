@@ -1,7 +1,7 @@
 import { useLink } from 'expo-router'
 import { Image, Pressable, StatusBar } from 'react-native'
 
-const tweet = require('../../assets/tweet-detail.jpeg')
+const tweet = require('../assets/tweet-detail.jpeg')
 
 export default function Tweet() {
   const { back } = useLink()

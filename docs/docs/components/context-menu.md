@@ -270,6 +270,10 @@ Android menu items do not currently support subtitles.
 
 Used to group multiple items.
 
+On iOS, items will visually group with a divider like `Group Item 1` and `Group Item 2` below:
+
+<img src="/img/group.png">
+
 ### CheckboxItem
 
 Usage is similar to [`Item`](#item) with added checkbox features.

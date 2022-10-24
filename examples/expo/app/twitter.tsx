@@ -6,9 +6,9 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native'
-const feed = require('../../assets/feed.png')
-const listItem = require('../../assets/list-item.png')
-const preview = require('../../assets/tweet.png')
+const feed = require('../assets/feed.png')
+const listItem = require('../assets/list-item.png')
+const preview = require('../assets/tweet.png')
 
 import * as ContextMenu from 'zeego/context-menu'
 

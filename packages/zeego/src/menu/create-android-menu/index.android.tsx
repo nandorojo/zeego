@@ -16,7 +16,7 @@ import type {
   MenuItemSubtitleProps,
   MenuItemTitleProps,
   MenuRootProps,
-  MenuTriggerItemProps,
+  MenuSubTriggerProps,
   MenuTriggerProps,
   MenuItemIconProps,
   MenuCheckboxItemProps,
@@ -27,6 +27,8 @@ import type {
   ContextMenuPreviewProps,
   ContextMenuContentProps,
   MenuArrowProps,
+  MenuSubProps,
+  MenuSubContentProps,
 } from '../types'
 import { View } from 'react-native'
 
@@ -116,23 +118,24 @@ If you want to use a custom component as your <Content />, you can use the creat
     return <>{children}</>
   }, 'Item')
 
-  const TriggerItem = create(({ children }: MenuTriggerItemProps) => {
+  const SubTrigger = create(({ children }: MenuSubTriggerProps) => {
     const titleChild = pickChildren(children, ItemTitle).targetChildren
     if (typeof children != 'string' && !titleChild?.length) {
       console.error(
-        `[zeego] Invalid <TriggerItem />. It either needs a string as the children, or a <ItemTitle /> in the children. However, it got neither.
+        `[zeego] Invalid <SubTrigger />. It either needs an <ItemTitle /> in the children.
 
-
-<TriggerItem>
+<SubTrigger>
   <ItemTitle>
     Title here
   </ItemTitle>
-</TriggerItem>
+</SubTrigger>
   `
       )
     }
     return <>{children}</>
-  }, 'TriggerItem')
+  }, 'SubTrigger')
+  const Sub = create((_: MenuSubProps) => <></>, 'Sub')
+  const SubContent = create((_: MenuSubContentProps) => <></>, 'SubContent')
 
   const CheckboxItem = create(({}: MenuCheckboxItemProps) => {
     return <></>
@@ -183,7 +186,7 @@ If you want to use a custom component as your <Content />, you can use the creat
 
     const getItemFromChild = (
       child: ReactElement<
-        MenuItemProps | MenuTriggerItemProps | MenuCheckboxItemProps
+        MenuItemProps | MenuSubTriggerProps | MenuCheckboxItemProps
       >,
       index: number
     ) => {
@@ -343,12 +346,12 @@ If you want to use a custom component as your <Content />, you can use the creat
               }
               return finalItem
             }
-          } else if (isInstanceOfComponent(_child, Root)) {
+          } else if (isInstanceOfComponent(_child, Sub)) {
             const child = _child as ReactElement<MenuRootProps>
-            const key: string = child.key ? `${child.key}` : `item-${index}`
-            const triggerItemChild = pickChildren<MenuTriggerItemProps>(
+            const key: string = child.key ? `${child.key}` : `sub-${index}`
+            const triggerItemChild = pickChildren<MenuSubTriggerProps>(
               child.props.children,
-              TriggerItem
+              SubTrigger
             ).targetChildren?.[0]
 
             const triggerItem =
@@ -427,7 +430,7 @@ If you want to use a custom component as your <Content />, you can use the creat
     Item,
     ItemTitle,
     ItemSubtitle,
-    TriggerItem,
+    SubTrigger,
     Group,
     Separator,
     ItemIcon,
@@ -437,6 +440,8 @@ If you want to use a custom component as your <Content />, you can use the creat
     Label,
     Preview,
     Arrow,
+    Sub,
+    SubContent,
   }
 }
 

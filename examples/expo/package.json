@@ -15,16 +15,16 @@
     "@react-native-menu/menu": "^0.5.2",
     "add": "^2.0.6",
     "expo": "^46.0.0",
-    "expo-router": "^0.0.25",
+    "expo-router": "^0.0.33",
     "react": "18.0.0",
-    "react-dom": "16.13.1",
+    "react-dom": "18.0.0",
     "react-native": "0.69.6",
     "react-native-gesture-handler": "~2.5.0",
     "react-native-ios-context-menu": "1.14.0",
     "react-native-reanimated": "~2.9.1",
     "react-native-safe-area-context": "4.3.1",
     "react-native-screens": "~3.15.0",
-    "react-native-web": "^0.17.5"
+    "react-native-web": "~0.18.7"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",

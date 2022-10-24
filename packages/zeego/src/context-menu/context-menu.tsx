@@ -14,7 +14,9 @@ import {
   MenuLabelProps,
   MenuRootProps,
   MenuSeparatorProps,
-  MenuTriggerItemProps,
+  MenuSubContentProps,
+  MenuSubProps,
+  MenuSubTriggerProps,
   MenuTriggerProps,
 } from '../menu'
 import type { FC } from 'react'
@@ -48,10 +50,10 @@ const ItemImage: FC<MenuItemImageProps> = () => {
 }
 ItemImage.displayName = MenuDisplayName.ItemImage
 
-const TriggerItem: FC<MenuTriggerItemProps> = ({ children }) => {
+const SubTrigger: FC<MenuSubTriggerProps> = ({ children }) => {
   return <>{children}</>
 }
-TriggerItem.displayName = MenuDisplayName.TriggerItem
+SubTrigger.displayName = MenuDisplayName.SubTrigger
 
 const ItemTitle: FC<MenuItemTitleProps> = ({ children }) => {
   return <>{children}</>
@@ -87,6 +89,9 @@ Preview.displayName = MenuDisplayName.Preview
 
 const Arrow = create((_: MenuArrowProps) => <></>, 'Arrow')
 
+const Sub = create((_: MenuSubProps) => <></>, 'Sub')
+
+const SubContent = create((_: MenuSubContentProps) => <></>, 'SubContent')
 export {
   Root,
   Trigger,
@@ -94,7 +99,7 @@ export {
   Item,
   ItemTitle,
   ItemSubtitle,
-  TriggerItem,
+  SubTrigger,
   Group,
   ItemIcon,
   Separator,
@@ -104,4 +109,6 @@ export {
   Label,
   Preview,
   Arrow,
+  Sub,
+  SubContent,
 }
