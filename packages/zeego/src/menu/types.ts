@@ -34,7 +34,7 @@ export type MenuContentProps = {
   | 'align'
   | 'alignOffset'
   | 'avoidCollisions'
-  | 'collisionTolerance'
+  | 'collisionPadding'
   | 'sideOffset'
 >
 
