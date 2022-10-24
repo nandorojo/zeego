@@ -15,6 +15,7 @@ import type {
   MenuLabelProps,
   ContextMenuPreviewProps,
   ContextMenuContentProps,
+  MenuArrowProps,
 } from '../types'
 import React, { Children, ReactElement } from 'react'
 import {
@@ -483,6 +484,8 @@ If you want to use a custom component as your <Content />, you can use the menui
     'ItemIndicator'
   )
 
+  const Arrow = menuify((_: MenuArrowProps) => <></>, 'Arrow')
+
   return {
     Root,
     Trigger,
@@ -499,6 +502,7 @@ If you want to use a custom component as your <Content />, you can use the menui
     ItemImage,
     Label,
     Preview,
+    Arrow,
   }
 }
 

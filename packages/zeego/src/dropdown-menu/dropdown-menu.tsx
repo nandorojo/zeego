@@ -1,4 +1,6 @@
 import {
+  create,
+  MenuArrowProps,
   MenuCheckboxItemProps,
   MenuContentProps,
   MenuDisplayName,
@@ -79,6 +81,8 @@ ItemIndicator.displayName = MenuDisplayName.ItemIndicator
 const Label: FC<MenuLabelProps> = () => <></>
 Label.displayName = MenuDisplayName.Label
 
+const Arrow = create((_: MenuArrowProps) => <></>, 'Arrow')
+
 export {
   Root,
   Trigger,
@@ -94,4 +98,5 @@ export {
   ItemIndicator,
   ItemImage,
   Label,
+  Arrow,
 }

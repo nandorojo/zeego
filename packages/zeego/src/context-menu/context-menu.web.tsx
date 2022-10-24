@@ -11,6 +11,8 @@ import {
   MenuItemIndicatorProps,
   MenuItemIconProps,
   menuify,
+  create,
+  MenuArrowProps,
 } from '../menu'
 import { View } from 'react-native'
 import React, { forwardRef } from 'react'
@@ -206,6 +208,14 @@ const ItemIcon = menuify(({ children, style }: MenuItemIconProps) => {
 
 const Preview = menuify(() => <></>, 'Preview')
 
+const Arrow = create(({ style, children, width, height }: MenuArrowProps) => {
+  return (
+    <ContextMenu.Arrow width={width} height={height}>
+      <View style={[{ height, width }, style]}>{children}</View>
+    </ContextMenu.Arrow>
+  )
+}, 'Arrow')
+
 export {
   Root,
   Trigger,
@@ -218,6 +228,7 @@ export {
   ItemIndicator,
   ItemIcon,
   Preview,
+  Arrow,
 }
 
 export { ItemImage } from '../menu/web-primitives/item-image'

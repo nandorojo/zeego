@@ -1,6 +1,7 @@
 import {
   ContextMenuContentProps,
   ContextMenuPreviewProps,
+  create,
   MenuCheckboxItemProps,
   MenuDisplayName,
   MenuGroupProps,
@@ -19,6 +20,7 @@ import {
 import type { FC } from 'react'
 
 import React from 'react'
+import type { MenuArrowProps } from '@radix-ui/react-dropdown-menu'
 
 const Root: FC<MenuRootProps> = ({ children }) => <>{children}</>
 Root.displayName = MenuDisplayName.Root
@@ -83,6 +85,8 @@ Label.displayName = MenuDisplayName.Label
 const Preview: FC<ContextMenuPreviewProps> = () => <></>
 Preview.displayName = MenuDisplayName.Preview
 
+const Arrow = create((_: MenuArrowProps) => <></>, 'Arrow')
+
 export {
   Root,
   Trigger,
@@ -99,4 +103,5 @@ export {
   ItemImage,
   Label,
   Preview,
+  Arrow,
 }

@@ -1,5 +1,14 @@
-import type { Text, View, ImageRequireSource, ImageProps } from 'react-native'
-import type { MenuContentProps as RadixContentProps } from '@radix-ui/react-dropdown-menu'
+import type {
+  Text,
+  View,
+  ImageRequireSource,
+  ImageProps,
+  ViewProps,
+} from 'react-native'
+import type {
+  MenuContentProps as RadixContentProps,
+  MenuArrowProps as RadixArrowProps,
+} from '@radix-ui/react-dropdown-menu'
 import type { ContextMenuView } from 'react-native-ios-context-menu'
 
 type ViewStyle = React.ComponentProps<typeof View>['style']
@@ -99,6 +108,13 @@ export type MenuItemImageProps = {
   resizeMode?: ImageProps['resizeMode']
   fadeDuration?: ImageProps['fadeDuration']
 } & Pick<ImageProps, 'accessibilityLabel'>
+
+export type MenuArrowProps = {
+  height?: number
+  width?: number
+  style?: ViewProps['style']
+  children?: React.ReactNode
+}
 
 export type MenuTriggerItemProps = Omit<
   MenuItemProps,

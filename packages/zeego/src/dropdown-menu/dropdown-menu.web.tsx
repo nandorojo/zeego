@@ -11,6 +11,8 @@ import {
   MenuCheckboxItemProps,
   MenuItemIndicatorProps,
   MenuItemIconProps,
+  create,
+  MenuArrowProps,
 } from '../menu'
 import { View } from 'react-native'
 import React, { forwardRef } from 'react'
@@ -208,6 +210,14 @@ const ItemIcon = ({ children, style }: MenuItemIconProps) => {
 
 ItemIcon.displayName = MenuDisplayName.ItemIcon
 
+const Arrow = create(({ style, children, width, height }: MenuArrowProps) => {
+  return (
+    <DropdownMenu.Arrow height={height} width={width}>
+      <View style={[{ height, width }, style]}>{children}</View>
+    </DropdownMenu.Arrow>
+  )
+}, 'Arrow')
+
 export {
   Root,
   Trigger,
@@ -219,6 +229,7 @@ export {
   CheckboxItem,
   ItemIndicator,
   ItemIcon,
+  Arrow,
 }
 
 export { ItemImage } from '../menu/web-primitives/item-image'

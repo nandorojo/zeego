@@ -16,6 +16,7 @@ const {
   ItemIndicator,
   Label,
   Preview,
+  Arrow,
 } = createAndroidMenu('ContextMenu')
 
 export {
@@ -34,4 +35,5 @@ export {
   ItemIndicator,
   Label,
   Preview,
+  Arrow,
 }
