@@ -10,6 +10,7 @@ import type {
   MenuArrowProps as RadixArrowProps,
 } from '@radix-ui/react-dropdown-menu'
 import type { ContextMenuView } from 'react-native-ios-context-menu'
+import type { ImageSystemSymbolConfiguration } from 'react-native-ios-context-menu/lib/typescript/types/ImageItemConfig'
 
 type ViewStyle = React.ComponentProps<typeof View>['style']
 type TextStyle = React.ComponentProps<typeof Text>['style']
@@ -65,19 +66,33 @@ export type MenuItemProps = (
   key: string
 }
 
-export type MenuItemIconProps = {
+export interface MenuItemCommonProps {
   /**
    * The name of an iOS-only SF Symbol. For a full list, see https://developer.apple.com/sf-symbols/.
-   *
+   * @deprecated Please use the `name` inside of the `ios` prop instead.
    * @platform ios
    */
   iosIconName?: string
+  /**
+   * Icon configuration to be used on iOS. You can pass a SF Symbol icon using the `name` prop.
+   * Additionally, you can configure the SF Symbol's features like weight, scale, color etc. by passing
+   * the corresponding props. Note that some of those features require iOS 15+. For the full list of options,
+   * refer to the ImageSystemSymbolConfiguration type in react-native-ios-context-menu
+   *
+   * @platform ios
+   */
+  ios?: ImageSystemSymbolConfiguration & {
+    name: string
+  }
   /**
    * The name of an android-only resource drawable. For a full list, see https://developer.android.com/reference/android/R.drawable.html.
    *
    * @platform android
    */
   androidIconName?: string
+}
+
+export type MenuItemIconProps = MenuItemCommonProps & {
   /**
    * You can also pass the icon as a React Native component child. This will only work on Web, not iOS or android.
    */
@@ -85,19 +100,7 @@ export type MenuItemIconProps = {
   style?: ViewStyle
 }
 
-export type MenuItemImageProps = {
-  /**
-   * The name of an iOS-only SF Symbol. For a full list, see https://developer.apple.com/sf-symbols/.
-   *
-   * @platform ios
-   */
-  iosIconName?: string
-  /**
-   * The name of an android-only resource drawable. For a full list, see https://developer.android.com/reference/android/R.drawable.html.
-   *
-   * @platform android
-   */
-  androidIconName?: string
+export type MenuItemImageProps = MenuItemCommonProps & {
   /**
    * `source={require('path/to/image')}`
    */

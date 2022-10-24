@@ -31,6 +31,7 @@ import {
   MenuActionConfig,
 } from 'react-native-ios-context-menu'
 import { create } from '../display-names'
+import type { ImageSystemConfig } from 'react-native-ios-context-menu/src/types/ImageItemConfig'
 
 const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   const Trigger = create(({ children }: MenuTriggerProps) => {
@@ -231,10 +232,19 @@ If you want to use a custom component as your <Content />, you can use the creat
           ItemIcon
         ).targetChildren
 
-        if (iconChildren?.[0]?.props.iosIconName) {
+        if (
+          iconChildren?.[0]?.props.iosIconName ||
+          iconChildren?.[0]?.props.ios
+        ) {
+          const iconConfiguration = iconChildren?.[0]?.props.ios
+
           icon = {
-            iconType: 'SYSTEM',
-            iconValue: iconChildren[0].props.iosIconName,
+            type: 'IMAGE_SYSTEM',
+            imageValue: {
+              ...iconConfiguration,
+              systemName:
+                iconConfiguration?.name ?? iconChildren[0].props.iosIconName,
+            } as ImageSystemConfig,
           }
         } else {
           const imageChild = pickChildren<MenuItemImageProps>(
@@ -243,18 +253,10 @@ If you want to use a custom component as your <Content />, you can use the creat
           ).targetChildren?.[0]
 
           if (imageChild) {
-            const { iosIconName } = imageChild.props
-            if (iosIconName) {
-              // @deprecated  remove icon config for newer versions
-              icon = {
-                iconType: 'SYSTEM',
-                iconValue: iosIconName,
-              }
-            } else if (imageChild.props.source) {
+            if (imageChild.props.source) {
               const imageValue = Image.resolveAssetSource(
                 imageChild.props.source
               )
-
               icon = {
                 type: 'IMAGE_REQUIRE',
                 imageValue,

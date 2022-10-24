@@ -245,8 +245,8 @@ const DropdownMenuExample = () => {
             </DropdownMenu.ItemSubtitle>
           )}
           <DropdownMenuItemIcon
-            iosIconName="list.star"
             androidIconName="star_on"
+            ios={{ hierarchicalColor: '#00FF00', name: 'list.star' }}
           >
             <Ionicons name="list" size={15} />
           </DropdownMenuItemIcon>
