@@ -12,7 +12,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@radix-ui/react-context-menu": "^0.1.6",
     "@react-native-menu/menu": "^0.5.2",
     "add": "^2.0.6",
     "expo": "^46.0.0",

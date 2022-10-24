@@ -78,7 +78,7 @@ export default function TwitterExample() {
 
               <ContextMenu.Content>
                 <ContextMenu.Preview onPress={() => link.push('/tweet')}>
-                  <TweetPreview id={id} />
+                  {() => <TweetPreview id={id} />}
                 </ContextMenu.Preview>
                 <ContextMenu.Item key="delete" destructive>
                   <ContextMenu.ItemTitle>Delete Tweet</ContextMenu.ItemTitle>
