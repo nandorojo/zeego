@@ -50,6 +50,7 @@
 
   --ifm-menu-color-background-active: #E4DEFC;
   --ifm-menu-color-active: var(--ifm-color-content);
+
 }
 
 @font-face {
@@ -123,6 +124,7 @@ p {
 
 
   --ifm-menu-color-background-active: #32275F;
+  --ifm-table-background-color: #292a2a;
 }
 
 html[data-theme='dark'] .docusaurus-highlight-code-line {
