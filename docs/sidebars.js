@@ -41,6 +41,7 @@ const sidebars = {
           id: 'style',
           type: 'doc',
         },
+        'custom',
         // 'style/vanilla',
         'style/dripsy',
         'style/tailwind',
