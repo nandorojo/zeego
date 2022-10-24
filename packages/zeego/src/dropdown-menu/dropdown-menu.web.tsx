@@ -61,7 +61,7 @@ const Content = ({
   align,
   alignOffset,
   avoidCollisions,
-  collisionTolerance,
+  collisionPadding,
   sideOffset,
 }: MenuContentProps) => {
   return (
@@ -71,7 +71,7 @@ const Content = ({
       align={align}
       alignOffset={alignOffset}
       avoidCollisions={avoidCollisions}
-      collisionTolerance={collisionTolerance}
+      collisionPadding={collisionPadding}
       sideOffset={sideOffset}
     >
       <ContentView style={style}>{children}</ContentView>

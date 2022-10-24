@@ -74,21 +74,11 @@ If you want to use a custom component as your <Content />, you can use the creat
     return <>{children}</>
   }, 'ItemTitle')
 
-  const ItemIcon = create((props: MenuItemIconProps) => {
-    if (!props.iosIconName) {
-      console.warn(
-        '[zeego] <ItemIcon /> missing iosIconName prop. Will do nothing on iOS. Consider passing an iosIconImage or switching to <ItemImage />.'
-      )
-    }
+  const ItemIcon = create((_: MenuItemIconProps) => {
     return <>{}</>
   }, 'ItemIcon')
 
-  const ItemImage = create((props: MenuItemImageProps) => {
-    if (!props.iosIconName) {
-      console.warn(
-        '[zeego] <ItemImage /> will not use your custom image on iOS. You should use the iosIconName prop to render an icon on iOS too.'
-      )
-    }
+  const ItemImage = create((_: MenuItemImageProps) => {
     return <>{}</>
   }, 'ItemImage')
 

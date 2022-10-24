@@ -54,7 +54,7 @@ const Content = menuify(
     loop,
     alignOffset,
     avoidCollisions,
-    collisionTolerance,
+    collisionPadding,
     sideOffset,
   }: ContextMenuContentProps) => {
     return (
@@ -62,7 +62,7 @@ const Content = menuify(
         loop={loop}
         alignOffset={alignOffset}
         avoidCollisions={avoidCollisions}
-        collisionTolerance={collisionTolerance}
+        collisionPadding={collisionPadding}
         sideOffset={sideOffset}
       >
         <ContentView style={style}>{children}</ContentView>
