@@ -316,7 +316,7 @@ Renders a content separator on web only.
 | ------- | -------- | ------- | --------- |
 | `style` |          |         | `web`     |
 
-### Sub (Coming soon)
+### Sub
 
 Renders the parts of a submenu.
 
@@ -324,7 +324,7 @@ Renders the parts of a submenu.
 | -------------- | -------- | ------- | --------- |
 | `onOpenChange` |          |         | `web`     |
 
-### SubContent (Coming soon)
+### SubContent
 
 See the Radix UI [docs for `DropdownMenu.SubContent`](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#subcontent) to see usage for each prop.
 
@@ -337,7 +337,7 @@ See the Radix UI [docs for `DropdownMenu.SubContent`](https://www.radix-ui.com/d
 | `collisionPadding` |          | `0`      | `web`     |
 | `avoidCollisions`  |          | `true`   | `web`     |
 
-### SubTrigger (Coming soon)
+### SubTrigger
 
 An item that opens a submenu. Must be rendered inside `DropdownMenu.Sub`.
 
