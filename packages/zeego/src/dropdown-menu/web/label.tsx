@@ -1,4 +1,3 @@
-import React from 'react'
 import { Text } from 'react-native'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { create, MenuLabelProps } from '../../menu'

@@ -21,8 +21,6 @@ import {
 } from '../menu'
 import type { FC } from 'react'
 
-import React from 'react'
-
 const Root: FC<MenuRootProps> = ({ children }) => <>{children}</>
 Root.displayName = MenuDisplayName.Root
 

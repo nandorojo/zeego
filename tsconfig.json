@@ -2,23 +2,16 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@zeego/*": [
-        "./packages/*/src"
-      ],
-      "zeego": [
-        "./packages/zeego/src"
-      ]
+      "@zeego/*": ["./packages/*/src"],
+      "zeego": ["./packages/zeego/src"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
     "importsNotUsedAsValues": "error",
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
-    "lib": [
-      "esnext",
-      "DOM"
-    ],
+    "jsx": "react-jsx",
+    "lib": ["esnext", "DOM"],
     "module": "esnext",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
@@ -32,6 +25,5 @@
     "strict": true,
     "target": "esnext",
     "noEmit": true
-  },
-  "extends": "expo/tsconfig.base"
+  }
 }

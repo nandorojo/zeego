@@ -16,7 +16,7 @@ import {
   MenuSubProps,
 } from '../menu'
 import { View } from 'react-native'
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react'
 
 import * as ContextMenu from '@radix-ui/react-context-menu'
 

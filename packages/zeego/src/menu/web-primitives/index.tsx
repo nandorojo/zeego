@@ -5,7 +5,7 @@ import type {
 } from '../types'
 import { Text, View } from 'react-native'
 import { pickChildren } from '../children'
-import React from 'react'
+
 import { menuify } from '../display-names'
 
 const ItemPrimitive = ({ children, style }: MenuItemProps) => {

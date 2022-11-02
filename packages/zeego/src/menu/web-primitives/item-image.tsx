@@ -1,7 +1,6 @@
 import { Image } from 'react-native'
 import type { MenuItemImageProps } from '../types'
 
-import React from 'react'
 import { menuify } from '../display-names'
 
 const ItemImage = menuify(

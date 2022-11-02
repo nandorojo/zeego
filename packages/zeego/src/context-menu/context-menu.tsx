@@ -21,7 +21,6 @@ import {
 } from '../menu'
 import type { FC } from 'react'
 
-import React from 'react'
 import type { MenuArrowProps } from '@radix-ui/react-dropdown-menu'
 
 const Root: FC<MenuRootProps> = ({ children }) => <>{children}</>

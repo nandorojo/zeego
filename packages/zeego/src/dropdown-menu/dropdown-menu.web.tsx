@@ -17,7 +17,7 @@ import {
   MenuSubContentProps,
 } from '../menu'
 import { View } from 'react-native'
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 

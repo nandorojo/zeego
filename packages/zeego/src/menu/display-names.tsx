@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const MenuDisplayName = {
   Root: 'Root',
   Item: 'Item',
