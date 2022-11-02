@@ -51,7 +51,7 @@ const config = {
     ],
   ],
 
-  plugins: ['docusaurus-plugin-react-native-web'],
+// plugins: ['docusaurus-plugin-react-native-web'],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */

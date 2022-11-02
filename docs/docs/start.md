@@ -4,18 +4,6 @@ title: Getting Started
 
 <!-- <img src="/img/install.svg" alt="yarn add zeego" style={{ borderRadius: '16px' }} /> -->
 
-## Starter App
-
-The easiest way to use Zeego is to use the starter monorepo.
-
-The starter is powered by [Solito](https://solito.dev) – a library for using React Native with Next.js.
-
-```bash
-npx create-solito-app@latest my-zeego-app -t with-zeego
-```
-
-The starter app's [source code](https://github.com/nandorojo/solito/tree/master/example-monorepos/with-zeego) a good reference if you're installing Zeego in an existing project, too.
-
 ## Install in existing apps
 
 Start by installing Zeego:
