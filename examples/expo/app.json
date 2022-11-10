@@ -9,7 +9,6 @@
     "version": "1.0.0",
     "platforms": ["ios", "android", "web"],
     "scheme": "zeeg-example",
-
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.nandorojo.zeeg-example"
@@ -17,6 +16,20 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.nandorojo.zeegexample"
-    }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 31,
+            "targetSdkVersion": 31,
+            "minSdkVersion": 23,
+            "buildToolsVersion": "31.0.0",
+            "kotlinVersion": "1.6.10"
+          }
+        }
+      ]
+    ]
   }
 }
