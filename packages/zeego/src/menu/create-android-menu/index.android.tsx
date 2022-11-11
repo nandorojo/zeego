@@ -359,7 +359,7 @@ If you want to use a custom component as your <Content />, you can use the creat
             if (triggerItem) {
               const nestedContent = pickChildren<MenuContentProps>(
                 child.props.children,
-                Content
+                SubContent
               ).targetChildren?.[0]
 
               if (nestedContent) {
