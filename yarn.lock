@@ -2779,7 +2779,7 @@
     node-forge "^1.2.1"
     nullthrows "^1.1.1"
 
-"@expo/config-plugins@1.0.33", "@expo/config-plugins@4.1.5", "@expo/config-plugins@^5.0.0", "@expo/config-plugins@~4.1.4", "@expo/config-plugins@~5.0.0", "@expo/config-plugins@~5.0.1", "@expo/config-plugins@~5.0.3":
+"@expo/config-plugins@1.0.33", "@expo/config-plugins@4.1.5", "@expo/config-plugins@^5.0.0", "@expo/config-plugins@~5.0.0", "@expo/config-plugins@~5.0.1", "@expo/config-plugins@~5.0.3":
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/@expo/config-plugins/-/config-plugins-5.0.4.tgz#216fea6558fe66615af1370de55193f4181cb23e"
   integrity sha512-vzUcVpqOMs3h+hyRdhGwk+eGIOhXa5xYdd92yO17RMNHav3v/+ekMbs7XA2c3lepMO8Yd4/5hqmRw9ZTL6jGzg==
@@ -3116,9 +3116,9 @@
     xmlbuilder "^14.0.0"
 
 "@expo/prebuild-config@4.0.2", "@expo/prebuild-config@^5.0.1", "@expo/prebuild-config@~5.0.0", "@expo/prebuild-config@~5.0.3":
-  version "5.0.6"
-  resolved "https://registry.yarnpkg.com/@expo/prebuild-config/-/prebuild-config-5.0.6.tgz#817d477ee76031d56a12514db52a27f5aec701b7"
-  integrity sha512-umHVsle+inPFPt+GMWRjZhkHwNbbaXpiEKbRnWKweInaXEZa9R9qt8gLyzniaREnw+/cEAIgL1znrKmNk4lUfQ==
+  version "5.0.7"
+  resolved "https://registry.yarnpkg.com/@expo/prebuild-config/-/prebuild-config-5.0.7.tgz#4658b66126c4d32c7b6302571e458a71811b07aa"
+  integrity sha512-D+TBpJUHe4+oTGFPb4o0rrw/h1xxc6wF+abJnbDHUkhnaeiHkE2O3ByS7FdiZ2FT36t0OKqeSKG/xFwWT3m1Ew==
   dependencies:
     "@expo/config" "~7.0.2"
     "@expo/config-plugins" "~5.0.3"
@@ -5313,10 +5313,10 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/eslint-plugin/-/eslint-plugin-1.1.0.tgz#e42b1bef12d2415411519fd528e64b593b1363dc"
   integrity sha512-W/J0fNYVO01tioHjvYWQ9m6RgndVtbElzYozBq1ZPrHO/iCzlqoySHl4gO/fpCl9QEFjvJfjPgtPMTMlsoq5DQ==
 
-"@react-native-menu/menu@*", "@react-native-menu/menu@^0.5.2":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@react-native-menu/menu/-/menu-0.5.2.tgz#7b1ae8e41ee3b7306c4bf8b53b9e2cb78b4a829b"
-  integrity sha512-+ULWH3OXuirS4m03UhUkQj/G9q0wQo7LGDcxTyS12bVKQQ+yHwif4C3QcYy0zVIxwMPltCA7eOvsTThT0+B2xQ==
+"@react-native-menu/menu@^0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@react-native-menu/menu/-/menu-0.7.2.tgz#922a4357994f2768313ce0fc22362f6cea74ad8b"
+  integrity sha512-RXoU1tZjRdG/IV2S1x6WYNA2z6ul2vhdXQU/WFmsIAT+FbX1j9R/odSL/qjeyr5LlV+OUI0zofh8YrBn9wesag==
 
 "@react-native/assets@1.0.0":
   version "1.0.0"
@@ -6366,16 +6366,6 @@ ajv@^8.0.1:
   version "8.6.3"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.6.3.tgz#11a66527761dc3e9a3845ea775d2d3c0414e8764"
   integrity sha512-SMJOdDP6LqTkD0Uq8qLi+gMwSt0imXLSV080qFVwJCpH9U6Mb+SUGHAXM0KNbcBPguytWyvFxcHgMLe2D2XSpw==
-  dependencies:
-    fast-deep-equal "^3.1.1"
-    json-schema-traverse "^1.0.0"
-    require-from-string "^2.0.2"
-    uri-js "^4.2.2"
-
-ajv@^8.11.0:
-  version "8.11.0"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.11.0.tgz#977e91dd96ca669f54a11e23e378e33b884a565f"
-  integrity sha512-wGgprdCvMalC0BztXvitD2hC04YffAvtsUn93JbGXYLAtCUO4xd17mCCZQxUOItiBwZvJScWo8NIvQMQ71rdpg==
   dependencies:
     fast-deep-equal "^3.1.1"
     json-schema-traverse "^1.0.0"
@@ -10555,15 +10545,6 @@ expo-asset@~8.6.1:
     md5-file "^3.2.3"
     path-browserify "^1.0.0"
     url-parse "^1.5.9"
-
-expo-build-properties@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/expo-build-properties/-/expo-build-properties-0.2.0.tgz#604514bb133f6a5d082af35f80ca706446902caa"
-  integrity sha512-9GcZ+lReZf5mjtdu1Vn7anSMMCRzoktiJ9S4DcXEJ6as36QFPsYbpEI3xrH7VrfR6i/pdysCNgYbme+IaeEIaQ==
-  dependencies:
-    "@expo/config-plugins" "~4.1.4"
-    ajv "^8.11.0"
-    semver "^7.3.5"
 
 expo-cli@latest:
   version "5.4.9"
