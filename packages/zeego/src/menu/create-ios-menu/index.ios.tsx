@@ -421,14 +421,14 @@ If you want to use a custom component as your <Content />, you can use the menui
         props.onOpenChange?.(true)
       })
     const onMenuWillShow =
-      props.onExpandedChange && 
+      props.onWillChange && 
       (() => {
-        props.onExpandedChange?.(true)
+        props.onWillChange?.(true)
       })
     const onMenuWillHide = 
-      props.onExpandedChange &&
+      props.onWillChange &&
       (() => {
-        props.onExpandedChange?.(false)
+        props.onWillChange?.(false)
       })
 
     return (
