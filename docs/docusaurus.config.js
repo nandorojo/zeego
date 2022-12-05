@@ -3,9 +3,9 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github')
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 
-const url = `zeego.fernandorojo.co`
+const url = `zeego.dev`
 
-/** @type {import('@docusaurus/types').Config} */
+// /** @type {import('@docusaurus').Config} */
 const config = {
   title: 'Zeego',
   tagline: 'Menus for React Native (+ Web).',
@@ -50,6 +50,8 @@ const config = {
       },
     ],
   ],
+
+// plugins: ['docusaurus-plugin-react-native-web'],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */

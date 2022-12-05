@@ -9,8 +9,6 @@ const select = (val: unknown) => () => alert(val)
 
 const itemHeight = 25
 
-const source = Image.resolveAssetSource(require('./camera-outline.png'))
-
 const contentStyle = {
   minWidth: 220,
   backgroundColor: 'white',
@@ -176,12 +174,12 @@ const DropdownMenuSeparator = DropdownMenu.menuify(
   'Separator'
 )
 
-const DropdownMenuTriggerItem = DropdownMenu.menuify(
-  (props: ComponentProps<typeof DropdownMenu.TriggerItem>) => {
+const DropdownMenuSubTrigger = DropdownMenu.menuify(
+  (props: ComponentProps<typeof DropdownMenu.SubTrigger>) => {
     const [focused, setFocused] = useState(false)
     const toggleFocus = (next: boolean) => () => setFocused(next)
     return (
-      <DropdownMenu.TriggerItem
+      <DropdownMenu.SubTrigger
         onFocus={toggleFocus(true)}
         onBlur={toggleFocus(false)}
         {...props}
@@ -189,7 +187,7 @@ const DropdownMenuTriggerItem = DropdownMenu.menuify(
       />
     )
   },
-  'TriggerItem'
+  'SubTrigger'
 )
 
 const DropdownMenuItemIcon = DropdownMenu.menuify(
@@ -284,16 +282,16 @@ const DropdownMenuExample = () => {
           />
         </DropdownMenuCheckboxItem>
 
-        <DropdownMenu.Root>
-          <DropdownMenuTriggerItem style={dropdownStyles.item} key="nested">
+        <DropdownMenu.Sub>
+          <DropdownMenuSubTrigger style={dropdownStyles.item} key="nested">
             <DropdownMenuItemTitle>Submenu</DropdownMenuItemTitle>
-          </DropdownMenuTriggerItem>
-          <DropdownMenu.Content style={dropdownStyles.content}>
+          </DropdownMenuSubTrigger>
+          <DropdownMenu.SubContent style={dropdownStyles.content}>
             <DropdownMenuItem style={dropdownStyles.item} key="nested-1">
               <DropdownMenuItemTitle>Submenu Option 1</DropdownMenuItemTitle>
             </DropdownMenuItem>
-          </DropdownMenu.Content>
-        </DropdownMenu.Root>
+          </DropdownMenu.SubContent>
+        </DropdownMenu.Sub>
 
         <DropdownMenuSeparator />
         <DropdownMenu.Group>
@@ -307,11 +305,11 @@ const DropdownMenuExample = () => {
         <DropdownMenuSeparator />
 
         <DropdownMenu.Group>
-          <DropdownMenu.Root>
-            <DropdownMenuTriggerItem key="submenu">
+          <DropdownMenu.Sub>
+            <DropdownMenuSubTrigger key="submenu">
               <DropdownMenuItemTitle>Group Submenu</DropdownMenuItemTitle>
-            </DropdownMenuTriggerItem>
-            <DropdownMenu.Content style={contentStyle.content}>
+            </DropdownMenuSubTrigger>
+            <DropdownMenu.SubContent style={contentStyle}>
               <DropdownMenuItem
                 style={dropdownStyles.item}
                 key="nested-group-1"
@@ -328,8 +326,8 @@ const DropdownMenuExample = () => {
                   Group Submenu Option 2
                 </DropdownMenuItemTitle>
               </DropdownMenuItem>
-            </DropdownMenu.Content>
-          </DropdownMenu.Root>
+            </DropdownMenu.SubContent>
+          </DropdownMenu.Sub>
         </DropdownMenu.Group>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
@@ -337,7 +335,6 @@ const DropdownMenuExample = () => {
 }
 
 const ContextMenuExample = () => {
-  const link = useLink()
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger>
@@ -346,11 +343,7 @@ const ContextMenuExample = () => {
         </View>
       </ContextMenu.Trigger>
       <ContextMenu.Content style={contextStyles.content}>
-        <ContextMenu.Preview
-          onPress={() => {
-            link.push('/twitter')
-          }}
-        >
+        <ContextMenu.Preview>
           {() => (
             <View
               style={{ height: 300, width: 300, backgroundColor: 'black' }}
@@ -395,16 +388,16 @@ const ContextMenuExample = () => {
           <ContextMenu.ItemTitle>Action #3</ContextMenu.ItemTitle>
         </ContextMenu.Item>
 
-        <ContextMenu.Root>
-          <ContextMenu.TriggerItem style={dropdownStyles.item} key="nested">
+        <ContextMenu.Sub>
+          <ContextMenu.SubTrigger style={dropdownStyles.item} key="nested">
             Submenu
-          </ContextMenu.TriggerItem>
-          <ContextMenu.Content style={contextStyles.content}>
+          </ContextMenu.SubTrigger>
+          <ContextMenu.SubContent style={contextStyles.content}>
             <ContextMenu.Item style={dropdownStyles.item} key="nested-1">
               Submenu Option 1
             </ContextMenu.Item>
-          </ContextMenu.Content>
-        </ContextMenu.Root>
+          </ContextMenu.SubContent>
+        </ContextMenu.Sub>
 
         <ContextMenu.Group>
           <ContextMenu.Item style={dropdownStyles.item} key="group-1">
@@ -416,14 +409,17 @@ const ContextMenuExample = () => {
         </ContextMenu.Group>
 
         <ContextMenu.Group>
-          <ContextMenu.Root>
-            <ContextMenu.TriggerItem
+          <ContextMenu.Item style={dropdownStyles.item} key="group-3">
+            Group Item 3
+          </ContextMenu.Item>
+          <ContextMenu.Sub>
+            <ContextMenu.SubTrigger
               style={dropdownStyles.item}
               key="nested-group-trigger"
             >
               Group Submenu
-            </ContextMenu.TriggerItem>
-            <ContextMenu.Content style={contextStyles.content}>
+            </ContextMenu.SubTrigger>
+            <ContextMenu.SubContent style={contextStyles.content}>
               <ContextMenu.Item
                 style={dropdownStyles.item}
                 key="nested-group-1"
@@ -436,8 +432,8 @@ const ContextMenuExample = () => {
               >
                 Group Submenu Option 4
               </ContextMenu.Item>
-            </ContextMenu.Content>
-          </ContextMenu.Root>
+            </ContextMenu.SubContent>
+          </ContextMenu.Sub>
         </ContextMenu.Group>
       </ContextMenu.Content>
     </ContextMenu.Root>
@@ -447,8 +443,8 @@ const ContextMenuExample = () => {
 export default function App() {
   return (
     <View style={styles.container}>
-      {/* <DropdownMenuExample /> */}
       <View style={{ height: 30 }} />
+      {/* <DropdownMenuExample /> */}
       <ContextMenuExample />
     </View>
   )

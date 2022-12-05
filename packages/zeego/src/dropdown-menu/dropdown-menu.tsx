@@ -1,4 +1,6 @@
 import {
+  create,
+  MenuArrowProps,
   MenuCheckboxItemProps,
   MenuContentProps,
   MenuDisplayName,
@@ -12,12 +14,12 @@ import {
   MenuLabelProps,
   MenuRootProps,
   MenuSeparatorProps,
-  MenuTriggerItemProps,
+  MenuSubContentProps,
+  MenuSubProps,
+  MenuSubTriggerProps,
   MenuTriggerProps,
 } from '../menu'
 import type { FC } from 'react'
-
-import React from 'react'
 
 const Root: FC<MenuRootProps> = ({ children }) => <>{children}</>
 Root.displayName = MenuDisplayName.Root
@@ -45,10 +47,10 @@ const ItemImage: FC<MenuItemImageProps> = () => {
 }
 ItemImage.displayName = MenuDisplayName.ItemImage
 
-const TriggerItem: FC<MenuTriggerItemProps> = ({ children }) => {
+const SubTrigger: FC<MenuSubTriggerProps> = ({ children }) => {
   return <>{children}</>
 }
-TriggerItem.displayName = MenuDisplayName.TriggerItem
+SubTrigger.displayName = MenuDisplayName.SubTrigger
 
 const ItemTitle: FC<MenuItemTitleProps> = ({ children }) => {
   return <>{children}</>
@@ -79,6 +81,12 @@ ItemIndicator.displayName = MenuDisplayName.ItemIndicator
 const Label: FC<MenuLabelProps> = () => <></>
 Label.displayName = MenuDisplayName.Label
 
+const Arrow = create((_: MenuArrowProps) => <></>, 'Arrow')
+
+const Sub = create((_: MenuSubProps) => <></>, 'Sub')
+
+const SubContent = create((_: MenuSubContentProps) => <></>, 'SubContent')
+
 export {
   Root,
   Trigger,
@@ -86,7 +94,7 @@ export {
   Item,
   ItemTitle,
   ItemSubtitle,
-  TriggerItem,
+  SubTrigger,
   Group,
   ItemIcon,
   Separator,
@@ -94,4 +102,7 @@ export {
   ItemIndicator,
   ItemImage,
   Label,
+  Arrow,
+  Sub,
+  SubContent,
 }

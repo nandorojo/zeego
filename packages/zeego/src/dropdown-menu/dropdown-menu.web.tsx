@@ -5,15 +5,19 @@ import {
   MenuItemProps,
   MenuRootProps,
   MenuSeparatorProps,
-  MenuTriggerItemProps,
+  MenuSubTriggerProps,
   MenuTriggerProps,
   MenuDisplayName,
   MenuCheckboxItemProps,
   MenuItemIndicatorProps,
   MenuItemIconProps,
+  create,
+  MenuArrowProps,
+  MenuSubProps,
+  MenuSubContentProps,
 } from '../menu'
 import { View } from 'react-native'
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
@@ -59,21 +63,23 @@ const Content = ({
   align,
   alignOffset,
   avoidCollisions,
-  collisionTolerance,
+  collisionPadding,
   sideOffset,
 }: MenuContentProps) => {
   return (
-    <DropdownMenu.Content
-      loop={loop}
-      side={side}
-      align={align}
-      alignOffset={alignOffset}
-      avoidCollisions={avoidCollisions}
-      collisionTolerance={collisionTolerance}
-      sideOffset={sideOffset}
-    >
-      <ContentView style={style}>{children}</ContentView>
-    </DropdownMenu.Content>
+    <DropdownMenu.Portal>
+      <DropdownMenu.Content
+        loop={loop}
+        side={side}
+        align={align}
+        alignOffset={alignOffset}
+        avoidCollisions={avoidCollisions}
+        collisionPadding={collisionPadding}
+        sideOffset={sideOffset}
+      >
+        <ContentView style={style}>{children}</ContentView>
+      </DropdownMenu.Content>
+    </DropdownMenu.Portal>
   )
 }
 Content.displayName = MenuDisplayName.Content
@@ -115,16 +121,16 @@ const Item = ({
 }
 Item.displayName = MenuDisplayName.Item
 
-const TriggerItem = ({
+const SubTrigger = ({
   children,
   style,
   textValue,
   disabled,
   onBlur,
   onFocus,
-}: MenuTriggerItemProps) => {
+}: MenuSubTriggerProps) => {
   return (
-    <DropdownMenu.TriggerItem
+    <DropdownMenu.SubTrigger
       disabled={disabled}
       textValue={textValue}
       onBlur={onBlur}
@@ -141,10 +147,10 @@ const TriggerItem = ({
       >
         {children}
       </ItemPrimitive>
-    </DropdownMenu.TriggerItem>
+    </DropdownMenu.SubTrigger>
   )
 }
-TriggerItem.displayName = MenuDisplayName.TriggerItem
+SubTrigger.displayName = MenuDisplayName.SubTrigger
 
 const Group = ({ children }: MenuGroupProps) => {
   return <DropdownMenu.Group>{children}</DropdownMenu.Group>
@@ -208,17 +214,57 @@ const ItemIcon = ({ children, style }: MenuItemIconProps) => {
 
 ItemIcon.displayName = MenuDisplayName.ItemIcon
 
+const Arrow = create(({ style, children, width, height }: MenuArrowProps) => {
+  return (
+    <DropdownMenu.Arrow height={height} width={width}>
+      <View style={[{ height, width }, style]}>{children}</View>
+    </DropdownMenu.Arrow>
+  )
+}, 'Arrow')
+
+const Sub = create(({ children }: MenuSubProps) => {
+  return <DropdownMenu.Sub>{children}</DropdownMenu.Sub>
+}, 'Sub')
+
+const SubContent = create(
+  ({
+    children,
+    alignOffset,
+    avoidCollisions,
+    collisionPadding,
+    loop,
+    sideOffset,
+    style,
+  }: MenuSubContentProps) => (
+    <DropdownMenu.Portal>
+      <DropdownMenu.SubContent
+        loop={loop}
+        alignOffset={alignOffset}
+        avoidCollisions={avoidCollisions}
+        collisionPadding={collisionPadding}
+        sideOffset={sideOffset}
+      >
+        <ContentView style={style}>{children}</ContentView>
+      </DropdownMenu.SubContent>
+    </DropdownMenu.Portal>
+  ),
+  'SubContent'
+)
+
 export {
   Root,
   Trigger,
   Content,
   Item,
-  TriggerItem,
+  SubTrigger,
   Group,
   Separator,
   CheckboxItem,
   ItemIndicator,
   ItemIcon,
+  Arrow,
+  Sub,
+  SubContent,
 }
 
 export { ItemImage } from '../menu/web-primitives/item-image'

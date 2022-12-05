@@ -7,7 +7,7 @@ const {
   Item,
   ItemTitle,
   ItemSubtitle,
-  TriggerItem,
+  SubTrigger,
   Group,
   Separator,
   ItemIcon,
@@ -15,6 +15,9 @@ const {
   CheckboxItem,
   ItemIndicator,
   Label,
+  Arrow,
+  Sub,
+  SubContent,
 } = createAndroidMenu('DropdownMenu')
 
 export {
@@ -24,7 +27,7 @@ export {
   Item,
   ItemTitle,
   ItemSubtitle,
-  TriggerItem,
+  SubTrigger,
   Group,
   Separator,
   ItemIcon,
@@ -32,4 +35,7 @@ export {
   CheckboxItem,
   ItemIndicator,
   Label,
+  Arrow,
+  Sub,
+  SubContent,
 }

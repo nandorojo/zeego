@@ -70,6 +70,7 @@ export const pickChildren = <Props = any>(
   const withoutTargetChildren = React.Children.map(children, (item) => {
     if (!isValidElement(item)) return item
     if (isInstanceOfComponent(item, targetChild)) {
+      // @ts-expect-error
       target.push(cloneElement(item))
       return null
     }

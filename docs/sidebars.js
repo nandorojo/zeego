@@ -25,13 +25,13 @@ const sidebars = {
       collapsed: false,
       collapsible: false,
     },
-    {
-      type: 'category',
-      items: ['examples/linear', 'examples/vercel', 'examples/twitter'],
-      label: 'Example Menus',
-      collapsed: false,
-      collapsible: false,
-    },
+    //{
+      // type: 'category',
+      // items: ['examples/linear', 'examples/vercel', 'examples/twitter'],
+     // label: 'Example Menus',
+     // collapsed: false,
+    //  collapsible: false,
+    //},
     {
       type: 'category',
       label: 'Styling',
@@ -41,6 +41,7 @@ const sidebars = {
           id: 'style',
           type: 'doc',
         },
+        'custom',
         // 'style/vanilla',
         'style/dripsy',
         'style/tailwind',

@@ -7,7 +7,7 @@ const {
   Item,
   ItemTitle,
   ItemSubtitle,
-  TriggerItem,
+  SubTrigger,
   Group,
   Separator,
   ItemIcon,
@@ -16,6 +16,9 @@ const {
   ItemIndicator,
   Label,
   Preview,
+  Arrow,
+  Sub,
+  SubContent,
 } = createAndroidMenu('ContextMenu')
 
 export {
@@ -25,7 +28,7 @@ export {
   Item,
   ItemTitle,
   ItemSubtitle,
-  TriggerItem,
+  SubTrigger,
   Group,
   Separator,
   ItemIcon,
@@ -34,4 +37,7 @@ export {
   ItemIndicator,
   Label,
   Preview,
+  Arrow,
+  Sub,
+  SubContent,
 }

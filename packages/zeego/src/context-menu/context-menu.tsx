@@ -1,6 +1,7 @@
 import {
   ContextMenuContentProps,
   ContextMenuPreviewProps,
+  create,
   MenuCheckboxItemProps,
   MenuDisplayName,
   MenuGroupProps,
@@ -13,12 +14,14 @@ import {
   MenuLabelProps,
   MenuRootProps,
   MenuSeparatorProps,
-  MenuTriggerItemProps,
+  MenuSubContentProps,
+  MenuSubProps,
+  MenuSubTriggerProps,
   MenuTriggerProps,
 } from '../menu'
 import type { FC } from 'react'
 
-import React from 'react'
+import type { MenuArrowProps } from '@radix-ui/react-dropdown-menu'
 
 const Root: FC<MenuRootProps> = ({ children }) => <>{children}</>
 Root.displayName = MenuDisplayName.Root
@@ -46,10 +49,10 @@ const ItemImage: FC<MenuItemImageProps> = () => {
 }
 ItemImage.displayName = MenuDisplayName.ItemImage
 
-const TriggerItem: FC<MenuTriggerItemProps> = ({ children }) => {
+const SubTrigger: FC<MenuSubTriggerProps> = ({ children }) => {
   return <>{children}</>
 }
-TriggerItem.displayName = MenuDisplayName.TriggerItem
+SubTrigger.displayName = MenuDisplayName.SubTrigger
 
 const ItemTitle: FC<MenuItemTitleProps> = ({ children }) => {
   return <>{children}</>
@@ -83,6 +86,11 @@ Label.displayName = MenuDisplayName.Label
 const Preview: FC<ContextMenuPreviewProps> = () => <></>
 Preview.displayName = MenuDisplayName.Preview
 
+const Arrow = create((_: MenuArrowProps) => <></>, 'Arrow')
+
+const Sub = create((_: MenuSubProps) => <></>, 'Sub')
+
+const SubContent = create((_: MenuSubContentProps) => <></>, 'SubContent')
 export {
   Root,
   Trigger,
@@ -90,7 +98,7 @@ export {
   Item,
   ItemTitle,
   ItemSubtitle,
-  TriggerItem,
+  SubTrigger,
   Group,
   ItemIcon,
   Separator,
@@ -99,4 +107,7 @@ export {
   ItemImage,
   Label,
   Preview,
+  Arrow,
+  Sub,
+  SubContent,
 }
