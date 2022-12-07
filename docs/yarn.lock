@@ -8532,10 +8532,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zeego@1.0.0-alpha.20:
-  version "1.0.0-alpha.20"
-  resolved "https://registry.yarnpkg.com/zeego/-/zeego-1.0.0-alpha.20.tgz#03aa8b9717e69815b82d09f11a2e3cf1f1652453"
-  integrity sha512-8Nl6XWHIo3oOSpXpTaXGPG7EVtqaoBxxJPvgM6FcHW54DQez6dvRhuuMWjL++qSIwzYgot+I/DSwr909fqwJYQ==
+zeego@latest:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/zeego/-/zeego-1.0.1.tgz#dc42f4c49b1269a7627cd402e29f2d1380e8d1de"
+  integrity sha512-zZs9dhf6P6aVjiS4+hIG+4AFPKYlaZ57gBYCQ0xsbNnRJbu8IK9IC3/xP2vbNLhNMoUbuFMm4ybTVGnHkCUSBA==
   dependencies:
     "@radix-ui/react-context-menu" "^2.0.1"
     "@radix-ui/react-dropdown-menu" "^2.0.1"
