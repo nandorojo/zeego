@@ -41,7 +41,7 @@ const style = StyleSheet.create({
 
 type ContentProps = React.ComponentProps<typeof DropdownMenu['Content']>
 
-export const DropdownMenuContent = DropdownMenu.menuify(
+export const DropdownMenuContent = DropdownMenu.create(
   (props: ContentProps) => {
     return <DropdownMenu.Content {...props} style={style.content} />
   },
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
 
 type ItemProps = React.ComponentProps<typeof DropdownMenu['Item']>
 
-const DropdownMenuItem = DropdownMenu.menuify((props: ItemProps) => {
+const DropdownMenuItem = DropdownMenu.create((props: ItemProps) => {
   const focusState = useAnimationState({
     from: {
       opacity: 0,

@@ -1,9 +1,9 @@
 import { Image } from 'react-native'
 import type { MenuItemImageProps } from '../types'
 
-import { menuify } from '../display-names'
+import { create } from '../display-names'
 
-const ItemImage = menuify(
+const ItemImage = create(
   ({
     source,
     style,

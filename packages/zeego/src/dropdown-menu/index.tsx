@@ -1,2 +1,2 @@
-export * from './dropdown-menu';
-export { menuify } from '../menu';
+export * from './dropdown-menu'
+export { create, menuify } from '../menu'

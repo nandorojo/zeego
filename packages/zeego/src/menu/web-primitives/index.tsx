@@ -6,7 +6,7 @@ import type {
 import { Text, View } from 'react-native'
 import { pickChildren } from '../children'
 
-import { menuify } from '../display-names'
+import { create } from '../display-names'
 
 const ItemPrimitive = ({ children, style }: MenuItemProps) => {
   const titleChildren = pickChildren(children, ItemTitle)
@@ -30,7 +30,7 @@ const ItemPrimitive = ({ children, style }: MenuItemProps) => {
   )
 }
 
-const ItemTitle = menuify(({ children, style }: MenuItemTitleProps) => {
+const ItemTitle = create(({ children, style }: MenuItemTitleProps) => {
   return (
     <Text style={style} selectable={false}>
       {children}
@@ -38,7 +38,7 @@ const ItemTitle = menuify(({ children, style }: MenuItemTitleProps) => {
   )
 }, 'ItemTitle')
 
-const ItemSubtitle = menuify(({ children, style }: MenuItemSubtitleProps) => {
+const ItemSubtitle = create(({ children, style }: MenuItemSubtitleProps) => {
   return (
     <Text style={style} selectable={false}>
       {children}

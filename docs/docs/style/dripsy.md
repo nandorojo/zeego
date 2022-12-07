@@ -14,7 +14,7 @@ const DripsyItem = styled(DropdownMenu.Item)({
   height: 40,
 })
 
-const DropdownMenuItem = DropdownMenu.menuify(DripsyItem, 'Item')
+const DropdownMenuItem = DropdownMenu.create(DripsyItem, 'Item')
 
 // ...your other components
 ```
@@ -65,7 +65,7 @@ const DripsyContent = styled(Dropdown.Content)({
   }),
 })
 
-const DropdownMenuContent = Dropdown.menuify(DripsyContent, 'Content')
+const DropdownMenuContent = Dropdown.create(DripsyContent, 'Content')
 
 const itemBorderWidth = 2
 
@@ -155,7 +155,7 @@ const ItemContext = createContext<ItemContext>({
   destructive: false,
 })
 
-const DropdownMenuItem = Dropdown.menuify(
+const DropdownMenuItem = Dropdown.create(
   ({
     children,
     onBlur,
@@ -188,7 +188,7 @@ const DropdownMenuItem = Dropdown.menuify(
 )
 
 const SubTriggerPrimitive = styled(Dropdown.SubTrigger)(itemStyle)
-const DropdownMenuSubTrigger = Dropdown.menuify(
+const DropdownMenuSubTrigger = Dropdown.create(
   ({
     children,
     onBlur,
@@ -233,7 +233,7 @@ function useItemContentColor(): { color: keyof Theme['colors'] } {
   }
 }
 
-const DropdownMenuItemTitle = Dropdown.menuify(
+const DropdownMenuItemTitle = Dropdown.create(
   (props: ComponentProps<typeof Dropdown.ItemTitle>) => {
     const { color } = useItemContentColor()
 
@@ -242,7 +242,7 @@ const DropdownMenuItemTitle = Dropdown.menuify(
   'ItemTitle'
 )
 
-const DropdownMenuSeparator = Dropdown.menuify(
+const DropdownMenuSeparator = Dropdown.create(
   styled(Dropdown.Separator)({
     m: '$2',
     height: 1,
@@ -264,7 +264,7 @@ const DripsyIcon = styled(Dropdown.ItemIcon)({
 
 type IconProps = ComponentProps<typeof Ionicons>
 
-const DropdownMenuItemIcon = Dropdown.menuify(
+const DropdownMenuItemIcon = Dropdown.create(
   ({
     name,
     size,
@@ -294,7 +294,7 @@ const ItemIndicator = styled(Dropdown.ItemIndicator)({
   justifyContent: 'center',
 })
 
-const DropdownMenuCheckboxItem = Dropdown.menuify(
+const DropdownMenuCheckboxItem = Dropdown.create(
   ({
     children,
     onBlur,

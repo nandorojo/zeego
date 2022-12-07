@@ -48,7 +48,7 @@ Each Zeego primitive set has a `create` function that lets you wrap the built-in
 ```jsx twoslash
 import * as DropdownMenu from 'zeego/dropdown-menu'
 
-const DropdownMenuItem = DropdownMenu.menuify((props) => {
+const DropdownMenuItem = DropdownMenu.create((props) => {
   // you can add your own comonents in here
   return <DropdownMenu.Item {...props} />
 }, 'Item')
@@ -71,7 +71,7 @@ import * as DropdownMenu from 'zeego/dropdown-menu'
 
 type ItemProps = React.ComponentProps<typeof DropdownMenu['Item']>
 
-const DropdownMenuItem = DropdownMenu.menuify((props: ItemProps) => {
+const DropdownMenuItem = DropdownMenu.create((props: ItemProps) => {
   return <DropdownMenu.Item {...props} />
 }, 'Item')
 ```
@@ -83,7 +83,7 @@ import * as DropdownMenu from 'zeego/dropdown-menu'
 
 type ItemProps = React.ComponentProps<typeof DropdownMenu['Item']>
 
-const DropdownMenuItem = DropdownMenu.menuify((props: ItemProps) => {
+const DropdownMenuItem = DropdownMenu.create((props: ItemProps) => {
   return <DropdownMenu.Item {...props} />
 }, 'Item')
 

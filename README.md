@@ -20,7 +20,6 @@ The Zeego release happens at about 9:35.
 <img width="1681" alt="Screen Shot 2022-08-29 at 8 43 30 PM" src="https://user-images.githubusercontent.com/13172299/187323254-77b33470-92c8-439a-a22b-fef7b99e93da.png">
 </a>
 
-
 ## Installation
 
 ```sh
@@ -95,7 +94,7 @@ One difference is that `DropdownMenu.Item` needs a child `DropdownMenu.ItemTitle
 
 ### Custom components
 
-To use a custom component, you'll first need to `menuify` it.
+To use a custom component, you'll first need to `create` it.
 
 Here is an example of a custom component using Dripsy:
 
@@ -108,7 +107,7 @@ const StyledMenuItem = styled(DropdownMenu.Item)({
 })
 
 // this part is important
-const DripsyMenuItem = DropdownMenu.menuify(StyledMenuItem, 'Item')
+const DripsyMenuItem = DropdownMenu.create(StyledMenuItem, 'Item')
 ```
 
 And now, you can use it:
@@ -119,7 +118,7 @@ And now, you can use it:
 <DripsyMenuItem>
 ```
 
-Under the hood, `menuify` applies a `displayName` to your component. This allows `zeego` to recognize it when it's mapping children for iOS and Android.
+Under the hood, `create` applies a `displayName` to your component. This allows `zeego` to recognize it when it's mapping children for iOS and Android.
 
 ## Example
 
@@ -154,7 +153,10 @@ const DropdownMenuExample = () => {
               12 artists fit your search
             </DropdownMenu.ItemSubtitle>
           )}
-          <DropdownMenuItemIcon iosIconName="list.star" androidIconName="star_on">
+          <DropdownMenuItemIcon
+            iosIconName="list.star"
+            androidIconName="star_on"
+          >
             <Ionicons name="list" size={15} />
           </DropdownMenuItemIcon>
         </DropdownMenuItem>
@@ -164,7 +166,10 @@ const DropdownMenuExample = () => {
           key="second"
         >
           <DropdownMenuItemTitle>Favorite</DropdownMenuItemTitle>
-          <DropdownMenuItemIcon iosIconName="star.fill" androidIconName="star_off">
+          <DropdownMenuItemIcon
+            iosIconName="star.fill"
+            androidIconName="star_off"
+          >
             <Ionicons name="star" size={15} />
           </DropdownMenuItemIcon>
         </DropdownMenuItem>

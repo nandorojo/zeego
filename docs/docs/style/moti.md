@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
 type ItemProps = React.ComponentProps<typeof DropdownMenu['Item']>
 
-const DropdownMenuItem = DropdownMenu.menuify((props: ItemProps) => {
+const DropdownMenuItem = DropdownMenu.create((props: ItemProps) => {
   const focusState = useAnimationState({
     from: {
       opacity: 0,

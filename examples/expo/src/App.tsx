@@ -118,7 +118,7 @@ const contextStyles = StyleSheet.create({
   },
 })
 
-const DropdownMenuItem = DropdownMenu.menuify(
+const DropdownMenuItem = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.Item>) => {
     const [focused, setFocused] = useState(false)
     const toggleFocus = (next: boolean) => () => setFocused(next)
@@ -134,7 +134,7 @@ const DropdownMenuItem = DropdownMenu.menuify(
   'Item'
 )
 
-const DropdownMenuCheckboxItem = DropdownMenu.menuify(
+const DropdownMenuCheckboxItem = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.CheckboxItem>) => {
     const [focused, setFocused] = useState(false)
     const toggleFocus = (next: boolean) => () => setFocused(next)
@@ -150,14 +150,14 @@ const DropdownMenuCheckboxItem = DropdownMenu.menuify(
   'CheckboxItem'
 )
 
-const DropdownMenuItemTitle = DropdownMenu.menuify(
+const DropdownMenuItemTitle = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.ItemTitle>) => (
     <DropdownMenu.ItemTitle {...props} style={dropdownStyles.itemTitle} />
   ),
   'ItemTitle'
 )
 
-const DropdownMenuItemIndicator = DropdownMenu.menuify(
+const DropdownMenuItemIndicator = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.ItemIndicator>) => (
     <DropdownMenu.ItemIndicator
       {...props}
@@ -167,14 +167,14 @@ const DropdownMenuItemIndicator = DropdownMenu.menuify(
   'ItemIndicator'
 )
 
-const DropdownMenuSeparator = DropdownMenu.menuify(
+const DropdownMenuSeparator = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.Separator>) => (
     <DropdownMenu.Separator {...props} style={dropdownStyles.separator} />
   ),
   'Separator'
 )
 
-const DropdownMenuSubTrigger = DropdownMenu.menuify(
+const DropdownMenuSubTrigger = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.SubTrigger>) => {
     const [focused, setFocused] = useState(false)
     const toggleFocus = (next: boolean) => () => setFocused(next)
@@ -190,21 +190,21 @@ const DropdownMenuSubTrigger = DropdownMenu.menuify(
   'SubTrigger'
 )
 
-const DropdownMenuItemIcon = DropdownMenu.menuify(
+const DropdownMenuItemIcon = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.ItemIcon>) => (
     <DropdownMenu.ItemIcon {...props} style={dropdownStyles.itemIcon} />
   ),
   'ItemIcon'
 )
 
-const DropdownMenuItemImage = DropdownMenu.menuify(
+const DropdownMenuItemImage = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.ItemImage>) => (
     <DropdownMenu.ItemImage {...props} style={dropdownStyles.itemImage} />
   ),
   'ItemImage'
 )
 
-const DropdownMenuLabel = DropdownMenu.menuify(
+const DropdownMenuLabel = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.Label>) => (
     <DropdownMenu.Label {...props} style={dropdownStyles.label} />
   ),

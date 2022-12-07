@@ -14,10 +14,10 @@ import { styled } from 'nativewind'
 
 // you can write them separately
 const TailwindItem = styled(DropdownMenu.Item, 'h-[25]')
-const DropdownMenuItem = DropdownMenu.menuify(TailwindItem, 'Item')
+const DropdownMenuItem = DropdownMenu.create(TailwindItem, 'Item')
 
 // or you can chain them
-const DropdownMenuItemTitle = Dropdown.menuify(
+const DropdownMenuItemTitle = Dropdown.create(
   styled(DropdownMenu.ItemTitle, 'font-bold'),
   'ItemTitle'
 )
