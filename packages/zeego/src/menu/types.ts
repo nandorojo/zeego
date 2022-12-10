@@ -16,9 +16,12 @@ export type MenuRootProps = {
   children: React.ReactNode
   style?: ViewStyle
   onOpenChange?: (isOpen: boolean) => void
-  // onWillChange gets called immediately after the menu is triggered,
-  // unlike onOpenChange which gets called after the menu has been fully rendered/closed.
-  onWillChange?: (isOpen: boolean) => void
+  /**
+  * Callback function indicating that the menu intends to open or close. Passes a `willOpen` boolean argument indicating whether it is opening or closing.
+  * Unlike `onOpenChange`, thi
+  * @platform `ios`
+  */
+  onOpenWillChange?: (willOpen: boolean) => void
 }
 export type MenuTriggerProps = {
   children: React.ReactElement
