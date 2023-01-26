@@ -128,7 +128,7 @@ The element won't mount until the menu has been opened.
 | `style`                |          |         | `ios`     |
 | `size`                 |          |         | `ios`     |
 | `onPress`              |          |         | `ios`     |
-| `isResizeAnimated`     | `true`   |         | `ios`     |
+| `isResizeAnimated`     |          |  `true` | `ios`     |
 | `borderRadius`         |          |         | `ios`     |
 | `backgroundColor`      |          |         | `ios`     |
 | `preferredCommitStyle` |          |         |           |
