@@ -28,7 +28,7 @@ yarn add zeego
 
 ### Install peer dependencies
 
-If you're in a monorepo, you should install these in the directory of your native app.
+> If you're in a monorepo, you should install these in the directory of your native app. 
 
 #### iOS
 
