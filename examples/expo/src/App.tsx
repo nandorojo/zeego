@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, Platform, Image } from 'react-native'
 
 import * as ContextMenu from 'zeego/context-menu'
 import * as DropdownMenu from 'zeego/dropdown-menu'
-import { ComponentProps, useState } from 'react'
+import React, { ComponentProps, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import { useLink } from 'expo-router'
 const select = (val: unknown) => () => alert(val)

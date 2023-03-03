@@ -9,6 +9,8 @@ import type { MenuContentProps as RadixContentProps } from '@radix-ui/react-drop
 import type { ContextMenuView } from 'react-native-ios-context-menu'
 import type { ImageSystemSymbolConfiguration } from 'react-native-ios-context-menu/lib/typescript/types/ImageItemConfig'
 
+import type { SFSymbol } from 'sf-symbols-typescript'
+
 type ViewStyle = React.ComponentProps<typeof View>['style']
 type TextStyle = React.ComponentProps<typeof Text>['style']
 
@@ -82,7 +84,7 @@ export interface MenuItemCommonProps {
    * @platform ios
    */
   ios?: ImageSystemSymbolConfiguration & {
-    name: string
+    name: SFSymbol
   }
   /**
    * The name of an android-only resource drawable. For a full list, see https://developer.android.com/reference/android/R.drawable.html.
