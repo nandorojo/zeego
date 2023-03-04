@@ -9,7 +9,6 @@
     "version": "1.0.0",
     "platforms": ["ios", "android", "web"],
     "scheme": "zeeg-example",
-
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.nandorojo.zeeg-example"
@@ -17,6 +16,7 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.nandorojo.zeegexample"
-    }
+    },
+    "plugins": []
   }
 }
