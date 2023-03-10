@@ -85,9 +85,10 @@ export function MyMenu() {
 
 Required component at the root of your menu.
 
-| Prop           | Required | Default | Platforms    |
-| -------------- | -------- | ------- | ------------ |
-| `onOpenChange` |          |         | `web`, `ios` |
+| Prop               | Required | Default | Platforms    |
+| ------------------ | -------- | ------- | ------------ |
+| `onOpenChange`     |          |         | `web`, `ios` |
+| `onOpenWillChange` |          |         | `ios`        |
 
 ### Content
 

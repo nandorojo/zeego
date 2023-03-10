@@ -423,6 +423,16 @@ If you want to use a custom component as your <Content />, you can use the creat
       (() => {
         props.onOpenChange?.(true)
       })
+    const onMenuWillShow =
+      props.onOpenWillChange && 
+      (() => {
+        props.onOpenWillChange?.(true)
+      })
+    const onMenuWillHide = 
+      props.onWillChange &&
+      (() => {
+        props.onOpenWillChange?.(false)
+      })
 
     return (
       <Component
@@ -473,6 +483,8 @@ If you want to use a custom component as your <Content />, you can use the creat
         }
         onMenuDidHide={onMenuDidHide}
         onMenuDidShow={onMenuDidShow}
+        onMenuWillHide={onMenuWillHide}
+        onMenuWillShow={onMenuWillShow}
       >
         {trigger.targetChildren?.[0]}
       </Component>

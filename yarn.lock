@@ -5313,10 +5313,10 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/eslint-plugin/-/eslint-plugin-1.1.0.tgz#e42b1bef12d2415411519fd528e64b593b1363dc"
   integrity sha512-W/J0fNYVO01tioHjvYWQ9m6RgndVtbElzYozBq1ZPrHO/iCzlqoySHl4gO/fpCl9QEFjvJfjPgtPMTMlsoq5DQ==
 
-"@react-native-menu/menu@*", "@react-native-menu/menu@^0.5.2":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@react-native-menu/menu/-/menu-0.5.2.tgz#7b1ae8e41ee3b7306c4bf8b53b9e2cb78b4a829b"
-  integrity sha512-+ULWH3OXuirS4m03UhUkQj/G9q0wQo7LGDcxTyS12bVKQQ+yHwif4C3QcYy0zVIxwMPltCA7eOvsTThT0+B2xQ==
+"@react-native-menu/menu@^0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@react-native-menu/menu/-/menu-0.7.2.tgz#922a4357994f2768313ce0fc22362f6cea74ad8b"
+  integrity sha512-RXoU1tZjRdG/IV2S1x6WYNA2z6ul2vhdXQU/WFmsIAT+FbX1j9R/odSL/qjeyr5LlV+OUI0zofh8YrBn9wesag==
 
 "@react-native/assets@1.0.0":
   version "1.0.0"
@@ -10719,7 +10719,7 @@ expo-router@^0.0.33:
     expo-splash-screen "^0.16.2"
     expo-status-bar "^1.4.0"
 
-expo-splash-screen@^0.16.2:
+expo-splash-screen@^0.16.2, expo-splash-screen@~0.16.2:
   version "0.16.2"
   resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.16.2.tgz#38ecba9fc9fc2234ee38bcb818d8c88cd83cff9e"
   integrity sha512-AHSRyGwu58WNt8shW5g/4cQ9e9IzUwNTC/WGWxshHCwgbWIJmHLvK3+D45MTmzGWteOoTI8oV7KSQKBNJSTiyw==
@@ -10731,6 +10731,11 @@ expo-status-bar@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.4.0.tgz#c0317de2c53878340f4b4f00ff7e4ba14399a7fb"
   integrity sha512-vh98g8qMIjig/2XTBsoAWS6Vo2dIIwDWjB3/GiuZ9Lazpxc9GO/APfJ4dar7MibzIDUKIrjotrcL6rLdPH13Ew==
+
+expo-status-bar@~1.4.0:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.4.2.tgz#14f2b9a6dc7d550578421f07e0046f5fafc2b403"
+  integrity sha512-ZWjO6D4ARGYfAd3SWDD3STNudHDhyBZDZjhhseqoEmsf7bS9ykny8KKOhlzJW24qIQNPhkgdvHhaw9fQwMJy3Q==
 
 expo@^46.0.0:
   version "46.0.15"
@@ -18744,10 +18749,10 @@ react-native-gradle-plugin@^0.0.7:
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.7.tgz#96602f909745239deab7b589443f14fce5da2056"
   integrity sha512-+4JpbIx42zGTONhBTIXSyfyHICHC29VTvhkkoUOJAh/XHPEixpuBduYgf6Y4y9wsN1ARlQhBBoptTvXvAFQf5g==
 
-react-native-ios-context-menu@1.14.0:
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/react-native-ios-context-menu/-/react-native-ios-context-menu-1.14.0.tgz#361f4b6073142fe25047a551c96fa25e0f6d4f1c"
-  integrity sha512-HiNZ/WTNgN7mqIO2meMRC3DYQ4L/QLUrL6AMKsD4gP8DEpUskIKeXjiiKXO1ajZImt1J1Z9jUhPORc/RGw4OKw==
+react-native-ios-context-menu@^1.15.1:
+  version "1.15.1"
+  resolved "https://registry.yarnpkg.com/react-native-ios-context-menu/-/react-native-ios-context-menu-1.15.1.tgz#f3edf20c5fc426b073a110140a2d441250576aa1"
+  integrity sha512-JkOJGx8Kjm7ChyDBmv1TqZg9mg8Jo8Y6kZISVbsXndx22Ke8sEIZGrizw6aXjkSQafomJ0ZAEZU7kuFHbFEwlg==
   dependencies:
     "@dominicstop/ts-event-emitter" "^1.1.0"
 
