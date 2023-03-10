@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/nandorojo/zeego/compare/v1.1.0...v1.2.0) (2023-03-10)
+
+
+### Bug Fixes
+
+* android build error ([b9c137c](https://github.com/nandorojo/zeego/commit/b9c137cf3e7354a37ff6636b14dba0caaee495d3))
+* build error on android ([e5b776b](https://github.com/nandorojo/zeego/commit/e5b776bb764a9a01e50d26f6213d53cf0b9232df))
+
+
+
+
+
 # [1.1.0](https://github.com/nandorojo/zeego/compare/v1.0.0...v1.1.0) (2023-03-03)
 
 
