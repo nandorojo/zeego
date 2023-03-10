@@ -174,7 +174,12 @@ const CheckboxItem = create(
         onBlur={onBlur}
         disabled={disabled}
         checked={value !== 'off'}
-        onCheckedChange={(next) => onValueChange?.(next ? 'on' : 'off', value)}
+        onCheckedChange={(next) =>
+          onValueChange?.(
+            next ? 'on' : 'off',
+            value === true ? 'on' : value === false ? 'off' : value
+          )
+        }
         style={itemStyleReset}
       >
         <ItemPrimitive
