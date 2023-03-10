@@ -129,7 +129,7 @@ The element won't mount until the menu has been opened.
 | `style`                |          |         | `ios`     |
 | `size`                 |          |         | `ios`     |
 | `onPress`              |          |         | `ios`     |
-| `isResizeAnimated`     |          |  `true` | `ios`     |
+| `isResizeAnimated`     |          | `true`  | `ios`     |
 | `borderRadius`         |          |         | `ios`     |
 | `backgroundColor`      |          |         | `ios`     |
 | `preferredCommitStyle` |          |         |           |
@@ -293,7 +293,7 @@ Usage is similar to [`Item`](#item) with added checkbox features.
 | `onBlur`        |          |         | `web`                    |
 
 ```tsx
-<Context.CheckboxItem
+<ContextMenu.CheckboxItem
   value="on" // or "off" or "mixed"
   onValueChange={(next, previous) => {
     // update state here
@@ -301,7 +301,21 @@ Usage is similar to [`Item`](#item) with added checkbox features.
   key="fernando"
 >
   <ContextMenu.ItemIndicator />
-</Context.CheckboxItem>
+</ContextMenu.CheckboxItem>
+```
+
+You can also use a boolean for `value`, as of `1.3.0`:
+
+```tsx
+<ContextMenu.CheckboxItem
+  value={true}
+  onValueChange={(next, previous) => {
+    // next and previous will still use "on" and "off"
+  }}
+  key="fernando"
+>
+  <ContextMenu.ItemIndicator />
+</ContextMenu.CheckboxItem>
 ```
 
 ### ItemIndicator

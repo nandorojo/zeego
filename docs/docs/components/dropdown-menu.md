@@ -258,7 +258,7 @@ Usage is similar to [`Item`](#item) with added checkbox features.
 | `onBlur`        |          |         | `web`                    |
 
 ```tsx
-<Dropdown.CheckboxItem
+<DropdownMenu.CheckboxItem
   value="on" // or "off" or "mixed"
   onValueChange={(next, previous) => {
     // update state here
@@ -266,7 +266,21 @@ Usage is similar to [`Item`](#item) with added checkbox features.
   key="fernando"
 >
   <DropdownMenu.ItemIndicator />
-</Dropdown.CheckboxItem>
+</DropdownMenu.CheckboxItem>
+```
+
+You can also use a boolean for `value`, as of `1.3.0`:
+
+```tsx
+<DropdownMenu.CheckboxItem
+  value={true}
+  onValueChange={(next, previous) => {
+    // next and previous will still use "on" and "off"
+  }}
+  key="fernando"
+>
+  <ContextMenu.ItemIndicator />
+</DropdownMenu.CheckboxItem>
 ```
 
 ### ItemIndicator
