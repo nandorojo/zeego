@@ -1,4 +1,7 @@
-import React from 'react'
+import * as ContextMenu from '@radix-ui/react-context-menu'
+import React, { forwardRef } from 'react'
+import { View } from 'react-native'
+
 import {
   ItemPrimitive,
   ContextMenuContentProps,
@@ -16,10 +19,6 @@ import {
   ContextMenuSubContentProps,
   MenuSubProps,
 } from '../menu'
-import { View } from 'react-native'
-import { forwardRef } from 'react'
-
-import * as ContextMenu from '@radix-ui/react-context-menu'
 
 const Root = create(({ children }: MenuRootProps) => {
   return <ContextMenu.Root>{children}</ContextMenu.Root>
@@ -59,14 +58,16 @@ const Content = create(
     collisionPadding,
   }: ContextMenuContentProps) => {
     return (
-      <ContextMenu.Content
-        loop={loop}
-        alignOffset={alignOffset}
-        avoidCollisions={avoidCollisions}
-        collisionPadding={collisionPadding}
-      >
-        <ContentView style={style}>{children}</ContentView>
-      </ContextMenu.Content>
+      <ContextMenu.Portal>
+        <ContextMenu.Content
+          loop={loop}
+          alignOffset={alignOffset}
+          avoidCollisions={avoidCollisions}
+          collisionPadding={collisionPadding}
+        >
+          <ContentView style={style}>{children}</ContentView>
+        </ContextMenu.Content>
+      </ContextMenu.Portal>
     )
   },
   'Content'
@@ -129,11 +130,10 @@ const SubTrigger = create(
         style={itemStyleReset}
       >
         <ItemPrimitive
-          // @ts-expect-error we require a key in the types
           // this is for consumers
           // however, it isn't relevant locally here, since the key will be passed to the parent component
           // so that is sufficient
-          key={undefined}
+          key={undefined as any}
           style={style}
         >
           {children}
