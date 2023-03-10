@@ -424,12 +424,12 @@ If you want to use a custom component as your <Content />, you can use the creat
         props.onOpenChange?.(true)
       })
     const onMenuWillShow =
-      props.onOpenWillChange && 
+      props.onOpenWillChange &&
       (() => {
         props.onOpenWillChange?.(true)
       })
-    const onMenuWillHide = 
-      props.onWillChange &&
+    const onMenuWillHide =
+      props.onOpenWillChange &&
       (() => {
         props.onOpenWillChange?.(false)
       })
