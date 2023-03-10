@@ -51,4 +51,4 @@ You might find my other [React Native libraries](https://github.com/nandorojo) u
 - [Moti](https://github.com/nandorojo/moti)
 - [Dripsy](https://github.com/nandorojo/dripsy)
 - [Solito](https://github.com/nandorojo/solito)
-- [React Native Anchor](https://github.com/nandorojo/react-native-anchor)
+- [React Native Anchor](https://github.com/nandorojo/react-native-anchors)
