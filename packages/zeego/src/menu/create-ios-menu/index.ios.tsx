@@ -284,11 +284,13 @@ If you want to use a custom component as your <Content />, you can use the creat
           callbacks[key] = child.props.onSelect
         } else if ('onValueChange' in child.props) {
           const menuState = child.props.value
+          const currentState =
+            menuState === true ? 'on' : menuState === false ? 'off' : menuState
           const nextState =
-            menuState === 'mixed' || menuState === 'on' ? 'off' : 'on'
+            currentState === 'mixed' || currentState === 'on' ? 'off' : 'on'
           const { onValueChange } = child.props
           callbacks[key] = () => {
-            onValueChange?.(nextState, menuState)
+            onValueChange?.(nextState, currentState)
           }
         }
 
@@ -329,6 +331,12 @@ If you want to use a custom component as your <Content />, you can use the creat
           if (item) {
             const { icon, title, key, menuAttributes, subtitle } = item
             const menuState = child.props.value
+            const currentState =
+              menuState === true
+                ? 'on'
+                : menuState === false
+                ? 'off'
+                : menuState
 
             const finalItem: MenuItem = {
               actionKey: key,
@@ -336,7 +344,7 @@ If you want to use a custom component as your <Content />, you can use the creat
               icon,
               menuAttributes,
               discoverabilityTitle: subtitle,
-              menuState,
+              menuState: currentState,
             }
             return finalItem
           }

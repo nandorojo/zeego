@@ -19,10 +19,10 @@ export type MenuRootProps = {
   style?: ViewStyle
   onOpenChange?: (isOpen: boolean) => void
   /**
-  * Callback function indicating that the menu intends to open or close. Passes a `willOpen` boolean argument indicating whether it is opening or closing.
-  * Unlike `onOpenChange`, thi
-  * @platform `ios`
-  */
+   * Callback function indicating that the menu intends to open or close. Passes a `willOpen` boolean argument indicating whether it is opening or closing.
+   * Unlike `onOpenChange`, thi
+   * @platform `ios`
+   */
   onOpenWillChange?: (willOpen: boolean) => void
 }
 export type MenuTriggerProps = {
@@ -154,7 +154,7 @@ export type MenuSeparatorProps = {
   style?: ViewStyle
 }
 export type MenuCheckboxItemProps = Omit<MenuItemProps, 'onSelect'> & {
-  value: 'mixed' | 'on' | 'off'
+  value: 'mixed' | 'on' | 'off' | boolean
   onValueChange?: (
     state: 'mixed' | 'on' | 'off',
     prevState: 'mixed' | 'on' | 'off'
