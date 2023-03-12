@@ -172,12 +172,40 @@ To render text, use the `ItemTitle`.
 
 ### ItemTitle
 
-Receives `children` as a string. The `style` prop will optionally style text on web.
+The `style` prop will optionally style text on web.
 
 | Prop       | Required | Default | Platforms                |
 | ---------- | -------- | ------- | ------------------------ |
 | `style`    |          |         | `web`,                   |
-| `children` |          |         | `web` , `ios`, `android` |
+| `children` | Yes      |         | `web` , `ios`, `android` |
+
+`ItemTitle` either a string or React element as the child. A string is the most common usage.
+
+```tsx
+<DropdownMenu.Item key="cars">
+  <DropdownMenu.ItemTitle>Cars</DropdownMenu.ItemTitle>
+</DropdownMenu.Item>
+```
+
+#### React element child
+
+`ItemTitle` supports passing a text node as the child. However, you **must** pass a `textValue` prop to the parent `Item` for this to work. It will error otherwise.
+
+```tsx
+<DropdownMenu.Item
+  // this is required when ItemTitle has a React element child
+  textValue="Cars"
+  key="cars"
+>
+  <DropdownMenu.ItemTitle>
+    <Text>
+      Cars
+    </Text>
+   <DropdownMenu.ItemTitle>
+</DropdownMenu.Item>
+```
+
+This is useful for rendering custom text components on Web. The `textValue` prop supplied to `Item` will get used on iOS and Android as the title. On Web, `textValue` will be used for typeahead purposes, but it will not affect rendering.
 
 ### ItemIcon
 

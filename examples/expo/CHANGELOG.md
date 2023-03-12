@@ -11,6 +11,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.4.0](https://github.com/nandorojo/zeego/compare/v1.3.0...v1.4.0) (2023-03-12)
+
+**Note:** Version bump only for package zeeg-example
+
+
+
+
+
 ## [1.3.1](https://github.com/nandorojo/zeego/compare/v1.3.0...v1.3.1) (2023-03-10)
 
 **Note:** Version bump only for package zeeg-example
