@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/nandorojo/zeego/compare/v1.3.0...v1.3.1) (2023-03-10)
+
+
+### Bug Fixes
+
+* context menu portal on web ([9c37c43](https://github.com/nandorojo/zeego/commit/9c37c43a4c287355800f572966dcdb33d592c7d6))
+
+
+
+
+
 # [1.3.0](https://github.com/nandorojo/zeego/compare/v1.2.0...v1.3.0) (2023-03-10)
 
 **Note:** Version bump only for package zeego

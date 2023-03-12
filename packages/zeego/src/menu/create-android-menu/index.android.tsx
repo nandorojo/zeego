@@ -215,7 +215,16 @@ If you want to use a custom component as your <Content />, you can use the creat
           ItemTitle
         ).targetChildren
 
-        title = titleChild?.[0]?.props.children
+        title = child.props.textValue ?? titleChild?.[0]?.props.children
+
+        if (title == null || typeof title != 'string') {
+          console.error(
+            `[zeego] Invalid <${Menu}.Item key="${key}" />. Missing valid title. Make sure you do one of the following:
+
+1. pass a string as the child of <${Menu}.ItemTitle />, nested directly inside of <${Menu}.Item />.
+2. OR, use the textValue prop on <${Menu}.Item textValue="Some value" />`
+          )
+        }
 
         const subtitleChild = pickChildren<MenuItemSubtitleProps>(
           child.props.children,

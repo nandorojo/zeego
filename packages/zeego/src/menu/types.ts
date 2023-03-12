@@ -54,18 +54,15 @@ export type MenuGroupProps = {
   style?: ViewStyle
 }
 
-export type MenuItemProps = (
-  | {
-      children: string
-      style?: TextStyle
-    }
-  | {
-      children: React.ReactNode
-      style?: ViewStyle
-    }
-) & {
-  onSelect?: () => void
+export type MenuItemProps = {
+  children: React.ReactNode
+  style?: ViewStyle
+  /**
+   * If you want to pass a React text node to `<ItemTitle />`, then you need to use this prop. This gets used on iOS and Android.
+   */
   textValue?: string
+} & {
+  onSelect?: () => void
   disabled?: boolean
   hidden?: boolean
   destructive?: boolean
@@ -143,7 +140,7 @@ export type ContextMenuSubContentProps = ContextMenuContentProps &
   Pick<MenuContentProps, 'sideOffset'>
 
 export type MenuItemTitleProps = {
-  children: string
+  children: string | React.ReactChild
   style?: TextStyle
 }
 export type MenuItemSubtitleProps = {
