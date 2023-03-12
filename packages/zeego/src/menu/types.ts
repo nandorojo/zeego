@@ -140,7 +140,7 @@ export type ContextMenuSubContentProps = ContextMenuContentProps &
   Pick<MenuContentProps, 'sideOffset'>
 
 export type MenuItemTitleProps = {
-  children: string | React.ReactChild
+  children: string | React.ReactNode
   style?: TextStyle
 }
 export type MenuItemSubtitleProps = {
