@@ -183,7 +183,7 @@ const CheckboxItem = ({
       textValue={textValue}
       onBlur={onBlur}
       disabled={disabled}
-      checked={value !== 'off'}
+      checked={typeof value === 'boolean' ? value : value !== 'off'}
       onCheckedChange={(next) =>
         onValueChange?.(
           next ? 'on' : 'off',
