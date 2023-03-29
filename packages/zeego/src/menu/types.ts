@@ -28,6 +28,12 @@ export type MenuRootProps = {
 export type MenuTriggerProps = {
   children: React.ReactElement
   style?: ViewStyle
+  /**
+   * Determine whether the menu should open on `press` or `longPress`. Defaults to `press` for `DropdownMenu` and `longPress` for `ContextMenu`.
+   *
+   * Only applies for `ios` and `android`.
+   */
+  action?: 'press' | 'longPress'
 }
 
 export type MenuContentProps = {

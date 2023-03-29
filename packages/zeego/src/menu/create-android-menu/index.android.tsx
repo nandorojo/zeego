@@ -416,16 +416,24 @@ If you want to use a custom component as your <Content />, you can use the creat
       menuTitle = label
     }
 
+    const triggerItem = trigger.targetChildren?.[0]
+
+    let shouldOpenOnLongPress = Menu === 'ContextMenu'
+
+    if (triggerItem?.props.action) {
+      shouldOpenOnLongPress = triggerItem.props.action === 'longPress'
+    }
+
     return (
       <MenuView
         title={menuTitle}
         onPressAction={({ nativeEvent }) => {
           callbacks[nativeEvent.event]()
         }}
-        shouldOpenOnLongPress={Menu === 'ContextMenu'}
+        shouldOpenOnLongPress={shouldOpenOnLongPress}
         actions={menuItems}
       >
-        {trigger.targetChildren?.[0]}
+        {triggerItem}
       </MenuView>
     )
   }, 'Root')

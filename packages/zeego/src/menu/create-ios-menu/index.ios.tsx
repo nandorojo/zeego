@@ -454,6 +454,14 @@ If you want to use a custom component as your <Content />, you can use the creat
         props.onOpenWillChange?.(false)
       })
 
+    const triggerItem = trigger.targetChildren?.[0]
+
+    let shouldOpenOnSingleTap = Menu === 'DropdownMenu'
+
+    if (triggerItem?.props.action) {
+      shouldOpenOnSingleTap = triggerItem.props.action === 'press'
+    }
+
     return (
       <Component
         onPressMenuItem={({ nativeEvent }) => {
@@ -461,7 +469,7 @@ If you want to use a custom component as your <Content />, you can use the creat
             callbacks[nativeEvent.actionKey]()
           }
         }}
-        isMenuPrimaryAction={Menu === 'DropdownMenu'}
+        isMenuPrimaryAction={shouldOpenOnSingleTap}
         style={[{ flexGrow: 0 }, props.style]}
         menuConfig={{
           menuTitle,
@@ -506,7 +514,7 @@ If you want to use a custom component as your <Content />, you can use the creat
         onMenuWillHide={onMenuWillHide}
         onMenuWillShow={onMenuWillShow}
       >
-        {trigger.targetChildren?.[0]}
+        {triggerItem?.[0]}
       </Component>
     )
   }, 'Root')

@@ -109,9 +109,12 @@ See the Radix UI [docs for `DropdownMenu.Content`](https://www.radix-ui.com/docs
 
 Wraps the trigger for your menu. The content will be anchored to the trigger.
 
-| Prop    | Required | Default | Platforms |
-| ------- | -------- | ------- | --------- |
-| `style` |          |         | `web`     |
+| Prop     | Required | Default | Platforms        |
+| -------- | -------- | ------- | ---------------- |
+| `style`  |          |         | `web`            |
+| `action` |          | `press` | `ios`, `android` |
+
+The `action` can be `longPress` or `press`.
 
 ### Item
 
