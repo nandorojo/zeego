@@ -19,6 +19,22 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.5.0](https://github.com/nandorojo/zeego/compare/v1.4.2...v1.5.0) (2023-03-29)
+
+
+### Bug Fixes
+
+* web checkbox accepting boolean props ([3e874cb](https://github.com/nandorojo/zeego/commit/3e874cb17fd8c07f2c0ff74d630536fa246d5da1))
+
+
+### Features
+
+* Trigger action prop ([5d469b8](https://github.com/nandorojo/zeego/commit/5d469b86e29df1aa3e573fd57e412e2582da623b))
+
+
+
+
+
 ## [1.4.2](https://github.com/nandorojo/zeego/compare/v1.4.0...v1.4.2) (2023-03-15)
 
 
