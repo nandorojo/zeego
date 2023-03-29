@@ -1,6 +1,6 @@
 {
   "name": "zeego",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Logical UI primitives, made for screens.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -128,7 +128,7 @@
       ]
     ]
   },
-  "gitHead": "a2453eb347a3cc513b10635247127ff87feacd3f",
+  "gitHead": "5d469b86e29df1aa3e573fd57e412e2582da623b",
   "sideEffects": false,
   "dependencies": {
     "@radix-ui/react-context-menu": "^2.0.1",

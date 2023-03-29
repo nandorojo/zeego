@@ -514,7 +514,7 @@ If you want to use a custom component as your <Content />, you can use the creat
         onMenuWillHide={onMenuWillHide}
         onMenuWillShow={onMenuWillShow}
       >
-        {triggerItem?.[0]}
+        {triggerItem}
       </Component>
     )
   }, 'Root')
