@@ -84,7 +84,7 @@ Label.displayName = MenuDisplayName.Label
 
 const Arrow = create((_: MenuArrowProps) => <></>, 'Arrow')
 
-const Sub = create((_: MenuSubProps) => <></>, 'Sub')
+const Sub = create<MenuSubProps>((_) => <></>, 'Sub')
 
 const SubContent = create((_: MenuSubContentProps) => <></>, 'SubContent')
 
