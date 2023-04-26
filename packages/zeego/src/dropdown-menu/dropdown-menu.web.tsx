@@ -228,7 +228,7 @@ const Arrow = create(({ style, children, width, height }: MenuArrowProps) => {
   )
 }, 'Arrow')
 
-const Sub = create(({ children }: MenuSubProps) => {
+const Sub = create<MenuSubProps>(({ children }) => {
   return <DropdownMenu.Sub>{children}</DropdownMenu.Sub>
 }, 'Sub')
 
