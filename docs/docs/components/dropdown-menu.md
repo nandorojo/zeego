@@ -147,7 +147,7 @@ The `style` prop will optionally style text on web.
 | `style`    |          |         | `web`,                   |
 | `children` | Yes      |         | `web` , `ios`, `android` |
 
-`ItemTitle` either a string or React element as the child. A string is the most common usage.
+`ItemTitle` accepts either a string or React element as the child. A string is the most common usage.
 
 ```tsx
 <DropdownMenu.Item key="cars">
