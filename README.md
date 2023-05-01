@@ -12,4 +12,5 @@ Beautiful, native menus for React Native + Web, inspired by Radix UI.
 
 ## Documentation
 
-- [Documentation](https://zeego.dev): Head to [zeego.dev](https://zeego.dev) for docs, examples and usage.
+- [Documentation](https://zeego.dev)
+- [Installation](https://zeego.dev/start)
