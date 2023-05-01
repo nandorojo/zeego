@@ -62,3 +62,8 @@ You might find my other [React Native libraries](https://github.com/nandorojo) u
 - [Dripsy](https://github.com/nandorojo/dripsy)
 - [Solito](https://github.com/nandorojo/solito)
 - [React Native Anchor](https://github.com/nandorojo/react-native-anchors)
+
+
+## Thanks
+
+Special thanks to [Dominic Go](https://twitter.com/GoDominic) for the awesome iOS context menu library. Also, thanks to the Showtime team for testing this and sending PRs.
