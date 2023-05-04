@@ -38,9 +38,9 @@ Next, add this to your app config's plugins array:
 
 ```js
 export default {
-  "plugins": [
+  plugins: [
     "expo-build-properties",
-    {
+      {
        android: {
         // these values were tested with Expo SDK 48
         compileSdkVersion: 33,
