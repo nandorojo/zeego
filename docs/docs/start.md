@@ -28,6 +28,35 @@ yarn add react-native-ios-context-menu
 yarn add @react-native-menu/menu
 ```
 
+If you're using an Expo Development Client, there are some additional steps:
+
+```yarn
+expo install expo-build-properites
+```
+
+Next, add this to your app config's plugins array:
+
+```js
+export default {
+  plugins: [
+    "expo-build-properties",
+      {
+       android: {
+        // these values were tested with Expo SDK 48
+        compileSdkVersion: 33,
+        targetSdkVersion: 33,
+        minSdkVersion: 23,
+        buildToolsVersion: '33.0.0',
+        kotlinVersion: '1.6.20',
+      },
+    }
+  ]
+}
+
+```
+
+If you know your way around these, you may be able to adjust them. But if you get an error related to `react-native-menu` when building, please reference these properties.
+
 ## Frameworks
 
 ### Expo
