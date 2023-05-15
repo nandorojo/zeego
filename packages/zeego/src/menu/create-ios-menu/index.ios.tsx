@@ -26,7 +26,7 @@ import {
   pickChildren,
   isInstanceOfComponent,
 } from '../children'
-import { Image } from 'react-native'
+import { Image, View } from 'react-native'
 import { filterNull } from '../filter-null'
 import {
   ContextMenuButton,
@@ -37,10 +37,8 @@ import { create } from '../display-names'
 import type { ImageSystemConfig } from 'react-native-ios-context-menu/src/types/ImageItemConfig'
 
 const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
-  const Trigger = create(({ children }: MenuTriggerProps) => {
-    const child = <>{children}</>
-
-    return <>{Children.only(child)}</>
+  const Trigger = create(({ children, style }: MenuTriggerProps) => {
+    return <View style={style}>{children}</View>
   }, 'Trigger')
 
   const Group = create(({ children }: MenuGroupProps) => {

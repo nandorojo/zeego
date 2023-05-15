@@ -34,9 +34,7 @@ import { View } from 'react-native'
 
 const createAndroidMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   const Trigger = create(({ children, style }: MenuTriggerProps) => {
-    const child = <>{children}</>
-
-    return <View style={style}>{Children.only(child)}</View>
+    return <View style={style}>{children}</View>
   }, 'Trigger')
 
   const Group = create(({ children }: MenuGroupProps) => {
