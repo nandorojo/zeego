@@ -42,7 +42,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     return <View style={style}>{children}</View>
   }, 'Trigger')
 
-  const Auxiliary = create(({ children }: ContextMenuAuxliliaryProps) => {
+  const Auxiliary = create(({}: ContextMenuAuxliliaryProps) => {
     return <></>
   }, 'Auxiliary')
 

@@ -38,8 +38,10 @@ const createAndroidMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
     return <View style={style}>{children}</View>
   }, 'Trigger')
 
-  const Auxiliary = create(({ children }: ContextMenuAuxliliaryProps) => {},
-  'Auxiliary')
+  const Auxiliary = create(
+    ({}: ContextMenuAuxliliaryProps) => null,
+    'Auxiliary'
+  )
 
   const Group = create(({ children }: MenuGroupProps) => {
     return <>{children}</>
