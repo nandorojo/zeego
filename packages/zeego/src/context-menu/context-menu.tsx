@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  ContextMenuAuxliliaryProps,
   ContextMenuContentProps,
   ContextMenuPreviewProps,
   create,
@@ -92,6 +93,8 @@ const Arrow = create((_: MenuArrowProps) => <></>, 'Arrow')
 const Sub = create((_: MenuSubProps) => <></>, 'Sub')
 
 const SubContent = create((_: MenuSubContentProps) => <></>, 'SubContent')
+
+const Auxiliary = create((_: ContextMenuAuxliliaryProps) => <></>, 'Auxiliary')
 export {
   Root,
   Trigger,
@@ -111,4 +114,5 @@ export {
   Arrow,
   Sub,
   SubContent,
+  Auxiliary,
 }

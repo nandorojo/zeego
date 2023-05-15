@@ -6,7 +6,10 @@ import type {
   ViewProps,
 } from 'react-native'
 import type { MenuContentProps as RadixContentProps } from '@radix-ui/react-dropdown-menu'
-import type { ContextMenuView } from 'react-native-ios-context-menu'
+import type {
+  ContextMenuView,
+  MenuAuxiliaryPreviewConfig,
+} from 'react-native-ios-context-menu'
 import type { ImageSystemSymbolConfiguration } from 'react-native-ios-context-menu/lib/typescript/types/ImageItemConfig'
 
 import type { SFSymbol } from 'sf-symbols-typescript'
@@ -25,6 +28,13 @@ export type MenuRootProps = {
    */
   onOpenWillChange?: (willOpen: boolean) => void
 }
+
+export type ContextMenuAuxliliaryProps = MenuAuxiliaryPreviewConfig & {
+  children: React.ReactNode
+  onDidShow?: () => void
+  onWillShow?: () => void
+}
+
 export type MenuTriggerProps = {
   children: React.ReactElement
   style?: ViewStyle

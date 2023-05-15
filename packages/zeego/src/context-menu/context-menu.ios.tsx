@@ -19,6 +19,7 @@ const {
   Arrow,
   Sub,
   SubContent,
+  Auxiliary,
 } = createIosMenu('ContextMenu')
 
 export {
@@ -40,4 +41,5 @@ export {
   Arrow,
   Sub,
   SubContent,
+  Auxiliary,
 }

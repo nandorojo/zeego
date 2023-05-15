@@ -18,6 +18,7 @@ import {
   MenuArrowProps,
   ContextMenuSubContentProps,
   MenuSubProps,
+  ContextMenuAuxliliaryProps,
 } from '../menu'
 
 const Root = create(({ children }: MenuRootProps) => {
@@ -250,6 +251,7 @@ const SubContent = create(
   'SubContent'
 )
 
+const Auxiliary = create((_: ContextMenuAuxliliaryProps) => <></>, 'Auxiliary')
 export {
   Root,
   Trigger,
@@ -265,6 +267,7 @@ export {
   Arrow,
   Sub,
   SubContent,
+  Auxiliary,
 }
 
 export { ItemImage } from '../menu/web-primitives/item-image'

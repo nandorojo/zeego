@@ -29,6 +29,7 @@ import type {
   MenuArrowProps,
   MenuSubProps,
   MenuSubContentProps,
+  ContextMenuAuxliliaryProps,
 } from '../types'
 import { View } from 'react-native'
 
@@ -36,6 +37,9 @@ const createAndroidMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   const Trigger = create(({ children, style }: MenuTriggerProps) => {
     return <View style={style}>{children}</View>
   }, 'Trigger')
+
+  const Auxiliary = create(({ children }: ContextMenuAuxliliaryProps) => {},
+  'Auxiliary')
 
   const Group = create(({ children }: MenuGroupProps) => {
     return <>{children}</>
@@ -468,6 +472,7 @@ If you want to use a custom component as your <Content />, you can use the creat
     Arrow,
     Sub,
     SubContent,
+    Auxiliary,
   }
 }
 

@@ -18,6 +18,7 @@ export const MenuDisplayName = {
   ItemIndicator: 'ItemIndicator',
   Preview: 'Preview',
   Arrow: 'Arrow',
+  Auxiliary: 'Auxiliary',
 } as const
 
 type DisplayNames = typeof MenuDisplayName

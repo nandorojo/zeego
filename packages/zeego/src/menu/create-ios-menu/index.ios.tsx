@@ -19,6 +19,7 @@ import type {
   MenuSubProps,
   ContextMenuSubContentProps,
   MenuSubContentProps,
+  ContextMenuAuxliliaryProps,
 } from '../types'
 import React, { Children, ReactElement } from 'react'
 import {
@@ -40,6 +41,10 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   const Trigger = create(({ children, style }: MenuTriggerProps) => {
     return <View style={style}>{children}</View>
   }, 'Trigger')
+
+  const Auxiliary = create(({ children }: ContextMenuAuxliliaryProps) => {
+    return <></>
+  }, 'Auxiliary')
 
   const Group = create(({ children }: MenuGroupProps) => {
     return <>{children}</>
@@ -460,6 +465,16 @@ If you want to use a custom component as your <Content />, you can use the creat
       shouldOpenOnSingleTap = triggerItem.props.action === 'press'
     }
 
+    const auxiliary =
+      Menu === 'ContextMenu'
+        ? pickChildren<ContextMenuAuxliliaryProps>(
+            content?.props.children,
+            Auxiliary
+          )?.targetChildren
+        : undefined
+
+    const auxiliaryProps = auxiliary?.[0]?.props
+
     return (
       <Component
         onPressMenuItem={({ nativeEvent }) => {
@@ -474,7 +489,7 @@ If you want to use a custom component as your <Content />, you can use the creat
           menuItems,
         }}
         renderPreview={
-          Menu == 'ContextMenu' && preview && previewProps?.children
+          Menu === 'ContextMenu' && preview && previewProps?.children
             ? () => {
                 return (
                   <>
@@ -492,7 +507,18 @@ If you want to use a custom component as your <Content />, you can use the creat
             : undefined
         }
         onPressMenuPreview={
-          Menu == 'ContextMenu' ? previewProps?.onPress : undefined
+          Menu === 'ContextMenu' ? previewProps?.onPress : undefined
+        }
+        auxiliaryPreviewConfig={auxiliaryProps}
+        isAuxiliaryPreviewEnabled={!!auxiliaryProps?.children}
+        onMenuAuxiliaryPreviewDidShow={auxiliaryProps?.onDidShow}
+        onMenuAuxiliaryPreviewWillShow={auxiliaryProps?.onWillShow}
+        renderAuxiliaryPreview={
+          auxiliaryProps?.children
+            ? () => {
+                return <>{auxiliaryProps.children}</>
+              }
+            : undefined
         }
         previewConfig={
           preview
@@ -547,6 +573,7 @@ If you want to use a custom component as your <Content />, you can use the creat
     Arrow,
     Sub,
     SubContent,
+    Auxiliary,
   }
 }
 
