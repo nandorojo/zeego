@@ -11,6 +11,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.6.0](https://github.com/nandorojo/zeego/compare/v1.5.2...v1.6.0) (2023-05-15)
+
+**Note:** Version bump only for package zeego
+
+
+
+
+
 ## [1.5.2](https://github.com/nandorojo/zeego/compare/v1.4.2...v1.5.2) (2023-05-15)
 
 

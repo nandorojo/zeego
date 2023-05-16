@@ -29,9 +29,16 @@ export type MenuRootProps = {
   onOpenWillChange?: (willOpen: boolean) => void
 }
 
-export type ContextMenuAuxliliaryProps = MenuAuxiliaryPreviewConfig & {
+/**
+ * See the docs on `react-native-ios-context-menu` for usage: https://github.com/dominicstop/react-native-ios-context-menu#ContextMenuView-Auxiliary-Preview---Example-01
+ */
+export type ContextMenuAuxliliaryProps = Omit<
+  MenuAuxiliaryPreviewConfig,
+  'marginAuxiliaryPreview'
+> & {
   children: React.ReactNode
   onDidShow?: () => void
+  marginWithScreenEdge?: number
   onWillShow?: () => void
 }
 

@@ -509,14 +509,23 @@ If you want to use a custom component as your <Content />, you can use the creat
         onPressMenuPreview={
           Menu === 'ContextMenu' ? previewProps?.onPress : undefined
         }
-        auxiliaryPreviewConfig={auxiliaryProps}
+        auxiliaryPreviewConfig={{
+          alignmentHorizontal: auxiliaryProps?.alignmentHorizontal,
+          anchorPosition: auxiliaryProps?.anchorPosition,
+          height: auxiliaryProps?.height,
+          marginAuxiliaryPreview: auxiliaryProps?.marginWithScreenEdge,
+          marginPreview: auxiliaryProps?.marginPreview,
+          transitionConfigEntrance: auxiliaryProps?.transitionConfigEntrance,
+          transitionEntranceDelay: auxiliaryProps?.transitionEntranceDelay,
+          width: auxiliaryProps?.width,
+        }}
         isAuxiliaryPreviewEnabled={!!auxiliaryProps?.children}
         onMenuAuxiliaryPreviewDidShow={auxiliaryProps?.onDidShow}
         onMenuAuxiliaryPreviewWillShow={auxiliaryProps?.onWillShow}
         renderAuxiliaryPreview={
           auxiliaryProps?.children
             ? () => {
-                return <>{auxiliaryProps.children}</>
+                return <>{auxiliaryProps?.children}</>
               }
             : undefined
         }
