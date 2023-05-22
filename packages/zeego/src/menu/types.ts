@@ -36,7 +36,9 @@ export type ContextMenuAuxliliaryProps = Omit<
   MenuAuxiliaryPreviewConfig,
   'marginAuxiliaryPreview'
 > & {
-  children: React.ReactNode
+  children:
+    | React.ReactNode
+    | ((options: { dismissMenu: () => void }) => React.ReactNode)
   onDidShow?: () => void
   marginWithScreenEdge?: number
   onWillShow?: () => void

@@ -21,7 +21,7 @@ import type {
   MenuSubContentProps,
   ContextMenuAuxliliaryProps,
 } from '../types'
-import React, { Children, ReactElement } from 'react'
+import React, { Children, ReactElement, useRef } from 'react'
 import {
   flattenChildren,
   pickChildren,
@@ -475,8 +475,11 @@ If you want to use a custom component as your <Content />, you can use the creat
 
     const auxiliaryProps = auxiliary?.[0]?.props
 
+    const menuRef = useRef<ContextMenuButton>()
+
     return (
       <Component
+        ref={menuRef as any}
         onPressMenuItem={({ nativeEvent }) => {
           if (callbacks[nativeEvent.actionKey]) {
             callbacks[nativeEvent.actionKey]()
@@ -531,7 +534,15 @@ If you want to use a custom component as your <Content />, you can use the creat
         renderAuxiliaryPreview={
           auxiliaryProps?.children
             ? () => {
-                return <>{auxiliaryProps?.children}</>
+                const child =
+                  typeof auxiliaryProps?.children == 'function'
+                    ? auxiliaryProps?.children({
+                        dismissMenu() {
+                          menuRef.current?.dismissMenu()
+                        },
+                      })
+                    : auxiliaryProps?.children
+                return <>{child}</>
               }
             : undefined
         }
