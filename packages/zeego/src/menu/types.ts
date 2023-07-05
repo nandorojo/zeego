@@ -10,7 +10,10 @@ import type {
   ContextMenuView,
   MenuAuxiliaryPreviewConfig,
 } from 'react-native-ios-context-menu'
-import type { ImageSystemSymbolConfiguration } from 'react-native-ios-context-menu/lib/typescript/types/ImageItemConfig'
+import type {
+  ImageOptions,
+  ImageSystemSymbolConfiguration,
+} from 'react-native-ios-context-menu/lib/typescript/types/ImageItemConfig'
 
 import type { SFSymbol } from 'sf-symbols-typescript'
 
@@ -134,12 +137,16 @@ export type MenuItemImageProps = MenuItemCommonProps & {
   /**
    * `source={require('path/to/image')}`
    */
-  source: ImageRequireSource
+  source: ImageProps['source']
   style?: ImageProps['style']
   width?: number
   height?: number
   resizeMode?: ImageProps['resizeMode']
   fadeDuration?: ImageProps['fadeDuration']
+  ios?: {
+    style?: ImageOptions
+    lazy?: boolean
+  }
 } & Pick<ImageProps, 'accessibilityLabel'>
 
 export type MenuArrowProps = {

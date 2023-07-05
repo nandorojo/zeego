@@ -266,12 +266,27 @@ If you want to use a custom component as your <Content />, you can use the creat
 
           if (imageChild) {
             if (imageChild.props.source) {
-              const imageValue = Image.resolveAssetSource(
-                imageChild.props.source
-              )
-              icon = {
-                type: 'IMAGE_REQUIRE',
-                imageValue,
+              const { source, ios: { lazy = true, style } = {} } =
+                imageChild.props
+              if (typeof source === 'object' && 'uri' in source && source.uri) {
+                icon = {
+                  type: 'IMAGE_REMOTE_URL',
+                  imageValue: {
+                    url: source.uri,
+                  },
+                  imageLoadingConfig: {
+                    shouldLazyLoad: lazy ?? true,
+                  },
+                  imageOptions: style,
+                }
+              } else {
+                const imageValue = Image.resolveAssetSource(
+                  imageChild.props.source
+                )
+                icon = {
+                  type: 'IMAGE_REQUIRE',
+                  imageValue,
+                }
               }
             }
           }
