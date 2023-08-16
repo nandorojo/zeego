@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { cloneElement } from 'react'
 import {
   ItemPrimitive,
   MenuContentProps,
@@ -32,6 +32,14 @@ const Root = ({ children, onOpenChange }: MenuRootProps) => {
 Root.displayName = MenuDisplayName.Root
 
 const TriggerView = forwardRef<unknown, any>((props, ref) => {
+  if (props.asChild) {
+    const { children, ...rest } = props
+    return cloneElement(children, {
+      ref,
+      ...rest,
+      onClickCapture: props.onPointerDown,
+    })
+  }
   return (
     <View ref={ref} {...props} onClickCapture={props.onPointerDown}>
       {props.children}
@@ -39,10 +47,12 @@ const TriggerView = forwardRef<unknown, any>((props, ref) => {
   )
 })
 
-const Trigger = ({ children, style }: MenuTriggerProps) => {
+const Trigger = ({ children, style, asChild }: MenuTriggerProps) => {
   return (
     <DropdownMenu.Trigger asChild>
-      <TriggerView style={style}>{children}</TriggerView>
+      <TriggerView style={style} asChild={asChild}>
+        {children}
+      </TriggerView>
     </DropdownMenu.Trigger>
   )
 }

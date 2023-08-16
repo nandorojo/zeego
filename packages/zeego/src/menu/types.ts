@@ -50,6 +50,7 @@ export type ContextMenuAuxliliaryProps = Omit<
 export type MenuTriggerProps = {
   children: React.ReactElement
   style?: ViewStyle
+  asChild?: boolean
   /**
    * Determine whether the menu should open on `press` or `longPress`. Defaults to `press` for `DropdownMenu` and `longPress` for `ContextMenu`.
    *

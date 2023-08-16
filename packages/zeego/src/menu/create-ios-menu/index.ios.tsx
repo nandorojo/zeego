@@ -21,7 +21,7 @@ import type {
   MenuSubContentProps,
   ContextMenuAuxliliaryProps,
 } from '../types'
-import React, { Children, ReactElement, useRef } from 'react'
+import React, { Children, ReactElement, cloneElement, useRef } from 'react'
 import {
   flattenChildren,
   pickChildren,
@@ -38,7 +38,12 @@ import { create } from '../display-names'
 import type { ImageSystemConfig } from 'react-native-ios-context-menu/src/types/ImageItemConfig'
 
 const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
-  const Trigger = create(({ children, style }: MenuTriggerProps) => {
+  const Trigger = create(({ children, style, asChild }: MenuTriggerProps) => {
+    if (asChild) {
+      return cloneElement(children, {
+        style,
+      })
+    }
     return <View style={style}>{children}</View>
   }, 'Trigger')
 

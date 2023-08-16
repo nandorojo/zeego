@@ -1,4 +1,4 @@
-import React, { Children, ReactElement } from 'react'
+import React, { Children, ReactElement, cloneElement } from 'react'
 
 import { MenuView } from '@react-native-menu/menu'
 
@@ -34,7 +34,12 @@ import type {
 import { View } from 'react-native'
 
 const createAndroidMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
-  const Trigger = create(({ children, style }: MenuTriggerProps) => {
+  const Trigger = create(({ children, style, asChild }: MenuTriggerProps) => {
+    if (asChild) {
+      return cloneElement(children, {
+        style,
+      })
+    }
     return <View style={style}>{children}</View>
   }, 'Trigger')
 
