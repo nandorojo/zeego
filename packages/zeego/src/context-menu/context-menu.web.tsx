@@ -21,8 +21,10 @@ import {
   ContextMenuAuxliliaryProps,
 } from '../menu'
 
-const Root = create(({ children }: MenuRootProps) => {
-  return <ContextMenu.Root>{children}</ContextMenu.Root>
+const Root = create(({ children, onOpenChange }: MenuRootProps) => {
+  return (
+    <ContextMenu.Root onOpenChange={onOpenChange}>{children}</ContextMenu.Root>
+  )
 }, 'Root')
 
 const TriggerView = forwardRef<unknown, any>((props, ref) => {
