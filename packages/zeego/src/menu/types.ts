@@ -1,10 +1,4 @@
-import type {
-  Text,
-  View,
-  ImageRequireSource,
-  ImageProps,
-  ViewProps,
-} from 'react-native'
+import type { Text, View, ImageProps, ViewProps } from 'react-native'
 import type { MenuContentProps as RadixContentProps } from '@radix-ui/react-dropdown-menu'
 import type {
   ContextMenuView,
