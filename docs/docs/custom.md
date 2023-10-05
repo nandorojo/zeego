@@ -49,7 +49,7 @@ Each Zeego primitive set has a `create` function that lets you wrap the built-in
 import * as DropdownMenu from 'zeego/dropdown-menu'
 
 const DropdownMenuItem = DropdownMenu.create((props) => {
-  // you can add your own comonents in here
+  // you can add your own components in here
   return <DropdownMenu.Item {...props} />
 }, 'Item')
 ```
