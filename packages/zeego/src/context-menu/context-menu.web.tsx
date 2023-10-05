@@ -1,5 +1,5 @@
 import * as ContextMenu from '@radix-ui/react-context-menu'
-import React, { forwardRef } from 'react'
+import React, { cloneElement, forwardRef } from 'react'
 import { View } from 'react-native'
 
 import {
@@ -28,6 +28,12 @@ const Root = create(({ children, onOpenChange }: MenuRootProps) => {
 }, 'Root')
 
 const TriggerView = forwardRef<unknown, any>((props, ref) => {
+  if (props.asChild) {
+    return cloneElement(props.children, {
+      ref,
+      onClickCapture: props.onPointerDown,
+    })
+  }
   return (
     <View ref={ref} {...props} onClickCapture={props.onPointerDown}>
       {props.children}
@@ -35,10 +41,12 @@ const TriggerView = forwardRef<unknown, any>((props, ref) => {
   )
 })
 
-const Trigger = create(({ children, style }: MenuTriggerProps) => {
+const Trigger = create(({ children, style, asChild }: MenuTriggerProps) => {
   return (
     <ContextMenu.Trigger asChild>
-      <TriggerView style={style}>{children}</TriggerView>
+      <TriggerView style={style} asChild={asChild}>
+        {children}
+      </TriggerView>
     </ContextMenu.Trigger>
   )
 }, 'Trigger')
