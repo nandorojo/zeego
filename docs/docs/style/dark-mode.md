@@ -21,7 +21,7 @@ To manually change the theme while the app is running you can install [react-nat
 yarn add react-native-override-color-scheme
 ```
 
-and do:
+Then you can do:
 ```typescript
 import overrideColorScheme from 'react-native-override-color-scheme';
 
