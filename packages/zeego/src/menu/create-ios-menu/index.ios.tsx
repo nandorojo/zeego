@@ -583,6 +583,7 @@ If you want to use a custom component as your <Content />, you can use the creat
         onMenuDidShow={onMenuDidShow}
         onMenuWillHide={onMenuWillHide}
         onMenuWillShow={onMenuWillShow}
+        {...props.__unsafeIosProps}
       >
         {triggerItem}
       </Component>

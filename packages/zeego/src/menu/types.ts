@@ -3,6 +3,7 @@ import type { MenuContentProps as RadixContentProps } from '@radix-ui/react-drop
 import type {
   ContextMenuView,
   MenuAuxiliaryPreviewConfig,
+  ContextMenuButton,
 } from 'react-native-ios-context-menu'
 import type {
   ImageOptions,
@@ -10,6 +11,7 @@ import type {
 } from 'react-native-ios-context-menu/lib/typescript/types/ImageItemConfig'
 
 import type { SFSymbol } from 'sf-symbols-typescript'
+import type { ComponentProps } from 'react'
 
 type ViewStyle = React.ComponentProps<typeof View>['style']
 type TextStyle = React.ComponentProps<typeof Text>['style']
@@ -24,6 +26,10 @@ export type MenuRootProps = {
    * @platform `ios`
    */
   onOpenWillChange?: (willOpen: boolean) => void
+
+  __unsafeIosProps?:
+    | ComponentProps<typeof ContextMenuView>
+    | ComponentProps<typeof ContextMenuButton>
 }
 
 /**
