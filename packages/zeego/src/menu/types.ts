@@ -1,4 +1,4 @@
-import type { Text, View, ImageProps, ViewProps } from 'react-native'
+import type { Text, View, ImageProps } from 'react-native'
 import type { MenuContentProps as RadixContentProps } from '@radix-ui/react-dropdown-menu'
 import type {
   ContextMenuView,
@@ -9,9 +9,9 @@ import type {
   ImageOptions,
   ImageSystemSymbolConfiguration,
 } from 'react-native-ios-context-menu/lib/typescript/types/ImageItemConfig'
+import type { ComponentProps, SVGAttributes } from 'react'
 
 import type { SFSymbol } from 'sf-symbols-typescript'
-import type { ComponentProps } from 'react'
 
 type ViewStyle = React.ComponentProps<typeof View>['style']
 type TextStyle = React.ComponentProps<typeof Text>['style']
@@ -150,12 +150,14 @@ export type MenuItemImageProps = MenuItemCommonProps & {
   }
 } & Pick<ImageProps, 'accessibilityLabel'>
 
+type SVGProps = SVGAttributes<SVGSVGElement>
+
 export type MenuArrowProps = {
   height?: number
   width?: number
-  style?: ViewProps['style']
   children?: React.ReactNode
-}
+  asChild?: boolean
+} & Pick<SVGProps, 'fill' | 'style' | 'className'>
 
 export type MenuSubTriggerProps = Omit<
   MenuItemProps,
