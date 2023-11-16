@@ -211,7 +211,17 @@ const DropdownMenuLabel = DropdownMenu.create(
   'ItemImage'
 )
 
+const DropdownMenuArrow = DropdownMenu.create(
+  (props: ComponentProps<typeof DropdownMenu.Arrow>) => (
+    <DropdownMenu.Arrow {...props} style={{ fill: '#fff' }} />
+  ),
+  'Arrow'
+)
+
 const DropdownMenuExample = () => {
+  const [arrowEnabled, setArrowEnabled] = useState<'on' | 'off' | 'mixed'>(
+    'off'
+  )
   const [bookmarked, setBookmarked] = useState<'on' | 'off' | 'mixed'>('on')
   return (
     <DropdownMenu.Root>
@@ -281,6 +291,19 @@ const DropdownMenuExample = () => {
             resizeMode="contain"
           />
         </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          style={dropdownStyles.item}
+          value={arrowEnabled}
+          onValueChange={setArrowEnabled}
+          key="fourth"
+        >
+          <DropdownMenuItemIndicator>
+            <Ionicons name="checkmark" size={19} />
+          </DropdownMenuItemIndicator>
+          <DropdownMenuItemTitle>
+            {arrowEnabled === 'on' ? 'Arrow enabled' : 'Arrow disabled'}
+          </DropdownMenuItemTitle>
+        </DropdownMenuCheckboxItem>
 
         <DropdownMenu.Sub>
           <DropdownMenuSubTrigger style={dropdownStyles.item} key="nested">
@@ -329,6 +352,7 @@ const DropdownMenuExample = () => {
             </DropdownMenu.SubContent>
           </DropdownMenu.Sub>
         </DropdownMenu.Group>
+        {arrowEnabled === 'on' ? <DropdownMenuArrow /> : null}
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   )
@@ -443,8 +467,8 @@ const ContextMenuExample = () => {
 export default function App() {
   return (
     <View style={styles.container}>
+      <DropdownMenuExample />
       <View style={{ height: 30 }} />
-      {/* <DropdownMenuExample /> */}
       <ContextMenuExample />
     </View>
   )

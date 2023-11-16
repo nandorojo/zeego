@@ -224,12 +224,8 @@ const ItemIcon = create(({ children, style }: MenuItemIconProps) => {
 
 const Preview = create(() => <></>, 'Preview')
 
-const Arrow = create(({ style, children, width, height }: MenuArrowProps) => {
-  return (
-    <ContextMenu.Arrow width={width} height={height}>
-      <View style={[{ height, width }, style]}>{children}</View>
-    </ContextMenu.Arrow>
-  )
+const Arrow = create(({ children, ...restProps }: MenuArrowProps) => {
+  return <ContextMenu.Arrow {...restProps}>{children}</ContextMenu.Arrow>
 }, 'Arrow')
 
 const Sub = create(({ children }: MenuSubProps) => {

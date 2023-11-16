@@ -112,10 +112,11 @@ See the Radix UI [docs for `ContextMenu.Content`](https://www.radix-ui.com/docs/
 
 Wraps the trigger for your menu. The content will be anchored to the trigger.
 
-| Prop     | Required | Default     | Platforms        |
-| -------- | -------- | ----------- | ---------------- |
-| `style`  |          |             | `web`            |
-| `action` |          | `longPress` | `ios`, `android` |
+| Prop      | Required | Default     | Platforms               |
+| --------- | -------- | ----------- | ----------------------- |
+| `style`   |          |             | `web`                   |
+| `action`  |          | `longPress` | `ios`, `android`        |
+| `asChild` |          | `false`     | `web`, `ios`, `android` |
 
 The `action` can be `longPress` or `press`.
 
@@ -383,11 +384,22 @@ On iOS & Android, only one label is supported (unless it is inside a submenu). I
 
 Renders an arrow on web only. This helps point the content to the trigger. The `Arrow` must be rendered inside of `Content`.
 
-| Prop     | Required | Default | Platforms |
-| -------- | -------- | ------- | --------- |
-| `style`  |          |         | `web`     |
-| `height` |          |         | `web`     |
-| `width`  |          |         | `web`     |
+By default, Radix renders the arrow as an `<svg>` element. You can customize the SVG arrow color by passing a `fill` prop, `className`, or `style` object with a `fill` property.
+
+:::caution
+
+Because the arrow is an `<svg>` element, its `style` prop is not React Native compatible. Styling it with React Native libraries may not work as expected. If you would like to render a custom styled `<View>`, use the `asChild` prop instead of wrapping this component.
+
+:::
+
+| Prop        | Required | Default | Platforms |
+| ----------- | -------- | ------- | --------- |
+| `width`     |          | 10      | `web`     |
+| `height`    |          | 5       | `web`     |
+| `fill`      |          |         | `web`     |
+| `style`     |          |         | `web`     |
+| `className` |          |         | `web`     |
+| `asChild`   |          | `false` | `web`     |
 
 ### Separator
 

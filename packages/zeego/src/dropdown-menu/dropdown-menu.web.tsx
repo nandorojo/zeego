@@ -230,12 +230,8 @@ const ItemIcon = ({ children, style }: MenuItemIconProps) => {
 
 ItemIcon.displayName = MenuDisplayName.ItemIcon
 
-const Arrow = create(({ style, children, width, height }: MenuArrowProps) => {
-  return (
-    <DropdownMenu.Arrow height={height} width={width}>
-      <View style={[{ height, width }, style]}>{children}</View>
-    </DropdownMenu.Arrow>
-  )
+const Arrow = create(({ children, ...restProps }: MenuArrowProps) => {
+  return <DropdownMenu.Arrow {...restProps}>{children}</DropdownMenu.Arrow>
 }, 'Arrow')
 
 const Sub = create<MenuSubProps>(({ children }) => {
