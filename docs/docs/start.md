@@ -31,7 +31,7 @@ yarn add @react-native-menu/menu
 If you're using an Expo Development Client, there are some additional steps:
 
 ```yarn
-npx expo install expo-build-properites
+npx expo install expo-build-properties
 ```
 
 Next, add this to your app config's plugins array:
