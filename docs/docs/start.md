@@ -19,7 +19,7 @@ yarn add zeego
 #### iOS
 
 ```sh
-yarn add react-native-ios-context-menu
+yarn add react-native-ios-context-menu react-native-ios-utilities
 ```
 
 #### Android
