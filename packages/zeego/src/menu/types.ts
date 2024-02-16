@@ -104,6 +104,7 @@ export type MenuItemProps = {
   onFocus?: () => void
   onBlur?: () => void
   key: string
+  shouldDismissMenuOnSelect?: boolean
 }
 
 export interface MenuItemCommonProps {
@@ -198,6 +199,7 @@ export type MenuCheckboxItemProps = Omit<MenuItemProps, 'onSelect'> & {
     prevState: 'mixed' | 'on' | 'off'
   ) => void
   key: string
+  shouldDismissMenuOnSelect?: boolean
 }
 
 export type MenuItemIndicatorProps = {

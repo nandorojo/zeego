@@ -162,9 +162,8 @@ If you want to use a custom component as your <Content />, you can use the creat
   }, 'Label')
 
   type MenuOption = 'destructive' | 'displayInline'
-  type MenuAttribute = keyof typeof MenuElementAtrributes
 
-  type MenuAttributes = MenuAttribute[]
+  type MenuAttributes = MenuActionConfig['menuAttributes']
   type MenuOptions = MenuOption[]
 
   type MenuItem = MenuActionConfig
@@ -197,6 +196,10 @@ If you want to use a custom component as your <Content />, you can use the creat
       }
       if (child.props.hidden) {
         menuAttributes.push('hidden')
+      }
+
+      if (child.props.shouldDismissMenuOnSelect === false) {
+        menuAttributes.push('keepsMenuPresented')
       }
 
       let icon: MenuItem['icon']

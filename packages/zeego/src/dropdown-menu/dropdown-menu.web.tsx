@@ -107,6 +107,7 @@ const Item = ({
   onBlur,
   onFocus,
   textValue,
+  shouldDismissMenuOnSelect,
 }: MenuItemProps) => {
   return (
     <DropdownMenu.Item
@@ -114,7 +115,12 @@ const Item = ({
       textValue={textValue}
       onBlur={onBlur}
       disabled={disabled}
-      onSelect={onSelect}
+      onSelect={(e) => {
+        onSelect?.()
+        if (shouldDismissMenuOnSelect === false) {
+          e.preventDefault()
+        }
+      }}
       style={itemStyleReset}
     >
       <ItemPrimitive
@@ -186,6 +192,7 @@ const CheckboxItem = ({
   onFocus,
   style,
   children,
+  shouldDismissMenuOnSelect,
 }: MenuCheckboxItemProps) => {
   return (
     <DropdownMenu.CheckboxItem
@@ -194,12 +201,16 @@ const CheckboxItem = ({
       onBlur={onBlur}
       disabled={disabled}
       checked={typeof value === 'boolean' ? value : value !== 'off'}
-      onCheckedChange={(next) =>
-        onValueChange?.(
-          next ? 'on' : 'off',
-          value === true ? 'on' : value === false ? 'off' : value
-        )
-      }
+      onSelect={(e) => {
+        const current = value === true ? 'on' : value === false ? 'off' : value
+        const next = current === 'on' ? 'off' : 'on'
+
+        onValueChange?.(next, current)
+
+        if (shouldDismissMenuOnSelect === false) {
+          e.preventDefault()
+        }
+      }}
       style={itemStyleReset}
     >
       <ItemPrimitive
