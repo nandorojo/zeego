@@ -532,6 +532,7 @@ If you want to use a custom component as your <Content />, you can use the creat
         onPressMenuPreview={
           Menu === 'ContextMenu' ? previewProps?.onPress : undefined
         }
+        shouldPreventLongPressGestureFromPropagating
         auxiliaryPreviewConfig={
           auxiliaryProps?.children
             ? {

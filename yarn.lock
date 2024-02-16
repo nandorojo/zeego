@@ -18749,10 +18749,10 @@ react-native-gradle-plugin@^0.0.7:
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.7.tgz#96602f909745239deab7b589443f14fce5da2056"
   integrity sha512-+4JpbIx42zGTONhBTIXSyfyHICHC29VTvhkkoUOJAh/XHPEixpuBduYgf6Y4y9wsN1ARlQhBBoptTvXvAFQf5g==
 
-react-native-ios-context-menu@^1.15.1:
-  version "1.15.1"
-  resolved "https://registry.yarnpkg.com/react-native-ios-context-menu/-/react-native-ios-context-menu-1.15.1.tgz#f3edf20c5fc426b073a110140a2d441250576aa1"
-  integrity sha512-JkOJGx8Kjm7ChyDBmv1TqZg9mg8Jo8Y6kZISVbsXndx22Ke8sEIZGrizw6aXjkSQafomJ0ZAEZU7kuFHbFEwlg==
+react-native-ios-context-menu@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/react-native-ios-context-menu/-/react-native-ios-context-menu-2.3.2.tgz#ba1dbc4bd03032bf52d9fb0ed7cb917099b4d8ee"
+  integrity sha512-fkuvvV9iDucbrR5Yjo3IztB3MWAjXo4o9ZOEoBqGPxkvbyT6P8lv7kpaBE2BUkeZEbDVTcE1evApjyI1Ne67YA==
   dependencies:
     "@dominicstop/ts-event-emitter" "^1.1.0"
 

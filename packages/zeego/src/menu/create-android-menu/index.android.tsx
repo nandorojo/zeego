@@ -437,7 +437,7 @@ If you want to use a custom component as your <Content />, you can use the creat
       <MenuView
         title={menuTitle}
         onPressAction={({ nativeEvent }) => {
-          callbacks[nativeEvent.event]()
+          callbacks[nativeEvent.event]?.()
         }}
         shouldOpenOnLongPress={shouldOpenOnLongPress}
         actions={menuItems}
