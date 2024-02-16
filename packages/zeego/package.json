@@ -1,6 +1,6 @@
 {
   "name": "zeego",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Logical UI primitives, made for screens.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
