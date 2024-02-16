@@ -5,7 +5,6 @@ import type {
   MenuItemTitleProps,
 } from '../types'
 import { Text, View } from 'react-native'
-import { pickChildren } from '../children'
 
 import { create } from '../display-names'
 

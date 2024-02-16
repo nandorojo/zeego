@@ -34,7 +34,6 @@ import {
   ContextMenuView,
   MenuActionConfig,
   MenuConfig,
-  MenuElementAtrributes,
   MenuElementSize,
 } from 'react-native-ios-context-menu'
 import { create } from '../display-names'
