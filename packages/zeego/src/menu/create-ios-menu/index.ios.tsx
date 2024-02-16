@@ -219,7 +219,8 @@ If you want to use a custom component as your <Content />, you can use the creat
             `[zeego] Invalid <${Menu}.Item key="${key}" /> Missing valid title. Make sure you do one of the following:
 
 1. pass a string as the child of <${Menu}.ItemTitle />, nested directly inside of <${Menu}.Item />.
-2. OR, use the textValue prop on <${Menu}.Item textValue="Some value" />`
+2. OR, use the textValue prop on <${Menu}.Item textValue="Some value" />
+3. OR, if you are using a horizontal Group with icons only, pass an empty string: <${Menu}.ItemTitle textValue="" />`
           )
         }
 
@@ -284,7 +285,7 @@ If you want to use a custom component as your <Content />, you can use the creat
           }
         }
       }
-      if (title) {
+      if (typeof title == 'string') {
         const maybeIndexKey =
           typeof child.key == 'string' && child.key.startsWith('.')
             ? child.key.substring(1)
@@ -324,16 +325,14 @@ If you want to use a custom component as your <Content />, you can use the creat
           icon,
         }
       }
-      return
+      return undefined
     }
 
     const mapItemsChildren = (
       children: React.ReactNode
     ): ((MenuItem | MenuConfig) | null)[] => {
-      return Children.map(flattenChildren(children), (_child, index) => {
-        if (isInstanceOfComponent(_child, Item)) {
-          const child = _child
-
+      return Children.map(flattenChildren(children), (child, index) => {
+        if (isInstanceOfComponent(child, Item)) {
           const item = getItemFromChild(child, index)
           if (item) {
             const { icon, title, key, menuAttributes, subtitle } = item
@@ -346,9 +345,7 @@ If you want to use a custom component as your <Content />, you can use the creat
             }
             return finalItem
           }
-        } else if (isInstanceOfComponent(_child, CheckboxItem)) {
-          const child = _child
-
+        } else if (isInstanceOfComponent(child, CheckboxItem)) {
           const item = getItemFromChild(child, index)
           if (item) {
             const { icon, title, key, menuAttributes, subtitle } = item
@@ -370,8 +367,7 @@ If you want to use a custom component as your <Content />, you can use the creat
             }
             return finalItem
           }
-        } else if (isInstanceOfComponent(_child, Sub)) {
-          const child = _child
+        } else if (isInstanceOfComponent(child, Sub)) {
           const triggerItemChild = pickChildren<MenuSubTriggerProps>(
             child.props.children,
             SubTrigger
@@ -408,9 +404,7 @@ If you want to use a custom component as your <Content />, you can use the creat
               }
             }
           }
-        } else if (isInstanceOfComponent(_child, Group)) {
-          const child = _child as ReactElement<MenuGroupProps>
-
+        } else if (isInstanceOfComponent(child, Group)) {
           const groupItems = mapItemsChildren(child.props.children).filter(
             filterNull
           )
