@@ -19,7 +19,7 @@ yarn add zeego
 #### iOS
 
 ```sh
-yarn add react-native-ios-context-menu
+yarn add react-native-ios-context-menu react-native-ios-utilities
 ```
 
 #### Android
@@ -31,7 +31,7 @@ yarn add @react-native-menu/menu
 If you're using an Expo Development Client, there are some additional steps:
 
 ```yarn
-expo install expo-build-properites
+npx expo install expo-build-properties
 ```
 
 Next, add this to your app config's plugins array:
@@ -39,20 +39,21 @@ Next, add this to your app config's plugins array:
 ```js
 export default {
   plugins: [
-    "expo-build-properties",
+    [
+      "expo-build-properties",
       {
-       android: {
-        // these values were tested with Expo SDK 48
-        compileSdkVersion: 33,
-        targetSdkVersion: 33,
-        minSdkVersion: 23,
-        buildToolsVersion: '33.0.0',
-        kotlinVersion: '1.6.20',
+        android: {
+          // these values were tested with Expo SDK 48
+          compileSdkVersion: 33,
+          targetSdkVersion: 33,
+          minSdkVersion: 23,
+          buildToolsVersion: "33.0.0",
+          kotlinVersion: "1.6.20",
+        },
       },
-    }
-  ]
-}
-
+    ],
+  ],
+};
 ```
 
 If you know your way around these, you may be able to adjust them. But if you get an error related to `react-native-menu` when building, please reference these properties.
@@ -78,7 +79,7 @@ To install your dev client on your iPhone, make sure it's plugged in to your Mac
 After the development client build is complete, you can run your app in dev mode:
 
 ```bash
-expo start --dev-client
+npx expo start --dev-client
 ```
 
 If your app is on the App Store, you'll need to deploy a new build too:
