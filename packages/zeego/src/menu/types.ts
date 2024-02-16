@@ -8,7 +8,7 @@ import type {
 import type {
   ImageOptions,
   ImageSystemSymbolConfiguration,
-} from 'react-native-ios-context-menu/lib/typescript/types/ImageItemConfig'
+} from 'react-native-ios-context-menu/src/types/ImageItemConfig'
 import type { ComponentProps, SVGAttributes } from 'react'
 
 import type { SFSymbol } from 'sf-symbols-typescript'
@@ -81,6 +81,12 @@ export type ContextMenuContentProps = Not<
 export type MenuGroupProps = {
   children: React.ReactNode
   style?: ViewStyle
+  /**
+   * iOS-only
+   *
+   * Makes the menu items be in a row. Defaults to `false`.
+   */
+  horizontal?: boolean
 }
 
 export type MenuItemProps = {
@@ -167,7 +173,7 @@ export type MenuSubTriggerProps = Omit<
 }
 
 export type MenuSubProps = {
-  children?: React.ReactNode
+  children: React.ReactNode
 }
 
 export type MenuSubContentProps = Not<MenuContentProps, 'side' | 'align'>

@@ -85,10 +85,12 @@ export const pickChildren = <Props = any>(
   }
 }
 
-export const isInstanceOfComponent = (
-  element: React.ReactElement | React.ReactChild | undefined,
-  targetElement: React.ElementType
-) => {
+type PropsFromElementType<T> = T extends React.ElementType<infer P> ? P : never
+
+export const isInstanceOfComponent = <Props>(
+  element: React.ReactElement | React.ReactText | undefined,
+  targetElement: React.ComponentType<Props>
+): element is NonNullable<React.ReactElement<Props>> => {
   const matches =
     (element as any)?.type === targetElement ||
     (typeof (element as any)?.type == 'function' &&

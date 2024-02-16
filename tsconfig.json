@@ -2,7 +2,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@zeego/*": ["./packages/*/src"],
       "zeego": ["./packages/zeego/src"]
     },
     "allowUnreachableCode": false,
@@ -26,5 +25,5 @@
     "target": "esnext",
     "noEmit": true
   },
-  "exclude": ["examples"]
+  "exclude": ["examples", "node_modules", "../../node_modules/**/*"]
 }

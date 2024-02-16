@@ -33,6 +33,9 @@ import {
   ContextMenuButton,
   ContextMenuView,
   MenuActionConfig,
+  MenuConfig,
+  MenuElementAtrributes,
+  MenuElementSize,
 } from 'react-native-ios-context-menu'
 import { create } from '../display-names'
 import type { ImageSystemConfig } from 'react-native-ios-context-menu/src/types/ImageItemConfig'
@@ -159,28 +162,12 @@ If you want to use a custom component as your <Content />, you can use the creat
   }, 'Label')
 
   type MenuOption = 'destructive' | 'displayInline'
-  type MenuAttribute = 'disabled' | 'destructive' | 'hidden'
+  type MenuAttribute = keyof typeof MenuElementAtrributes
 
   type MenuAttributes = MenuAttribute[]
   type MenuOptions = MenuOption[]
 
-  type MenuConfig = {
-    menuTitle: string
-    menuItems: (MenuItem | MenuConfig)[]
-    menuAttributes?: MenuAttributes
-    menuOptions?: MenuOptions
-    icon?: MenuActionConfig['icon']
-  }
-
-  type MenuItem = {
-    actionKey: string
-    actionTitle: string
-    discoverabilityTitle?: string
-    menuAttributes?: MenuAttributes
-    menuOptions?: MenuOptions
-    icon?: MenuActionConfig['icon']
-    menuState?: 'on' | 'off' | 'mixed'
-  }
+  type MenuItem = MenuActionConfig
 
   const Root = create((props: MenuRootProps) => {
     const trigger = pickChildren<MenuTriggerProps>(props.children, Trigger)
@@ -345,7 +332,7 @@ If you want to use a custom component as your <Content />, you can use the creat
     ): ((MenuItem | MenuConfig) | null)[] => {
       return Children.map(flattenChildren(children), (_child, index) => {
         if (isInstanceOfComponent(_child, Item)) {
-          const child = _child as ReactElement<MenuItemProps>
+          const child = _child
 
           const item = getItemFromChild(child, index)
           if (item) {
@@ -360,7 +347,7 @@ If you want to use a custom component as your <Content />, you can use the creat
             return finalItem
           }
         } else if (isInstanceOfComponent(_child, CheckboxItem)) {
-          const child = _child as ReactElement<MenuCheckboxItemProps>
+          const child = _child
 
           const item = getItemFromChild(child, index)
           if (item) {
@@ -384,7 +371,7 @@ If you want to use a custom component as your <Content />, you can use the creat
             return finalItem
           }
         } else if (isInstanceOfComponent(_child, Sub)) {
-          const child = _child as ReactElement<MenuRootProps>
+          const child = _child
           const triggerItemChild = pickChildren<MenuSubTriggerProps>(
             child.props.children,
             SubTrigger
@@ -414,6 +401,7 @@ If you want to use a custom component as your <Content />, you can use the creat
                   icon: triggerItem?.icon,
                   menuItems: nestedItems,
                   menuOptions,
+                  // @ts-expect-error
                   menuAttributes: triggerItem.menuAttributes,
                 }
                 return menuConfig
@@ -427,10 +415,30 @@ If you want to use a custom component as your <Content />, you can use the creat
             filterNull
           )
 
+          const groupTitle = pickChildren<MenuLabelProps>(
+            child.props.children,
+            Label
+          ).targetChildren?.[0]?.props.children
+
+          let menuPreferredElementSize: MenuElementSize | undefined
+
+          if (child.props.horizontal) {
+            const hasGroupItemWithText = groupItems.some((item) => {
+              return item.type === 'action' && item.actionTitle
+            })
+
+            if (hasGroupItemWithText) {
+              menuPreferredElementSize = 'medium'
+            } else {
+              menuPreferredElementSize = 'small'
+            }
+          }
+
           return {
-            menuTitle: '',
+            menuTitle: groupTitle || '',
             menuItems: groupItems,
             menuOptions: ['displayInline'],
+            menuPreferredElementSize: menuPreferredElementSize,
           }
         }
         return null

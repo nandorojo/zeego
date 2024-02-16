@@ -272,6 +272,23 @@ On iOS, items will visually group with a divider like `Group Item 1` and `Group 
 
 <img src="/img/group.png" />
 
+On iOS, you can use the `horizontal` prop render items like so:
+
+<img width="400" alt="image" src="https://github.com/nandorojo/zeego/assets/13172299/6d927c98-c29d-4732-95ca-2bec725d487e" />
+
+| Prop         | Required | Default | Platforms                |
+| ------------ | -------- | ------- | ------------------------ |
+| `children`   |          |         | `web` , `ios`, `android` |
+| `horizontal` |          |         | `ios`                    |
+
+To add a title to the group, pass a `Label` component inside of it:
+
+```tsx
+<DropdownMenu.Group>
+  <DropdownMenu.Label>Fernando</DropdownMenu.Label>
+</DropdownMenu.Group>
+```
+
 ### CheckboxItem
 
 Usage is similar to [`Item`](#item) with added checkbox features.

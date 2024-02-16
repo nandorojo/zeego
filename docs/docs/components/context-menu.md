@@ -303,6 +303,27 @@ Android menu items do not currently support subtitles.
 
 Used to group multiple items.
 
+On iOS, items will visually group with a divider like `Group Item 1` and `Group Item 2` below:
+
+<img src="/img/group.png" />
+
+On iOS, you can use the `horizontal` prop render items like so:
+
+<img width="400" alt="image" src="https://github.com/nandorojo/zeego/assets/13172299/6d927c98-c29d-4732-95ca-2bec725d487e" />
+
+| Prop         | Required | Default | Platforms                |
+| ------------ | -------- | ------- | ------------------------ |
+| `children`   |          |         | `web` , `ios`, `android` |
+| `horizontal` |          |         | `ios`                    |
+
+To add a title to the group, pass a `Label` component inside of it:
+
+```tsx
+<ContextMenu.Group>
+  <ContextMenu.Label>Fernando</ContextMenu.Label>
+</ContextMenu.Group>
+```
+
 <!-- On iOS, items will visually group with a divider like `Group Item 1` and `Group Item 2` below:
 
 <img src="/img/group.png"></img> -->
