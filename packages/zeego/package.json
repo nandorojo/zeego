@@ -1,6 +1,6 @@
 {
   "name": "zeego",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "Logical UI primitives, made for screens.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -134,6 +134,6 @@
   "dependencies": {
     "@radix-ui/react-context-menu": "^2.0.1",
     "@radix-ui/react-dropdown-menu": "^2.0.1",
-    "sf-symbols-typescript": "^1.0.0"
+    "sf-symbols-typescript": "^2.0.0"
   }
 }
