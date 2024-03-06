@@ -4,7 +4,7 @@ title: Usage
 
 Here we'll look at a quick overview of what it looks like to use Zeego.
 
-The examples will use [Dripsy](https://dripsy.dev) for styling, but you can use any styling solution you want.
+The examples will use [Dripsy](https://dripsy.xyz) for styling, but you can use any styling solution you want.
 
 For a full overview of using custom styles and components, see the [styling guide](/style).
 
