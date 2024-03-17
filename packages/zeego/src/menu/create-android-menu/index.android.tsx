@@ -365,10 +365,23 @@ If you want to use a custom component as your <Content />, you can use the creat
                   ? 'off'
                   : menuState
 
+              const hasItemIndicator =
+                pickChildren(child.props.children, ItemIndicator)
+                  .targetChildren?.[0] !== undefined
+
+              let image = icon
+
+              if (hasItemIndicator && !icon) {
+                image =
+                  currentState === 'on'
+                    ? 'checkbox_on_background'
+                    : 'checkbox_off_background'
+              }
+
               const finalItem: MenuItem = {
                 id: key,
                 title,
-                image: icon,
+                image,
                 attributes: menuAttributes,
                 subtitle,
                 state: currentState,
