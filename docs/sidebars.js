@@ -43,6 +43,7 @@ const sidebars = {
         },
         'custom',
         // 'style/vanilla',
+        'style/dark-mode',
         'style/dripsy',
         'style/tailwind',
         // 'style/tamagui',
