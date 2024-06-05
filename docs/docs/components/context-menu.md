@@ -165,7 +165,7 @@ The `key` prop is **required**. The same `key` must not be used more than once i
 | `destructive` |          |         | `web`, `ios`, `android` |
 | `hidden`      |          |         | `ios`, `android`        |
 | `style`       |          |         | `web`                   |
-| `onSelect`    |          |         | `web`                   |
+| `onSelect`    |          |         | `web`, `android`, `ios` |
 | `textValue`   |          |         | `web`                   |
 | `onFocus`     |          |         | `web`                   |
 | `onBlur`      |          |         | `web`                   |
