@@ -186,9 +186,9 @@ The `style` prop will optionally style text on web.
 `ItemTitle` either a string or React element as the child. A string is the most common usage.
 
 ```tsx
-<DropdownMenu.Item key="cars">
-  <DropdownMenu.ItemTitle>Cars</DropdownMenu.ItemTitle>
-</DropdownMenu.Item>
+<ContextMenu.Item key="cars">
+  <ContextMenu.ItemTitle>Cars</ContextMenu.ItemTitle>
+</ContextMenu.Item>
 ```
 
 #### React element child
@@ -196,17 +196,17 @@ The `style` prop will optionally style text on web.
 `ItemTitle` supports passing a text node as the child. However, you **must** pass a `textValue` prop to the parent `Item` for this to work. It will error otherwise.
 
 ```tsx
-<DropdownMenu.Item
+<ContextMenu.Item
   // this is required when ItemTitle has a React element child
   textValue="Cars"
   key="cars"
 >
-  <DropdownMenu.ItemTitle>
+  <ContextMenu.ItemTitle>
     <Text>
       Cars
     </Text>
-   <DropdownMenu.ItemTitle>
-</DropdownMenu.Item>
+   <ContextMenu.ItemTitle>
+</ContextMenu.Item>
 ```
 
 This is useful for rendering custom text components on Web. The `textValue` prop supplied to `Item` will get used on iOS and Android as the title. On Web, `textValue` will be used for typeahead purposes, but it will not affect rendering.
