@@ -449,6 +449,7 @@ If you want to use a custom component as your <Content />, you can use the creat
     return (
       <MenuView
         title={menuTitle}
+        style={props.style}
         onPressAction={({ nativeEvent }) => {
           callbacks[nativeEvent.event]?.()
         }}
