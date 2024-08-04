@@ -123,5 +123,6 @@
     "@expo/prebuild-config": "^5.0.1",
     "react": "18.0.0",
     "metro": "0.72.3"
-  }
+  },
+  "packageManager": "yarn@4.4.0"
 }
