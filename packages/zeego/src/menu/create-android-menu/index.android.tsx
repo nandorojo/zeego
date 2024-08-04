@@ -34,14 +34,18 @@ import type {
 import { View } from 'react-native'
 
 const createAndroidMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
-  const Trigger = create(({ children, style, asChild }: MenuTriggerProps) => {
-    if (asChild) {
-      return cloneElement(children, {
-        style,
-      })
-    }
-    return <View style={style}>{children}</View>
-  }, 'Trigger')
+  const Trigger = create(
+    ({ children, style, asChild, ...props }: MenuTriggerProps) => {
+      if (asChild) {
+        return cloneElement(children, {
+          style,
+          ...props,
+        })
+      }
+      return <View style={style}>{children}</View>
+    },
+    'Trigger'
+  )
 
   const Auxiliary = create(
     ({}: ContextMenuAuxliliaryProps) => null,
