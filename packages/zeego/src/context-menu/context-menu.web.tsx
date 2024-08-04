@@ -1,63 +1,18 @@
 import * as ContextMenu from '@radix-ui/react-context-menu'
-import React, { cloneElement, forwardRef } from 'react'
-import { View } from 'react-native'
+import React from 'react'
 
-import {
-  ItemPrimitive,
+import type {
   ContextMenuContentProps,
-  MenuGroupProps,
-  MenuItemProps,
-  MenuRootProps,
-  MenuSeparatorProps,
-  MenuSubTriggerProps,
-  MenuTriggerProps,
   MenuCheckboxItemProps,
-  MenuItemIndicatorProps,
   MenuItemIconProps,
-  create,
-  MenuArrowProps,
   ContextMenuSubContentProps,
-  MenuSubProps,
   ContextMenuAuxliliaryProps,
 } from '../menu'
+import { create } from '../menu/display-names'
 
-const Root = create(({ children, onOpenChange }: MenuRootProps) => {
-  return (
-    <ContextMenu.Root onOpenChange={onOpenChange}>{children}</ContextMenu.Root>
-  )
-}, 'Root')
+const Root = create(ContextMenu.Root, 'Root')
 
-const TriggerView = forwardRef<unknown, any>((props, ref) => {
-  if (props.asChild) {
-    return cloneElement(props.children, {
-      ref,
-      onClickCapture: props.onPointerDown,
-    })
-  }
-  return (
-    <View ref={ref} {...props} onClickCapture={props.onPointerDown}>
-      {props.children}
-    </View>
-  )
-})
-
-const Trigger = create(({ children, style, asChild }: MenuTriggerProps) => {
-  return (
-    <ContextMenu.Trigger asChild>
-      <TriggerView style={style} asChild={asChild}>
-        {children}
-      </TriggerView>
-    </ContextMenu.Trigger>
-  )
-}, 'Trigger')
-
-const ContentView = forwardRef<unknown, any>((props, ref) => {
-  return (
-    <View ref={ref} {...props} onClickCapture={props.onPointerDown}>
-      {props.children}
-    </View>
-  )
-})
+const Trigger = create(ContextMenu.Trigger, 'Trigger')
 
 const Content = create(
   ({
@@ -67,123 +22,36 @@ const Content = create(
     alignOffset,
     avoidCollisions,
     collisionPadding,
-  }: ContextMenuContentProps) => {
-    return (
-      <ContextMenu.Portal>
-        <ContextMenu.Content
-          loop={loop}
-          alignOffset={alignOffset}
-          avoidCollisions={avoidCollisions}
-          collisionPadding={collisionPadding}
-        >
-          <ContentView style={style}>{children}</ContentView>
-        </ContextMenu.Content>
-      </ContextMenu.Portal>
-    )
-  },
+    ...props
+  }: ContextMenuContentProps) => (
+    <ContextMenu.Portal>
+      <ContextMenu.Content
+        loop={loop}
+        alignOffset={alignOffset}
+        avoidCollisions={avoidCollisions}
+        collisionPadding={collisionPadding}
+        {...props}
+      >
+        {children}
+      </ContextMenu.Content>
+    </ContextMenu.Portal>
+  ),
   'Content'
 )
 
-const itemStyleReset = {
-  outlineWidth: 0,
-}
+const Item = create(ContextMenu.Item, 'Item')
 
-const Item = create(
-  ({
-    children,
-    disabled,
-    onSelect,
-    style,
-    onBlur,
-    onFocus,
-    textValue,
-  }: MenuItemProps) => {
-    return (
-      <ContextMenu.Item
-        onFocus={onFocus}
-        textValue={textValue}
-        onBlur={onBlur}
-        disabled={disabled}
-        onSelect={onSelect}
-        style={itemStyleReset}
-      >
-        <ItemPrimitive
-          // @ts-expect-error we require a key in the types
-          // this is for consumers
-          // however, it isn't relevant locally here, since the key will be passed to the parent component
-          // so that is sufficient
-          key={undefined}
-          style={style}
-        >
-          {children}
-        </ItemPrimitive>
-      </ContextMenu.Item>
-    )
-  },
-  'Item'
-)
+const SubTrigger = create(ContextMenu.SubTrigger, 'SubTrigger')
 
-const SubTrigger = create(
-  ({
-    children,
-    style,
-    textValue,
-    disabled,
-    onBlur,
-    onFocus,
-  }: MenuSubTriggerProps) => {
-    return (
-      <ContextMenu.SubTrigger
-        disabled={disabled}
-        textValue={textValue}
-        onBlur={onBlur}
-        onFocus={onFocus}
-        style={itemStyleReset}
-      >
-        <ItemPrimitive
-          // this is for consumers
-          // however, it isn't relevant locally here, since the key will be passed to the parent component
-          // so that is sufficient
-          key={undefined as any}
-          style={style}
-        >
-          {children}
-        </ItemPrimitive>
-      </ContextMenu.SubTrigger>
-    )
-  },
-  'SubTrigger'
-)
+const Group = create(ContextMenu.Group, 'Group')
 
-const Group = create(({ children }: MenuGroupProps) => {
-  return <ContextMenu.Group>{children}</ContextMenu.Group>
-}, 'Group')
-
-const Separator = create(({ style }: MenuSeparatorProps) => {
-  return (
-    <ContextMenu.Separator>
-      <View style={style} />
-    </ContextMenu.Separator>
-  )
-}, 'Separator')
+const Separator = create(ContextMenu.Separator, 'Separator')
 
 const CheckboxItem = create(
-  ({
-    onValueChange,
-    value,
-    disabled,
-    textValue,
-    onBlur,
-    onFocus,
-    style,
-    children,
-  }: MenuCheckboxItemProps) => {
+  ({ onValueChange, value, ...props }: MenuCheckboxItemProps) => {
     return (
       <ContextMenu.CheckboxItem
-        onFocus={onFocus}
-        textValue={textValue}
-        onBlur={onBlur}
-        disabled={disabled}
+        {...props}
         checked={typeof value === 'boolean' ? value : value !== 'off'}
         onCheckedChange={(next) =>
           onValueChange?.(
@@ -191,46 +59,24 @@ const CheckboxItem = create(
             value === true ? 'on' : value === false ? 'off' : value
           )
         }
-        style={itemStyleReset}
-      >
-        <ItemPrimitive
-          // @ts-expect-error we require a key in the types
-          // this is for consumers
-          // however, it isn't relevant locally here, since the key will be passed to the parent component
-          // so that is sufficient
-          key={undefined}
-          style={style}
-        >
-          {children}
-        </ItemPrimitive>
-      </ContextMenu.CheckboxItem>
+      />
     )
   },
   'CheckboxItem'
 )
 
-const ItemIndicator = create(
-  ({ style, children }: MenuItemIndicatorProps) => (
-    <ContextMenu.ItemIndicator>
-      <View style={style}>{children}</View>
-    </ContextMenu.ItemIndicator>
-  ),
-  'ItemIndicator'
+const ItemIndicator = create(ContextMenu.ItemIndicator, 'ItemIndicator')
+
+const ItemIcon = create(
+  ({ children }: MenuItemIconProps) => <>{children}</>,
+  'ItemIcon'
 )
 
-const ItemIcon = create(({ children, style }: MenuItemIconProps) => {
-  return <View style={style}>{children}</View>
-}, 'ItemIcon')
+const Preview = create(() => null, 'Preview')
 
-const Preview = create(() => <></>, 'Preview')
+const Arrow = create(ContextMenu.Arrow, 'Arrow')
 
-const Arrow = create(({ children, ...restProps }: MenuArrowProps) => {
-  return <ContextMenu.Arrow {...restProps}>{children}</ContextMenu.Arrow>
-}, 'Arrow')
-
-const Sub = create(({ children }: MenuSubProps) => {
-  return <ContextMenu.Sub>{children}</ContextMenu.Sub>
-}, 'Sub')
+const Sub = create(ContextMenu.Sub, 'Sub')
 
 const SubContent = create(
   ({
@@ -241,6 +87,7 @@ const SubContent = create(
     loop,
     style,
     sideOffset,
+    ...props
   }: ContextMenuSubContentProps) => (
     <ContextMenu.Portal>
       <ContextMenu.SubContent
@@ -249,15 +96,15 @@ const SubContent = create(
         avoidCollisions={avoidCollisions}
         collisionPadding={collisionPadding}
         sideOffset={sideOffset}
-      >
-        <ContentView style={style}>{children}</ContentView>
-      </ContextMenu.SubContent>
+        {...props}
+      />
     </ContextMenu.Portal>
   ),
   'SubContent'
 )
 
-const Auxiliary = create((_: ContextMenuAuxliliaryProps) => <></>, 'Auxiliary')
+const Auxiliary = create((_: ContextMenuAuxliliaryProps) => null, 'Auxiliary')
+
 export {
   Root,
   Trigger,

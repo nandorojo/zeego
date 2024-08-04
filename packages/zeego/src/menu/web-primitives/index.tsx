@@ -1,31 +1,14 @@
 import React from 'react'
-import type {
-  MenuItemProps,
-  MenuItemSubtitleProps,
-  MenuItemTitleProps,
-} from '../types'
-import { Text, View } from 'react-native'
+import type { MenuItemSubtitleProps, MenuItemTitleProps } from '../types'
 
 import { create } from '../display-names'
 
-const ItemPrimitive = ({ children, style }: MenuItemProps) => {
-  return <View style={style}>{children}</View>
-}
-
 const ItemTitle = create(({ children, style }: MenuItemTitleProps) => {
-  return (
-    <Text style={style} selectable={false}>
-      {children}
-    </Text>
-  )
+  return <span style={{ userSelect: 'none', ...style }}>{children}</span>
 }, 'ItemTitle')
 
 const ItemSubtitle = create(({ children, style }: MenuItemSubtitleProps) => {
-  return (
-    <Text style={style} selectable={false}>
-      {children}
-    </Text>
-  )
+  return <span style={{ userSelect: 'none', ...style }}>{children}</span>
 }, 'ItemSubtitle')
 
-export { ItemPrimitive, ItemSubtitle, ItemTitle }
+export { ItemSubtitle, ItemTitle }
