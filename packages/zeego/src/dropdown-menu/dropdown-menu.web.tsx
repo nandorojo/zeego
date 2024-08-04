@@ -1,253 +1,79 @@
-import React, { cloneElement } from 'react'
-import {
-  ItemPrimitive,
-  MenuContentProps,
-  MenuGroupProps,
-  MenuItemProps,
-  MenuRootProps,
-  MenuSeparatorProps,
-  MenuSubTriggerProps,
-  MenuTriggerProps,
-  MenuDisplayName,
-  MenuCheckboxItemProps,
-  MenuItemIndicatorProps,
-  MenuItemIconProps,
-  create,
-  MenuArrowProps,
-  MenuSubProps,
-  MenuSubContentProps,
-} from '../menu'
-import { View } from 'react-native'
-import { forwardRef } from 'react'
-
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import * as React from 'react'
 
-const Root = ({ children, onOpenChange }: MenuRootProps) => {
-  return (
-    <DropdownMenu.Root onOpenChange={onOpenChange}>
-      {children}
-    </DropdownMenu.Root>
-  )
-}
-Root.displayName = MenuDisplayName.Root
+import type {
+  ContextMenuContentProps,
+  MenuCheckboxItemProps,
+  MenuItemIconProps,
+  ContextMenuSubContentProps,
+} from '../menu'
+import { create } from '../menu/display-names'
 
-const TriggerView = forwardRef<unknown, any>((props, ref) => {
-  if (props.asChild) {
-    const { children, ...rest } = props
-    return cloneElement(children, {
-      ref,
-      ...rest,
-      onClickCapture: props.onPointerDown,
-    })
-  }
-  return (
-    <View ref={ref} {...props} onClickCapture={props.onPointerDown}>
-      {props.children}
-    </View>
-  )
-})
+const Root = create(DropdownMenu.Root, 'Root')
 
-const Trigger = ({ children, style, asChild }: MenuTriggerProps) => {
-  return (
-    <DropdownMenu.Trigger asChild>
-      <TriggerView style={style} asChild={asChild}>
-        {children}
-      </TriggerView>
-    </DropdownMenu.Trigger>
-  )
-}
-Trigger.displayName = MenuDisplayName.Trigger
+const Trigger = create(DropdownMenu.Trigger, 'Trigger')
 
-const ContentView = forwardRef<unknown, any>((props, ref) => {
-  return (
-    <View ref={ref} {...props} onClickCapture={props.onPointerDown}>
-      {props.children}
-    </View>
-  )
-})
-
-const Content = ({
-  children,
-  style,
-  loop,
-  side,
-  align,
-  alignOffset,
-  avoidCollisions,
-  collisionPadding,
-  sideOffset,
-}: MenuContentProps) => {
-  return (
+const Content = create(
+  ({
+    children,
+    style,
+    loop,
+    alignOffset,
+    avoidCollisions,
+    collisionPadding,
+    ...props
+  }: ContextMenuContentProps) => (
     <DropdownMenu.Portal>
       <DropdownMenu.Content
         loop={loop}
-        side={side}
-        align={align}
         alignOffset={alignOffset}
         avoidCollisions={avoidCollisions}
         collisionPadding={collisionPadding}
-        sideOffset={sideOffset}
+        {...props}
       >
-        <ContentView style={style}>{children}</ContentView>
+        {children}
       </DropdownMenu.Content>
     </DropdownMenu.Portal>
-  )
-}
-Content.displayName = MenuDisplayName.Content
-
-const itemStyleReset = {
-  outlineWidth: 0,
-}
-
-const Item = ({
-  children,
-  disabled,
-  onSelect,
-  style,
-  onBlur,
-  onFocus,
-  textValue,
-  shouldDismissMenuOnSelect,
-}: MenuItemProps) => {
-  return (
-    <DropdownMenu.Item
-      onFocus={onFocus}
-      textValue={textValue}
-      onBlur={onBlur}
-      disabled={disabled}
-      onSelect={(e) => {
-        onSelect?.()
-        if (shouldDismissMenuOnSelect === false) {
-          e.preventDefault()
-        }
-      }}
-      style={itemStyleReset}
-    >
-      <ItemPrimitive
-        // @ts-expect-error we require a key in the types
-        // this is for consumers
-        // however, it isn't relevant locally here, since the key will be passed to the parent component
-        // so that is sufficient
-        key={undefined}
-        style={style}
-      >
-        {children}
-      </ItemPrimitive>
-    </DropdownMenu.Item>
-  )
-}
-Item.displayName = MenuDisplayName.Item
-
-const SubTrigger = ({
-  children,
-  style,
-  textValue,
-  disabled,
-  onBlur,
-  onFocus,
-}: MenuSubTriggerProps) => {
-  return (
-    <DropdownMenu.SubTrigger
-      disabled={disabled}
-      textValue={textValue}
-      onBlur={onBlur}
-      onFocus={onFocus}
-      style={itemStyleReset}
-    >
-      <ItemPrimitive
-        // @ts-expect-error we require a key in the types
-        // this is for consumers
-        // however, it isn't relevant locally here, since the key will be passed to the parent component
-        // so that is sufficient
-        key={undefined}
-        style={style}
-      >
-        {children}
-      </ItemPrimitive>
-    </DropdownMenu.SubTrigger>
-  )
-}
-SubTrigger.displayName = MenuDisplayName.SubTrigger
-
-const Group = ({ children }: MenuGroupProps) => {
-  return <DropdownMenu.Group>{children}</DropdownMenu.Group>
-}
-Group.displayName = MenuDisplayName.Group
-
-const Separator = ({ style }: MenuSeparatorProps) => {
-  return (
-    <DropdownMenu.Separator>
-      <View style={style} />
-    </DropdownMenu.Separator>
-  )
-}
-Separator.displayName = MenuDisplayName.Separator
-
-const CheckboxItem = ({
-  onValueChange,
-  value,
-  disabled,
-  textValue,
-  onBlur,
-  onFocus,
-  style,
-  children,
-  shouldDismissMenuOnSelect,
-}: MenuCheckboxItemProps) => {
-  return (
-    <DropdownMenu.CheckboxItem
-      onFocus={onFocus}
-      textValue={textValue}
-      onBlur={onBlur}
-      disabled={disabled}
-      checked={typeof value === 'boolean' ? value : value !== 'off'}
-      onSelect={(e) => {
-        const current = value === true ? 'on' : value === false ? 'off' : value
-        const next = current === 'on' ? 'off' : 'on'
-
-        onValueChange?.(next, current)
-
-        if (shouldDismissMenuOnSelect === false) {
-          e.preventDefault()
-        }
-      }}
-      style={itemStyleReset}
-    >
-      <ItemPrimitive
-        // @ts-expect-error we require a key in the types
-        // this is for consumers
-        // however, it isn't relevant locally here, since the key will be passed to the parent component
-        // so that is sufficient
-        key={undefined}
-        style={style}
-      >
-        {children}
-      </ItemPrimitive>
-    </DropdownMenu.CheckboxItem>
-  )
-}
-CheckboxItem.displayName = MenuDisplayName.CheckboxItem
-
-const ItemIndicator = ({ style, children }: MenuItemIndicatorProps) => (
-  <DropdownMenu.ItemIndicator>
-    <View style={style}>{children}</View>
-  </DropdownMenu.ItemIndicator>
+  ),
+  'Content'
 )
-ItemIndicator.displayName = MenuDisplayName.ItemIndicator
 
-const ItemIcon = ({ children, style }: MenuItemIconProps) => {
-  return <View style={style}>{children}</View>
-}
+const Item = create(DropdownMenu.Item, 'Item')
 
-ItemIcon.displayName = MenuDisplayName.ItemIcon
+const SubTrigger = create(DropdownMenu.SubTrigger, 'SubTrigger')
 
-const Arrow = create(({ children, ...restProps }: MenuArrowProps) => {
-  return <DropdownMenu.Arrow {...restProps}>{children}</DropdownMenu.Arrow>
-}, 'Arrow')
+const Group = create(DropdownMenu.Group, 'Group')
 
-const Sub = create<MenuSubProps>(({ children }) => {
-  return <DropdownMenu.Sub>{children}</DropdownMenu.Sub>
-}, 'Sub')
+const Separator = create(DropdownMenu.Separator, 'Separator')
+
+const CheckboxItem = create(
+  ({ onValueChange, value, ...props }: MenuCheckboxItemProps) => {
+    return (
+      <DropdownMenu.CheckboxItem
+        {...props}
+        checked={typeof value === 'boolean' ? value : value !== 'off'}
+        onCheckedChange={(next) =>
+          onValueChange?.(
+            next ? 'on' : 'off',
+            value === true ? 'on' : value === false ? 'off' : value
+          )
+        }
+      />
+    )
+  },
+  'CheckboxItem'
+)
+
+const ItemIndicator = create(DropdownMenu.ItemIndicator, 'ItemIndicator')
+
+const ItemIcon = create(
+  ({ children }: MenuItemIconProps) => <>{children}</>,
+  'ItemIcon'
+)
+
+const Arrow = create(DropdownMenu.Arrow, 'Arrow')
+
+const Sub = create(DropdownMenu.Sub, 'Sub')
 
 const SubContent = create(
   ({
@@ -256,9 +82,10 @@ const SubContent = create(
     avoidCollisions,
     collisionPadding,
     loop,
-    sideOffset,
     style,
-  }: MenuSubContentProps) => (
+    sideOffset,
+    ...props
+  }: ContextMenuSubContentProps) => (
     <DropdownMenu.Portal>
       <DropdownMenu.SubContent
         loop={loop}
@@ -266,9 +93,8 @@ const SubContent = create(
         avoidCollisions={avoidCollisions}
         collisionPadding={collisionPadding}
         sideOffset={sideOffset}
-      >
-        <ContentView style={style}>{children}</ContentView>
-      </DropdownMenu.SubContent>
+        {...props}
+      />
     </DropdownMenu.Portal>
   ),
   'SubContent'

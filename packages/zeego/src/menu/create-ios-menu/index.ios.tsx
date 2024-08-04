@@ -40,14 +40,18 @@ import { create } from '../display-names'
 import type { ImageSystemConfig } from 'react-native-ios-context-menu/src/types/ImageItemConfig'
 
 const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
-  const Trigger = create(({ children, style, asChild }: MenuTriggerProps) => {
-    if (asChild) {
-      return cloneElement(children, {
-        style,
-      })
-    }
-    return <View style={style}>{children}</View>
-  }, 'Trigger')
+  const Trigger = create(
+    ({ children, style, asChild, ...props }: MenuTriggerProps) => {
+      if (asChild) {
+        return cloneElement(children, {
+          style,
+          ...props,
+        })
+      }
+      return <View style={style}>{children}</View>
+    },
+    'Trigger'
+  )
 
   const Auxiliary = create(({}: ContextMenuAuxliliaryProps) => {
     return <></>
