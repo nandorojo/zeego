@@ -62,15 +62,17 @@ export type MenuTriggerProps = {
 export type MenuContentProps = {
   children: React.ReactNode
   style?: ViewStyle
-} & Pick<
-  RadixContentProps,
-  | 'loop'
-  | 'side'
-  | 'align'
-  | 'alignOffset'
-  | 'avoidCollisions'
-  | 'collisionPadding'
-  | 'sideOffset'
+} & Partial<
+  Pick<
+    RadixContentProps,
+    | 'loop'
+    | 'side'
+    | 'align'
+    | 'alignOffset'
+    | 'avoidCollisions'
+    | 'collisionPadding'
+    | 'sideOffset'
+  >
 >
 
 export type ContextMenuContentProps = Not<
