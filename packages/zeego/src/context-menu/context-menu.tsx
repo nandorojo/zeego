@@ -15,25 +15,9 @@ const Root = create(ContextMenu.Root, 'Root')
 const Trigger = create(ContextMenu.Trigger, 'Trigger')
 
 const Content = create(
-  ({
-    children,
-    style,
-    loop,
-    alignOffset,
-    avoidCollisions,
-    collisionPadding,
-    ...props
-  }: ContextMenuContentProps) => (
+  (props: ContextMenuContentProps) => (
     <ContextMenu.Portal>
-      <ContextMenu.Content
-        loop={loop}
-        alignOffset={alignOffset}
-        avoidCollisions={avoidCollisions}
-        collisionPadding={collisionPadding}
-        {...props}
-      >
-        {children}
-      </ContextMenu.Content>
+      <ContextMenu.Content {...props} />
     </ContextMenu.Portal>
   ),
   'Content'

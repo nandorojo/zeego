@@ -10,6 +10,7 @@ const ItemImage = create(
     alt = accessibilityLabel,
     ...props
   }: MenuItemImageProps) => {
+    console.log(source)
     return (
       <img
         src={

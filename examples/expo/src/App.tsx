@@ -4,6 +4,7 @@ import * as ContextMenu from 'zeego/context-menu'
 import * as DropdownMenu from 'zeego/dropdown-menu'
 import React, { ComponentProps, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
+import camera from './camera-outline.png'
 const select = (val: unknown) => () => alert(val)
 
 const itemHeight = 25
@@ -33,6 +34,7 @@ const resetStyle: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   position: 'relative',
+  font: '14px system-ui',
 }
 
 const dropdownStyles: Record<string, React.CSSProperties> = {
@@ -75,9 +77,10 @@ const dropdownStyles: Record<string, React.CSSProperties> = {
     bottom: 0,
     display: 'flex',
     flexDirection: 'column',
+    right: 0,
   },
   icon: {
-    lineHeight: itemHeight,
+    lineHeight: itemHeight + 'px',
   },
   separator: {
     backgroundColor: 'rgb(215, 207, 249)',
@@ -91,6 +94,8 @@ const dropdownStyles: Record<string, React.CSSProperties> = {
     width: itemHeight,
     top: 0,
     bottom: 0,
+    display: 'flex',
+    flexDirection: 'column',
   },
   itemImage: {
     width: itemHeight,
@@ -102,9 +107,10 @@ const dropdownStyles: Record<string, React.CSSProperties> = {
   },
   label: {
     paddingLeft: itemHeight,
-    lineHeight: itemHeight,
+    lineHeight: itemHeight + 'px',
     fontSize: 12,
     color: '#555',
+    fontFamily: 'system-ui',
   },
 }
 
@@ -232,7 +238,7 @@ const DropdownMenuExample = () => {
   const [bookmarked, setBookmarked] = useState<'on' | 'off' | 'mixed'>('on')
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
+      <DropdownMenu.Trigger asChild>
         <View>
           <Text style={styles.button}>{`<DropdownMenu />`}</Text>
         </View>
@@ -284,7 +290,7 @@ const DropdownMenuExample = () => {
           </DropdownMenuItemTitle>
           <DropdownMenuItemImage
             iosIconName="book"
-            source={require('./camera-outline.png')}
+            source={camera}
             width={20}
             resizeMode="contain"
           />
