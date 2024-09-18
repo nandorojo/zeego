@@ -1,20 +1,18 @@
-import type { View, ImageProps } from 'react-native'
+import type { ImageProps } from 'react-native'
 import type { MenuContentProps as RadixContentProps } from '@radix-ui/react-dropdown-menu'
 import type * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu'
 import type {
   ContextMenuView,
   MenuAuxiliaryPreviewConfig,
   ContextMenuButton,
-} from 'react-native-ios-context-menu'
-import type {
   ImageOptions,
-  ImageSystemSymbolConfiguration,
-} from 'react-native-ios-context-menu/src/types/ImageItemConfig'
+  ImageSystemConfig,
+} from 'react-native-ios-context-menu'
 import type { ComponentProps, SVGAttributes } from 'react'
 
 import type { SFSymbol } from 'sf-symbols-typescript'
 
-type ViewStyle = React.ComponentProps<typeof View>['style']
+type ViewStyle = React.CSSProperties
 
 export type MenuRootProps = RadixDropdownMenu.DropdownMenuProps & {
   children: React.ReactNode
@@ -62,16 +60,7 @@ export type MenuTriggerProps = RadixDropdownMenu.DropdownMenuTriggerProps & {
 export type MenuContentProps = RadixDropdownMenu.MenuContentProps & {
   children: React.ReactNode
   style?: ViewStyle
-} & Pick<
-    RadixContentProps,
-    | 'loop'
-    | 'side'
-    | 'align'
-    | 'alignOffset'
-    | 'avoidCollisions'
-    | 'collisionPadding'
-    | 'sideOffset'
-  >
+} & RadixContentProps
 
 export type ContextMenuContentProps = Not<
   MenuContentProps,
@@ -126,7 +115,7 @@ export type MenuItemIconProps = {
    *
    * @platform ios
    */
-  ios?: ImageSystemSymbolConfiguration & {
+  ios?: ImageSystemConfig & {
     name: SFSymbol
   }
   /**
@@ -135,23 +124,28 @@ export type MenuItemIconProps = {
    * @platform android
    */
   androidIconName?: string
+  style?: ViewStyle
+  className?: string
 }
 
-export type MenuItemImageProps = {
+type NotArray<T> = T extends Array<infer U> ? never : T
+
+export type MenuItemImageProps = Omit<
+  ComponentProps<'img'>,
+  'src' | 'height' | 'width'
+> & {
   /**
    * `source={require('path/to/image')}`
    */
-  source: ImageProps['source']
-  style?: ImageProps['style']
+  source: NotArray<ImageProps['source']>
   width?: number
   height?: number
-  resizeMode?: ImageProps['resizeMode']
-  fadeDuration?: ImageProps['fadeDuration']
   ios?: {
     style?: ImageOptions
     lazy?: boolean
   }
-} & Pick<ImageProps, 'accessibilityLabel'>
+  accessibilityLabel?: string
+}
 
 type SVGProps = SVGAttributes<SVGSVGElement>
 
@@ -175,13 +169,11 @@ export type ContextMenuSubContentProps = RadixDropdownMenu.MenuSubContentProps &
   ContextMenuContentProps &
   Pick<MenuContentProps, 'sideOffset'>
 
-export type MenuItemTitleProps = {
+export type MenuItemTitleProps = Omit<ComponentProps<'span'>, 'children'> & {
   children: string | React.ReactNode
-  style?: ComponentProps<'span'>['style']
 }
-export type MenuItemSubtitleProps = {
+export type MenuItemSubtitleProps = Omit<ComponentProps<'span'>, 'children'> & {
   children: string
-  style?: ComponentProps<'span'>['style']
 }
 export type MenuSeparatorProps = RadixDropdownMenu.MenuSeparatorProps
 
@@ -201,8 +193,8 @@ export type MenuItemIndicatorProps =
     children?: React.ReactNode
   }
 
-export type MenuLabelProps = {
-  children: string
+export type MenuLabelProps = RadixDropdownMenu.MenuLabelProps & {
+  children: string | React.ReactNode
 }
 
 type Not<T extends object, O extends keyof NonNullable<T>> = Omit<T, O>

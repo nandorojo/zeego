@@ -1,2 +1,2 @@
 export * from './context-menu'
-export { create, menuify } from '../menu'
+export { create } from '../menu'

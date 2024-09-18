@@ -4,41 +4,41 @@ import * as ContextMenu from 'zeego/context-menu'
 import * as DropdownMenu from 'zeego/dropdown-menu'
 import React, { ComponentProps, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
-import { useLink } from 'expo-router'
 const select = (val: unknown) => () => alert(val)
 
 const itemHeight = 25
 
-const contentStyle = {
+const contentStyle: React.CSSProperties = {
   minWidth: 220,
   backgroundColor: 'white',
   borderRadius: 6,
   padding: 5,
   borderWidth: 1,
   borderColor: '#fff8',
-  ...Platform.select({
-    web: {
-      animationDuration: '400ms',
-      animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-      willChange: 'transform, opacity',
-      animationKeyframes: {
-        '0%': { opacity: 0, transform: [{ scale: 0.5 }] },
-        '100%': { opacity: 1, transform: [{ scale: 1 }] },
-      },
-      boxShadow:
-        '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
-    },
-  }),
+  animationDuration: '400ms',
+  animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+  willChange: 'transform, opacity',
+  // animationKeyframes: {
+  //   '0%': { opacity: 0, transform: [{ scale: 0.5 }] },
+  //   '100%': { opacity: 1, transform: [{ scale: 1 }] },
+  // },
+  boxShadow:
+    '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
+  display: 'flex',
+  flexDirection: 'column',
+  fontFamily: 'System',
 }
 
-const dropdownStyles = StyleSheet.create({
+const resetStyle: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  position: 'relative',
+}
+
+const dropdownStyles: Record<string, React.CSSProperties> = {
   content: {
     ...contentStyle,
-    ...Platform.select({
-      web: {
-        transformOrigin: 'var(--radix-dropdown-menu-content-transform-origin)',
-      },
-    }),
+    transformOrigin: 'var(--radix-dropdown-menu-content-transform-origin)',
   },
   item: {
     borderRadius: 3,
@@ -46,11 +46,9 @@ const dropdownStyles = StyleSheet.create({
     paddingRight: 5,
     paddingLeft: itemHeight,
     height: itemHeight,
-    ...Platform.select({
-      web: {
-        transformOrigin: 'var(--radix-dropdown-menu-item-transform-origin)',
-      },
-    }),
+    transformOrigin: 'var(--radix-dropdown-menu-item-transform-origin)',
+    ...resetStyle,
+    // flexDirection: 'row',
   },
   itemWithSubtitle: {
     height: itemHeight * 2,
@@ -61,18 +59,22 @@ const dropdownStyles = StyleSheet.create({
     backgroundColor: '#000fff30',
   },
   itemTitle: {
-    fontSize: 13,
-    lineHeight: 13,
+    fontSize: '13px',
+    lineHeight: '13px',
   },
   itemSubtitle: {
-    fontSize: 10,
-    lineHeight: 10,
+    fontSize: '10px',
+    lineHeight: '10px',
   },
   itemIcon: {
     marginRight: 5,
-    ...StyleSheet.absoluteFillObject,
+    position: 'absolute',
     left: 'auto',
     justifyContent: 'center',
+    top: 0,
+    bottom: 0,
+    display: 'flex',
+    flexDirection: 'column',
   },
   icon: {
     lineHeight: itemHeight,
@@ -104,19 +106,15 @@ const dropdownStyles = StyleSheet.create({
     fontSize: 12,
     color: '#555',
   },
-})
+}
 
-const contextStyles = StyleSheet.create({
+const contextStyles = {
   content: {
     ...contentStyle,
-    ...Platform.select({
-      web: {
-        transformOrigin: 'var(--radix-context-menu-content-transform-origin)',
-      },
-    }),
+    transformOrigin: 'var(--radix-context-menu-content-transform-origin)',
     // no animations here yet, since I don't know how to style based on data-side attributes
   },
-})
+}
 
 const DropdownMenuItem = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.Item>) => {
@@ -127,7 +125,10 @@ const DropdownMenuItem = DropdownMenu.create(
         onFocus={toggleFocus(true)}
         onBlur={toggleFocus(false)}
         {...props}
-        style={[dropdownStyles.item, focused && dropdownStyles.itemFocused]}
+        style={{
+          ...dropdownStyles.item,
+          ...(focused && dropdownStyles.itemFocused),
+        }}
       />
     )
   },
@@ -143,7 +144,10 @@ const DropdownMenuCheckboxItem = DropdownMenu.create(
         onFocus={toggleFocus(true)}
         onBlur={toggleFocus(false)}
         {...props}
-        style={[dropdownStyles.item, focused && dropdownStyles.itemFocused]}
+        style={{
+          ...dropdownStyles.item,
+          ...(focused && dropdownStyles.itemFocused),
+        }}
       />
     )
   },
@@ -183,7 +187,10 @@ const DropdownMenuSubTrigger = DropdownMenu.create(
         onFocus={toggleFocus(true)}
         onBlur={toggleFocus(false)}
         {...props}
-        style={[dropdownStyles.item, focused && dropdownStyles.itemFocused]}
+        style={{
+          ...dropdownStyles.item,
+          ...(focused && dropdownStyles.itemFocused),
+        }}
       />
     )
   },
@@ -239,11 +246,7 @@ const DropdownMenuExample = () => {
           </DropdownMenuItem>
         ))}
 
-        <DropdownMenuItem
-          style={dropdownStyles.item}
-          onSelect={select(1)}
-          key="first"
-        >
+        <DropdownMenuItem onSelect={select(1)} key="first">
           <DropdownMenuItemTitle style={dropdownStyles.itemTitle}>
             See more
           </DropdownMenuItemTitle>
@@ -259,21 +262,16 @@ const DropdownMenuExample = () => {
             <Ionicons name="list" size={15} />
           </DropdownMenuItemIcon>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          style={dropdownStyles.item}
-          onSelect={select(2)}
-          key="second"
-        >
-          <DropdownMenuItemTitle>Favorite</DropdownMenuItemTitle>
+        <DropdownMenuItem onSelect={select(2)} key="second">
           <DropdownMenuItemIcon
             iosIconName="star.fill"
             androidIconName="btn_star"
           >
             <Ionicons name="star" size={15} />
           </DropdownMenuItemIcon>
+          <DropdownMenuItemTitle>Favorite</DropdownMenuItemTitle>
         </DropdownMenuItem>
         <DropdownMenuCheckboxItem
-          style={dropdownStyles.item}
           value={bookmarked}
           onValueChange={setBookmarked}
           key="third"
@@ -376,25 +374,37 @@ const ContextMenuExample = () => {
         </ContextMenu.Preview>
 
         <ContextMenu.Item
-          style={[dropdownStyles.item, dropdownStyles.itemWithSubtitle]}
+          style={{
+            ...dropdownStyles.item,
+            ...dropdownStyles.itemWithSubtitle,
+          }}
           onSelect={select(1)}
           key="fernando"
         >
           <ContextMenu.ItemTitle>@FernandoTheRojo</ContextMenu.ItemTitle>
           <ContextMenu.ItemSubtitle>Creator of Zeego</ContextMenu.ItemSubtitle>
 
-          <ContextMenu.ItemImage source={require('./fernando.jpg')} />
+          <ContextMenu.ItemImage
+            source={require('./fernando.jpg')}
+            style={dropdownStyles.itemImage}
+          />
         </ContextMenu.Item>
 
         <ContextMenu.Item
-          style={[dropdownStyles.item, dropdownStyles.itemWithSubtitle]}
+          style={{
+            ...dropdownStyles.item,
+            ...dropdownStyles.itemWithSubtitle,
+          }}
           onSelect={select(1)}
           key="first"
         >
           <ContextMenu.ItemTitle>Action #1</ContextMenu.ItemTitle>
           <ContextMenu.ItemSubtitle>Hey!</ContextMenu.ItemSubtitle>
 
-          <ContextMenu.ItemImage source={require('./camera-outline.png')} />
+          <ContextMenu.ItemImage
+            source={require('./camera-outline.png')}
+            style={dropdownStyles.itemImage}
+          />
         </ContextMenu.Item>
         <ContextMenu.Item
           style={dropdownStyles.item}

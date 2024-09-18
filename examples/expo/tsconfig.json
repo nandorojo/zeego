@@ -1,9 +1,11 @@
 {
-  "extends": "../../tsconfig",
+  // "extends": "../../tsconfig",
   "compilerOptions": {
     "jsx": "react-jsx",
     "paths": {
-      "zeego/*": ["../../packages/zeego/src/*"]
+      "zeego/*": ["../../packages/zeego/src/*"],
+      "zeego/context-menu": ["../../packages/zeego/src/context-menu"],
+      "zeego/dropdown-menu": ["../../packages/zeego/src/dropdown-menu"]
     },
     "baseUrl": "."
   }

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Image } from 'react-native'
 import type { MenuItemImageProps } from '../types'
 
 import { create } from '../display-names'
@@ -7,22 +6,21 @@ import { create } from '../display-names'
 const ItemImage = create(
   ({
     source,
-    style,
-    height,
-    width,
-    fadeDuration = 0,
-    resizeMode,
     accessibilityLabel,
+    alt = accessibilityLabel,
+    ...props
   }: MenuItemImageProps) => {
     return (
-      <Image
-        resizeMode={resizeMode}
-        fadeDuration={fadeDuration}
-        style={style}
-        source={source}
-        width={width}
-        height={height}
-        accessibilityLabel={accessibilityLabel}
+      <img
+        src={
+          typeof source === 'string'
+            ? source
+            : typeof source === 'object' && 'uri' in source
+            ? source
+            : (source as any)
+        }
+        alt={accessibilityLabel}
+        {...props}
       />
     )
   },

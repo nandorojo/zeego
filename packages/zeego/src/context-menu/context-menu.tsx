@@ -1,118 +1,129 @@
+import * as ContextMenu from '@radix-ui/react-context-menu'
 import React from 'react'
-import {
-  ContextMenuAuxliliaryProps,
+
+import type {
   ContextMenuContentProps,
-  ContextMenuPreviewProps,
-  create,
   MenuCheckboxItemProps,
-  MenuDisplayName,
-  MenuGroupProps,
   MenuItemIconProps,
-  MenuItemImageProps,
-  MenuItemIndicatorProps,
-  MenuItemProps,
-  MenuItemSubtitleProps,
-  MenuItemTitleProps,
-  MenuLabelProps,
-  MenuRootProps,
-  MenuSeparatorProps,
-  MenuSubContentProps,
-  MenuSubProps,
-  MenuSubTriggerProps,
-  MenuTriggerProps,
+  ContextMenuSubContentProps,
+  ContextMenuAuxliliaryProps,
 } from '../menu'
-import type { FC } from 'react'
+import { create } from '../menu/display-names'
 
-import type { MenuArrowProps } from '@radix-ui/react-dropdown-menu'
+const Root = create(ContextMenu.Root, 'Root')
 
-const Root: FC<MenuRootProps> = ({ children }) => <>{children}</>
-Root.displayName = MenuDisplayName.Root
+const Trigger = create(ContextMenu.Trigger, 'Trigger')
 
-const Trigger: FC<MenuTriggerProps> = ({ children }) => <>{children}</>
-Trigger.displayName = MenuDisplayName.Trigger
+const Content = create(
+  ({
+    children,
+    style,
+    loop,
+    alignOffset,
+    avoidCollisions,
+    collisionPadding,
+    ...props
+  }: ContextMenuContentProps) => (
+    <ContextMenu.Portal>
+      <ContextMenu.Content
+        loop={loop}
+        alignOffset={alignOffset}
+        avoidCollisions={avoidCollisions}
+        collisionPadding={collisionPadding}
+        {...props}
+      >
+        {children}
+      </ContextMenu.Content>
+    </ContextMenu.Portal>
+  ),
+  'Content'
+)
 
-const Content: FC<ContextMenuContentProps> = ({ children }) => {
-  return <>{children}</>
-}
-Content.displayName = MenuDisplayName.Content
+const Item = create(ContextMenu.Item, 'Item')
 
-const Item: FC<MenuItemProps> = ({ children }: MenuItemProps) => {
-  return <>{children}</>
-}
-Item.displayName = MenuDisplayName.Item
+const SubTrigger = create(ContextMenu.SubTrigger, 'SubTrigger')
 
-const ItemIcon: FC<MenuItemIconProps> = () => {
-  return <></>
-}
-ItemIcon.displayName = MenuDisplayName.ItemIcon
+const Group = create(ContextMenu.Group, 'Group')
 
-const ItemImage: FC<MenuItemImageProps> = () => {
-  return <></>
-}
-ItemImage.displayName = MenuDisplayName.ItemImage
+const Separator = create(ContextMenu.Separator, 'Separator')
 
-const SubTrigger: FC<MenuSubTriggerProps> = ({ children }) => {
-  return <>{children}</>
-}
-SubTrigger.displayName = MenuDisplayName.SubTrigger
+const CheckboxItem = create(
+  ({ onValueChange, value, ...props }: MenuCheckboxItemProps) => {
+    return (
+      <ContextMenu.CheckboxItem
+        {...props}
+        checked={typeof value === 'boolean' ? value : value !== 'off'}
+        onCheckedChange={(next) =>
+          onValueChange?.(
+            next ? 'on' : 'off',
+            value === true ? 'on' : value === false ? 'off' : value
+          )
+        }
+      />
+    )
+  },
+  'CheckboxItem'
+)
 
-const ItemTitle: FC<MenuItemTitleProps> = ({ children }) => {
-  return <>{children}</>
-}
-ItemTitle.displayName = MenuDisplayName.ItemTitle
+const ItemIndicator = create(ContextMenu.ItemIndicator, 'ItemIndicator')
 
-const ItemSubtitle: FC<MenuItemSubtitleProps> = ({ children }) => {
-  return <>{children}</>
-}
-ItemSubtitle.displayName = MenuDisplayName.ItemSubtitle
+const ItemIcon = create(
+  ({ children }: MenuItemIconProps) => <>{children}</>,
+  'ItemIcon'
+)
 
-const Group: FC<MenuGroupProps> = ({ children }) => {
-  return <>{children}</>
-}
-Group.displayName = MenuDisplayName.Group
+const Preview = create(() => null, 'Preview')
 
-const Separator: FC<MenuSeparatorProps> = () => {
-  return <></>
-}
-Separator.displayName = MenuDisplayName.Separator
+const Arrow = create(ContextMenu.Arrow, 'Arrow')
 
-const CheckboxItem: FC<MenuCheckboxItemProps> = () => <></>
-CheckboxItem.displayName = MenuDisplayName.CheckboxItem
+const Sub = create(ContextMenu.Sub, 'Sub')
 
-const ItemIndicator: FC<MenuItemIndicatorProps> = () => <></>
-ItemIndicator.displayName = MenuDisplayName.ItemIndicator
+const SubContent = create(
+  ({
+    children,
+    alignOffset,
+    avoidCollisions,
+    collisionPadding,
+    loop,
+    style,
+    sideOffset,
+    ...props
+  }: ContextMenuSubContentProps) => (
+    <ContextMenu.Portal>
+      <ContextMenu.SubContent
+        loop={loop}
+        alignOffset={alignOffset}
+        avoidCollisions={avoidCollisions}
+        collisionPadding={collisionPadding}
+        sideOffset={sideOffset}
+        {...props}
+      />
+    </ContextMenu.Portal>
+  ),
+  'SubContent'
+)
 
-const Label: FC<MenuLabelProps> = () => <></>
-Label.displayName = MenuDisplayName.Label
+const Auxiliary = create((_: ContextMenuAuxliliaryProps) => null, 'Auxiliary')
 
-const Preview: FC<ContextMenuPreviewProps> = () => <></>
-Preview.displayName = MenuDisplayName.Preview
-
-const Arrow = create((_: MenuArrowProps) => <></>, 'Arrow')
-
-const Sub = create((_: MenuSubProps) => <></>, 'Sub')
-
-const SubContent = create((_: MenuSubContentProps) => <></>, 'SubContent')
-
-const Auxiliary = create((_: ContextMenuAuxliliaryProps) => <></>, 'Auxiliary')
 export {
   Root,
   Trigger,
   Content,
   Item,
-  ItemTitle,
-  ItemSubtitle,
   SubTrigger,
   Group,
-  ItemIcon,
   Separator,
   CheckboxItem,
   ItemIndicator,
-  ItemImage,
-  Label,
+  ItemIcon,
   Preview,
   Arrow,
   Sub,
   SubContent,
   Auxiliary,
 }
+
+export { ItemImage } from '../menu/web-primitives/item-image'
+export { Label } from './web/label'
+
+export { ItemTitle, ItemSubtitle } from '../menu'

@@ -3,12 +3,12 @@ import type { MenuItemSubtitleProps, MenuItemTitleProps } from '../types'
 
 import { create } from '../display-names'
 
-const ItemTitle = create(({ children, style }: MenuItemTitleProps) => {
-  return <span style={{ userSelect: 'none', ...style }}>{children}</span>
+const ItemTitle = create((props: MenuItemTitleProps) => {
+  return <span {...props} />
 }, 'ItemTitle')
 
-const ItemSubtitle = create(({ children, style }: MenuItemSubtitleProps) => {
-  return <span style={{ userSelect: 'none', ...style }}>{children}</span>
+const ItemSubtitle = create((props: MenuItemSubtitleProps) => {
+  return <span {...props} />
 }, 'ItemSubtitle')
 
 export { ItemSubtitle, ItemTitle }
