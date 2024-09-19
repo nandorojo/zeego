@@ -78,23 +78,26 @@ export type MenuGroupProps = RadixDropdownMenu.MenuGroupProps & {
   horizontal?: boolean
 }
 
-export type MenuItemProps = RadixDropdownMenu.MenuItemProps & {
+type ItemBaseProps = {
+  onSelect?: () => void
+  disabled?: boolean
+  hidden?: boolean
+  destructive?: boolean
+  key: string
+  shouldDismissMenuOnSelect?: boolean
+}
+
+export type MenuItemProps = Omit<
+  RadixDropdownMenu.MenuItemProps,
+  keyof ItemBaseProps
+> & {
   children: React.ReactNode
   style?: ViewStyle
   /**
    * If you want to pass a React text node to `<ItemTitle />`, then you need to use this prop. This gets used on iOS and Android.
    */
   textValue?: string
-} & {
-  onSelect?: () => void
-  disabled?: boolean
-  hidden?: boolean
-  destructive?: boolean
-  onFocus?: () => void
-  onBlur?: () => void
-  key: string
-  shouldDismissMenuOnSelect?: boolean
-}
+} & ItemBaseProps
 
 export type MenuItemIconProps = {
   /**
@@ -156,12 +159,16 @@ export type MenuArrowProps = {
   asChild?: boolean
 } & Pick<SVGProps, 'fill' | 'style' | 'className'>
 
-export type MenuSubTriggerProps = RadixDropdownMenu.MenuSubTriggerProps &
-  Omit<MenuItemProps, keyof Pick<MenuItemProps, 'onSelect'>> & {
-    key: string
-  }
+export type MenuSubTriggerProps = Omit<
+  RadixDropdownMenu.MenuSubTriggerProps,
+  keyof ItemBaseProps
+> &
+  ItemBaseProps
 
-export type MenuSubProps = RadixDropdownMenu.MenuSubTriggerProps
+export type MenuSubProps = RadixDropdownMenu.MenuSubTriggerProps & {
+  key: string
+  children: React.ReactNode
+}
 
 export type MenuSubContentProps = RadixDropdownMenu.MenuSubContentProps &
   Not<MenuContentProps, 'side' | 'align'>
@@ -177,8 +184,11 @@ export type MenuItemSubtitleProps = Omit<ComponentProps<'span'>, 'children'> & {
 }
 export type MenuSeparatorProps = RadixDropdownMenu.MenuSeparatorProps
 
-export type MenuCheckboxItemProps = RadixDropdownMenu.MenuCheckboxItemProps &
-  Omit<MenuItemProps, 'onSelect'> & {
+export type MenuCheckboxItemProps = Omit<
+  RadixDropdownMenu.MenuCheckboxItemProps,
+  keyof ItemBaseProps | 'onCheckedChange'
+> &
+  ItemBaseProps & {
     value: 'mixed' | 'on' | 'off' | boolean
     onValueChange?: (
       state: 'mixed' | 'on' | 'off',

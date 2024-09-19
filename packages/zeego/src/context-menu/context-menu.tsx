@@ -7,6 +7,9 @@ import type {
   MenuItemIconProps,
   ContextMenuSubContentProps,
   ContextMenuAuxliliaryProps,
+  MenuItemProps,
+  MenuSubProps,
+  MenuSubTriggerProps,
 } from '../menu'
 import { create } from '../menu/display-names'
 
@@ -23,26 +26,51 @@ const Content = create(
   'Content'
 )
 
-const Item = create(ContextMenu.Item, 'Item')
+const Item = create((props: MenuItemProps) => {
+  return (
+    <ContextMenu.Item
+      {...props}
+      onSelect={(e) => {
+        if (props.shouldDismissMenuOnSelect === false) {
+          e.preventDefault()
+        }
+        props.onSelect?.()
+      }}
+    />
+  )
+}, 'Item')
 
-const SubTrigger = create(ContextMenu.SubTrigger, 'SubTrigger')
+const SubTrigger = create<MenuSubTriggerProps>(
+  (props: MenuSubTriggerProps) => <ContextMenu.SubTrigger {...props} />,
+  'SubTrigger'
+)
 
 const Group = create(ContextMenu.Group, 'Group')
 
 const Separator = create(ContextMenu.Separator, 'Separator')
 
 const CheckboxItem = create(
-  ({ onValueChange, value, ...props }: MenuCheckboxItemProps) => {
+  ({
+    shouldDismissMenuOnSelect,
+    onValueChange,
+    value,
+    ...props
+  }: MenuCheckboxItemProps) => {
     return (
       <ContextMenu.CheckboxItem
         {...props}
         checked={typeof value === 'boolean' ? value : value !== 'off'}
-        onCheckedChange={(next) =>
-          onValueChange?.(
-            next ? 'on' : 'off',
+        onSelect={(e) => {
+          const current =
             value === true ? 'on' : value === false ? 'off' : value
-          )
-        }
+          const next = current === 'on' ? 'off' : 'on'
+
+          onValueChange?.(next, current)
+
+          if (shouldDismissMenuOnSelect === false) {
+            e.preventDefault()
+          }
+        }}
       />
     )
   },
@@ -52,7 +80,11 @@ const CheckboxItem = create(
 const ItemIndicator = create(ContextMenu.ItemIndicator, 'ItemIndicator')
 
 const ItemIcon = create(
-  ({ children }: MenuItemIconProps) => <>{children}</>,
+  ({ style, className, children }: MenuItemIconProps) => (
+    <div style={style} className={className}>
+      {children}
+    </div>
+  ),
   'ItemIcon'
 )
 
@@ -60,28 +92,15 @@ const Preview = create(() => null, 'Preview')
 
 const Arrow = create(ContextMenu.Arrow, 'Arrow')
 
-const Sub = create(ContextMenu.Sub, 'Sub')
+const Sub = create(
+  (props: MenuSubProps) => <ContextMenu.Sub {...props} />,
+  'Sub'
+)
 
 const SubContent = create(
-  ({
-    children,
-    alignOffset,
-    avoidCollisions,
-    collisionPadding,
-    loop,
-    style,
-    sideOffset,
-    ...props
-  }: ContextMenuSubContentProps) => (
+  ({ ...props }: ContextMenuSubContentProps) => (
     <ContextMenu.Portal>
-      <ContextMenu.SubContent
-        loop={loop}
-        alignOffset={alignOffset}
-        avoidCollisions={avoidCollisions}
-        collisionPadding={collisionPadding}
-        sideOffset={sideOffset}
-        {...props}
-      />
+      <ContextMenu.SubContent {...props} />
     </ContextMenu.Portal>
   ),
   'SubContent'

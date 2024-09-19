@@ -6,6 +6,8 @@ import type {
   MenuCheckboxItemProps,
   MenuItemIconProps,
   ContextMenuSubContentProps,
+  MenuItemProps,
+  MenuSubTriggerProps,
 } from '../menu'
 import { create } from '../menu/display-names'
 
@@ -21,26 +23,51 @@ const Content = create((props: ContextMenuContentProps) => {
   )
 }, 'Content')
 
-const Item = create(DropdownMenu.Item, 'Item')
+const Item = create((props: MenuItemProps) => {
+  return (
+    <DropdownMenu.Item
+      {...props}
+      onSelect={(e) => {
+        if (props.shouldDismissMenuOnSelect === false) {
+          e.preventDefault()
+        }
+        props.onSelect?.()
+      }}
+    />
+  )
+}, 'Item')
 
-const SubTrigger = create(DropdownMenu.SubTrigger, 'SubTrigger')
+const SubTrigger = create<MenuSubTriggerProps>(
+  (props: MenuSubTriggerProps) => <DropdownMenu.SubTrigger {...props} />,
+  'SubTrigger'
+)
 
 const Group = create(DropdownMenu.Group, 'Group')
 
 const Separator = create(DropdownMenu.Separator, 'Separator')
 
 const CheckboxItem = create(
-  ({ onValueChange, value, ...props }: MenuCheckboxItemProps) => {
+  ({
+    shouldDismissMenuOnSelect,
+    onValueChange,
+    value,
+    ...props
+  }: MenuCheckboxItemProps) => {
     return (
       <DropdownMenu.CheckboxItem
         {...props}
         checked={typeof value === 'boolean' ? value : value !== 'off'}
-        onCheckedChange={(next) =>
-          onValueChange?.(
-            next ? 'on' : 'off',
+        onSelect={(e) => {
+          const current =
             value === true ? 'on' : value === false ? 'off' : value
-          )
-        }
+          const next = current === 'on' ? 'off' : 'on'
+
+          onValueChange?.(next, current)
+
+          if (shouldDismissMenuOnSelect === false) {
+            e.preventDefault()
+          }
+        }}
       />
     )
   },
@@ -63,25 +90,9 @@ const Arrow = create(DropdownMenu.Arrow, 'Arrow')
 const Sub = create(DropdownMenu.Sub, 'Sub')
 
 const SubContent = create(
-  ({
-    children,
-    alignOffset,
-    avoidCollisions,
-    collisionPadding,
-    loop,
-    style,
-    sideOffset,
-    ...props
-  }: ContextMenuSubContentProps) => (
+  (props: ContextMenuSubContentProps) => (
     <DropdownMenu.Portal>
-      <DropdownMenu.SubContent
-        loop={loop}
-        alignOffset={alignOffset}
-        avoidCollisions={avoidCollisions}
-        collisionPadding={collisionPadding}
-        sideOffset={sideOffset}
-        {...props}
-      />
+      <DropdownMenu.SubContent {...props} />
     </DropdownMenu.Portal>
   ),
   'SubContent'

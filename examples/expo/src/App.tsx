@@ -51,6 +51,7 @@ const dropdownStyles: Record<string, React.CSSProperties> = {
     transformOrigin: 'var(--radix-dropdown-menu-item-transform-origin)',
     ...resetStyle,
     // flexDirection: 'row',
+    outline: 'none',
   },
   itemWithSubtitle: {
     height: itemHeight * 2,
@@ -59,6 +60,7 @@ const dropdownStyles: Record<string, React.CSSProperties> = {
     // a nice background gray
     // a little darker
     backgroundColor: '#000fff30',
+    outline: 'none',
   },
   itemTitle: {
     fontSize: '13px',

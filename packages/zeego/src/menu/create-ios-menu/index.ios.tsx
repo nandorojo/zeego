@@ -35,9 +35,9 @@ import {
   MenuActionConfig,
   MenuConfig,
   MenuElementSize,
+  ImageSystemConfig,
 } from 'react-native-ios-context-menu'
 import { create } from '../display-names'
-import type { ImageSystemConfig } from 'react-native-ios-context-menu/src/types/ImageItemConfig'
 
 const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
   const Trigger = create(
@@ -48,7 +48,7 @@ const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
           ...props,
         })
       }
-      return <View style={style}>{children}</View>
+      return <View style={style as any}>{children}</View>
     },
     'Trigger'
   )
@@ -310,7 +310,7 @@ If you want to use a custom component as your <Content />, you can use the creat
           )
         }
         if ('onSelect' in child.props && child.props.onSelect) {
-          callbacks[key] = child.props.onSelect
+          callbacks[key] = () => child.props.onSelect?.()
         } else if ('onValueChange' in child.props) {
           const menuState = child.props.value
           const currentState =
@@ -514,7 +514,7 @@ If you want to use a custom component as your <Content />, you can use the creat
           }
         }}
         isMenuPrimaryAction={shouldOpenOnSingleTap}
-        style={[{ flexGrow: 0 }, props.style]}
+        style={[{ flexGrow: 0 }, props.style as any]}
         menuConfig={{
           menuTitle,
           menuItems,

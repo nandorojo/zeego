@@ -22716,21 +22716,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-ios-context-menu@npm:2.3.2":
-  version: 2.3.2
-  resolution: "react-native-ios-context-menu@npm:2.3.2"
-  dependencies:
-    "@dominicstop/ts-event-emitter": "npm:^1.1.0"
-  peerDependencies:
-    expo: "*"
-    react: "*"
-    react-native: "*"
-    react-native-ios-utilities: 4.2.x
-  checksum: 10c0/8247b5758ccc29e32b5a936602ca82cf91af8cd20b64cc701fb35bda53a55b7a3bdf0c13951956732d83d6921c4bd7ed6971bd5814e5086d4da3d80a285eabb9
-  languageName: node
-  linkType: hard
-
-"react-native-ios-context-menu@npm:^2.3.2":
+"react-native-ios-context-menu@npm:2.5.1":
   version: 2.5.1
   resolution: "react-native-ios-context-menu@npm:2.5.1"
   dependencies:
@@ -27480,7 +27466,7 @@ __metadata:
     react-dom: "npm:18.2.0"
     react-native: "npm:0.74.5"
     react-native-gesture-handler: "npm:~2.16.1"
-    react-native-ios-context-menu: "npm:2.3.2"
+    react-native-ios-context-menu: "npm:2.5.1"
     react-native-reanimated: "npm:~3.10.1"
     react-native-safe-area-context: "npm:4.10.5"
     react-native-screens: "npm:3.31.1"
@@ -27511,7 +27497,7 @@ __metadata:
     pod-install: "npm:^0.1.0"
     prettier: "npm:^2.0.5"
     react-native-builder-bob: "npm:^0.18.0"
-    react-native-ios-context-menu: "npm:^2.3.2"
+    react-native-ios-context-menu: "npm:2.5.1"
     react-native-ios-utilities: "npm:^4.3.2"
     release-it: "npm:^14.2.2"
     sf-symbols-typescript: "npm:^2.0.0"
@@ -27520,6 +27506,6 @@ __metadata:
     "@react-native-menu/menu": "*"
     react: "*"
     react-native: "*"
-    react-native-ios-context-menu: ^2.3.2
+    react-native-ios-context-menu: ~2.5.1
   languageName: unknown
   linkType: soft
