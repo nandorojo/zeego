@@ -435,10 +435,10 @@ If you want to use a custom component as your <Content />, you can use the creat
           }
 
           return {
-            menuTitle: groupTitle || '',
+            menuTitle: typeof groupTitle == 'string' ? groupTitle : '',
             menuItems: groupItems,
             menuOptions: ['displayInline'],
-            menuPreferredElementSize: menuPreferredElementSize,
+            menuPreferredElementSize,
           }
         }
         return null

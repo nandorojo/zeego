@@ -42,7 +42,7 @@ const createAndroidMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
           ...props,
         })
       }
-      return <View style={style}>{children}</View>
+      return <View style={style as any}>{children}</View>
     },
     'Trigger'
   )
@@ -95,16 +95,8 @@ If you want to use a custom component as your <Content />, you can use the creat
     return <>{}</>
   }, 'ItemIcon')
 
-  const ItemImage = create((props: MenuItemImageProps) => {
-    // if (!props.source) {
-    //   console.error('[zeego] <ItemImage /> missing source prop.')
-    // }
-    if (!props.androidIconName) {
-      console.warn(
-        '[zeego] <ItemImage /> will not use your custom image on android. You should use the androidIconName prop to render an icon on android too.'
-      )
-    }
-    return <>{}</>
+  const ItemImage = create((_: MenuItemImageProps) => {
+    return null
   }, 'ItemImage')
 
   const ItemSubtitle = create(({ children }: MenuItemSubtitleProps) => {
@@ -257,27 +249,6 @@ If you want to use a custom component as your <Content />, you can use the creat
 
         if (iconChildren?.[0]?.props.androidIconName) {
           icon = iconChildren[0].props.androidIconName
-        } else {
-          const imageChild = pickChildren<MenuItemImageProps>(
-            child.props.children,
-            ItemImage
-          ).targetChildren?.[0]
-
-          if (imageChild) {
-            const { androidIconName } = imageChild.props
-            if (androidIconName) {
-              icon = androidIconName
-            } else {
-              // require('react-native/Libraries/Network/RCTNetworking')
-              // const { Image } =
-              //   require('react-native') as typeof import('react-native')
-              // const iconValue = Image.resolveAssetSource(source)
-              // icon = {
-              //   iconType: 'REQUIRE',
-              //   iconValue,
-              // }
-            }
-          }
         }
       }
       if (title) {

@@ -22730,14 +22730,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-ios-utilities@npm:^4.3.2":
-  version: 4.3.2
-  resolution: "react-native-ios-utilities@npm:4.3.2"
+"react-native-ios-utilities@npm:4.5.0":
+  version: 4.5.0
+  resolution: "react-native-ios-utilities@npm:4.5.0"
   peerDependencies:
     expo: "*"
     react: "*"
     react-native: "*"
-  checksum: 10c0/6141722b2c9bf6cfce22b61821127db84d1adc19aaec9926fe1f4bdd8e5c1f0f75610cc55ce948986eb91ba1291a35b4081dc8104447b0c6000d37849b7c4765
+  checksum: 10c0/768ae098c97114d57c341e8c9926191f505ec933b227d7e36733b4ac0b9c1df17df37b73e6d5091937f3b89e831e31985ec2ac52435d946d9ae3250414b47363
   languageName: node
   linkType: hard
 
@@ -27498,7 +27498,7 @@ __metadata:
     prettier: "npm:^2.0.5"
     react-native-builder-bob: "npm:^0.18.0"
     react-native-ios-context-menu: "npm:2.5.1"
-    react-native-ios-utilities: "npm:^4.3.2"
+    react-native-ios-utilities: "npm:4.5.0"
     release-it: "npm:^14.2.2"
     sf-symbols-typescript: "npm:^2.0.0"
     typescript: "npm:^5.6.2"

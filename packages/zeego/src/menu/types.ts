@@ -131,7 +131,7 @@ export type MenuItemIconProps = {
   className?: string
 }
 
-type NotArray<T> = T extends Array<infer U> ? never : T
+type NotArray<T> = T extends (infer _)[] ? never : T
 
 export type MenuItemImageProps = Omit<
   ComponentProps<'img'>,

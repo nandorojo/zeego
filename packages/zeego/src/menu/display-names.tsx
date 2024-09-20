@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React from 'react'
 export const MenuDisplayName = {
   Root: 'Root',
   Item: 'Item',
