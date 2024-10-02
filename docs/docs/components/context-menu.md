@@ -84,7 +84,16 @@ export function MyMenu() {
 
 ### Web Usage
 
-On Web, any component available on Radix UI's [ContextMenu](https://www.radix-ui.com/docs/primitives/components/context-menu) is also available on Zeego's ContextMenu, and accepts the same props. This is the case as of Zeego 2.
+As of Zeego v2, any component available on Radix UI's [ContextMenu](https://www.radix-ui.com/docs/primitives/components/context-menu) is also available on Zeego's ContextMenu, and accepts the same props, when rendered on web.
+
+Since Zeego is directly built on top of Radix UI for Web, you can not use `StyleSheet.create` objects on Zeego's `style` props.
+
+Instead, to style items, you can do one of the following:
+
+1. Use inline `style` prop
+2. Use `className`, common for Tailwind users
+   a. You can optionally use CSS file imports or CSS modules
+3. Use the [create function](/custom#create-custom-components) to create your own component and style it however you want
 
 ## Component API
 
