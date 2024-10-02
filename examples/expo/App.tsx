@@ -4,7 +4,7 @@ import * as ContextMenu from 'zeego/context-menu'
 import * as DropdownMenu from 'zeego/dropdown-menu'
 import React, { ComponentProps, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
-import camera from './camera-outline.png'
+import camera from './src/camera-outline.png'
 const select = (val: unknown) => () => alert(val)
 
 const itemHeight = 25
@@ -418,7 +418,7 @@ const ContextMenuExample = () => {
           <ContextMenu.ItemSubtitle>Creator of Zeego</ContextMenu.ItemSubtitle>
 
           <ItemImage
-            source={require('./fernando.jpg')}
+            source={require('./src/fernando.jpg')}
             style={dropdownStyles.itemImage}
           />
         </ContextMenu.Item>
@@ -435,7 +435,7 @@ const ContextMenuExample = () => {
           <ContextMenu.ItemSubtitle>Hey!</ContextMenu.ItemSubtitle>
 
           <ItemImage
-            source={require('./camera-outline.png')}
+            source={require('./src/camera-outline.png')}
             style={dropdownStyles.itemImage}
           />
         </ContextMenu.Item>

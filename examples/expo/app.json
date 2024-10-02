@@ -1,6 +1,4 @@
 {
-  "name": "zeeg-example",
-  "displayName": "Zeeg Example",
   "expo": {
     "name": "zeeg-example",
     "slug": "zeeg-example",
