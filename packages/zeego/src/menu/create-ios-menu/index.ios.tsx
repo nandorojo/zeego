@@ -281,7 +281,10 @@ If you want to use a custom component as your <Content />, you can use the creat
                 }
               } else {
                 const imageValue = Image.resolveAssetSource(
-                  imageChild.props.source
+                  typeof imageChild.props.source === 'object' &&
+                    'src' in imageChild.props.source
+                    ? { uri: imageChild.props.source.src }
+                    : imageChild.props.source
                 )
                 icon = {
                   type: 'IMAGE_REQUIRE',
