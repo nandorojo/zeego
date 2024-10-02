@@ -231,6 +231,8 @@ Renders an image inside of the item. Works on Web and iOS. On Android, it will b
 | `fadeDuration`       |          | `0`     | `web`        |
 | `accessibilityLabel` |          |         | `web`        |
 
+For local images with `require` or `import`:
+
 ```tsx
 <DropdownMenu.ItemImage
   source={require('./image.png')}
@@ -239,9 +241,7 @@ Renders an image inside of the item. Works on Web and iOS. On Android, it will b
 />
 ```
 
-Remote image support from a URL is currently not supported on iOS but is coming soon.
-
-Once it works, usage will work like so:
+For remote images, you can use the `source` prop with a URL.
 
 ```tsx
 <DropdownMenu.ItemImage

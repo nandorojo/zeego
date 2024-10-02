@@ -296,8 +296,6 @@ Renders an image inside of the item. Works on Web and iOS. On Android, it will b
 />
 ```
 
-Remote image support from a URL is currently not supported on iOS but is coming soon.
-
 Once it works, usage will work like so:
 
 ```tsx

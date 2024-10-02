@@ -10,6 +10,11 @@ const ItemImage = create(
     alt = accessibilityLabel,
     ...props
   }: MenuItemImageProps) => {
+    if (typeof source === 'number') {
+      console.warn(`[zeego] <ItemImage /> received an invalid source. This likely means you are using Expo Web/Metro Web.
+
+To fix this, please see the docs: https://zeego.dev/components/context-menu#itemimage`)
+    }
     return (
       <img
         src={
