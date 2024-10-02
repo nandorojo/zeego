@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Platform } from 'react-native'
+import { StyleSheet, View, Text, Platform, Image } from 'react-native'
 
 import * as ContextMenu from 'zeego/context-menu'
 import * as DropdownMenu from 'zeego/dropdown-menu'
@@ -101,14 +101,14 @@ const dropdownStyles: Record<string, React.CSSProperties> = {
   },
   itemImage: {
     width: itemHeight,
-    height: 18,
+    height: itemHeight,
     position: 'absolute',
     right: 1,
     alignSelf: 'center',
     justifyContent: 'center',
   },
   label: {
-    paddingLeft: itemHeight,
+    paddingLeft: itemHeight - 4,
     lineHeight: itemHeight + 'px',
     fontSize: 12,
     color: '#555',
@@ -214,7 +214,7 @@ const DropdownMenuItemIcon = DropdownMenu.create(
 
 const DropdownMenuItemImage = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.ItemImage>) => (
-    <DropdownMenu.ItemImage {...props} style={dropdownStyles.itemImage} />
+    <Image {...(props as any)} resizeMode="cover" />
   ),
   'ItemImage'
 )
@@ -223,7 +223,7 @@ const DropdownMenuLabel = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.Label>) => (
     <DropdownMenu.Label {...props} style={dropdownStyles.label} />
   ),
-  'ItemImage'
+  'Label'
 )
 
 const DropdownMenuArrow = DropdownMenu.create(
@@ -246,13 +246,14 @@ const DropdownMenuExample = () => {
         </View>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content style={dropdownStyles.content}>
-        <DropdownMenuLabel>Help</DropdownMenuLabel>
-
-        {[1, 2, 3].map((i) => (
-          <DropdownMenuItem key={`list-${i}`}>
-            <DropdownMenuItemTitle>{`Item ${i}`}</DropdownMenuItemTitle>
-          </DropdownMenuItem>
-        ))}
+        <DropdownMenu.Group horizontal>
+          <DropdownMenuLabel>Favorites</DropdownMenuLabel>
+          {[1, 2, 3].map((i) => (
+            <DropdownMenuItem key={`list-${i}`}>
+              <DropdownMenuItemTitle>{`Item ${i}`}</DropdownMenuItemTitle>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenu.Group>
 
         <DropdownMenuItem onSelect={select(1)} key="first">
           <DropdownMenuItemTitle style={dropdownStyles.itemTitle}>
@@ -272,7 +273,7 @@ const DropdownMenuExample = () => {
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={select(2)} key="second">
           <DropdownMenuItemIcon
-            iosIconName="star.fill"
+            ios={{ name: 'star.fill' }}
             androidIconName="btn_star"
           >
             <Ionicons name="star" size={15} />
@@ -291,10 +292,9 @@ const DropdownMenuExample = () => {
             {bookmarked === 'on' ? 'Bookmarked' : 'Bookmark'}
           </DropdownMenuItemTitle>
           <DropdownMenuItemImage
-            iosIconName="book"
+            style={dropdownStyles.itemImage}
             source={camera}
             width={20}
-            resizeMode="contain"
           />
         </DropdownMenuCheckboxItem>
         <DropdownMenuCheckboxItem
@@ -364,6 +364,13 @@ const DropdownMenuExample = () => {
   )
 }
 
+const ItemImage = DropdownMenu.create(
+  (props: ComponentProps<typeof DropdownMenu.ItemImage>) => (
+    <Image {...(props as any)} />
+  ),
+  'ItemImage'
+)
+
 const ContextMenuExample = () => {
   return (
     <ContextMenu.Root>
@@ -376,8 +383,26 @@ const ContextMenuExample = () => {
         <ContextMenu.Preview>
           {() => (
             <View
-              style={{ height: 300, width: 300, backgroundColor: 'black' }}
-            />
+              style={{
+                height: 300,
+                width: 300,
+                backgroundColor: 'white',
+                padding: 16,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Text
+                style={{
+                  color: 'black',
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                }}
+              >
+                Custom component when expanded!
+              </Text>
+            </View>
           )}
         </ContextMenu.Preview>
 
@@ -392,7 +417,7 @@ const ContextMenuExample = () => {
           <ContextMenu.ItemTitle>@FernandoTheRojo</ContextMenu.ItemTitle>
           <ContextMenu.ItemSubtitle>Creator of Zeego</ContextMenu.ItemSubtitle>
 
-          <ContextMenu.ItemImage
+          <ItemImage
             source={require('./fernando.jpg')}
             style={dropdownStyles.itemImage}
           />
@@ -409,7 +434,7 @@ const ContextMenuExample = () => {
           <ContextMenu.ItemTitle>Action #1</ContextMenu.ItemTitle>
           <ContextMenu.ItemSubtitle>Hey!</ContextMenu.ItemSubtitle>
 
-          <ContextMenu.ItemImage
+          <ItemImage
             source={require('./camera-outline.png')}
             style={dropdownStyles.itemImage}
           />

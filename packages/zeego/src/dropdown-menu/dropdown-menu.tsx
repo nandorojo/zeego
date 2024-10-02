@@ -8,6 +8,7 @@ import type {
   ContextMenuSubContentProps,
   MenuItemProps,
   MenuSubTriggerProps,
+  MenuGroupProps,
 } from '../menu'
 import { create } from '../menu/display-names'
 
@@ -42,7 +43,7 @@ const SubTrigger = create<MenuSubTriggerProps>(
   'SubTrigger'
 )
 
-const Group = create(DropdownMenu.Group, 'Group')
+const Group = create<MenuGroupProps>(DropdownMenu.Group, 'Group')
 
 const Separator = create(DropdownMenu.Separator, 'Separator')
 

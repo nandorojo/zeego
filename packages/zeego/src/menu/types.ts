@@ -11,6 +11,7 @@ import type {
 import type { ComponentProps, SVGAttributes } from 'react'
 
 import type { SFSymbol } from 'sf-symbols-typescript'
+import { ImageSystemSymbolConfiguration } from 'react-native-ios-utilities'
 
 type ViewStyle = React.CSSProperties
 
@@ -118,7 +119,7 @@ export type MenuItemIconProps = {
    *
    * @platform ios
    */
-  ios?: ImageSystemConfig & {
+  ios?: ImageSystemSymbolConfiguration & {
     name: SFSymbol
   }
   /**
@@ -135,7 +136,7 @@ type NotArray<T> = T extends (infer _)[] ? never : T
 
 export type MenuItemImageProps = Omit<
   ComponentProps<'img'>,
-  'src' | 'height' | 'width'
+  'src' | 'height' | 'width' | 'ref'
 > & {
   /**
    * `source={require('path/to/image')}`
@@ -171,7 +172,6 @@ export type MenuSubTriggerProps = Omit<
   ItemBaseProps
 
 export type MenuSubProps = RadixDropdownMenu.MenuSubTriggerProps & {
-  key: string
   children: React.ReactNode
 }
 
