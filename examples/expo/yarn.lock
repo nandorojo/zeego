@@ -3283,13 +3283,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"add@npm:^2.0.6":
-  version: 2.0.6
-  resolution: "add@npm:2.0.6"
-  checksum: 10c0/6b21d5f2e58cf5e15d56cc6f9ebce04f04f4c33ae25f09d600ddacf8df00036ba521f17feb1b3f81307b7c6d2ef0bed8b511a0f86f062eb90c2f909b48b588ae
-  languageName: node
-  linkType: hard
-
 "agent-base@npm:6":
   version: 6.0.2
   resolution: "agent-base@npm:6.0.2"
@@ -4932,7 +4925,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-build-properties@npm:^0.12.5":
+"expo-build-properties@npm:~0.12.5":
   version: 0.12.5
   resolution: "expo-build-properties@npm:0.12.5"
   dependencies:
@@ -10638,12 +10631,11 @@ __metadata:
     "@babel/core": "npm:^7.24.0"
     "@babel/runtime": "npm:^7.9.6"
     "@react-native-menu/menu": "npm:1.0.2"
-    add: "npm:^2.0.6"
     babel-loader: "npm:^8.2.3"
     babel-plugin-module-resolver: "npm:^4.0.0"
     babel-preset-expo: "npm:~11.0.0"
     expo: "npm:^51.0.35"
-    expo-build-properties: "npm:^0.12.5"
+    expo-build-properties: "npm:~0.12.5"
     expo-linking: "npm:~6.3.1"
     expo-router: "npm:~3.5.23"
     expo-splash-screen: "npm:~0.27.6"
