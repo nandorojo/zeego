@@ -115,8 +115,7 @@
     ]
   },
   "resolutions": {
-    "react": "18.2.0",
-    "metro": "0.72.3"
+    "react": "18.2.0"
   },
   "packageManager": "yarn@4.4.0"
 }

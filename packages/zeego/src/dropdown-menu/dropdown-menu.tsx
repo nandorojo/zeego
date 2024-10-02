@@ -2,13 +2,12 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import * as React from 'react'
 
 import type {
-  ContextMenuContentProps,
   MenuCheckboxItemProps,
   MenuItemIconProps,
-  ContextMenuSubContentProps,
   MenuItemProps,
   MenuSubTriggerProps,
   MenuGroupProps,
+  MenuSubContentProps,
 } from '../menu'
 import { create } from '../menu/display-names'
 
@@ -16,7 +15,7 @@ const Root = create(DropdownMenu.Root, 'Root')
 
 const Trigger = create(DropdownMenu.Trigger, 'Trigger')
 
-const Content = create((props: ContextMenuContentProps) => {
+const Content = create((props: MenuSubContentProps) => {
   return (
     <DropdownMenu.Portal>
       <DropdownMenu.Content {...props} />
@@ -91,7 +90,7 @@ const Arrow = create(DropdownMenu.Arrow, 'Arrow')
 const Sub = create(DropdownMenu.Sub, 'Sub')
 
 const SubContent = create(
-  (props: ContextMenuSubContentProps) => (
+  (props: MenuSubContentProps) => (
     <DropdownMenu.Portal>
       <DropdownMenu.SubContent {...props} />
     </DropdownMenu.Portal>

@@ -6,7 +6,6 @@ import type {
   MenuAuxiliaryPreviewConfig,
   ContextMenuButton,
   ImageOptions,
-  ImageSystemConfig,
 } from 'react-native-ios-context-menu'
 import type { ComponentProps, SVGAttributes } from 'react'
 

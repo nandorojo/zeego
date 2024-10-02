@@ -5,6 +5,7 @@ import * as DropdownMenu from 'zeego/dropdown-menu'
 import React, { ComponentProps, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import camera from './src/camera-outline.png'
+import fernando from './src/fernando.jpg'
 const select = (val: unknown) => () => alert(val)
 
 const itemHeight = 25
@@ -60,7 +61,7 @@ const dropdownStyles: Record<string, React.CSSProperties> = {
     // a nice background gray
     // a little darker
     backgroundColor: '#000fff30',
-    outline: 'none',
+    outline: 'none!important',
   },
   itemTitle: {
     fontSize: '13px',
@@ -240,7 +241,7 @@ const DropdownMenuExample = () => {
   const [bookmarked, setBookmarked] = useState<'on' | 'off' | 'mixed'>('on')
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
+      <DropdownMenu.Trigger asChild className="bg-red-500">
         <View>
           <Text style={styles.button}>{`<DropdownMenu />`}</Text>
         </View>
@@ -417,10 +418,7 @@ const ContextMenuExample = () => {
           <ContextMenu.ItemTitle>@FernandoTheRojo</ContextMenu.ItemTitle>
           <ContextMenu.ItemSubtitle>Creator of Zeego</ContextMenu.ItemSubtitle>
 
-          <ItemImage
-            source={require('./src/fernando.jpg')}
-            style={dropdownStyles.itemImage}
-          />
+          <ItemImage source={fernando} style={dropdownStyles.itemImage} />
         </ContextMenu.Item>
 
         <ContextMenu.Item
@@ -434,10 +432,7 @@ const ContextMenuExample = () => {
           <ContextMenu.ItemTitle>Action #1</ContextMenu.ItemTitle>
           <ContextMenu.ItemSubtitle>Hey!</ContextMenu.ItemSubtitle>
 
-          <ItemImage
-            source={require('./src/camera-outline.png')}
-            style={dropdownStyles.itemImage}
-          />
+          <ItemImage source={camera} style={dropdownStyles.itemImage} />
         </ContextMenu.Item>
         <ContextMenu.Item
           style={dropdownStyles.item}
@@ -511,7 +506,6 @@ export default function App() {
   return (
     <View style={styles.container}>
       <DropdownMenuExample />
-      <View style={{ height: 30 }} />
       <ContextMenuExample />
     </View>
   )
@@ -523,6 +517,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#9c1aff',
     justifyContent: 'center',
+    gap: 30,
   },
   box: {
     width: 200,

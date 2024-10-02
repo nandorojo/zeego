@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@react-native-menu/menu": "1.0.2",
-    "expo": "^51.0.35",
+    "expo": "51.0.17",
     "expo-build-properties": "~0.12.5",
     "expo-linking": "~6.3.1",
     "expo-router": "~3.5.23",
@@ -31,6 +31,10 @@
     "@babel/runtime": "^7.9.6",
     "babel-loader": "^8.2.3",
     "babel-plugin-module-resolver": "^4.0.0",
-    "babel-preset-expo": "~11.0.0"
+    "babel-preset-expo": "~11.0.0",
+    "vxrn": "^1.1.272"
+  },
+  "resolutions": {
+    "metro": "0.80.6"
   }
 }
