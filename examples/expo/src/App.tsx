@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Platform, Image } from 'react-native'
+import { StyleSheet, View, Text, Platform } from 'react-native'
 
 import * as ContextMenu from 'zeego/context-menu'
 import * as DropdownMenu from 'zeego/dropdown-menu'

@@ -82,6 +82,10 @@ export function MyMenu() {
 }
 ```
 
+### Web Usage
+
+On Web, any component available on Radix UI's [ContextMenu](https://www.radix-ui.com/docs/primitives/components/context-menu) is also available on Zeego's ContextMenu, and accepts the same props. This is the case as of Zeego 2.
+
 ## Component API
 
 ### Root
@@ -92,6 +96,8 @@ Required component at the root of your menu.
 | ------------------ | -------- | ------- | ------------ |
 | `onOpenChange`     |          |         | `web`, `ios` |
 | `onOpenWillChange` |          |         | `ios`        |
+
+For more web props, see the Radix UI [docs for `ContextMenu.Root`](https://www.radix-ui.com/docs/primitives/components/context-menu#root).
 
 ### Content
 
@@ -108,17 +114,21 @@ See the Radix UI [docs for `ContextMenu.Content`](https://www.radix-ui.com/docs/
 | `collisionPadding` |          | 0        | `web`     |
 | `avoidCollisions`  |          | `true`   | `web`     |
 
+For more web props, see the Radix UI [docs for `ContextMenu.Content`](https://www.radix-ui.com/docs/primitives/components/context-menu#content).
+
 ### Trigger
 
 Wraps the trigger for your menu. The content will be anchored to the trigger.
 
 | Prop      | Required | Default     | Platforms               |
 | --------- | -------- | ----------- | ----------------------- |
-| `style`   |          |             | `web`                   |
+| `style`   |          |             | `web`, `ios`, `android` |
 | `action`  |          | `longPress` | `ios`, `android`        |
 | `asChild` |          | `false`     | `web`, `ios`, `android` |
 
 The `action` can be `longPress` or `press`.
+
+For more web props, see the Radix UI [docs for `ContextMenu.Trigger`](https://www.radix-ui.com/docs/primitives/components/context-menu#trigger).
 
 ### Preview
 
@@ -126,7 +136,7 @@ Render a custom component when the context menu is visible on iOS.
 
 Requires passing a function as a child.
 
-The element won't mount until the menu has been opened.
+The child element won't mount until the menu has been opened.
 
 | Prop                   | Required | Default | Platforms |
 | ---------------------- | -------- | ------- | --------- |
@@ -136,7 +146,7 @@ The element won't mount until the menu has been opened.
 | `isResizeAnimated`     |          | `true`  | `ios`     |
 | `borderRadius`         |          |         | `ios`     |
 | `backgroundColor`      |          |         | `ios`     |
-| `preferredCommitStyle` |          |         |           |
+| `preferredCommitStyle` |          |         | `ios`     |
 
 ```tsx
 <ContextMenu.Preview
@@ -156,7 +166,7 @@ The element won't mount until the menu has been opened.
 
 Context menu item. Typically a row with text inside of it.
 
-The `key` prop is **required**. The same `key` must not be used more than once in the same menu.
+The `key` prop is **required**. The `key` must be unique within the entire menu, including submenus.
 
 | Prop          | Required | Default | Platforms               |
 | ------------- | -------- | ------- | ----------------------- |
@@ -170,9 +180,17 @@ The `key` prop is **required**. The same `key` must not be used more than once i
 | `onFocus`     |          |         | `web`                   |
 | `onBlur`      |          |         | `web`                   |
 
-On web, it will render its children and apply styles. On other platforms, it simply maps to a native menu item.
+On web, `Item` will render its a component as its child and apply styles. On other platforms, it simply renders a native menu item, and styles do not apply.
 
-To render text, use the `ItemTitle`.
+To render text inside of an item, use the `ItemTitle`.
+
+```tsx
+<ContextMenu.Item key="item-1" onSelect={() => console.log('item-1 selected')}>
+  <ContextMenu.ItemTitle>Item Title</ContextMenu.ItemTitle>
+</ContextMenu.Item>
+```
+
+For more web props, see the Radix UI [docs for `ContextMenu.Item`](https://www.radix-ui.com/docs/primitives/components/context-menu#item).
 
 ### ItemTitle
 
@@ -183,7 +201,7 @@ The `style` prop will optionally style text on web.
 | `style`    |          |         | `web`,                   |
 | `children` | Yes      |         | `web` , `ios`, `android` |
 
-`ItemTitle` either a string or React element as the child. A string is the most common usage.
+`ItemTitle` either a `string` or `React element` as the child. A string is the most common usage. If you don't use a string, you **must** pass a `textValue` prop to the parent `Item` for it to work. It will error otherwise.
 
 ```tsx
 <DropdownMenu.Item key="cars">
@@ -209,21 +227,25 @@ The `style` prop will optionally style text on web.
 </DropdownMenu.Item>
 ```
 
-This is useful for rendering custom text components on Web. The `textValue` prop supplied to `Item` will get used on iOS and Android as the title. On Web, `textValue` will be used for typeahead purposes, but it will not affect rendering.
+The `textValue` prop will become the title on iOS and Android as the title. On Web, `textValue` will be used for typeahead, but it will not affect rendering.
 
 ### ItemIcon
 
 To render an icon on web, pass the icon component as a child.
 
-For iOS and Android, use the respective platform's name as the prop.
+For iOS and Android, use the `ios` prop and `androidIconName` prop.
 
 On iOS, it renders an [SF Symbol](https://developer.apple.com/sf-symbols/) if you provide one.
 
-| Prop       | Required | Default | Platforms |
-| ---------- | -------- | ------- | --------- |
-| `ios`      |          |         | `ios`     |
-| `android`  |          |         | `android` |
-| `children` |          |         | `web`     |
+On Android, it renders a [Material Icon](https://developer.android.com/reference/android/R.drawable).
+
+| Prop              | Required | Default | Platforms |
+| ----------------- | -------- | ------- | --------- |
+| `ios`             |          |         | `ios`     |
+| `androidIconName` |          |         | `android` |
+| `children`        |          |         | `web`     |
+| `style`           |          |         | `web`     |
+| `className`       |          |         | `web`     |
 
 ```tsx
 <ContextMenu.ItemIcon
@@ -288,14 +310,34 @@ Once it works, usage will work like so:
 />
 ```
 
+#### `ItemImage` with Expo Web / Metro Web
+
+If you are using Solito, Vite, Next.js, or most web-only frameworks, then this does not apply to you.
+
+However, as of Zeego v2, locally-imported images will not work as-is with Metro Web/Expo Web.
+
+To fix this, you should [`create`](/custom#create-custom-components) a custom `ItemImage` component which wraps `Image` from `react-native`:
+
+```tsx
+import { Image } from 'react-native'
+import * as ContextMenu from 'zeego/context-menu'
+
+const ItemImage = ContextMenu.create<
+  React.ComponentProps<typeof ContextMenu.ItemImage>
+>((props) => {
+  return <Image {...props} />
+}, 'ItemImage')
+```
+
 ### ItemSubtitle
 
-Receives `children` as a string. The `style` prop will optionally style text on web.
+Receives `children` as a `string`. The `style` prop will optionally style text on web.
 
-| Prop       | Required | Default | Platforms     |
-| ---------- | -------- | ------- | ------------- |
-| `style`    |          |         | `web`,        |
-| `children` |          |         | `web` , `ios` |
+| Prop        | Required | Default | Platforms     |
+| ----------- | -------- | ------- | ------------- |
+| `style`     |          |         | `web`,        |
+| `className` |          |         | `web`         |
+| `children`  |          |         | `web` , `ios` |
 
 Android menu items do not currently support subtitles.
 
@@ -320,13 +362,21 @@ To add a title to the group, pass a `Label` component inside of it:
 
 ```tsx
 <ContextMenu.Group>
-  <ContextMenu.Label>Fernando</ContextMenu.Label>
+  <ContextMenu.Label>Fernando's List</ContextMenu.Label>
+
+  <ContextMenu.Item key="patos">
+    <ContextMenu.ItemTitle>PATOS Shoes</ContextMenu.ItemTitle>
+  </ContextMenu.Item>
+  <ContextMenu.Item key="moti">
+    <ContextMenu.ItemTitle>Moti</ContextMenu.ItemTitle>
+  </ContextMenu.Item>
+  <ContextMenu.Item key="solito">
+    <ContextMenu.ItemTitle>Solito</ContextMenu.ItemTitle>
+  </ContextMenu.Item>
 </ContextMenu.Group>
 ```
 
-<!-- On iOS, items will visually group with a divider like `Group Item 1` and `Group Item 2` below:
-
-<img src="/img/group.png"></img> -->
+For more web props, see the Radix UI [docs for `ContextMenu.Group`](https://www.radix-ui.com/docs/primitives/components/context-menu#group).
 
 ### CheckboxItem
 
@@ -371,15 +421,21 @@ You can also use a boolean for `value`, as of `1.3.0`:
 </ContextMenu.CheckboxItem>
 ```
 
+For more web props, see the Radix UI [docs for `ContextMenu.CheckboxItem`](https://www.radix-ui.com/docs/primitives/components/context-menu#checkboxitem).
+
+There are a few subtle differences, such as `onValueChange` vs `onCheckedChange`, and the Zeego's result being `"on"` or `"off"` instead of `true` or `false` in the change callback.
+
 ### ItemIndicator
 
 Used inside of `CheckboxItem`, the `ItemIndicator` only renders when the item is checked. This lets you conditionally render a checkmark.
 
 You should pass a checkmark icon as a child for web. On iOS and Android, the built-in checkmark will be used instead.
 
-| Prop    | Required | Default | Platforms |
-| ------- | -------- | ------- | --------- |
-| `style` |          |         | `web`     |
+| Prop        | Required | Default | Platforms |
+| ----------- | -------- | ------- | --------- |
+| `style`     |          |         | `web`     |
+| `className` |          |         | `web`     |
+| `children`  |          |         | `web`     |
 
 ```tsx
 <ContextMenu.ItemIndicator>
@@ -387,19 +443,27 @@ You should pass a checkmark icon as a child for web. On iOS and Android, the bui
 </ContextMenu.ItemIndicator>
 ```
 
+For more web props, see the Radix UI [docs for `ContextMenu.ItemIndicator`](https://www.radix-ui.com/docs/primitives/components/context-menu#itemindicator).
+
 ### Label
 
 Renders a label. It won't be focusable using arrow keys.
 
 On iOS & Android, only one label is supported (unless it is inside a submenu). It will be displayed at the top of the menu.
 
-| Prop    | Required | Default | Platforms |
-| ------- | -------- | ------- | --------- |
-| `style` |          |         | `web`     |
+| Prop        | Required | Default | Platforms               |
+| ----------- | -------- | ------- | ----------------------- |
+| `style`     |          |         | `web`                   |
+| `className` |          |         | `web`                   |
+| `children`  | Yes      |         | `web`, `ios`, `android` |
 
 ```tsx
 <ContextMenu.Label>My Label</ContextMenu.Label>
 ```
+
+Best used within a `Group`.
+
+For more web props, see the Radix UI [docs for `ContextMenu.Label`](https://www.radix-ui.com/docs/primitives/components/context-menu#label).
 
 ### Arrow
 
@@ -422,34 +486,67 @@ Because the arrow is an `<svg>` element, its `style` prop is not React Native co
 | `className` |          |         | `web`     |
 | `asChild`   |          | `false` | `web`     |
 
+See the Radix UI [docs for `ContextMenu.Arrow`](https://www.radix-ui.com/docs/primitives/components/context-menu#arrow).
+
 ### Separator
 
 Renders a content separator on web only.
 
-| Prop    | Required | Default | Platforms |
-| ------- | -------- | ------- | --------- |
-| `style` |          |         | `web`     |
+| Prop        | Required | Default | Platforms |
+| ----------- | -------- | ------- | --------- |
+| `style`     |          |         | `web`     |
+| `className` |          |         | `web`     |
+
+See the Radix UI [docs for `ContextMenu.Separator`](https://www.radix-ui.com/docs/primitives/components/context-menu#separator).
 
 ### Sub
 
+```tsx
+<ContextMenu.Root>
+  <ContextMenu.Trigger>
+    <Button />
+  </ContextMenu.Trigger>
+
+  <ContextMenu.Content>
+    <ContextMenu.Sub>
+      <ContextMenu.SubTrigger key="sub-menu-trigger">
+        <ContextMenu.ItemTitle>Sub Menu</ContextMenu.ItemTitle>
+      </ContextMenu.SubTrigger>
+
+      <ContextMenu.SubContent>
+        <ContextMenu.Item key="sub-menu-item">
+          <ContextMenu.ItemTitle>Sub Menu Item</ContextMenu.ItemTitle>
+        </ContextMenu.Item>
+      </ContextMenu.SubContent>
+    </ContextMenu.Sub>
+  </ContextMenu.Content>
+</ContextMenu.Root>
+```
+
 Renders the parts of a submenu.
 
-| Prop           | Required | Default | Platforms |
-| -------------- | -------- | ------- | --------- |
-| `onOpenChange` |          |         | `web`     |
+| Prop           | Required | Default | Platforms               |
+| -------------- | -------- | ------- | ----------------------- |
+| `onOpenChange` |          |         | `web`                   |
+| `children`     |          |         | `web`, `ios`, `android` |
+
+See the Radix UI [docs for `ContextMenu.Sub`](https://www.radix-ui.com/docs/primitives/components/context-menu#sub).
 
 ### SubContent
 
 See the Radix UI [docs for `ContextMenu.SubContent`](https://www.radix-ui.com/docs/primitives/components/context-menu#subcontent) to see usage for each prop.
 
-| Prop               | Required | Default  | Platforms |
-| ------------------ | -------- | -------- | --------- |
-| `side`             |          | `bottom` | `web`     |
-| `sideOffset`       |          | `0`      | `web`     |
-| `align`            |          | `center` | `web`     |
-| `alignOffset`      |          | `0`      | `web`     |
-| `collisionPadding` |          | `0`      | `web`     |
-| `avoidCollisions`  |          | `true`   | `web`     |
+| Prop               | Required | Default  | Platforms               |
+| ------------------ | -------- | -------- | ----------------------- |
+| `side`             |          | `bottom` | `web`                   |
+| `sideOffset`       |          | `0`      | `web`                   |
+| `align`            |          | `center` | `web`                   |
+| `alignOffset`      |          | `0`      | `web`                   |
+| `collisionPadding` |          | `0`      | `web`                   |
+| `avoidCollisions`  |          | `true`   | `web`                   |
+| `children`         |          |          | `web`, `ios`, `android` |
+
+For more web props, see the Radix UI [docs for `ContextMenu.SubContent`](https://www.radix-ui.com/docs/primitives/components/context-menu#subcontent).
 
 ### SubTrigger
 
@@ -466,3 +563,6 @@ An item that opens a submenu. Must be rendered inside `ContextMenu.Sub`.
 | `textValue`   |          |         | `web`                    |
 | `onFocus`     |          |         | `web`                    |
 | `onBlur`      |          |         | `web`                    |
+| `children`    |          |         | `web`, `ios`, `android`  |
+
+For more web props, see the Radix UI [docs for `ContextMenu.SubTrigger`](https://www.radix-ui.com/docs/primitives/components/context-menu#subtrigger).

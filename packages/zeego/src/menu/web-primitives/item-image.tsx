@@ -10,14 +10,19 @@ const ItemImage = create(
     alt = accessibilityLabel,
     ...props
   }: MenuItemImageProps) => {
-    console.log(source)
     return (
       <img
         src={
           typeof source === 'string'
             ? source
-            : typeof source === 'object' && 'uri' in source
+            : typeof source === 'object' &&
+              'uri' in source &&
+              typeof source.uri === 'string'
             ? source
+            : typeof source === 'object' &&
+              'src' in source &&
+              typeof source.src === 'string' // Next.js bundler turns into { src: string }
+            ? source.src
             : (source as any)
         }
         alt={accessibilityLabel}

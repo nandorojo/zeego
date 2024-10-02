@@ -140,7 +140,12 @@ export type MenuItemImageProps = Omit<
   /**
    * `source={require('path/to/image')}`
    */
-  source: NotArray<ImageProps['source']>
+  source:
+    | NotArray<ImageProps['source']>
+    | {
+        // next.js support
+        src: string
+      }
   width?: number
   height?: number
   ios?: {
