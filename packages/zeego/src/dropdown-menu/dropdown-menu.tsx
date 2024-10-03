@@ -8,7 +8,7 @@ import type {
   MenuSubTriggerProps,
   MenuGroupProps,
   MenuSubContentProps,
-  MenuContentProps
+  MenuContentProps,
 } from '../menu'
 import { create } from '../menu/display-names'
 
