@@ -8,6 +8,7 @@ import type {
   MenuSubTriggerProps,
   MenuGroupProps,
   MenuSubContentProps,
+  MenuContentProps
 } from '../menu'
 import { create } from '../menu/display-names'
 
@@ -15,7 +16,7 @@ const Root = create(DropdownMenu.Root, 'Root')
 
 const Trigger = create(DropdownMenu.Trigger, 'Trigger')
 
-const Content = create((props: MenuSubContentProps) => {
+const Content = create((props: MenuContentProps) => {
   return (
     <DropdownMenu.Portal>
       <DropdownMenu.Content {...props} />
