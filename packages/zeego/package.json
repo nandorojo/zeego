@@ -1,6 +1,6 @@
 {
   "name": "zeego",
-  "version": "1.10.0",
+  "version": "2.0.0",
   "description": "Logical UI primitives, made for screens.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -69,18 +69,17 @@
     "jest": "^26.0.1",
     "pod-install": "^0.1.0",
     "prettier": "^2.0.5",
-    "react": "17.0.1",
-    "react-native": "0.64.2",
     "react-native-builder-bob": "^0.18.0",
-    "react-native-ios-utilities": "^4.3.2",
+    "react-native-ios-context-menu": "2.5.1",
+    "react-native-ios-utilities": "4.5.0",
     "release-it": "^14.2.2",
-    "typescript": "^5"
+    "typescript": "^5.6.2"
   },
   "peerDependencies": {
     "@react-native-menu/menu": "*",
     "react": "*",
     "react-native": "*",
-    "react-native-ios-context-menu": "^2.3.2"
+    "react-native-ios-context-menu": "~2.5.1"
   },
   "jest": {
     "preset": "react-native",

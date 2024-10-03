@@ -1,13 +1,5 @@
-import { Platform } from 'react-native'
-import App from './src/App'
 import { registerRootComponent } from 'expo'
 
-// let e
+import App from './App'
 
-if (Platform.OS != 'web') {
-  require('expo-router/entry')
-} else {
-  registerRootComponent(App)
-}
-
-// export default App
+registerRootComponent(App)

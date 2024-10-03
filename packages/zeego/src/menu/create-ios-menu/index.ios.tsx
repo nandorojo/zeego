@@ -1,3 +1,21 @@
+import React, { Children, ReactElement, cloneElement, useRef } from 'react'
+import { Image, View } from 'react-native'
+import {
+  ContextMenuButton,
+  ContextMenuView,
+  MenuActionConfig,
+  MenuConfig,
+  MenuElementSize,
+  ImageSystemConfig,
+} from 'react-native-ios-context-menu'
+
+import {
+  flattenChildren,
+  pickChildren,
+  isInstanceOfComponent,
+} from '../children'
+import { create } from '../display-names'
+import { filterNull } from '../filter-null'
 import type {
   MenuContentProps,
   MenuGroupProps,
@@ -21,33 +39,20 @@ import type {
   MenuSubContentProps,
   ContextMenuAuxliliaryProps,
 } from '../types'
-import React, { Children, ReactElement, cloneElement, useRef } from 'react'
-import {
-  flattenChildren,
-  pickChildren,
-  isInstanceOfComponent,
-} from '../children'
-import { Image, View } from 'react-native'
-import { filterNull } from '../filter-null'
-import {
-  ContextMenuButton,
-  ContextMenuView,
-  MenuActionConfig,
-  MenuConfig,
-  MenuElementSize,
-} from 'react-native-ios-context-menu'
-import { create } from '../display-names'
-import type { ImageSystemConfig } from 'react-native-ios-context-menu/src/types/ImageItemConfig'
 
 const createIosMenu = (Menu: 'ContextMenu' | 'DropdownMenu') => {
-  const Trigger = create(({ children, style, asChild }: MenuTriggerProps) => {
-    if (asChild) {
-      return cloneElement(children, {
-        style,
-      })
-    }
-    return <View style={style}>{children}</View>
-  }, 'Trigger')
+  const Trigger = create(
+    ({ children, style, asChild, ...props }: MenuTriggerProps) => {
+      if (asChild) {
+        return cloneElement(children, {
+          style,
+          ...props,
+        })
+      }
+      return <View style={style as any}>{children}</View>
+    },
+    'Trigger'
+  )
 
   const Auxiliary = create(({}: ContextMenuAuxliliaryProps) => {
     return <></>
@@ -276,7 +281,10 @@ If you want to use a custom component as your <Content />, you can use the creat
                 }
               } else {
                 const imageValue = Image.resolveAssetSource(
-                  imageChild.props.source
+                  typeof imageChild.props.source === 'object' &&
+                    'src' in imageChild.props.source
+                    ? { uri: imageChild.props.source.src }
+                    : imageChild.props.source
                 )
                 icon = {
                   type: 'IMAGE_REQUIRE',
@@ -306,7 +314,7 @@ If you want to use a custom component as your <Content />, you can use the creat
           )
         }
         if ('onSelect' in child.props && child.props.onSelect) {
-          callbacks[key] = child.props.onSelect
+          callbacks[key] = () => child.props.onSelect?.()
         } else if ('onValueChange' in child.props) {
           const menuState = child.props.value
           const currentState =
@@ -431,10 +439,10 @@ If you want to use a custom component as your <Content />, you can use the creat
           }
 
           return {
-            menuTitle: groupTitle || '',
+            menuTitle: typeof groupTitle == 'string' ? groupTitle : '',
             menuItems: groupItems,
             menuOptions: ['displayInline'],
-            menuPreferredElementSize: menuPreferredElementSize,
+            menuPreferredElementSize,
           }
         }
         return null
@@ -510,7 +518,7 @@ If you want to use a custom component as your <Content />, you can use the creat
           }
         }}
         isMenuPrimaryAction={shouldOpenOnSingleTap}
-        style={[{ flexGrow: 0 }, props.style]}
+        style={[{ flexGrow: 0 }, props.style as any]}
         menuConfig={{
           menuTitle,
           menuItems,

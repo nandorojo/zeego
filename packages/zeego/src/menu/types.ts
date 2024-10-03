@@ -1,22 +1,20 @@
-import type { Text, View, ImageProps } from 'react-native'
+import type { ImageProps } from 'react-native'
 import type { MenuContentProps as RadixContentProps } from '@radix-ui/react-dropdown-menu'
+import type * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu'
 import type {
   ContextMenuView,
   MenuAuxiliaryPreviewConfig,
   ContextMenuButton,
-} from 'react-native-ios-context-menu'
-import type {
   ImageOptions,
-  ImageSystemSymbolConfiguration,
-} from 'react-native-ios-context-menu/src/types/ImageItemConfig'
+} from 'react-native-ios-context-menu'
 import type { ComponentProps, SVGAttributes } from 'react'
 
 import type { SFSymbol } from 'sf-symbols-typescript'
+import { ImageSystemSymbolConfiguration } from 'react-native-ios-utilities'
 
-type ViewStyle = React.ComponentProps<typeof View>['style']
-type TextStyle = React.ComponentProps<typeof Text>['style']
+type ViewStyle = React.CSSProperties
 
-export type MenuRootProps = {
+export type MenuRootProps = RadixDropdownMenu.DropdownMenuProps & {
   children: React.ReactNode
   style?: ViewStyle
   onOpenChange?: (isOpen: boolean) => void
@@ -47,7 +45,7 @@ export type ContextMenuAuxliliaryProps = Omit<
   onWillShow?: () => void
 }
 
-export type MenuTriggerProps = {
+export type MenuTriggerProps = RadixDropdownMenu.DropdownMenuTriggerProps & {
   children: React.ReactElement
   style?: ViewStyle
   asChild?: boolean
@@ -59,26 +57,17 @@ export type MenuTriggerProps = {
   action?: 'press' | 'longPress'
 }
 
-export type MenuContentProps = {
+export type MenuContentProps = RadixDropdownMenu.MenuContentProps & {
   children: React.ReactNode
   style?: ViewStyle
-} & Pick<
-  RadixContentProps,
-  | 'loop'
-  | 'side'
-  | 'align'
-  | 'alignOffset'
-  | 'avoidCollisions'
-  | 'collisionPadding'
-  | 'sideOffset'
->
+} & RadixContentProps
 
 export type ContextMenuContentProps = Not<
   MenuContentProps,
   'side' | 'align' | 'sideOffset'
 >
 
-export type MenuGroupProps = {
+export type MenuGroupProps = RadixDropdownMenu.MenuGroupProps & {
   children: React.ReactNode
   style?: ViewStyle
   /**
@@ -89,25 +78,32 @@ export type MenuGroupProps = {
   horizontal?: boolean
 }
 
-export type MenuItemProps = {
+type ItemBaseProps = {
+  onSelect?: () => void
+  disabled?: boolean
+  hidden?: boolean
+  destructive?: boolean
+  key: string
+  shouldDismissMenuOnSelect?: boolean
+}
+
+export type MenuItemProps = Omit<
+  RadixDropdownMenu.MenuItemProps,
+  keyof ItemBaseProps
+> & {
   children: React.ReactNode
   style?: ViewStyle
   /**
    * If you want to pass a React text node to `<ItemTitle />`, then you need to use this prop. This gets used on iOS and Android.
    */
   textValue?: string
-} & {
-  onSelect?: () => void
-  disabled?: boolean
-  hidden?: boolean
-  destructive?: boolean
-  onFocus?: () => void
-  onBlur?: () => void
-  key: string
-  shouldDismissMenuOnSelect?: boolean
-}
+} & ItemBaseProps
 
-export interface MenuItemCommonProps {
+export type MenuItemIconProps = {
+  /**
+   * You can also pass the icon as a React Native component child. This will only work on Web, not iOS or android.
+   */
+  children?: React.ReactNode
   /**
    * The name of an iOS-only SF Symbol. For a full list, see https://developer.apple.com/sf-symbols/.
    * @deprecated Please use the `name` inside of the `ios` prop instead.
@@ -131,31 +127,33 @@ export interface MenuItemCommonProps {
    * @platform android
    */
   androidIconName?: string
-}
-
-export type MenuItemIconProps = MenuItemCommonProps & {
-  /**
-   * You can also pass the icon as a React Native component child. This will only work on Web, not iOS or android.
-   */
-  children?: React.ReactNode
   style?: ViewStyle
+  className?: string
 }
 
-export type MenuItemImageProps = MenuItemCommonProps & {
+type NotArray<T> = T extends (infer _)[] ? never : T
+
+export type MenuItemImageProps = Omit<
+  ComponentProps<'img'>,
+  'src' | 'height' | 'width' | 'ref'
+> & {
   /**
    * `source={require('path/to/image')}`
    */
-  source: ImageProps['source']
-  style?: ImageProps['style']
+  source:
+    | NotArray<ImageProps['source']>
+    | {
+        // next.js support
+        src: string
+      }
   width?: number
   height?: number
-  resizeMode?: ImageProps['resizeMode']
-  fadeDuration?: ImageProps['fadeDuration']
   ios?: {
     style?: ImageOptions
     lazy?: boolean
   }
-} & Pick<ImageProps, 'accessibilityLabel'>
+  accessibilityLabel?: string
+}
 
 type SVGProps = SVGAttributes<SVGSVGElement>
 
@@ -167,49 +165,50 @@ export type MenuArrowProps = {
 } & Pick<SVGProps, 'fill' | 'style' | 'className'>
 
 export type MenuSubTriggerProps = Omit<
-  MenuItemProps,
-  keyof Pick<MenuItemProps, 'onSelect'>
-> & {
-  key: string
-}
+  RadixDropdownMenu.MenuSubTriggerProps,
+  keyof ItemBaseProps
+> &
+  ItemBaseProps
 
-export type MenuSubProps = {
+export type MenuSubProps = RadixDropdownMenu.MenuSubTriggerProps & {
   children: React.ReactNode
 }
 
-export type MenuSubContentProps = Not<MenuContentProps, 'side' | 'align'>
-export type ContextMenuSubContentProps = ContextMenuContentProps &
+export type MenuSubContentProps = RadixDropdownMenu.MenuSubContentProps &
+  Not<MenuContentProps, 'side' | 'align'>
+export type ContextMenuSubContentProps = RadixDropdownMenu.MenuSubContentProps &
+  ContextMenuContentProps &
   Pick<MenuContentProps, 'sideOffset'>
 
-export type MenuItemTitleProps = {
+export type MenuItemTitleProps = Omit<ComponentProps<'span'>, 'children'> & {
   children: string | React.ReactNode
-  style?: TextStyle
 }
-export type MenuItemSubtitleProps = {
+export type MenuItemSubtitleProps = Omit<ComponentProps<'span'>, 'children'> & {
   children: string
-  style?: TextStyle
 }
-export type MenuSeparatorProps = {
-  style?: ViewStyle
-}
-export type MenuCheckboxItemProps = Omit<MenuItemProps, 'onSelect'> & {
-  value: 'mixed' | 'on' | 'off' | boolean
-  onValueChange?: (
-    state: 'mixed' | 'on' | 'off',
-    prevState: 'mixed' | 'on' | 'off'
-  ) => void
-  key: string
-  shouldDismissMenuOnSelect?: boolean
-}
+export type MenuSeparatorProps = RadixDropdownMenu.MenuSeparatorProps
 
-export type MenuItemIndicatorProps = {
-  style?: ViewStyle
-  children?: React.ReactNode
-}
+export type MenuCheckboxItemProps = Omit<
+  RadixDropdownMenu.MenuCheckboxItemProps,
+  keyof ItemBaseProps | 'onCheckedChange'
+> &
+  ItemBaseProps & {
+    value: 'mixed' | 'on' | 'off' | boolean
+    onValueChange?: (
+      state: 'mixed' | 'on' | 'off',
+      prevState: 'mixed' | 'on' | 'off'
+    ) => void
+    key: string
+    shouldDismissMenuOnSelect?: boolean
+  }
 
-export type MenuLabelProps = {
-  children: string
-  style?: TextStyle
+export type MenuItemIndicatorProps =
+  RadixDropdownMenu.MenuItemIndicatorProps & {
+    children?: React.ReactNode
+  }
+
+export type MenuLabelProps = RadixDropdownMenu.MenuLabelProps & {
+  children: string | React.ReactNode
 }
 
 type Not<T extends object, O extends keyof NonNullable<T>> = Omit<T, O>

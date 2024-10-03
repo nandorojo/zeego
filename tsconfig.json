@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "zeego": ["./packages/zeego/src"]
+      "zeego/*": ["./packages/zeego/src/*"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
