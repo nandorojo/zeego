@@ -1,16 +1,14 @@
-/* eslint-disable import/no-duplicates */
-import type { ImageProps } from 'react-native'
 import type * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu'
+import type { ComponentProps, SVGAttributes } from 'react'
+import type { ImageProps } from 'react-native'
 import type {
   ContextMenuView,
   MenuAuxiliaryPreviewConfig,
   ContextMenuButton,
   ImageOptions,
 } from 'react-native-ios-context-menu'
-import type { ComponentProps, SVGAttributes } from 'react'
-
-import type { SFSymbol } from 'sf-symbols-typescript'
 import { ImageSystemSymbolConfiguration } from 'react-native-ios-utilities'
+import type { SFSymbol } from 'sf-symbols-typescript'
 
 type ViewStyle = React.CSSProperties
 
@@ -57,7 +55,9 @@ export type MenuTriggerProps = RadixDropdownMenu.DropdownMenuTriggerProps & {
   action?: 'press' | 'longPress'
 }
 
-export type MenuContentProps = RadixDropdownMenu.MenuContentProps & {
+export type MenuContentProps = React.ComponentPropsWithoutRef<
+  typeof RadixDropdownMenu.Content
+> & {
   children: React.ReactNode
 }
 
@@ -66,7 +66,9 @@ export type ContextMenuContentProps = Not<
   'side' | 'align' | 'sideOffset'
 >
 
-export type MenuGroupProps = RadixDropdownMenu.MenuGroupProps & {
+export type MenuGroupProps = React.ComponentPropsWithoutRef<
+  typeof RadixDropdownMenu.Group
+> & {
   children: React.ReactNode
   style?: ViewStyle
   /**
@@ -87,7 +89,7 @@ type ItemBaseProps = {
 }
 
 export type MenuItemProps = Omit<
-  RadixDropdownMenu.MenuItemProps,
+  React.ComponentPropsWithoutRef<typeof RadixDropdownMenu.Item>,
   keyof ItemBaseProps
 > & {
   children: React.ReactNode
@@ -164,18 +166,22 @@ export type MenuArrowProps = {
 } & Pick<SVGProps, 'fill' | 'style' | 'className'>
 
 export type MenuSubTriggerProps = Omit<
-  RadixDropdownMenu.MenuSubTriggerProps,
+  React.ComponentPropsWithoutRef<typeof RadixDropdownMenu.SubTrigger>,
   keyof ItemBaseProps
 > &
   ItemBaseProps
 
-export type MenuSubProps = RadixDropdownMenu.MenuSubTriggerProps & {
+export type MenuSubProps = React.ComponentPropsWithoutRef<
+  typeof RadixDropdownMenu.Sub
+> & {
   children: React.ReactNode
 }
 
 export type MenuSubContentProps = RadixDropdownMenu.MenuSubContentProps &
   Not<MenuContentProps, 'side' | 'align'>
-export type ContextMenuSubContentProps = RadixDropdownMenu.MenuSubContentProps &
+export type ContextMenuSubContentProps = React.ComponentPropsWithoutRef<
+  typeof RadixDropdownMenu.SubContent
+> &
   ContextMenuContentProps &
   Pick<MenuContentProps, 'sideOffset'>
 
@@ -185,10 +191,12 @@ export type MenuItemTitleProps = Omit<ComponentProps<'span'>, 'children'> & {
 export type MenuItemSubtitleProps = Omit<ComponentProps<'span'>, 'children'> & {
   children: string
 }
-export type MenuSeparatorProps = RadixDropdownMenu.MenuSeparatorProps
+export type MenuSeparatorProps = React.ComponentPropsWithoutRef<
+  typeof RadixDropdownMenu.Separator
+>
 
 export type MenuCheckboxItemProps = Omit<
-  RadixDropdownMenu.MenuCheckboxItemProps,
+  React.ComponentPropsWithoutRef<typeof RadixDropdownMenu.CheckboxItem>,
   keyof ItemBaseProps | 'onCheckedChange'
 > &
   ItemBaseProps & {
@@ -201,10 +209,11 @@ export type MenuCheckboxItemProps = Omit<
     shouldDismissMenuOnSelect?: boolean
   }
 
-export type MenuItemIndicatorProps =
-  RadixDropdownMenu.MenuItemIndicatorProps & {
-    children?: React.ReactNode
-  }
+export type MenuItemIndicatorProps = React.ComponentPropsWithoutRef<
+  typeof RadixDropdownMenu.ItemIndicator
+> & {
+  children?: React.ReactNode
+}
 
 export type MenuLabelProps = RadixDropdownMenu.MenuLabelProps & {
   children: string | React.ReactNode
