@@ -1,5 +1,5 @@
+/* eslint-disable import/no-duplicates */
 import type { ImageProps } from 'react-native'
-import type { MenuContentProps as RadixContentProps } from '@radix-ui/react-dropdown-menu'
 import type * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu'
 import type {
   ContextMenuView,
@@ -59,8 +59,7 @@ export type MenuTriggerProps = RadixDropdownMenu.DropdownMenuTriggerProps & {
 
 export type MenuContentProps = RadixDropdownMenu.MenuContentProps & {
   children: React.ReactNode
-  style?: ViewStyle
-} & RadixContentProps
+}
 
 export type ContextMenuContentProps = Not<
   MenuContentProps,

@@ -16,7 +16,7 @@ const Root = create(DropdownMenu.Root, 'Root')
 
 const Trigger = create(DropdownMenu.Trigger, 'Trigger')
 
-const Content = create((props: MenuContentProps) => {
+const Content = create<MenuContentProps>((props) => {
   return (
     <DropdownMenu.Portal>
       <DropdownMenu.Content {...props} />
@@ -24,7 +24,7 @@ const Content = create((props: MenuContentProps) => {
   )
 }, 'Content')
 
-const Item = create((props: MenuItemProps) => {
+const Item = create<MenuItemProps>((props) => {
   return (
     <DropdownMenu.Item
       {...props}
@@ -39,7 +39,7 @@ const Item = create((props: MenuItemProps) => {
 }, 'Item')
 
 const SubTrigger = create<MenuSubTriggerProps>(
-  (props: MenuSubTriggerProps) => <DropdownMenu.SubTrigger {...props} />,
+  (props) => <DropdownMenu.SubTrigger {...props} />,
   'SubTrigger'
 )
 
@@ -90,8 +90,8 @@ const Arrow = create(DropdownMenu.Arrow, 'Arrow')
 
 const Sub = create(DropdownMenu.Sub, 'Sub')
 
-const SubContent = create(
-  (props: MenuSubContentProps) => (
+const SubContent = create<MenuSubContentProps>(
+  (props) => (
     <DropdownMenu.Portal>
       <DropdownMenu.SubContent {...props} />
     </DropdownMenu.Portal>

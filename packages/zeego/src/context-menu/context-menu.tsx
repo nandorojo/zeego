@@ -17,8 +17,8 @@ const Root = create(ContextMenu.Root, 'Root')
 
 const Trigger = create(ContextMenu.Trigger, 'Trigger')
 
-const Content = create(
-  (props: ContextMenuContentProps) => (
+const Content = create<ContextMenuContentProps>(
+  (props) => (
     <ContextMenu.Portal>
       <ContextMenu.Content {...props} />
     </ContextMenu.Portal>
@@ -26,7 +26,7 @@ const Content = create(
   'Content'
 )
 
-const Item = create((props: MenuItemProps) => {
+const Item = create<MenuItemProps>((props) => {
   return (
     <ContextMenu.Item
       {...props}
@@ -41,7 +41,7 @@ const Item = create((props: MenuItemProps) => {
 }, 'Item')
 
 const SubTrigger = create<MenuSubTriggerProps>(
-  (props: MenuSubTriggerProps) => <ContextMenu.SubTrigger {...props} />,
+  (props) => <ContextMenu.SubTrigger {...props} />,
   'SubTrigger'
 )
 
@@ -49,13 +49,8 @@ const Group = create(ContextMenu.Group, 'Group')
 
 const Separator = create(ContextMenu.Separator, 'Separator')
 
-const CheckboxItem = create(
-  ({
-    shouldDismissMenuOnSelect,
-    onValueChange,
-    value,
-    ...props
-  }: MenuCheckboxItemProps) => {
+const CheckboxItem = create<MenuCheckboxItemProps>(
+  ({ shouldDismissMenuOnSelect, onValueChange, value, ...props }) => {
     return (
       <ContextMenu.CheckboxItem
         {...props}
@@ -92,13 +87,13 @@ const Preview = create(() => null, 'Preview')
 
 const Arrow = create(ContextMenu.Arrow, 'Arrow')
 
-const Sub = create(
-  (props: MenuSubProps) => <ContextMenu.Sub {...props} />,
+const Sub = create<MenuSubProps>(
+  (props) => <ContextMenu.Sub {...props} />,
   'Sub'
 )
 
-const SubContent = create(
-  ({ ...props }: ContextMenuSubContentProps) => (
+const SubContent = create<ContextMenuSubContentProps>(
+  (props) => (
     <ContextMenu.Portal>
       <ContextMenu.SubContent {...props} />
     </ContextMenu.Portal>
@@ -106,7 +101,7 @@ const SubContent = create(
   'SubContent'
 )
 
-const Auxiliary = create((_: ContextMenuAuxliliaryProps) => null, 'Auxiliary')
+const Auxiliary = create<ContextMenuAuxliliaryProps>((_) => null, 'Auxiliary')
 
 export {
   Root,

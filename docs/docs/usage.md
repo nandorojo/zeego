@@ -4,8 +4,6 @@ title: Usage
 
 Here we'll look at a quick overview of what it looks like to use Zeego.
 
-The examples will use [Dripsy](https://dripsy.xyz) for styling, but you can use any styling solution you want.
-
 For a full overview of using custom styles and components, see the [styling guide](/style).
 
 ## 1. Create your primitives
@@ -16,19 +14,21 @@ Here, you can add custom styles and interactions.
 
 > If you've used [Radix UI](https://www.radix-ui.com/docs/primitives/overview/getting-started#2-style-each-part) before, this will look familiar.
 
+It's useful to have all of your primitives created once in a single file.
+
 ```tsx
 // design-system/dropdown-menu.tsx
 import * as DropdownMenu from 'zeego/dropdown-menu'
-import { styled } from 'dripsy'
 
 export const DropdownMenuRoot = DropdownMenu.Root
 export const DropdownMenuTrigger = DropdownMenu.Trigger
 export const DropdownMenuContent = DropdownMenu.Content
 
+// notice that we're using the `create()` function
 export const DropdownMenuItem = DropdownMenu.create(
-  styled(DropdownMenu.Item)({
-    height: 34,
-  }),
+  (props: React.ComponentProps<typeof DropdownMenu.Item>) => (
+    <DropdownMenu.Item {...props} style={{ height: 34 }} />
+  ),
   'Item'
 )
 
