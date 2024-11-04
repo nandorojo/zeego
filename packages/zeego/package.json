@@ -71,7 +71,7 @@
     "prettier": "^2.0.5",
     "react-native-builder-bob": "^0.18.0",
     "react-native-ios-context-menu": "2.5.1",
-    "react-native-ios-utilities": "4.5.0",
+    "react-native-ios-utilities": "4.5.1",
     "release-it": "^14.2.2",
     "typescript": "^5.6.2"
   },

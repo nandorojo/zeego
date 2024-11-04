@@ -23,7 +23,7 @@
     "react-dom": "18.2.0",
     "react-native": "0.74.5",
     "react-native-ios-context-menu": "2.5.1",
-    "react-native-ios-utilities": "^4.5.0",
+    "react-native-ios-utilities": "^4.5.1",
     "react-native-web": "~0.19.10"
   },
   "devDependencies": {
