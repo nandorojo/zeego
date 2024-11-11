@@ -10,6 +10,7 @@ import type {
   MenuItemProps,
   MenuSubProps,
   MenuSubTriggerProps,
+  ContextMenuPreviewProps,
 } from '../menu'
 import { create } from '../menu/display-names'
 
@@ -83,7 +84,7 @@ const ItemIcon = create(
   'ItemIcon'
 )
 
-const Preview = create(() => null, 'Preview')
+const Preview = create<ContextMenuPreviewProps>(() => null, 'Preview')
 
 const Arrow = create(ContextMenu.Arrow, 'Arrow')
 

@@ -47,13 +47,8 @@ const Group = create<MenuGroupProps>(DropdownMenu.Group, 'Group')
 
 const Separator = create(DropdownMenu.Separator, 'Separator')
 
-const CheckboxItem = create(
-  ({
-    shouldDismissMenuOnSelect,
-    onValueChange,
-    value,
-    ...props
-  }: MenuCheckboxItemProps) => {
+const CheckboxItem = create<MenuCheckboxItemProps>(
+  ({ shouldDismissMenuOnSelect, onValueChange, value, ...props }) => {
     return (
       <DropdownMenu.CheckboxItem
         {...props}
