@@ -24512,14 +24512,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-ios-utilities@npm:4.5.0, react-native-ios-utilities@npm:^4.5.0":
-  version: 4.5.0
-  resolution: "react-native-ios-utilities@npm:4.5.0"
+"react-native-ios-utilities@npm:4.5.1, react-native-ios-utilities@npm:^4.5.1":
+  version: 4.5.1
+  resolution: "react-native-ios-utilities@npm:4.5.1"
   peerDependencies:
     expo: "*"
     react: "*"
     react-native: "*"
-  checksum: 10c0/768ae098c97114d57c341e8c9926191f505ec933b227d7e36733b4ac0b9c1df17df37b73e6d5091937f3b89e831e31985ec2ac52435d946d9ae3250414b47363
+  checksum: 10c0/6906ae2513c3c56f5bb218229089693168729792ad378cf3364ea8ebd17d1d355868bdea929d837d72262d8eae9060c16d4b31a264d92e802b4b34d0b5090f6e
   languageName: node
   linkType: hard
 
@@ -27893,7 +27893,7 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A5.6.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.6.2#optional!builtin<compat/typescript>":
   version: 5.6.2
-  resolution: "typescript@patch:typescript@npm%3A5.6.2#optional!builtin<compat/typescript>::version=5.6.2&hash=d69c25"
+  resolution: "typescript@patch:typescript@npm%3A5.6.2#optional!builtin<compat/typescript>::version=5.6.2&hash=74658d"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
@@ -29405,7 +29405,7 @@ __metadata:
     react-dom: "npm:18.2.0"
     react-native: "npm:0.74.5"
     react-native-ios-context-menu: "npm:2.5.1"
-    react-native-ios-utilities: "npm:^4.5.0"
+    react-native-ios-utilities: "npm:^4.5.1"
     react-native-web: "npm:~0.19.10"
     vxrn: "npm:^1.1.272"
   languageName: unknown
@@ -29435,7 +29435,7 @@ __metadata:
     prettier: "npm:^2.0.5"
     react-native-builder-bob: "npm:^0.18.0"
     react-native-ios-context-menu: "npm:2.5.1"
-    react-native-ios-utilities: "npm:4.5.0"
+    react-native-ios-utilities: "npm:4.5.1"
     release-it: "npm:^14.2.2"
     sf-symbols-typescript: "npm:^2.0.0"
     typescript: "npm:^5.6.2"
