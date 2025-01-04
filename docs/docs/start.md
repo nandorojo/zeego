@@ -22,6 +22,13 @@ yarn add zeego
 yarn add react-native-ios-context-menu react-native-ios-utilities
 ```
 
+For users on Expo SDK 52 with the New Architecture enabled, install the following versions of the peer dependencies to ensure compatibility:
+
+```sh
+yarn add react-native-ios-context-menu@3.0.0-23 react-native-ios-utilities@5.0.0-58
+```
+
+
 #### Android
 
 ```sh
@@ -121,3 +128,5 @@ You need to add `zeego` to your `next-transpile-modules` in `next.config.js`.
 ### Vanilla React Native
 
 Run `pod install` in your `ios` folder.
+
+
