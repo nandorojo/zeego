@@ -245,7 +245,7 @@ const DropdownMenuExample = () => {
   const [bookmarked, setBookmarked] = useState<'on' | 'off' | 'mixed'>('on')
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild className="bg-red-500">
+      <DropdownMenu.Trigger asChild>
         <View>
           <Text style={styles.button}>{`<DropdownMenu />`}</Text>
         </View>
@@ -377,40 +377,47 @@ const ItemImage = DropdownMenu.create(
 )
 
 const ContextMenuExample = () => {
+  const [open, setOpen] = useState(false)
   return (
-    <ContextMenu.Root>
+    <ContextMenu.Root
+      onOpenChange={(next) => {
+        setOpen(next)
+        setTimeout(() => {
+          setOpen(false)
+        }, 1000)
+      }}
+    >
       <ContextMenu.Trigger>
         <View style={styles.box}>
-          <Text>{`<ContextMenu />`}</Text>
+          <Text>
+            {`<ContextMenu />`} {open ? 'OPEN' : 'CLOSED'}
+          </Text>
         </View>
       </ContextMenu.Trigger>
       <ContextMenu.Content style={contextStyles.content}>
         <ContextMenu.Preview>
-          {() => (
-            <View
+          <View
+            style={{
+              height: 300,
+              width: 300,
+              backgroundColor: 'white',
+              padding: 16,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Text
               style={{
-                height: 300,
-                width: 300,
-                backgroundColor: 'white',
-                padding: 16,
-                alignItems: 'center',
-                justifyContent: 'center',
+                color: 'black',
+                fontSize: 16,
+                fontWeight: 'bold',
+                textAlign: 'center',
               }}
             >
-              <Text
-                style={{
-                  color: 'black',
-                  fontSize: 16,
-                  fontWeight: 'bold',
-                  textAlign: 'center',
-                }}
-              >
-                Custom component when expanded!
-              </Text>
-            </View>
-          )}
+              Custom component when expanded. {open ? 'OPEN' : 'CLOSED'}
+            </Text>
+          </View>
         </ContextMenu.Preview>
-
         <ContextMenu.Item
           style={{
             ...dropdownStyles.item,
@@ -434,7 +441,7 @@ const ContextMenuExample = () => {
           key="first"
         >
           <ContextMenu.ItemTitle>Action #1</ContextMenu.ItemTitle>
-          <ContextMenu.ItemSubtitle>Hey!</ContextMenu.ItemSubtitle>
+          <ContextMenu.ItemSubtitle>Hey!!</ContextMenu.ItemSubtitle>
 
           <ItemImage source={camera} style={dropdownStyles.itemImage} />
         </ContextMenu.Item>

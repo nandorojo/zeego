@@ -1,15 +1,27 @@
 import { requireNativeView } from 'expo'
+import { createContext, useContext, useState } from 'react'
 import { NativeSyntheticEvent } from 'react-native'
+import { MenuItemIndicatorProps, MenuRootProps } from 'zeego/menu'
+import { ContextMenuItemIcon } from 'zeego/new/context-menu/ContextMenuItemIcon'
+
+const OpenContext = createContext({
+  open: false,
+  setOpen: (open: boolean) => {},
+})
 
 const name = 'Zeego'
 
 const ContextMenuTrigger = requireNativeView(name, 'ContextMenuTriggerView')
-const ContextMenu = requireNativeView(name, 'ContextMenuView')
+const _ContextMenu = requireNativeView<{
+  children: React.ReactNode
+  open: boolean
+  onOpenChange: ({ nativeEvent: { open: boolean } }) => void
+}>(name, 'ContextMenuView')
 const _ContextMenuPreview = requireNativeView(name, 'ContextMenuPreviewView')
 const _ContextMenuItem = requireNativeView(name, 'ContextMenuItemView')
 const ContextMenuAccessory = requireNativeView(name, 'ContextMenuAccessoryView')
 const ContextMenuSeparator = requireNativeView(name, 'ContextMenuSeparatorView')
-const ContextMenuItemIcon = requireNativeView(name, 'ContextMenuItemIconView')
+
 const _ContextMenuCheckboxItem = requireNativeView(
   name,
   'ContextMenuCheckboxItemView'
@@ -34,6 +46,23 @@ const ContextMenuSubContent = requireNativeView(
   name,
   'ContextMenuSubContentView'
 )
+
+function ContextMenu(props: MenuRootProps) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <OpenContext.Provider value={{ open, setOpen }}>
+      <_ContextMenu
+        {...props}
+        open={open}
+        onOpenChange={({ nativeEvent: { open } }) => {
+          setOpen(open)
+          props.onOpenChange?.(open)
+        }}
+      />
+    </OpenContext.Provider>
+  )
+}
 
 function ContextMenuSubTrigger(props: { children: React.ReactNode }) {
   if (typeof props.children === 'string') {
@@ -169,6 +198,8 @@ function ContextMenuItemSubtitle(props: {
 }
 
 function ContextMenuPreview(props: { children: React.ReactNode }) {
+  const { open } = useContext(OpenContext)
+
   return (
     <_ContextMenuPreview
       style={{
@@ -182,7 +213,9 @@ function ContextMenuPreview(props: { children: React.ReactNode }) {
         width: 0,
       }}
     >
-      {typeof props.children === 'function' ? props.children() : props.children}
+      {typeof props.children === 'function'
+        ? open && props.children()
+        : props.children}
     </_ContextMenuPreview>
   )
 }
@@ -202,8 +235,12 @@ function ContextMenuAuxiliary(props: { children: React.ReactNode }) {
  *
  * TODO Android needs to use native elements.
  */
-export function create<T>(t: T) {
+export function create<T>(t: T, _: string) {
   return t
+}
+
+function ContextMenuItemIndicator(props: MenuItemIndicatorProps) {
+  return null
 }
 
 export {
@@ -224,6 +261,8 @@ export {
   ContextMenuLabel,
   ContextMenuGroup,
   ContextMenuAuxiliary,
+  ContextMenuItemIndicator,
+  // alias
   ContextMenu as Root,
   ContextMenuTrigger as Trigger,
   ContextMenuPreview as Preview,
@@ -241,4 +280,5 @@ export {
   ContextMenuLabel as Label,
   ContextMenuGroup as Group,
   ContextMenuAuxiliary as Auxiliary,
+  ContextMenuItemIndicator as ItemIndicator,
 }
