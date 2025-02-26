@@ -1,7 +1,11 @@
 import { requireNativeView } from 'expo'
-import { createContext, useContext, useState } from 'react'
+import { cloneElement, createContext, useContext, useState } from 'react'
 import { NativeSyntheticEvent } from 'react-native'
-import { MenuItemIndicatorProps, MenuRootProps } from 'zeego/menu'
+import {
+  MenuItemIndicatorProps,
+  MenuRootProps,
+  MenuTriggerProps,
+} from 'zeego/menu'
 import { ContextMenuItemIcon } from 'zeego/new/context-menu/ContextMenuItemIcon'
 
 const OpenContext = createContext({
@@ -11,11 +15,14 @@ const OpenContext = createContext({
 
 const name = 'Zeego'
 
-const ContextMenuTrigger = requireNativeView(name, 'ContextMenuTriggerView')
+const _ContextMenuTrigger = requireNativeView<{
+  preview: React.ReactNode
+  children: React.ReactNode
+}>(name, 'ContextMenuTriggerView')
 const _ContextMenu = requireNativeView<{
   children: React.ReactNode
   open: boolean
-  onOpenChange: ({ nativeEvent: { open: boolean } }) => void
+  onOpenChange: (event: { nativeEvent: { open: boolean } }) => void
 }>(name, 'ContextMenuView')
 const _ContextMenuPreview = requireNativeView(name, 'ContextMenuPreviewView')
 const _ContextMenuItem = requireNativeView(name, 'ContextMenuItemView')
@@ -46,6 +53,19 @@ const ContextMenuSubContent = requireNativeView(
   name,
   'ContextMenuSubContentView'
 )
+
+function ContextMenuTrigger(props: MenuTriggerProps) {
+  const { open } = useContext(OpenContext)
+  return (
+    <_ContextMenuTrigger
+      {...props}
+      // need a separate view for iOS to render as a preview if we have no Preview component
+
+      // preview={props.children}
+      // children={open ? props.children : props.children}
+    />
+  )
+}
 
 function ContextMenu(props: MenuRootProps) {
   const [open, setOpen] = useState(false)

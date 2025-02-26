@@ -76,7 +76,7 @@ struct ContextMenuView: ExpoSwiftUI.View {
             } else if let preview {
                 trigger
                     .contextMenu {
-                      return UnwrappedChildren(children: content)
+                        return UnwrappedChildren(children: content)
                             .onAppear { props.onOpenChange(["open": true]) }
                             .onDisappear { props.onOpenChange(["open": false]) }
                     } preview: {
@@ -92,28 +92,28 @@ struct ContextMenuView: ExpoSwiftUI.View {
                             >
 
                         let _ = print("Has preview? \(previewView != nil)")
-                          ZStack(alignment: .topLeading) {
-                            if (previewView == nil && props.open == true) {
-                              UnwrappedChildren(children: triggerView?.getProps().children ?? [])
-                            } else {
-                              UnwrappedChildren(children: previewView?.getProps().children ?? [])
-                            }
-                              
-                          }.onAppear {
-                              props.onOpenChange(["open": true])
-                              print("Preview appears")
-                          }
-                          .onDisappear {
-                              props.onOpenChange(["open": false])
-                              print("Preview disappears")
-                          }
+                        ZStack(alignment: .topLeading) {
+                            //                            if (previewView == nil) {
+                            //                              UnwrappedChildren(children: triggerView?.getProps()?.children ?? [])
+                            //                            } else {
+                            //                              UnwrappedChildren(children: previewView?.getProps().children ?? [])
+                            //                            }
+                            UnwrappedChildren(children: previewView?.getProps().children ?? [])
+
+                        }.onAppear {
+                            props.onOpenChange(["open": true])
+                            print("Preview appears")
+                        }
+                        .onDisappear {
+                            props.onOpenChange(["open": false])
+                            print("Preview disappears")
+                        }
                     }
             } else {
                 trigger
                     .contextMenu {
-                        props.children = content
 
-                        return UnwrappedChildren()
+                        return UnwrappedChildren(children: content)
                             .onAppear { props.onOpenChange(["open": true]) }
                             .onDisappear { props.onOpenChange(["open": false]) }
                     }
@@ -342,6 +342,7 @@ class ContextMenuSubTriggerProps: ExpoSwiftUI.ViewProps {
     var onSelect = EventDispatcher()
 
     @Field var destructive: Bool = false
+
 }
 
 class ContextMenuPreviewProps: ExpoSwiftUI.ViewProps {}
@@ -360,6 +361,7 @@ struct ContextMenuTriggerView: ExpoSwiftUI.View {
 }
 
 class ContextMenuTriggerProps: ExpoSwiftUI.ViewProps {
+    //  @Field var preview: [ExpoSwiftUI.Child]? = []
 }
 
 // MARK - group view

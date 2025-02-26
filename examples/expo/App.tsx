@@ -382,9 +382,6 @@ const ContextMenuExample = () => {
     <ContextMenu.Root
       onOpenChange={(next) => {
         setOpen(next)
-        setTimeout(() => {
-          setOpen(false)
-        }, 1000)
       }}
     >
       <ContextMenu.Trigger>
@@ -395,7 +392,7 @@ const ContextMenuExample = () => {
         </View>
       </ContextMenu.Trigger>
       <ContextMenu.Content style={contextStyles.content}>
-        <ContextMenu.Preview>
+        {/* <ContextMenu.Preview>
           <View
             style={{
               height: 300,
@@ -417,7 +414,7 @@ const ContextMenuExample = () => {
               Custom component when expanded. {open ? 'OPEN' : 'CLOSED'}
             </Text>
           </View>
-        </ContextMenu.Preview>
+        </ContextMenu.Preview> */}
         <ContextMenu.Item
           style={{
             ...dropdownStyles.item,
