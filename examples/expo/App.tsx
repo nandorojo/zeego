@@ -1,9 +1,13 @@
 import { StyleSheet, View, Text, Platform, Image } from 'react-native'
 
-import * as ContextMenu from 'zeego/context-menu'
-import * as DropdownMenu from 'zeego/dropdown-menu'
+// import * as ContextMenu from 'zeego/context-menu'
+import * as ContextMenuNew from 'zeego/new/context-menu'
+const ContextMenu = ContextMenuNew
+const DropdownMenu = ContextMenuNew
+// console.log('ContextMenuNew', ContextMenuNew)
+// import * as DropdownMenu from 'zeego/dropdown-menu'
 import React, { ComponentProps, useState } from 'react'
-import { Ionicons } from '@expo/vector-icons'
+// import { Ionicons } from '@expo/vector-icons'
 import camera from './src/camera-outline.png'
 import fernando from './src/fernando.jpg'
 const select = (val: unknown) => () => alert(val)
@@ -269,7 +273,7 @@ const DropdownMenuExample = () => {
             androidIconName="star_on"
             ios={{ hierarchicalColor: '#00FF00', name: 'list.star' }}
           >
-            <Ionicons name="list" size={15} />
+            {/* <Ionicons name="list" size={15} /> */}
           </DropdownMenuItemIcon>
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={select(2)} key="second">
@@ -277,7 +281,7 @@ const DropdownMenuExample = () => {
             ios={{ name: 'star.fill' }}
             androidIconName="btn_star"
           >
-            <Ionicons name="star" size={15} />
+            {/* <Ionicons name="star" size={15} /> */}
           </DropdownMenuItemIcon>
           <DropdownMenuItemTitle>Favorite</DropdownMenuItemTitle>
         </DropdownMenuItem>
@@ -287,7 +291,7 @@ const DropdownMenuExample = () => {
           key="third"
         >
           <DropdownMenuItemIndicator>
-            <Ionicons name="checkmark" size={19} />
+            {/* <Ionicons name="checkmark" size={19} /> */}
           </DropdownMenuItemIndicator>
           <DropdownMenuItemTitle>
             {bookmarked === 'on' ? 'Bookmarked' : 'Bookmark'}
@@ -305,7 +309,7 @@ const DropdownMenuExample = () => {
           key="fourth"
         >
           <DropdownMenuItemIndicator>
-            <Ionicons name="checkmark" size={19} />
+            {/* <Ionicons name="checkmark" size={19} /> */}
           </DropdownMenuItemIndicator>
           <DropdownMenuItemTitle>
             {arrowEnabled === 'on' ? 'Arrow enabled' : 'Arrow disabled'}
@@ -452,47 +456,51 @@ const ContextMenuExample = () => {
 
         <ContextMenu.Sub>
           <ContextMenu.SubTrigger style={dropdownStyles.item} key="nested">
-            Submenu
+            <ContextMenu.ItemTitle>Submenu</ContextMenu.ItemTitle>
           </ContextMenu.SubTrigger>
           <ContextMenu.SubContent style={contextStyles.content}>
             <ContextMenu.Item style={dropdownStyles.item} key="nested-1">
-              Submenu Option 1
+              <ContextMenu.ItemTitle>Submenu Option 1</ContextMenu.ItemTitle>
             </ContextMenu.Item>
           </ContextMenu.SubContent>
         </ContextMenu.Sub>
 
         <ContextMenu.Group>
           <ContextMenu.Item style={dropdownStyles.item} key="group-1">
-            Group Item 1
+            <ContextMenu.ItemTitle>Group Item 1</ContextMenu.ItemTitle>
           </ContextMenu.Item>
           <ContextMenu.Item style={dropdownStyles.item} key="group-2">
-            Group Item 2
+            <ContextMenu.ItemTitle>Group Item 2</ContextMenu.ItemTitle>
           </ContextMenu.Item>
         </ContextMenu.Group>
 
         <ContextMenu.Group>
           <ContextMenu.Item style={dropdownStyles.item} key="group-3">
-            Group Item 3
+            <ContextMenu.ItemTitle>Group Item 3</ContextMenu.ItemTitle>
           </ContextMenu.Item>
           <ContextMenu.Sub>
             <ContextMenu.SubTrigger
               style={dropdownStyles.item}
               key="nested-group-trigger"
             >
-              Group Submenu
+              <ContextMenu.ItemTitle>Group Submenu</ContextMenu.ItemTitle>
             </ContextMenu.SubTrigger>
             <ContextMenu.SubContent style={contextStyles.content}>
               <ContextMenu.Item
                 style={dropdownStyles.item}
                 key="nested-group-1"
               >
-                Group Submenu Option 3
+                <ContextMenu.ItemTitle>
+                  Group Submenu Option 3
+                </ContextMenu.ItemTitle>
               </ContextMenu.Item>
               <ContextMenu.Item
                 style={dropdownStyles.item}
                 key="nested-group-2"
               >
-                Group Submenu Option 4
+                <ContextMenu.ItemTitle>
+                  Group Submenu Option 4
+                </ContextMenu.ItemTitle>
               </ContextMenu.Item>
             </ContextMenu.SubContent>
           </ContextMenu.Sub>
@@ -505,7 +513,7 @@ const ContextMenuExample = () => {
 export default function App() {
   return (
     <View style={styles.container}>
-      <DropdownMenuExample />
+      {/* <DropdownMenuExample /> */}
       <ContextMenuExample />
     </View>
   )

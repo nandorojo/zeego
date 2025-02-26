@@ -1,41 +1,22 @@
 {
-  "main": "index.js",
-  "name": "zeeg-example",
-  "description": "Example app for zeego",
-  "version": "1.7.2",
-  "private": true,
+  "name": "expo",
+  "version": "1.0.0",
   "scripts": {
     "android": "expo run:android",
-    "ios": "expo run:ios",
-    "web": "expo start --web",
-    "start": "expo start --dev-client",
-    "test": "jest"
+    "ios": "expo run:ios"
   },
   "dependencies": {
-    "@react-native-menu/menu": "1.0.2",
-    "expo": "^53.0.0-canary-20250221-ef26fed",
-    "expo-build-properties": "0.14.0-canary-20250221-ef26fed",
-    "expo-linking": "7.1.0-canary-20250221-ef26fed",
-    "expo-router": "4.1.0-canary-20250221-ef26fed",
-    "expo-splash-screen": "0.29.23-canary-20250221-ef26fed",
-    "expo-status-bar": "2.0.2-canary-20250221-ef26fed",
+    "expo": "53.0.0-canary-20250219-4a5dade",
+    "expo-modules-core": "patch:expo-modules-core@npm%3A3.0.0-canary-20250219-4a5dade#~/.yarn/patches/expo-modules-core-npm-3.0.0-canary-20250219-4a5dade-3f3a0e7d45.patch",
     "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "react-native": "0.76.3",
-    "react-native-ios-context-menu": "2.5.1",
-    "react-native-ios-utilities": "^4.5.1",
-    "react-native-web": "~0.19.13"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.24.0",
-    "@babel/runtime": "^7.9.6",
-    "babel-loader": "^8.2.3",
-    "babel-plugin-module-resolver": "^4.0.0",
-    "babel-preset-expo": "~11.0.0"
+    "react-native": "0.76.3"
   },
   "expo": {
     "autolinking": {
-      "nativeModulesDir": "../.."
+      "nativeModulesDir": "../../packages/zeego"
     }
+  },
+  "resolutions": {
+    "expo-modules-core@npm:3.0.0-canary-20250219-4a5dade": "patch:expo-modules-core@npm%3A3.0.0-canary-20250219-4a5dade#~/.yarn/patches/expo-modules-core-npm-3.0.0-canary-20250219-4a5dade-3f3a0e7d45.patch"
   }
 }
