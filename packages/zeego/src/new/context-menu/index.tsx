@@ -11,12 +11,13 @@ import { ContextMenuItemIcon } from 'zeego/new/context-menu/ContextMenuItemIcon'
 const OpenContext = createContext({
   open: false,
   setOpen: (open: boolean) => {},
+  hasCallbackListeners: false,
 })
 
 const name = 'Zeego'
 
 const _ContextMenuTrigger = requireNativeView<{
-  preview: React.ReactNode
+  // preview: React.ReactNode
   children: React.ReactNode
 }>(name, 'ContextMenuTriggerView')
 const _ContextMenu = requireNativeView<{
@@ -55,14 +56,20 @@ const ContextMenuSubContent = requireNativeView(
 )
 
 function ContextMenuTrigger(props: MenuTriggerProps) {
-  const { open } = useContext(OpenContext)
+  const { hasCallbackListeners } = useContext(OpenContext)
   return (
     <_ContextMenuTrigger
       {...props}
-      // need a separate view for iOS to render as a preview if we have no Preview component
-
-      // preview={props.children}
-      // children={open ? props.children : props.children}
+      children={
+        <>
+          {props.children}
+          {hasCallbackListeners && (
+            <ContextMenuPreview>
+              {cloneElement(props.children)}
+            </ContextMenuPreview>
+          )}
+        </>
+      }
     />
   )
 }
@@ -71,7 +78,13 @@ function ContextMenu(props: MenuRootProps) {
   const [open, setOpen] = useState(false)
 
   return (
-    <OpenContext.Provider value={{ open, setOpen }}>
+    <OpenContext.Provider
+      value={{
+        open,
+        setOpen,
+        hasCallbackListeners: props.onOpenChange != null,
+      }}
+    >
       <_ContextMenu
         {...props}
         open={open}
@@ -231,6 +244,8 @@ function ContextMenuPreview(props: { children: React.ReactNode }) {
         zIndex: -1,
         height: 0,
         width: 0,
+        pointerEvents: open ? 'auto' : 'none',
+        opacity: open ? 1 : 0,
       }}
     >
       {typeof props.children === 'function'
