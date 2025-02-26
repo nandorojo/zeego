@@ -54,9 +54,8 @@ struct ContextMenuView: ExpoSwiftUI.View {
         if let trigger {
             if props.isDropdown == true {
                 Menu {
-                    props.children = content
 
-                    return UnwrappedChildren()
+                   UnwrappedChildren(children: content)
                         .onAppear {
                             print("Open Dropdown")
                             props.onOpenChange(["open": true])
@@ -73,15 +72,15 @@ struct ContextMenuView: ExpoSwiftUI.View {
                 }
             } else if #unavailable(iOS 16.0) {
                 trigger
-            } else if let preview {
+            } else {
                 trigger
                     .contextMenu {
-                        return UnwrappedChildren(children: content)
+                        UnwrappedChildren(children: content)
                             .onAppear { props.onOpenChange(["open": true]) }
                             .onDisappear { props.onOpenChange(["open": false]) }
                     } preview: {
                         let previewView =
-                            preview.view
+                            preview?.view
                             as? ExpoSwiftUI.HostingView<
                                 ContextMenuPreviewProps, ContextMenuPreviewView
                             >
@@ -93,12 +92,12 @@ struct ContextMenuView: ExpoSwiftUI.View {
 
                         let _ = print("Has preview? \(previewView != nil)")
                         ZStack(alignment: .topLeading) {
-                            //                            if (previewView == nil) {
-                            //                              UnwrappedChildren(children: triggerView?.getProps()?.children ?? [])
-                            //                            } else {
-                            //                              UnwrappedChildren(children: previewView?.getProps().children ?? [])
-                            //                            }
-                            UnwrappedChildren(children: previewView?.getProps().children ?? [])
+                            if (previewView == nil) {
+                              UnwrappedChildren(children: triggerView?.getProps().children ?? [])
+                            } else {
+                              UnwrappedChildren(children: previewView?.getProps().children ?? [])
+                            }
+//                            UnwrappedChildren(children: (previewView ??/* triggerView)?.getProps().children ?? [])*/
 
                         }.onAppear {
                             props.onOpenChange(["open": true])
@@ -109,15 +108,16 @@ struct ContextMenuView: ExpoSwiftUI.View {
                             print("Preview disappears")
                         }
                     }
-            } else {
-                trigger
-                    .contextMenu {
-
-                        return UnwrappedChildren(children: content)
-                            .onAppear { props.onOpenChange(["open": true]) }
-                            .onDisappear { props.onOpenChange(["open": false]) }
-                    }
             }
+            // else {
+            //     trigger
+            //         .contextMenu {
+
+            //             return UnwrappedChildren(children: content)
+            //                 .onAppear { props.onOpenChange(["open": true]) }
+            //                 .onDisappear { props.onOpenChange(["open": false]) }
+            //         }
+            // }
         } else {
             Children()
         }
