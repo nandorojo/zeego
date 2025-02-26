@@ -91,9 +91,14 @@ struct ContextMenuView: ExpoSwiftUI.View {
                                 ContextMenuTriggerProps, ContextMenuTriggerView
                             >
 
-                        let _ = print("Has preview!")
+                        let _ = print("Has preview? \(previewView != nil)")
                           ZStack(alignment: .topLeading) {
+                            if (previewView == nil && props.open == true) {
+                              UnwrappedChildren(children: triggerView?.getProps().children ?? [])
+                            } else {
                               UnwrappedChildren(children: previewView?.getProps().children ?? [])
+                            }
+                              
                           }.onAppear {
                               props.onOpenChange(["open": true])
                               print("Preview appears")
