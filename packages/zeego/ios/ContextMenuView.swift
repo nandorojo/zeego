@@ -65,6 +65,11 @@ struct ContextMenuView: ExpoSwiftUI.View {
 
         let _ = print("Preview: \(preview ?? nil)")
 
+        let triggerProps =
+            (trigger?.view
+            as! ExpoSwiftUI.HostingView<ContextMenuTriggerProps, ContextMenuTriggerView>).getProps()
+            as! ContextMenuTriggerProps
+
         if let trigger {
             if props.isDropdown == true {
                 Menu {
@@ -361,6 +366,7 @@ struct ContextMenuTriggerView: ExpoSwiftUI.View {
 
 class ContextMenuTriggerProps: ExpoSwiftUI.ViewProps {
     @Field var preview: [ExpoSwiftUI.Child]? = []
+    @Field var asChild: Bool? = false
 }
 
 // MARK - group view
