@@ -235,9 +235,9 @@ const DropdownMenuExample = () => {
   )
   const [bookmarked, setBookmarked] = useState<'on' | 'off' | 'mixed'>('on')
   return (
-    <DropdownMenu.Root isDropdown>
+    <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <View>
+        <View style={{ backgroundColor: 'red', alignSelf: 'center' }}>
           <Text style={styles.button}>{`<DropdownMenu />`}</Text>
         </View>
       </DropdownMenu.Trigger>

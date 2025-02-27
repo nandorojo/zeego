@@ -394,7 +394,7 @@ struct ContextMenuItemImageView: ExpoSwiftUI.View {
     var body: some View {
         if let url = URL(string: props.source.uri) {
             AsyncImage(url: url) { phase in
-              let _ = print("Async Image \(phase): \(url.absoluteString)")
+                let _ = print("Async Image \(phase): \(url.absoluteString)")
                 switch phase {
                 case .empty:
                     ProgressView()

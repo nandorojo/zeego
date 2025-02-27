@@ -1,5 +1,5 @@
+'use client'
 import * as ContextMenu from '@radix-ui/react-context-menu'
-import React from 'react'
 
 import type {
   ContextMenuContentProps,
@@ -12,22 +12,18 @@ import type {
   MenuSubTriggerProps,
   ContextMenuPreviewProps,
 } from '../menu'
-import { create } from '../menu/display-names'
 
-const Root = create(ContextMenu.Root, 'Root')
+const Root = ContextMenu.Root
 
-const Trigger = create(ContextMenu.Trigger, 'Trigger')
+const Trigger = ContextMenu.Trigger
 
-const Content = create<ContextMenuContentProps>(
-  (props) => (
-    <ContextMenu.Portal>
-      <ContextMenu.Content {...props} />
-    </ContextMenu.Portal>
-  ),
-  'Content'
+const Content = (props: ContextMenuContentProps) => (
+  <ContextMenu.Portal>
+    <ContextMenu.Content {...props} />
+  </ContextMenu.Portal>
 )
 
-const Item = create<MenuItemProps>((props) => {
+const Item = (props: MenuItemProps) => {
   return (
     <ContextMenu.Item
       {...props}
@@ -39,70 +35,61 @@ const Item = create<MenuItemProps>((props) => {
       }}
     />
   )
-}, 'Item')
+}
 
-const SubTrigger = create<MenuSubTriggerProps>(
-  (props) => <ContextMenu.SubTrigger {...props} />,
-  'SubTrigger'
+const SubTrigger = (props: MenuSubTriggerProps) => (
+  <ContextMenu.SubTrigger {...props} />
 )
 
-const Group = create(ContextMenu.Group, 'Group')
+const Group = ContextMenu.Group
 
-const Separator = create(ContextMenu.Separator, 'Separator')
+const Separator = ContextMenu.Separator
 
-const CheckboxItem = create<MenuCheckboxItemProps>(
-  ({ shouldDismissMenuOnSelect, onValueChange, value, ...props }) => {
-    return (
-      <ContextMenu.CheckboxItem
-        {...props}
-        checked={typeof value === 'boolean' ? value : value !== 'off'}
-        onSelect={(e) => {
-          const current =
-            value === true ? 'on' : value === false ? 'off' : value
-          const next = current === 'on' ? 'off' : 'on'
+const CheckboxItem = ({
+  shouldDismissMenuOnSelect,
+  onValueChange,
+  value,
+  ...props
+}: MenuCheckboxItemProps) => {
+  return (
+    <ContextMenu.CheckboxItem
+      {...props}
+      checked={typeof value === 'boolean' ? value : value !== 'off'}
+      onSelect={(e) => {
+        const current = value === true ? 'on' : value === false ? 'off' : value
+        const next = current === 'on' ? 'off' : 'on'
 
-          onValueChange?.(next, current)
+        onValueChange?.(next, current)
 
-          if (shouldDismissMenuOnSelect === false) {
-            e.preventDefault()
-          }
-        }}
-      />
-    )
-  },
-  'CheckboxItem'
+        if (shouldDismissMenuOnSelect === false) {
+          e.preventDefault()
+        }
+      }}
+    />
+  )
+}
+
+const ItemIndicator = ContextMenu.ItemIndicator
+
+const ItemIcon = ({ style, className, children }: MenuItemIconProps) => (
+  <div style={style} className={className}>
+    {children}
+  </div>
 )
 
-const ItemIndicator = create(ContextMenu.ItemIndicator, 'ItemIndicator')
+const Preview = (_: ContextMenuPreviewProps) => null
 
-const ItemIcon = create(
-  ({ style, className, children }: MenuItemIconProps) => (
-    <div style={style} className={className}>
-      {children}
-    </div>
-  ),
-  'ItemIcon'
+const Arrow = ContextMenu.Arrow
+
+const Sub = (props: MenuSubProps) => <ContextMenu.Sub {...props} />
+
+const SubContent = (props: ContextMenuSubContentProps) => (
+  <ContextMenu.Portal>
+    <ContextMenu.SubContent {...props} />
+  </ContextMenu.Portal>
 )
 
-const Preview = create<ContextMenuPreviewProps>(() => null, 'Preview')
-
-const Arrow = create(ContextMenu.Arrow, 'Arrow')
-
-const Sub = create<MenuSubProps>(
-  (props) => <ContextMenu.Sub {...props} />,
-  'Sub'
-)
-
-const SubContent = create<ContextMenuSubContentProps>(
-  (props) => (
-    <ContextMenu.Portal>
-      <ContextMenu.SubContent {...props} />
-    </ContextMenu.Portal>
-  ),
-  'SubContent'
-)
-
-const Auxiliary = create<ContextMenuAuxliliaryProps>((_) => null, 'Auxiliary')
+const Auxiliary = (_: ContextMenuAuxliliaryProps) => null
 
 export {
   Root,
