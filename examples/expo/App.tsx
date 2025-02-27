@@ -1,13 +1,9 @@
 import { StyleSheet, View, Text, Platform, Image } from 'react-native'
 
-// import * as ContextMenu from 'zeego/context-menu'
-import * as ContextMenuNew from 'zeego/new/context-menu'
-const ContextMenu = ContextMenuNew
-const DropdownMenu = ContextMenuNew
-// console.log('ContextMenuNew', ContextMenuNew)
-// import * as DropdownMenu from 'zeego/dropdown-menu'
+import * as ContextMenu from 'zeego/new/context-menu'
+import * as DropdownMenu from 'zeego/new/dropdown-menu'
+
 import React, { ComponentProps, useState } from 'react'
-// import { Ionicons } from '@expo/vector-icons'
 import camera from './src/camera-outline.png'
 import fernando from './src/fernando.jpg'
 const select = (val: unknown) => () => alert(val)
@@ -217,12 +213,7 @@ const DropdownMenuItemIcon = DropdownMenu.create(
   'ItemIcon'
 )
 
-const DropdownMenuItemImage = DropdownMenu.create(
-  (props: ComponentProps<typeof DropdownMenu.ItemImage>) => (
-    <Image {...(props as any)} resizeMode="cover" />
-  ),
-  'ItemImage'
-)
+const DropdownMenuItemImage = DropdownMenu.ItemImage
 
 const DropdownMenuLabel = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.Label>) => (
@@ -244,7 +235,7 @@ const DropdownMenuExample = () => {
   )
   const [bookmarked, setBookmarked] = useState<'on' | 'off' | 'mixed'>('on')
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root isDropdown>
       <DropdownMenu.Trigger asChild>
         <View>
           <Text style={styles.button}>{`<DropdownMenu />`}</Text>
@@ -423,10 +414,12 @@ const ContextMenuExample = () => {
           onSelect={select(1)}
           key="fernando"
         >
+          <ContextMenu.ItemImage
+            source={fernando}
+            style={dropdownStyles.itemImage}
+          />
           <ContextMenu.ItemTitle>@FernandoTheRojo</ContextMenu.ItemTitle>
           <ContextMenu.ItemSubtitle>Creator of Zeego</ContextMenu.ItemSubtitle>
-
-          <ItemImage source={fernando} style={dropdownStyles.itemImage} />
         </ContextMenu.Item>
 
         <ContextMenu.Item
@@ -517,7 +510,7 @@ const ContextMenuExample = () => {
 export default function App() {
   return (
     <View style={styles.container}>
-      {/* <DropdownMenuExample /> */}
+      <DropdownMenuExample />
       <ContextMenuExample />
     </View>
   )

@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig",
   "compilerOptions": {
-    "outDir": "./out/typescript"
+    "outDir": "./out/typescript",
+    "jsx": "react-jsx"
   }
 }

@@ -20,6 +20,8 @@ public class ZeegoModule: Module {
         View(ContextMenuSubTriggerView.self)
         View(ContextMenuGroupView.self)
         View(ContextMenuItemIconView.self)
+        View(ContextMenuItemImageView.self)
         View(ContextMenuAccessoryView.self)
+      
     }
 }

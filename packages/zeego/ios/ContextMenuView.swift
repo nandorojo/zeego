@@ -22,15 +22,20 @@ struct ContextMenuView: ExpoSwiftUI.View {
             let view = child.view
             if view is ExpoSwiftUI.HostingView<ContextMenuTriggerProps, ContextMenuTriggerView> {
                 trigger = child
-              if preview == nil {
-                let view = child.view as! ExpoSwiftUI.HostingView<ContextMenuTriggerProps, ContextMenuTriggerView>
-                
-                preview = view.getProps().children?.first(where: {
-                  $0.view is ExpoSwiftUI.HostingView<ContextMenuPreviewProps, ContextMenuPreviewView>
-                })
-                
-                print("has preview in trigger: \(type(of: preview))")
-              }
+                if preview == nil {
+                    let view =
+                        child.view
+                        as! ExpoSwiftUI.HostingView<ContextMenuTriggerProps, ContextMenuTriggerView>
+
+                    preview = view.getProps().children?.first(where: {
+                        $0.view
+                            is ExpoSwiftUI.HostingView<
+                                ContextMenuPreviewProps, ContextMenuPreviewView
+                            >
+                    })
+
+                    print("has preview in trigger: \(type(of: preview))")
+                }
                 //                preview = child
             } else if view
                 is ExpoSwiftUI.HostingView<ContextMenuContentProps, ContextMenuContentView>
@@ -63,8 +68,7 @@ struct ContextMenuView: ExpoSwiftUI.View {
         if let trigger {
             if props.isDropdown == true {
                 Menu {
-
-                   UnwrappedChildren(children: content)
+                    UnwrappedChildren(children: content)
                         .onAppear {
                             print("Open Dropdown")
                             props.onOpenChange(["open": true])
@@ -101,12 +105,6 @@ struct ContextMenuView: ExpoSwiftUI.View {
 
                         let _ = print("Has preview? \(previewView != nil)")
                         ZStack(alignment: .topLeading) {
-//                            if (previewView == nil) {
-//                              let triggerProps = triggerView?.getProps() as? ContextMenuTriggerProps
-//                              UnwrappedChildren(children: triggerProps?.preview ?? [])
-//                            } else {
-//                              UnwrappedChildren(children: previewView?.getProps().children ?? [])
-//                            }
                             UnwrappedChildren(children: previewView?.getProps().children ?? [])
 
                         }.onAppear {
@@ -119,15 +117,6 @@ struct ContextMenuView: ExpoSwiftUI.View {
                         }
                     }
             }
-            // else {
-            //     trigger
-            //         .contextMenu {
-
-            //             return UnwrappedChildren(children: content)
-            //                 .onAppear { props.onOpenChange(["open": true]) }
-            //                 .onDisappear { props.onOpenChange(["open": false]) }
-            //         }
-            // }
         } else {
             Children()
         }
@@ -371,7 +360,7 @@ struct ContextMenuTriggerView: ExpoSwiftUI.View {
 }
 
 class ContextMenuTriggerProps: ExpoSwiftUI.ViewProps {
-      @Field var preview: [ExpoSwiftUI.Child]? = []
+    @Field var preview: [ExpoSwiftUI.Child]? = []
 }
 
 // MARK - group view
@@ -396,6 +385,43 @@ struct ContextMenuItemIconView: ExpoSwiftUI.View {
 
 class ContextMenuItemIconProps: ExpoSwiftUI.ViewProps {
     @Field var name: String = ""
+}
+
+// MARK - item image view
+struct ContextMenuItemImageView: ExpoSwiftUI.View {
+    @EnvironmentObject var props: ContextMenuItemImageProps
+
+    var body: some View {
+        if let url = URL(string: props.source.uri) {
+            AsyncImage(url: url) { phase in
+              let _ = print("Async Image \(phase): \(url.absoluteString)")
+                switch phase {
+                case .empty:
+                    ProgressView()
+                case .success(let image):
+                    image
+                        .resizable()
+                        .scaledToFit()
+                case .failure:
+                    Image(systemName: "photo")
+                        .foregroundColor(.gray)
+                @unknown default:
+                    EmptyView()
+                }
+            }
+        } else {
+            Image(systemName: "photo")
+                .foregroundColor(.gray)
+        }
+    }
+}
+
+struct ImageSource: Record {
+    @Field var uri: String
+}
+
+class ContextMenuItemImageProps: ExpoSwiftUI.ViewProps {
+    @Field var source: ImageSource
 }
 
 // MARK - item accessory view
