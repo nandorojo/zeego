@@ -2,17 +2,16 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "paths": {
-      "zeego/*": [
-        "../../packages/zeego/src/*"
-      ],
-      "zeego/context-menu": [
-        "../../packages/zeego/src/context-menu"
-      ],
-      "zeego/dropdown-menu": [
-        "../../packages/zeego/src/dropdown-menu"
-      ]
+      "zeego/*": ["../../packages/zeego/src/*"],
+      "zeego/context-menu": ["../../packages/zeego/src/context-menu"],
+      "zeego/dropdown-menu": ["../../packages/zeego/src/dropdown-menu"]
     },
     "baseUrl": "."
   },
-  "extends": "expo/tsconfig.base"
+  "extends": "expo/tsconfig.base",
+  "exclude": [
+    "node_modules",
+    "../../node_modules/**/*",
+    "node_modules/@types/react"
+  ]
 }

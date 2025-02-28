@@ -1,0 +1,11 @@
+{
+  "platforms": ["apple", "android", "web"],
+  "apple": {
+    "modules": [
+      "ZeegoModule"
+    ]
+  },
+  "android": {
+    "modules": ["zeego.modules.contextmenu.ZeegoModule"]
+  }
+}

@@ -15,6 +15,6 @@
     "android": {
       "package": "com.nandorojo.zeegexample"
     },
-    "plugins": []
+    "newArchEnabled": true
   }
 }

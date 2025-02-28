@@ -207,6 +207,7 @@ export type MenuCheckboxItemProps = Omit<
     ) => void
     key: string
     shouldDismissMenuOnSelect?: boolean
+    textValue?: string
   }
 
 export type MenuItemIndicatorProps = React.ComponentPropsWithoutRef<
