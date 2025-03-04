@@ -1,6 +1,6 @@
 {
   "name": "zeego",
-  "version": "2.0.4",
+  "version": "3.0.0",
   "description": "Logical UI primitives, made for screens.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -133,6 +133,9 @@
   "dependencies": {
     "@radix-ui/react-context-menu": "^2.0.1",
     "@radix-ui/react-dropdown-menu": "^2.0.1",
+    "@react-native-menu/menu": "1.0.2",
+    "react-native-ios-context-menu": "3.0.0-23",
+    "react-native-ios-utilities": "5.0.0-58",
     "sf-symbols-typescript": "^2.0.0"
   }
 }
