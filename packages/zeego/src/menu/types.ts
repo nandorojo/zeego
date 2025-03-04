@@ -215,7 +215,9 @@ export type MenuItemIndicatorProps = React.ComponentPropsWithoutRef<
   children?: React.ReactNode
 }
 
-export type MenuLabelProps = RadixDropdownMenu.MenuLabelProps & {
+export type MenuLabelProps = React.ComponentPropsWithoutRef<
+  typeof RadixDropdownMenu.Label
+> & {
   children: string | React.ReactNode
 }
 
