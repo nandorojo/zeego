@@ -65,6 +65,8 @@ If you want to animate `focus` states of menu items on Web, you can do so with M
 
 There are many ways to animate items, and if you're using Tailwind, you can reference what [shadcn/ui](https://ui.shadcn.com/docs/components/dropdown-menu) does for hovering animations.
 
+If you're using something like Tamagui, Framer Motion or Reanimated, you can use the Moti approach below, swapping out whatever you use for animations.
+
 ### Using Moti
 
 Here we'll have a `MotiView` as an absolute-positioned background view. It will animate its opacity based on focus state on Web, which includes hover states.
