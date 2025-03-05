@@ -2134,6 +2134,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@dominicstop/ts-event-emitter@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@dominicstop/ts-event-emitter@npm:1.1.0"
+  checksum: 10c0/fe16c03132736a0a798c232636ab6b127fd8063509511ccafbd99405c224a106cfb7a8d4af13c4f6f412ec0ea3baae3678aa2c8c09d81c9985c423d476404e1a
+  languageName: node
+  linkType: hard
+
 "@dripsy/core@npm:^3.6.0":
   version: 3.6.0
   resolution: "@dripsy/core@npm:3.6.0"
@@ -3058,6 +3065,16 @@ __metadata:
     react: ">=16.8.0"
     react-native: ">=0.59"
   checksum: 10c0/901f61d1b6b7ee2b39266534aba9e8b8c97072935d348431ca582095cd96fdf9ad2506b3dd61e3f98ad352c1fd1a36c31193498a13f01f611c054902ce9ff4f7
+  languageName: node
+  linkType: hard
+
+"@react-native-menu/menu@npm:1.0.2":
+  version: 1.0.2
+  resolution: "@react-native-menu/menu@npm:1.0.2"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/10178bd0af6906713fccda652c2cdc147ea2cbb62acc037d37a8fd9077f4b82ed2ffdd6b94ea39549cfce96f8d801d6809357c71e59227ab9669bb8b38bb62ba
   languageName: node
   linkType: hard
 
@@ -5471,7 +5488,7 @@ __metadata:
     "@react-navigation/native": "npm:^6.0.8"
     "@types/react-native": "npm:^0.67.2"
     clsx: "npm:^1.1.1"
-    docusaurus-preset-shiki-twoslash: "npm:^1.1.37"
+    docusaurus-preset-shiki-twoslash: "npm:^1.1.41"
     dripsy: "npm:^3.6.0"
     expo-linking: "npm:^3.0.0"
     moti: "npm:^0.18.0"
@@ -5480,18 +5497,19 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     solito: "npm:latest"
-    zeego: "npm:latest"
+    typescript: "npm:^5.8.2"
+    zeego: "npm:^3.0.1"
   languageName: unknown
   linkType: soft
 
-"docusaurus-preset-shiki-twoslash@npm:^1.1.37":
-  version: 1.1.38
-  resolution: "docusaurus-preset-shiki-twoslash@npm:1.1.38"
+"docusaurus-preset-shiki-twoslash@npm:^1.1.41":
+  version: 1.1.41
+  resolution: "docusaurus-preset-shiki-twoslash@npm:1.1.41"
   dependencies:
     copy-text-to-clipboard: "npm:^3.0.1"
-    remark-shiki-twoslash: "npm:3.1.0"
+    remark-shiki-twoslash: "npm:3.1.3"
     typescript: "npm:>3"
-  checksum: 10c0/4a9fa3190af5c13975a7d01a2bf0daae9312f9987674e3d89ffebea98d11a68ebb5303b630cff502a31f93c4adfa65acef30c31c1c4b889524d8cb3f531de676
+  checksum: 10c0/674049b4423ef76a9e21cc5ecfe4468a1e1eea72f84fd5e8a1352120ec98a8fd531c12b8750cff79fface837c18faf6a5031d8e5be4de682316490ff1b77bc82
   languageName: node
   linkType: hard
 
@@ -9702,6 +9720,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-ios-context-menu@npm:3.0.0-23":
+  version: 3.0.0-23
+  resolution: "react-native-ios-context-menu@npm:3.0.0-23"
+  dependencies:
+    "@dominicstop/ts-event-emitter": "npm:^1.1.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+    react-native-ios-utilities: "*"
+  checksum: 10c0/d0d98717ee957c569a625f3ba6276873517a8d24a42fa791b9b85e0b446da9ee6eae8bba9ed8bf27abd90e52f41c8a43d0cb2c879abbff7fa6fc9bf306383c30
+  languageName: node
+  linkType: hard
+
+"react-native-ios-utilities@npm:5.0.0-58":
+  version: 5.0.0-58
+  resolution: "react-native-ios-utilities@npm:5.0.0-58"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/3c18813669d22f84a76ce619fa3dfbe52170edf5fbf639e303dcab9527b7952906fa66ac24fe3f3484184a5c5f30346f9f40c176cb0ca087165c1403752c225e
+  languageName: node
+  linkType: hard
+
 "react-remove-scroll-bar@npm:^2.3.3":
   version: 2.3.3
   resolution: "react-remove-scroll-bar@npm:2.3.3"
@@ -10122,20 +10163,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-shiki-twoslash@npm:3.1.0":
-  version: 3.1.0
-  resolution: "remark-shiki-twoslash@npm:3.1.0"
+"remark-shiki-twoslash@npm:3.1.3":
+  version: 3.1.3
+  resolution: "remark-shiki-twoslash@npm:3.1.3"
   dependencies:
+    "@types/unist": "npm:^2.0.0"
     "@typescript/twoslash": "npm:3.1.0"
     "@typescript/vfs": "npm:1.3.4"
     fenceparser: "npm:^1.1.0"
     regenerator-runtime: "npm:^0.13.7"
     shiki: "npm:0.10.1"
-    shiki-twoslash: "npm:3.1.0"
+    shiki-twoslash: "npm:3.1.2"
     tslib: "npm:2.1.0"
-    typescript: "npm:>3"
     unist-util-visit: "npm:^2.0.0"
-  checksum: 10c0/8b14c1d1755ea71d45418b00e2b7ca224a7703eeb776d13291049225f5b76adfd68f4d634624ad36568f0e8057211863f31e04be019b4554e3c5eab3261738aa
+  peerDependencies:
+    typescript: ">3"
+  checksum: 10c0/bda8534d835c60d8231e7732471faff9989714fa35139a1bb0d78c5db8ecbf108a7ecc67a5011ea26edceab00cbee571845b184d923a4d1937fa7fc24b822daa
   languageName: node
   linkType: hard
 
@@ -10626,15 +10669,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shiki-twoslash@npm:3.1.0":
-  version: 3.1.0
-  resolution: "shiki-twoslash@npm:3.1.0"
+"shiki-twoslash@npm:3.1.2":
+  version: 3.1.2
+  resolution: "shiki-twoslash@npm:3.1.2"
   dependencies:
     "@typescript/twoslash": "npm:3.1.0"
     "@typescript/vfs": "npm:1.3.4"
+    fenceparser: "npm:^1.1.0"
     shiki: "npm:0.10.1"
-    typescript: "npm:>3"
-  checksum: 10c0/29c4894a9b46b15be6b858a330978eb9ce7d803888d4af9590eee45536b653bd460c89529493a7b5ce34ddac393356aa1e1c18a5734f01ec5793ba8dc1abda4a
+  peerDependencies:
+    typescript: ">3"
+  checksum: 10c0/2a880b9c88860e1c1a1d81aaf2ee70694c0ec22a071a47f6200861bf1e34b0c5c15193427b9b8c1da27fe51116bb679e7c67fe0772f587d1303d2107c6c74bbc
   languageName: node
   linkType: hard
 
@@ -11397,43 +11442,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:>3":
-  version: 4.8.2
-  resolution: "typescript@npm:4.8.2"
+"typescript@npm:^5.8.2":
+  version: 5.8.2
+  resolution: "typescript@npm:5.8.2"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/562cae44b09b04b280822b4cb34e7c50543b5f871297219a736a4f2cadb80ba493b21e3890bec6fee6b25a0507fb529eca40ebc690ac9020a5135af838746e72
+  checksum: 10c0/5c4f6fbf1c6389b6928fe7b8fcd5dc73bb2d58cd4e3883f1d774ed5bd83b151cbac6b7ecf11723de56d4676daeba8713894b1e9af56174f2f9780ae7848ec3c6
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.0.4":
-  version: 5.6.2
-  resolution: "typescript@npm:5.6.2"
+"typescript@patch:typescript@npm%3A^5.8.2#optional!builtin<compat/typescript>":
+  version: 5.8.2
+  resolution: "typescript@patch:typescript@npm%3A5.8.2#optional!builtin<compat/typescript>::version=5.8.2&hash=d69c25"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/3ed8297a8c7c56b7fec282532503d1ac795239d06e7c4966b42d4330c6cf433a170b53bcf93a130a7f14ccc5235de5560df4f1045eb7f3550b46ebed16d3c5e5
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A>3#optional!builtin<compat/typescript>":
-  version: 4.8.2
-  resolution: "typescript@patch:typescript@npm%3A4.8.2#optional!builtin<compat/typescript>::version=4.8.2&hash=3b564f"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10c0/8e7760580c82eba5f2dc91fa5a2f59d8385a9a1b48228ac4921abfa5496beccb2a11ed68a78699accc3ec12dd8a520a8407a222904206c6cf2de478a7e714ff3
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A^5.0.4#optional!builtin<compat/typescript>":
-  version: 5.6.2
-  resolution: "typescript@patch:typescript@npm%3A5.6.2#optional!builtin<compat/typescript>::version=5.6.2&hash=d69c25"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10c0/e6c1662e4852e22fe4bbdca471dca3e3edc74f6f1df043135c44a18a7902037023ccb0abdfb754595ca9028df8920f2f8492c00fc3cbb4309079aae8b7de71cd
+  checksum: 10c0/8a6cd29dfb59bd5a978407b93ae0edb530ee9376a5b95a42ad057a6f80ffb0c410489ccd6fe48d1d0dfad6e8adf5d62d3874bbd251f488ae30e11a1ce6dabd28
   languageName: node
   linkType: hard
 
@@ -12363,19 +12388,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zeego@npm:latest":
-  version: 1.10.0
-  resolution: "zeego@npm:1.10.0"
+"zeego@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "zeego@npm:3.0.1"
   dependencies:
     "@radix-ui/react-context-menu": "npm:^2.0.1"
     "@radix-ui/react-dropdown-menu": "npm:^2.0.1"
+    "@react-native-menu/menu": "npm:1.0.2"
+    react-native-ios-context-menu: "npm:3.0.0-23"
+    react-native-ios-utilities: "npm:5.0.0-58"
     sf-symbols-typescript: "npm:^2.0.0"
   peerDependencies:
     "@react-native-menu/menu": "*"
     react: "*"
     react-native: "*"
-    react-native-ios-context-menu: ^2.3.2
-  checksum: 10c0/e50dfdf2ef3cd585e1e6c25588622dc9d8c262677dcc4aefe1d4cceac3eb3dd3c9a383e7328ddc8fe9db40c1aa4d84884a11b134148a2d57e380fe216d80eb82
+    react-native-ios-context-menu: ~2.5.1
+  checksum: 10c0/31ba9c061eb360fc04bba4bc44cad58ae8c52dff93b7639b767ab1159db00f76dbafd6db827b101e965c5ba905e5a5f2937cb90ff98cb0b978d158763f597f27
   languageName: node
   linkType: hard
 

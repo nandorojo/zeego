@@ -20,7 +20,7 @@
     "@react-navigation/native": "^6.0.8",
     "@types/react-native": "^0.67.2",
     "clsx": "^1.1.1",
-    "docusaurus-preset-shiki-twoslash": "^1.1.37",
+    "docusaurus-preset-shiki-twoslash": "^1.1.41",
     "dripsy": "^3.6.0",
     "expo-linking": "^3.0.0",
     "moti": "^0.18.0",
@@ -29,7 +29,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "solito": "latest",
-    "zeego": "latest"
+    "typescript": "^5.8.2",
+    "zeego": "^3.0.1"
   },
   "browserslist": {
     "production": [
@@ -46,5 +47,8 @@
   "devDependencies": {
     "@expo/vector-icons": "^13.0.0"
   },
-  "packageManager": "yarn@4.1.0"
+  "packageManager": "yarn@4.1.0",
+  "resolutions": {
+    "typescript": "^5.8.2"
+  }
 }

@@ -3,7 +3,7 @@ title: Welcome to Zeego
 sidebar_label: Welcome
 ---
 
-<img src="/img/og.svg" alt="Zeego logo" />
+<img src="/img/og.svg" alt="Zeego logo" style={{ aspectRatio: 1.77 }} />
 
 ## About Zeego
 
@@ -62,7 +62,6 @@ You might find my other [React Native libraries](https://github.com/nandorojo) u
 - [Dripsy](https://github.com/nandorojo/dripsy)
 - [Solito](https://github.com/nandorojo/solito)
 - [React Native Anchor](https://github.com/nandorojo/react-native-anchors)
-
 
 ## Thanks
 
