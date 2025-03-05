@@ -48,8 +48,5 @@
   "devDependencies": {
     "@expo/vector-icons": "^13.0.0"
   },
-  "packageManager": "yarn@4.1.0",
-  "resolutions": {
-    "typescript": "^5.8.2"
-  }
+  "packageManager": "yarn@4.1.0"
 }
