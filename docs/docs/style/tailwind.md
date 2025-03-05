@@ -1,36 +1,7 @@
 ---
-title: Tailwind CSS
+title: Tailwind CSS / Nativewind
 ---
 
-While there are a few different implementations of Tailwind CSS for React Native, these examples will use [`nativewind`](https://nativewind.dev).
+## Zero config ⚡️
 
-To use Zeego with `nativewind`, you'll first wrap primitives with `styled`, and then again with `create`.
-
-It's important that create is used at the outermost level.
-
-```tsx
-import * as DropdownMenu from 'zeego/dropdown-menu'
-import { styled } from 'nativewind'
-
-// you can write them separately
-const TailwindItem = styled(DropdownMenu.Item, 'h-[25]')
-const DropdownMenuItem = DropdownMenu.create(TailwindItem, 'Item')
-
-// or you can chain them
-const DropdownMenuItemTitle = Dropdown.create(
-  styled(DropdownMenu.ItemTitle, 'font-bold'),
-  'ItemTitle'
-)
-
-// ...your other components
-```
-
-Above, the `styled` function applies base styles to each component.
-
-You can also override these styles with the `className` prop:
-
-```tsx
-<DropdownMenuItemTitle key="fernando" className="text-green-500">
-  Fernando
-</DropdownMenuItemTitle>
-```
+As of Zeego 2, Zeego uses **plain Radix UI on Web** and therefore does not require any configuration for using Tailwind CSS or Nativewind.
