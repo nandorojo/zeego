@@ -3,7 +3,7 @@ title: Welcome to Zeego
 sidebar_label: Welcome
 ---
 
-<img src="/img/og.svg" alt="Zeego logo" style={{ aspectRatio: 1.77 }} />
+<img src="/img/og.svg" alt="Zeego logo" style={{ aspectRatio: 1.77, objectFit: 'cover' }} />
 
 ## About Zeego
 

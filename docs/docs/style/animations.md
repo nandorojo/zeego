@@ -10,7 +10,7 @@ There are two types of animations you'll be concerned with: the animation of the
 
 The simplest way to animate the entrance and exit of a menu is with CSS keyframes. Thanks to Radix UI's exposed CSS variables, this is all it takes:
 
-```tsx twoslash {10-17, 24-35}
+```tsx twoslash {11-18, 25-41}
 import * as DropdownMenu from 'zeego/dropdown-menu'
 import { Platform } from 'react-native'
 
@@ -35,7 +35,7 @@ export const DropdownMenuContent = DropdownMenu.create(
   (props: React.ComponentProps<typeof DropdownMenu['Content']>) => {
     return (
       <>
-        <DropdownMenu.Content {...props} style={contentStyle as any} />
+        <DropdownMenu.Content {...props} style={contentStyle} />
         {Platform.OS === 'web' && (
           <style
             // this will depend on your CSS setup
@@ -69,7 +69,7 @@ There are many ways to animate items, and if you're using Tailwind, you can refe
 
 Here we'll have a `MotiView` as an absolute-positioned background view. It will animate its opacity based on focus state on Web, which includes hover states.
 
-```tsx twoslash
+```tsx
 import * as DropdownMenu from 'zeego/dropdown-menu'
 import { MotiView, useAnimationState } from 'moti'
 import { StyleSheet, Platform } from 'react-native'

@@ -1,5 +1,5 @@
 ---
-title: Tailwind CSS / Nativewind
+title: Tailwind / Nativewind
 ---
 
 ## Zero config ⚡️
