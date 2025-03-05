@@ -10,7 +10,7 @@ There are two types of animations you'll be concerned with: the animation of the
 
 The simplest way to animate the entrance and exit of a menu is with CSS keyframes. Thanks to Radix UI's exposed CSS variables, this is all it takes:
 
-```tsx twoslash {11-18, 25-41}
+```tsx
 import * as DropdownMenu from 'zeego/dropdown-menu'
 import { Platform } from 'react-native'
 
