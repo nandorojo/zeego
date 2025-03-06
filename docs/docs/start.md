@@ -42,13 +42,13 @@ npm i \
 #### yarn
 
 ```sh
-yarn add @react-native-menu@1.2.2
+yarn add @react-native-menu/menu@1.2.2
 ```
 
 #### npm
 
 ```sh
-npm i @react-native-menu@1.2.2 --legacy-peer-deps
+npm i @react-native-menu/menu@1.2.2 --legacy-peer-deps
 ```
 
 ### Compatibility Table
