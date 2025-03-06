@@ -41,6 +41,40 @@ export default function Menu() {
 
 However, you'll likely want to create your own custom components to wrap each Zeego primitive. For these cases, you can use the `create()` function to wrap primitives.
 
+### `create` Example
+
+```tsx twoslash {5-7, 17,19}
+import * as DropdownMenu from 'zeego/dropdown-menu'
+
+const DropdownMenuContent = DropdownMenu.create(
+  (props: React.ComponentProps<typeof DropdownMenu['Content']>) => {
+    // since this is wrapped with create() you can add custom views inside of the Content component
+    return (
+      <DropdownMenu.Content {...props}>
+        <View>{props.children}</View>
+      </DropdownMenu.Content>
+    )
+  },
+  'Content'
+)
+
+export function Menu() {
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+        <></>
+      </DropdownMenu.Trigger>
+
+      <DropdownMenuContent>
+        <DropdownMenu.Item key="first">
+          <DropdownMenu.ItemTitle>My Menu Item</DropdownMenu.ItemTitle>
+        </DropdownMenu.Item>
+      </DropdownMenuContent>
+    </DropdownMenu.Root>
+  )
+}
+```
+
 ## Create custom components
 
 Each Zeego primitive set has a `create` function that lets you wrap the built-in components.
@@ -54,7 +88,32 @@ const DropdownMenuItem = DropdownMenu.create((props) => {
 }, 'Item')
 ```
 
-You can now use your custom `DropdownMenuItem` component.
+You can now use your custom `DropdownMenuItem` component:
+
+```tsx twoslash {3-6, 16-18}
+import * as DropdownMenu from 'zeego/dropdown-menu'
+
+const DropdownMenuItem = DropdownMenu.create((props) => {
+  // you can add your own components in here
+  return <DropdownMenu.Item {...props} />
+}, 'Item')
+
+export function Menu() {
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+        <></>
+      </DropdownMenu.Trigger>
+
+      <DropdownMenu.Content>
+        <DropdownMenuItem key="first">
+          <DropdownMenu.ItemTitle>My Menu Item</DropdownMenu.ItemTitle>
+        </DropdownMenuItem>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
+  )
+}
+```
 
 If you don't wrap custom components with `create()`, they won't work properly on iOS or Android.
 
@@ -74,32 +133,4 @@ type ItemProps = React.ComponentProps<typeof DropdownMenu['Item']>
 const DropdownMenuItem = DropdownMenu.create((props: ItemProps) => {
   return <DropdownMenu.Item {...props} />
 }, 'Item')
-```
-
-### `create` Example
-
-```tsx twoslash {5-7, 17,19}
-import * as DropdownMenu from 'zeego/dropdown-menu'
-
-type ItemProps = React.ComponentProps<typeof DropdownMenu['Item']>
-
-const DropdownMenuItem = DropdownMenu.create((props: ItemProps) => {
-  return <DropdownMenu.Item {...props} />
-}, 'Item')
-
-export function Menu() {
-  return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <></>
-      </DropdownMenu.Trigger>
-
-      <DropdownMenu.Content>
-        <DropdownMenuItem key="first">
-          <DropdownMenu.ItemTitle>My Menu Item</DropdownMenu.ItemTitle>
-        </DropdownMenuItem>
-      </DropdownMenu.Content>
-    </DropdownMenu.Root>
-  )
-}
 ```
