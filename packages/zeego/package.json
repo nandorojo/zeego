@@ -55,7 +55,7 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
     "@react-native-community/eslint-config": "^2.0.0",
-    "@react-native-menu/menu": "^0.7.2",
+    "@react-native-menu/menu": "1.2.2",
     "@release-it/conventional-changelog": "^2.0.0",
     "@types/jest": "^26.0.0",
     "@types/react": "^17.0.1",
@@ -70,8 +70,8 @@
     "pod-install": "^0.1.0",
     "prettier": "^2.0.5",
     "react-native-builder-bob": "^0.18.0",
-    "react-native-ios-context-menu": "2.5.1",
-    "react-native-ios-utilities": "4.5.1",
+    "react-native-ios-context-menu": "3.1.0",
+    "react-native-ios-utilities": "5.1.2",
     "release-it": "^14.2.2",
     "typescript": "^5.6.2"
   },
