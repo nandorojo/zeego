@@ -142,17 +142,18 @@ Dropdown menu item. Typically a row with text inside of it.
 
 The `key` prop is **required**. The same `key` must not be used more than once in the same menu.
 
-| Prop          | Required | Default | Platforms               |
-| ------------- | -------- | ------- | ----------------------- |
-| `key`         | Yes      |         | `web`, `ios`, `android` |
-| `disabled`    |          |         | `web`, `ios`, `android` |
-| `destructive` |          |         | `web`, `ios`, `android` |
-| `hidden`      |          |         | `ios`, `android`        |
-| `style`       |          |         | `web`                   |
-| `onSelect`    |          |         | `web`                   |
-| `textValue`   |          |         | `web`                   |
-| `onFocus`     |          |         | `web`                   |
-| `onBlur`      |          |         | `web`                   |
+| Prop                       | Required | Default | Platforms                |
+| -------------------------- | -------- | ------- | ------------------------ |
+| `key`                      | Yes      |         | `web`, `ios`, `android`  |
+| `disabled`                 |          |         | `web`, `ios`, `android`  |
+| `destructive`              |          |         | `web`, `ios`, `android`  |
+| `onSelect`                 |          |         | `web`, `ios`, `android`  |
+| `shouldDismissMenuOnSelect`|          |         | `web`, `ios`, `android`  |
+| `hidden`                   |          |         | `web`, `ios`, `android`  |
+| `textValue`                |          |         | `web`                    |
+| `style`                    |          |         | `web`                    |
+| `onFocus`                  |          |         | `web`                    |
+| `onBlur`                   |          |         | `web`                    |
 
 On web, it will render its children and apply styles. On other platforms, it simply maps to a native menu item.
 
@@ -344,18 +345,19 @@ For more web props, see the Radix UI [docs for `DropdownMenu.Group`](https://www
 
 Usage is similar to [`Item`](#item) with added checkbox features.
 
-| Prop            | Required | Default | Platforms                |
-| --------------- | -------- | ------- | ------------------------ |
-| `key`           | Yes      |         | `web`, `ios`, `android`  |
-| `value`         | Yes      |         | `web`, `ios`, `android`  |
-| `disabled`      |          |         | `web` , `ios`, `android` |
-| `destructive`   |          |         | `web` , `ios`, `android` |
-| `onValueChange` |          |         | `web` , `ios`, `android` |
-| `hidden`        |          |         | `web` , `ios`, `android` |
-| `textValue`     |          |         | `web`                    |
-| `style`         |          |         | `web`                    |
-| `onFocus`       |          |         | `web`                    |
-| `onBlur`        |          |         | `web`                    |
+| Prop                       | Required | Default | Platforms                |
+| -------------------------- | -------- | ------- | ------------------------ |
+| `key`                      | Yes      |         | `web`, `ios`, `android`  |
+| `value`                    | Yes      |         | `web`, `ios`, `android`  |
+| `disabled`                 |          |         | `web`, `ios`, `android`  |
+| `destructive`              |          |         | `web`, `ios`, `android`  |
+| `onValueChange`            |          |         | `web`, `ios`, `android`  |
+| `shouldDismissMenuOnSelect`|          |         | `web`, `ios`, `android`  |
+| `hidden`                   |          |         | `web`, `ios`, `android`  |
+| `textValue`                |          |         | `web`                    |
+| `style`                    |          |         | `web`                    |
+| `onFocus`                  |          |         | `web`                    |
+| `onBlur`                   |          |         | `web`                    |
 
 ```tsx
 <DropdownMenu.CheckboxItem
