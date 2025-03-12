@@ -10,40 +10,50 @@ There are two types of animations you'll be concerned with: the animation of the
 
 The simplest way to animate the entrance and exit of a menu is with CSS keyframes. Thanks to Radix UI's exposed CSS variables, this is all it takes:
 
-```tsx twoslash {12-25, 31-36}
+```tsx
 import * as DropdownMenu from 'zeego/dropdown-menu'
-import { StyleSheet, Platform } from 'react-native'
+import { Platform } from 'react-native'
 
-const style = StyleSheet.create({
-  content: {
-    minWidth: 220,
-    backgroundColor: 'white',
-    borderRadius: 6,
-    padding: 5,
-    borderWidth: 1,
-    borderColor: '#fff8',
-    ...Platform.select({
-      web: {
-        animationDuration: '400ms',
-        animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-        willChange: 'transform, opacity',
-        animationKeyframes: {
-          '0%': { opacity: 0, transform: [{ scale: 0.5 }] },
-          '100%': { opacity: 1, transform: [{ scale: 1 }] },
-        },
-        boxShadow:
-          '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
-        transformOrigin: 'var(--radix-dropdown-menu-content-transform-origin)',
-      },
-    }),
-  },
-})
+const contentStyle = {
+  minWidth: 220,
+  backgroundColor: 'white',
+  borderRadius: 6,
+  padding: 5,
+  borderWidth: 1,
+  borderColor: '#fff8',
+  animationDuration: '400ms',
+  animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+  willChange: 'transform, opacity',
 
-type ContentProps = React.ComponentProps<typeof DropdownMenu['Content']>
+  animationName: 'slide-in',
+  boxShadow:
+    '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
+  transformOrigin: 'var(--radix-dropdown-menu-content-transform-origin)',
+}
 
 export const DropdownMenuContent = DropdownMenu.create(
-  (props: ContentProps) => {
-    return <DropdownMenu.Content {...props} style={style.content} />
+  (props: React.ComponentProps<typeof DropdownMenu['Content']>) => {
+    return (
+      <>
+        <DropdownMenu.Content {...props} style={contentStyle} />
+        {Platform.OS === 'web' && (
+          <style
+            // this will depend on your CSS setup
+            // you might use tailwind classes instead
+            // or import a CSS file directly
+            // inline styles like this are uncommon, but used for illustration
+            dangerouslySetInnerHTML={{
+              __html: `
+            @keyframes slide-in {
+              from { opacity: 0; transform: scale(0.5); }
+              to { opacity: 1; transform: scale(1); }
+            }
+            `,
+            }}
+          />
+        )}
+      </>
+    )
   },
   'Content'
 )
@@ -53,36 +63,35 @@ export const DropdownMenuContent = DropdownMenu.create(
 
 If you want to animate `focus` states of menu items on Web, you can do so with Moti without triggering any re-renders. Or, you can do the same with React state and CSS transitions directly. Let's look at an example for each.
 
+There are many ways to animate items, and if you're using Tailwind, you can reference what [shadcn/ui](https://ui.shadcn.com/docs/components/dropdown-menu) does for hovering animations.
+
+If you're using something like Tamagui, Framer Motion or Reanimated, you can use the Moti approach below, swapping out whatever you use for animations.
+
 ### Using Moti
 
 Here we'll have a `MotiView` as an absolute-positioned background view. It will animate its opacity based on focus state on Web, which includes hover states.
 
-```tsx twoslash
+```tsx
 import * as DropdownMenu from 'zeego/dropdown-menu'
 import { MotiView, useAnimationState } from 'moti'
 import { StyleSheet, Platform } from 'react-native'
 
 const itemHeight = 25
 
-const styles = StyleSheet.create({
+const styles = {
   item: {
     borderRadius: 3,
     justifyContent: 'center',
     paddingRight: 5,
     paddingLeft: itemHeight,
     height: itemHeight,
-    ...Platform.select({
-      web: {
-        transformOrigin: 'var(--radix-dropdown-menu-item-transform-origin)',
-      },
-    }),
   },
   focusedItem: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: '#99999910',
     zIndex: -1,
   },
-})
+}
 
 type ItemProps = React.ComponentProps<typeof DropdownMenu['Item']>
 

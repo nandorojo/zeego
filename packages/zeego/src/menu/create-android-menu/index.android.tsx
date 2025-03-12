@@ -455,6 +455,14 @@ If you want to use a custom component as your <Content />, you can use the creat
         }}
         shouldOpenOnLongPress={shouldOpenOnLongPress}
         actions={menuItems}
+        // @ts-ignore
+        onOpenMenu={() => {
+          props.onOpenChange?.(true)
+        }}
+        // @ts-ignore
+        onCloseMenu={() => {
+          props.onOpenChange?.(false)
+        }}
       >
         {triggerItem}
       </MenuView>

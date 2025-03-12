@@ -8941,13 +8941,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@urql/core@npm:^5.0.0, @urql/core@npm:^5.0.6":
+"@urql/core@npm:^5.0.0":
   version: 5.1.0
   resolution: "@urql/core@npm:5.1.0"
   dependencies:
     "@0no-co/graphql.web": "npm:^1.0.5"
     wonka: "npm:^6.3.2"
   checksum: 10c0/9792a5094ced7e7f9d8b38593c386e0b38f9549fff8cfde74d4d851d9538e3dea5f05e4bcf766787a8178e0cc9c0cfd8043f37a3bcf0121342b1391999edbe1d
+  languageName: node
+  linkType: hard
+
+"@urql/core@npm:^5.0.6":
+  version: 5.1.1
+  resolution: "@urql/core@npm:5.1.1"
+  dependencies:
+    "@0no-co/graphql.web": "npm:^1.0.5"
+    wonka: "npm:^6.3.2"
+  checksum: 10c0/2a66f58452bbf153c251dd6d127fc0bc0473b4cde47171ca360960059eb08fc019202aee16911168a800814a3b9748300bb88b87817b5d05cf92c16f5772447b
   languageName: node
   linkType: hard
 
@@ -25738,9 +25748,10 @@ __metadata:
     sf-symbols-typescript: "npm:^2.0.0"
     typescript: "npm:^5.6.2"
   peerDependencies:
-    "@react-native-menu/menu": "*"
+    "@react-native-menu/menu": 1.2.2
     react: "*"
     react-native: "*"
-    react-native-ios-context-menu: ~2.5.1
+    react-native-ios-context-menu: 3.1.0
+    react-native-ios-utilities: 5.1.2
   languageName: unknown
   linkType: soft

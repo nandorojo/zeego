@@ -51,7 +51,7 @@ const config = {
     ],
   ],
 
-// plugins: ['docusaurus-plugin-react-native-web'],
+  // plugins: ['docusaurus-plugin-react-native-web'],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -67,7 +67,8 @@ const config = {
         title: 'by fernando rojo',
         logo: {
           alt: 'Zeego Logo',
-          src: 'img/zeego logo.svg',
+          src: 'img/zeego logo light.svg',
+          srcDark: 'img/zeego logo.svg',
         },
         items: [
           {

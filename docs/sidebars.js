@@ -26,10 +26,10 @@ const sidebars = {
       collapsible: false,
     },
     //{
-      // type: 'category',
-      // items: ['examples/linear', 'examples/vercel', 'examples/twitter'],
-     // label: 'Example Menus',
-     // collapsed: false,
+    // type: 'category',
+    // items: ['examples/linear', 'examples/vercel', 'examples/twitter'],
+    // label: 'Example Menus',
+    // collapsed: false,
     //  collapsible: false,
     //},
     {
@@ -44,8 +44,8 @@ const sidebars = {
         'custom',
         // 'style/vanilla',
         'style/dark-mode',
-        'style/dripsy',
         'style/tailwind',
+        'style/shadcn',
         // 'style/tamagui',
       ],
       collapsible: false,
@@ -55,6 +55,11 @@ const sidebars = {
       // },
     },
     'style/animations',
+    {
+      type: 'link',
+      label: 'Release Notes',
+      href: 'https://github.com/nandorojo/zeego/releases',
+    },
   ],
 }
 

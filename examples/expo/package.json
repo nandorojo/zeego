@@ -3,20 +3,33 @@
   "version": "1.0.0",
   "scripts": {
     "android": "expo run:android",
-    "ios": "expo run:ios"
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "start": "expo start --dev-client",
+    "test": "jest"
   },
   "dependencies": {
-    "expo": "53.0.0-canary-20250219-4a5dade",
-    "expo-modules-core": "patch:expo-modules-core@npm%3A3.0.0-canary-20250219-4a5dade#~/.yarn/patches/expo-modules-core-npm-3.0.0-canary-20250219-4a5dade-3f3a0e7d45.patch",
+    "expo": "^52.0.37",
+    "expo-build-properties": "~0.13.2",
+    "expo-linking": "~7.0.5",
+    "expo-router": "~4.0.17",
+    "expo-splash-screen": "~0.29.22",
+    "expo-status-bar": "~2.0.1",
+    "metro": "^0.81.3",
     "react": "18.3.1",
-    "react-native": "0.76.3"
+    "react-dom": "18.3.1",
+    "react-native": "0.76.7",
+    "react-native-web": "~0.19.13",
+    "zeego": "^3.0.0-alt.1"
   },
-  "expo": {
-    "autolinking": {
-      "nativeModulesDir": "../../packages/zeego"
-    }
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/runtime": "^7.9.6",
+    "@types/react": "~18.3.12",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "babel-preset-expo": "~12.0.0",
+    "typescript": "^5.3.3"
   },
-  "resolutions": {
-    "expo-modules-core@npm:3.0.0-canary-20250219-4a5dade": "patch:expo-modules-core@npm%3A3.0.0-canary-20250219-4a5dade#~/.yarn/patches/expo-modules-core-npm-3.0.0-canary-20250219-4a5dade-3f3a0e7d45.patch"
-  }
+  "packageManager": "yarn@4.4.0"
 }

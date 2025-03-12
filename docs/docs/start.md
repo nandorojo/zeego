@@ -4,7 +4,7 @@ title: Getting Started
 
 <!-- <img src="/img/install.svg" alt="yarn add zeego" style={{ borderRadius: '16px' }} /> -->
 
-## Install in existing apps
+## Install Zeego
 
 Start by installing Zeego:
 
@@ -12,30 +12,56 @@ Start by installing Zeego:
 yarn add zeego
 ```
 
-### Install peer dependencies
+For upgrading from Zeego 2 to Zeego 3, see the [upgrade guide](https://github.com/nandorojo/zeego/releases/tag/v3.0.0).
+
+## Install peer dependencies
 
 > A note for monorepo users: install these in the directory of your native app, not in the root of the monorepo.
 
-#### iOS
+The following **exact versions** must be installed. Please reference the [compatibility table](#compatibility-table) for the versions that work with your setup.
+
+### iOS Dependencies
+
+#### yarn
 
 ```sh
-yarn add react-native-ios-context-menu react-native-ios-utilities
+yarn add react-native-ios-context-menu@3.1.0 react-native-ios-utilities@5.1.2
 ```
 
-For users on Expo SDK 52 with the New Architecture enabled, install the following versions of the peer dependencies to ensure compatibility:
+#### npm
 
 ```sh
-yarn add react-native-ios-context-menu@3.0.0-23 react-native-ios-utilities@5.0.0-58
+npm i \
+  react-native-ios-context-menu@3.1.0 \
+  react-native-ios-utilities@5.1.2 \
+  --legacy-peer-deps
 ```
 
+### Android Dependencies
 
-#### Android
+#### yarn
 
 ```sh
-yarn add @react-native-menu/menu
+yarn add @react-native-menu/menu@1.2.2
 ```
 
-#### Expo SDK 49 or lower
+#### npm
+
+```sh
+npm i @react-native-menu/menu@1.2.2 --legacy-peer-deps
+```
+
+### Compatibility Table
+
+Given a `Zeego` version (start there), see the dependencies to the right that it is compatible with.
+
+| Zeego | React Native | New Arch      | Expo SDK     | `react-native-menu` | `react-native-ios-context-menu` | `react-native-ios-utilities` |
+| ----- | ------------ | ------------- | ------------ | ------------------- | ------------------------------- | ---------------------------- |
+| 3     | 0.76 or 0.77 | ✅ (optional) | 52+          | 1.2.2               | 3.1.0                           | 5.1.2                        |
+| 2     | 0.74         | ❌            | 51, 50, 49\* | 1.0.2               | 2.5.1                           | 4.5.3                        |
+
+<details>
+<summary>*For Expo SDK 49 or lower, click here</summary>
 
 If you're using an older version Expo Development Client, there are some additional steps:
 
@@ -66,6 +92,8 @@ export default {
 ```
 
 If you know your way around these, you may be able to adjust them. But if you get an error related to `react-native-menu` when building, please reference these properties.
+
+</details>
 
 ## Frameworks
 
@@ -101,32 +129,17 @@ Zeego will not work with Expo Go.
 
 If you aren't familiar with how Expo works / what custom development clients are, I recommend using [EAS](https://expo.dev/eas) (Expo's hosted build service.) As long as you `eas build`, it will work.
 
-### Solito
+### Solito/Next.js
 
-#### Starter app
+You need to add `zeego` to your `transpilePackages` in `next.config.js`.
 
-I recommend checking out the [Solito + Zeego starter](/start).
-
-#### Existing Solito apps
-
-1. Install the native peer dependencies in your Expo folder (likely `apps/expo`):
-
-```sh
-cd apps/expo
-yarn add react-native-ios-context-menu @react-native-menu/menu
-cd ../..
-yarn
+```js
+// next.config.js
+module.exports = {
+  transpilePackages: ['zeego'],
+}
 ```
-
-2. Follow the [Next.js setup](#nextjs).
-3. Follow the [Expo steps](#expo).
-
-### Next.js
-
-You need to add `zeego` to your `next-transpile-modules` in `next.config.js`.
 
 ### Vanilla React Native
 
 Run `pod install` in your `ios` folder.
-
-
