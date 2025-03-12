@@ -234,7 +234,10 @@ If you want to use a custom component as your <Content />, you can use the creat
 
           for (let i = 0; i < maybeTitle.length; i++) {
             const text = maybeTitle[i]
-            if (typeof text == 'string') {
+            if (text == null) {
+              continue
+            }
+            if (typeof text == 'string' || typeof text == 'number') {
               stringTitle += text
               isString = true
             } else {
