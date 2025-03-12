@@ -1,9 +1,6 @@
 {
-  "main": "index.js",
-  "name": "zeeg-example",
-  "description": "Example app for zeego",
-  "version": "1.7.2",
-  "private": true,
+  "name": "expo",
+  "version": "1.0.0",
   "scripts": {
     "android": "expo run:android",
     "ios": "expo run:ios",

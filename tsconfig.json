@@ -1,14 +1,12 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": {
-      "zeego/*": ["./packages/zeego/src/*"]
-    },
+    "paths": {},
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "lib": ["esnext", "DOM"],
     "module": "esnext",
     "moduleResolution": "node",
@@ -24,5 +22,10 @@
     "target": "esnext",
     "noEmit": true
   },
-  "exclude": ["examples", "node_modules", "../../node_modules/**/*"]
+  "exclude": [
+    "examples",
+    "node_modules",
+    "../../node_modules/**/*",
+    "node_modules/@types/react"
+  ]
 }

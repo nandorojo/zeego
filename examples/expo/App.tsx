@@ -1,9 +1,9 @@
 import { StyleSheet, View, Text, Platform, Image } from 'react-native'
 
-import * as ContextMenu from 'zeego/context-menu'
-import * as DropdownMenu from 'zeego/dropdown-menu'
+import * as ContextMenu from 'zeego/new/context-menu'
+import * as DropdownMenu from 'zeego/new/dropdown-menu'
+
 import React, { ComponentProps, useState } from 'react'
-import { Ionicons } from '@expo/vector-icons'
 import camera from './src/camera-outline.png'
 import fernando from './src/fernando.jpg'
 const select = (val: unknown) => () => alert(val)
@@ -213,12 +213,7 @@ const DropdownMenuItemIcon = DropdownMenu.create(
   'ItemIcon'
 )
 
-const DropdownMenuItemImage = DropdownMenu.create(
-  (props: ComponentProps<typeof DropdownMenu.ItemImage>) => (
-    <Image {...(props as any)} resizeMode="cover" />
-  ),
-  'ItemImage'
-)
+const DropdownMenuItemImage = DropdownMenu.ItemImage
 
 const DropdownMenuLabel = DropdownMenu.create(
   (props: ComponentProps<typeof DropdownMenu.Label>) => (
@@ -241,8 +236,8 @@ const DropdownMenuExample = () => {
   const [bookmarked, setBookmarked] = useState<'on' | 'off' | 'mixed'>('on')
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild className="bg-red-500">
-        <View>
+      <DropdownMenu.Trigger asChild>
+        <View style={{ backgroundColor: 'red', alignSelf: 'center' }}>
           <Text style={styles.button}>{`<DropdownMenu />`}</Text>
         </View>
       </DropdownMenu.Trigger>
@@ -269,7 +264,7 @@ const DropdownMenuExample = () => {
             androidIconName="star_on"
             ios={{ hierarchicalColor: '#00FF00', name: 'list.star' }}
           >
-            <Ionicons name="list" size={15} />
+            {/* <Ionicons name="list" size={15} /> */}
           </DropdownMenuItemIcon>
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={select(2)} key="second">
@@ -277,7 +272,7 @@ const DropdownMenuExample = () => {
             ios={{ name: 'star.fill' }}
             androidIconName="btn_star"
           >
-            <Ionicons name="star" size={15} />
+            {/* <Ionicons name="star" size={15} /> */}
           </DropdownMenuItemIcon>
           <DropdownMenuItemTitle>Favorite</DropdownMenuItemTitle>
         </DropdownMenuItem>
@@ -287,7 +282,7 @@ const DropdownMenuExample = () => {
           key="third"
         >
           <DropdownMenuItemIndicator>
-            <Ionicons name="checkmark" size={19} />
+            {/* <Ionicons name="checkmark" size={19} /> */}
           </DropdownMenuItemIndicator>
           <DropdownMenuItemTitle>
             {bookmarked === 'on' ? 'Bookmarked' : 'Bookmark'}
@@ -305,7 +300,7 @@ const DropdownMenuExample = () => {
           key="fourth"
         >
           <DropdownMenuItemIndicator>
-            <Ionicons name="checkmark" size={19} />
+            {/* <Ionicons name="checkmark" size={19} /> */}
           </DropdownMenuItemIndicator>
           <DropdownMenuItemTitle>
             {arrowEnabled === 'on' ? 'Arrow enabled' : 'Arrow disabled'}
@@ -373,40 +368,44 @@ const ItemImage = DropdownMenu.create(
 )
 
 const ContextMenuExample = () => {
+  const [open, setOpen] = useState(false)
   return (
-    <ContextMenu.Root>
+    <ContextMenu.Root
+      onOpenChange={(next) => {
+        setOpen(next)
+      }}
+    >
       <ContextMenu.Trigger>
         <View style={styles.box}>
-          <Text>{`<ContextMenu />`}</Text>
+          <Text>
+            {`<ContextMenu />`} {open ? 'OPEN' : 'CLOSED'}
+          </Text>
         </View>
       </ContextMenu.Trigger>
       <ContextMenu.Content style={contextStyles.content}>
         <ContextMenu.Preview>
-          {() => (
-            <View
+          <View
+            style={{
+              height: 300,
+              width: 300,
+              backgroundColor: 'white',
+              padding: 16,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Text
               style={{
-                height: 300,
-                width: 300,
-                backgroundColor: 'white',
-                padding: 16,
-                alignItems: 'center',
-                justifyContent: 'center',
+                color: 'black',
+                fontSize: 16,
+                fontWeight: 'bold',
+                textAlign: 'center',
               }}
             >
-              <Text
-                style={{
-                  color: 'black',
-                  fontSize: 16,
-                  fontWeight: 'bold',
-                  textAlign: 'center',
-                }}
-              >
-                Custom component when expanded!
-              </Text>
-            </View>
-          )}
+              Custom component when expanded. {open ? 'OPEN' : 'CLOSED'}
+            </Text>
+          </View>
         </ContextMenu.Preview>
-
         <ContextMenu.Item
           style={{
             ...dropdownStyles.item,
@@ -415,10 +414,12 @@ const ContextMenuExample = () => {
           onSelect={select(1)}
           key="fernando"
         >
+          <ContextMenu.ItemImage
+            source={fernando}
+            style={dropdownStyles.itemImage}
+          />
           <ContextMenu.ItemTitle>@FernandoTheRojo</ContextMenu.ItemTitle>
           <ContextMenu.ItemSubtitle>Creator of Zeego</ContextMenu.ItemSubtitle>
-
-          <ItemImage source={fernando} style={dropdownStyles.itemImage} />
         </ContextMenu.Item>
 
         <ContextMenu.Item
@@ -430,7 +431,7 @@ const ContextMenuExample = () => {
           key="first"
         >
           <ContextMenu.ItemTitle>Action #1</ContextMenu.ItemTitle>
-          <ContextMenu.ItemSubtitle>Hey!</ContextMenu.ItemSubtitle>
+          <ContextMenu.ItemSubtitle>Hey!!</ContextMenu.ItemSubtitle>
 
           <ItemImage source={camera} style={dropdownStyles.itemImage} />
         </ContextMenu.Item>
@@ -452,47 +453,51 @@ const ContextMenuExample = () => {
 
         <ContextMenu.Sub>
           <ContextMenu.SubTrigger style={dropdownStyles.item} key="nested">
-            Submenu
+            <ContextMenu.ItemTitle>Submenu</ContextMenu.ItemTitle>
           </ContextMenu.SubTrigger>
           <ContextMenu.SubContent style={contextStyles.content}>
             <ContextMenu.Item style={dropdownStyles.item} key="nested-1">
-              Submenu Option 1
+              <ContextMenu.ItemTitle>Submenu Option 1</ContextMenu.ItemTitle>
             </ContextMenu.Item>
           </ContextMenu.SubContent>
         </ContextMenu.Sub>
 
         <ContextMenu.Group>
           <ContextMenu.Item style={dropdownStyles.item} key="group-1">
-            Group Item 1
+            <ContextMenu.ItemTitle>Group Item 1</ContextMenu.ItemTitle>
           </ContextMenu.Item>
           <ContextMenu.Item style={dropdownStyles.item} key="group-2">
-            Group Item 2
+            <ContextMenu.ItemTitle>Group Item 2</ContextMenu.ItemTitle>
           </ContextMenu.Item>
         </ContextMenu.Group>
 
         <ContextMenu.Group>
           <ContextMenu.Item style={dropdownStyles.item} key="group-3">
-            Group Item 3
+            <ContextMenu.ItemTitle>Group Item 3</ContextMenu.ItemTitle>
           </ContextMenu.Item>
           <ContextMenu.Sub>
             <ContextMenu.SubTrigger
               style={dropdownStyles.item}
               key="nested-group-trigger"
             >
-              Group Submenu
+              <ContextMenu.ItemTitle>Group Submenu</ContextMenu.ItemTitle>
             </ContextMenu.SubTrigger>
             <ContextMenu.SubContent style={contextStyles.content}>
               <ContextMenu.Item
                 style={dropdownStyles.item}
                 key="nested-group-1"
               >
-                Group Submenu Option 3
+                <ContextMenu.ItemTitle>
+                  Group Submenu Option 3
+                </ContextMenu.ItemTitle>
               </ContextMenu.Item>
               <ContextMenu.Item
                 style={dropdownStyles.item}
                 key="nested-group-2"
               >
-                Group Submenu Option 4
+                <ContextMenu.ItemTitle>
+                  Group Submenu Option 4
+                </ContextMenu.ItemTitle>
               </ContextMenu.Item>
             </ContextMenu.SubContent>
           </ContextMenu.Sub>

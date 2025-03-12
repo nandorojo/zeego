@@ -1,0 +1,101 @@
+diff --git a/ios/Core/Views/SwiftUI/SwiftUIViewDefinition.swift b/ios/Core/Views/SwiftUI/SwiftUIViewDefinition.swift
+index 1172a6fc34aff2b64946648edc273bf15000074a..b4e906a0dc32f3e04624f568ff488fe393be7bc1 100644
+--- a/ios/Core/Views/SwiftUI/SwiftUIViewDefinition.swift
++++ b/ios/Core/Views/SwiftUI/SwiftUIViewDefinition.swift
+@@ -1,11 +1,9 @@
+ // Copyright 2024-present 650 Industries. All rights reserved.
+ 
+-import SwiftUI
+ import Combine
++import SwiftUI
+ 
+-/**
+- A protocol for SwiftUI views that need to access props.
+- */
++/// A protocol for SwiftUI views that need to access props.
+ public protocol ExpoSwiftUIView<Props>: SwiftUI.View, AnyArgument {
+   associatedtype Props: ExpoSwiftUI.ViewProps
+ 
+@@ -15,11 +13,11 @@ public protocol ExpoSwiftUIView<Props>: SwiftUI.View, AnyArgument {
+   init()
+ }
+ 
+-public extension ExpoSwiftUIView {
++extension ExpoSwiftUIView {
+   /**
+    Returns React's children as SwiftUI views.
+    */
+-  func Children() -> some View { // swiftlint:disable:this identifier_name
++  public func Children() -> some View {  // swiftlint:disable:this identifier_name
+     ZStack(alignment: .topLeading) {
+       ForEach(props.children ?? []) { $0 }
+     }
+@@ -28,11 +26,12 @@ public extension ExpoSwiftUIView {
+   /**
+    Returns React's children as SwiftUI views, with any nested HostingViews stripped out.
+    */
+-  func UnwrappedChildren<T: View>( // swiftlint:disable:this identifier_name
++  public func UnwrappedChildren<T: View>(  // swiftlint:disable:this identifier_name
++    children: [ExpoSwiftUI.Child]? = nil,
+     @ViewBuilder transform: @escaping (_ child: AnyView, _ isHostingView: Bool)
+-    -> T = { child, _ in  child }
++      -> T = { child, _ in child }
+   ) -> some View {
+-    guard let children = props.children else {
++    guard let children = children ?? props.children else {
+       return AnyView(EmptyView())
+     }
+     let childrenArray = Array(children)
+@@ -54,7 +53,7 @@ public extension ExpoSwiftUIView {
+     )
+   }
+ 
+-  static func getDynamicType() -> AnyDynamicType {
++  public static func getDynamicType() -> AnyDynamicType {
+     return DynamicSwiftUIViewType(innerType: Self.self)
+   }
+ }
+@@ -65,7 +64,9 @@ extension ExpoSwiftUI {
+   /**
+    A definition representing the native SwiftUI view to export to React.
+    */
+-  public final class ViewDefinition<Props: ViewProps, ViewType: View<Props>>: ExpoModulesCore.ViewDefinition<HostingView<Props, ViewType>> {
++  public final class ViewDefinition<Props: ViewProps, ViewType: View<Props>>: ExpoModulesCore
++      .ViewDefinition<HostingView<Props, ViewType>>
++  {
+     // To obtain prop and event names from the props object we need to create a dummy instance first.
+     // This is not ideal, but RN requires us to provide all names before the view is created
+     // and there doesn't seem to be a better way to do this right now.
+@@ -82,18 +83,20 @@ extension ExpoSwiftUI {
+     }
+ 
+     public override func createView(appContext: AppContext) -> UIView? {
+-#if RCT_NEW_ARCH_ENABLED
+-      let props = Props()
+-      let view = HostingView(viewType: ViewType.self, props: props, appContext: appContext)
+-
+-      // Set up events to call view's `dispatchEvent` method.
+-      // This is supported only on the new architecture, `dispatchEvent` exists only there.
+-      props.setUpEvents(view.dispatchEvent(_:payload:))
+-
+-      return view
+-#else
+-      return UnimplementedExpoView(appContext: appContext, text: "Rendering SwiftUI views is possible only with the New Architecture enabled")
+-#endif
++      #if RCT_NEW_ARCH_ENABLED
++        let props = Props()
++        let view = HostingView(viewType: ViewType.self, props: props, appContext: appContext)
++
++        // Set up events to call view's `dispatchEvent` method.
++        // This is supported only on the new architecture, `dispatchEvent` exists only there.
++        props.setUpEvents(view.dispatchEvent(_:payload:))
++
++        return view
++      #else
++        return UnimplementedExpoView(
++          appContext: appContext,
++          text: "Rendering SwiftUI views is possible only with the New Architecture enabled")
++      #endif
+     }
+ 
+     public override func getSupportedPropNames() -> [String] {

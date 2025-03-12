@@ -21,10 +21,6 @@
     "android": {
       "package": "com.nandorojo.zeegexample"
     },
-    "plugins": [
-      "expo-build-properties",
-      "expo-router"
-    ],
     "newArchEnabled": true
   }
 }

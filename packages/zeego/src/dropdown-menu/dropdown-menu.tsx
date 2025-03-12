@@ -1,5 +1,5 @@
+'use client'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import * as React from 'react'
 
 import type {
   MenuCheckboxItemProps,
@@ -9,22 +9,22 @@ import type {
   MenuGroupProps,
   MenuSubContentProps,
   MenuContentProps,
+  MenuRootProps,
 } from '../menu'
-import { create } from '../menu/display-names'
 
-const Root = create(DropdownMenu.Root, 'Root')
+const Root = (props: MenuRootProps) => <DropdownMenu.Root {...props} />
 
-const Trigger = create(DropdownMenu.Trigger, 'Trigger')
+const Trigger = DropdownMenu.Trigger
 
-const Content = create<MenuContentProps>((props) => {
+const Content = (props: MenuContentProps) => {
   return (
     <DropdownMenu.Portal>
       <DropdownMenu.Content {...props} />
     </DropdownMenu.Portal>
   )
-}, 'Content')
+}
 
-const Item = create<MenuItemProps>((props) => {
+const Item = (props: MenuItemProps) => {
   return (
     <DropdownMenu.Item
       {...props}
@@ -36,62 +36,56 @@ const Item = create<MenuItemProps>((props) => {
       }}
     />
   )
-}, 'Item')
+}
 
-const SubTrigger = create<MenuSubTriggerProps>(
-  (props) => <DropdownMenu.SubTrigger {...props} />,
-  'SubTrigger'
+const SubTrigger = (props: MenuSubTriggerProps) => (
+  <DropdownMenu.SubTrigger {...props} />
 )
 
-const Group = create<MenuGroupProps>(DropdownMenu.Group, 'Group')
+const Group = (props: MenuGroupProps) => <DropdownMenu.Group {...props} />
 
-const Separator = create(DropdownMenu.Separator, 'Separator')
+const Separator = DropdownMenu.Separator
 
-const CheckboxItem = create<MenuCheckboxItemProps>(
-  ({ shouldDismissMenuOnSelect, onValueChange, value, ...props }) => {
-    return (
-      <DropdownMenu.CheckboxItem
-        {...props}
-        checked={typeof value === 'boolean' ? value : value !== 'off'}
-        onSelect={(e) => {
-          const current =
-            value === true ? 'on' : value === false ? 'off' : value
-          const next = current === 'on' ? 'off' : 'on'
+const CheckboxItem = ({
+  shouldDismissMenuOnSelect,
+  onValueChange,
+  value,
+  ...props
+}: MenuCheckboxItemProps) => {
+  return (
+    <DropdownMenu.CheckboxItem
+      {...props}
+      checked={typeof value === 'boolean' ? value : value !== 'off'}
+      onSelect={(e) => {
+        const current = value === true ? 'on' : value === false ? 'off' : value
+        const next = current === 'on' ? 'off' : 'on'
 
-          onValueChange?.(next, current)
+        onValueChange?.(next, current)
 
-          if (shouldDismissMenuOnSelect === false) {
-            e.preventDefault()
-          }
-        }}
-      />
-    )
-  },
-  'CheckboxItem'
+        if (shouldDismissMenuOnSelect === false) {
+          e.preventDefault()
+        }
+      }}
+    />
+  )
+}
+
+const ItemIndicator = DropdownMenu.ItemIndicator
+
+const ItemIcon = ({ children, style, className }: MenuItemIconProps) => (
+  <div style={style} className={className}>
+    {children}
+  </div>
 )
 
-const ItemIndicator = create(DropdownMenu.ItemIndicator, 'ItemIndicator')
+const Arrow = DropdownMenu.Arrow
 
-const ItemIcon = create(
-  ({ children, style, className }: MenuItemIconProps) => (
-    <div style={style} className={className}>
-      {children}
-    </div>
-  ),
-  'ItemIcon'
-)
+const Sub = DropdownMenu.Sub
 
-const Arrow = create(DropdownMenu.Arrow, 'Arrow')
-
-const Sub = create(DropdownMenu.Sub, 'Sub')
-
-const SubContent = create<MenuSubContentProps>(
-  (props) => (
-    <DropdownMenu.Portal>
-      <DropdownMenu.SubContent {...props} />
-    </DropdownMenu.Portal>
-  ),
-  'SubContent'
+const SubContent = (props: MenuSubContentProps) => (
+  <DropdownMenu.Portal>
+    <DropdownMenu.SubContent {...props} />
+  </DropdownMenu.Portal>
 )
 
 export {
