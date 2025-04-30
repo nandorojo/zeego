@@ -7,7 +7,11 @@ import type {
   ContextMenuButton,
   ImageOptions,
 } from 'react-native-ios-context-menu'
-import { ImageSystemSymbolConfiguration } from 'react-native-ios-utilities'
+import {
+  DynamicColor,
+  ImageRenderingModes,
+  ImageSystemSymbolConfiguration,
+} from 'react-native-ios-utilities'
 import type { SFSymbol } from 'sf-symbols-typescript'
 
 type ViewStyle = React.CSSProperties
@@ -53,6 +57,10 @@ export type MenuTriggerProps = RadixDropdownMenu.DropdownMenuTriggerProps & {
    * Only applies for `ios` and `android`.
    */
   action?: 'press' | 'longPress'
+  /**
+   * Only applies for `android`.
+   */
+  isAnchoredToRight?: boolean
 }
 
 export type MenuContentProps = React.ComponentPropsWithoutRef<
@@ -112,16 +120,27 @@ export type MenuItemIconProps = {
    */
   iosIconName?: string
   /**
-   * Icon configuration to be used on iOS. You can pass a SF Symbol icon using the `name` prop.
-   * Additionally, you can configure the SF Symbol's features like weight, scale, color etc. by passing
-   * the corresponding props. Note that some of those features require iOS 15+. For the full list of options,
-   * refer to the ImageSystemSymbolConfiguration type in react-native-ios-context-menu
+   * Icon configuration to be used on iOS. You can pass either:
+   * 1. A SF Symbol icon with optional configuration properties (default type is 'IMAGE_SYSTEM')
+   * 2. An asset image using 'type: IMAGE_ASSET' with optional styling properties
+   *
+   * Note that some SF Symbol features require iOS 15+. For the full list of options,
+   * refer to the ImageSystemSymbolConfiguration type in react-native-ios-utilities.
    *
    * @platform ios
    */
-  ios?: ImageSystemSymbolConfiguration & {
-    name: SFSymbol
-  }
+  ios?:
+    | ({
+        type?: 'IMAGE_SYSTEM'
+        name: SFSymbol
+      } & ImageSystemSymbolConfiguration)
+    | {
+        type: 'IMAGE_ASSET'
+        name: string
+        tint?: string | DynamicColor | undefined
+        renderingMode?: ImageRenderingModes
+        cornerRadius?: number
+      }
   /**
    * The name of an android-only resource drawable. For a full list, see https://developer.android.com/reference/android/R.drawable.html.
    *
@@ -231,5 +250,5 @@ export type ContextMenuPreviewProps = {
   onPress?: React.ComponentProps<typeof ContextMenuView>['onPressMenuPreview']
 } & Not<
   NonNullable<React.ComponentProps<typeof ContextMenuView>['previewConfig']>,
-  'targetViewNode' | 'previewSize' | 'previewType'
+  'previewSize' | 'previewType'
 >

@@ -278,14 +278,26 @@ If you want to use a custom component as your <Content />, you can use the creat
         ) {
           const iconConfiguration = iconChildren?.[0]?.props.ios
 
-          icon = {
-            type: 'IMAGE_SYSTEM',
-            imageValue: {
-              ...iconConfiguration,
-              systemName:
-                iconConfiguration?.name ?? iconChildren[0].props.iosIconName,
-            } as ImageSystemConfig,
-          }
+          icon =
+            iconConfiguration && iconConfiguration.type === 'IMAGE_ASSET'
+              ? {
+                  type: 'IMAGE_ASSET',
+                  imageValue: iconConfiguration.name,
+                  imageOptions: {
+                    tint: iconConfiguration.tint,
+                    renderingMode: iconConfiguration.renderingMode,
+                    cornerRadius: iconConfiguration.cornerRadius,
+                  },
+                }
+              : {
+                  type: 'IMAGE_SYSTEM',
+                  imageValue: {
+                    ...iconConfiguration,
+                    systemName:
+                      iconConfiguration?.name ??
+                      iconChildren[0].props.iosIconName,
+                  } as ImageSystemConfig,
+                }
         } else {
           const imageChild = pickChildren<MenuItemImageProps>(
             child.props.children,

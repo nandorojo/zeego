@@ -256,7 +256,7 @@ If you want to use a custom component as your <Content />, you can use the creat
         } else {
           console.error(
             `[zeego] Invalid <${Menu}.Item key="${key}" /> Missing valid title. Make sure you do one of the following:
-  
+
   1. pass a string as the child of <${Menu}.ItemTitle />, nested directly inside of <${Menu}.Item />.
   2. OR, use the textValue prop on <${Menu}.Item textValue="Some value" />`
           )
@@ -462,6 +462,7 @@ If you want to use a custom component as your <Content />, you can use the creat
         onOpenMenu={() => {
           props.onOpenChange?.(true)
         }}
+        isAnchoredToRight={triggerItem?.props.isAnchoredToRight ?? false}
         // @ts-ignore
         onCloseMenu={() => {
           props.onOpenChange?.(false)
