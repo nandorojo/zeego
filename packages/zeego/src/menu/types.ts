@@ -250,5 +250,5 @@ export type ContextMenuPreviewProps = {
   onPress?: React.ComponentProps<typeof ContextMenuView>['onPressMenuPreview']
 } & Not<
   NonNullable<React.ComponentProps<typeof ContextMenuView>['previewConfig']>,
-  'previewSize' | 'previewType'
+  'targetViewNode' | 'previewSize' | 'previewType'
 >
