@@ -70,17 +70,17 @@
     "pod-install": "^0.1.0",
     "prettier": "^2.0.5",
     "react-native-builder-bob": "^0.18.0",
-    "react-native-ios-context-menu": "3.1.0",
-    "react-native-ios-utilities": "5.1.2",
+    "react-native-ios-context-menu": "3.1.2",
+    "react-native-ios-utilities": "5.1.5",
     "release-it": "^14.2.2",
     "typescript": "^5.6.2"
   },
   "peerDependencies": {
-    "@react-native-menu/menu": "1.2.2",
+    "@react-native-menu/menu": "1.2.3",
     "react": "*",
     "react-native": "*",
     "react-native-ios-context-menu": "3.1.0",
-    "react-native-ios-utilities": "5.1.2"
+    "react-native-ios-utilities": "5.1.5"
   },
   "jest": {
     "preset": "react-native",
