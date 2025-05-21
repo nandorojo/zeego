@@ -177,17 +177,18 @@ Context menu item. Typically a row with text inside of it.
 
 The `key` prop is **required**. The `key` must be unique within the entire menu, including submenus.
 
-| Prop          | Required | Default | Platforms               |
-| ------------- | -------- | ------- | ----------------------- |
-| `key`         | Yes      |         | `web`, `ios`, `android` |
-| `disabled`    |          |         | `web`, `ios`, `android` |
-| `destructive` |          |         | `web`, `ios`, `android` |
-| `hidden`      |          |         | `ios`, `android`        |
-| `style`       |          |         | `web`                   |
-| `onSelect`    |          |         | `web`, `android`, `ios` |
-| `textValue`   |          |         | `web`                   |
-| `onFocus`     |          |         | `web`                   |
-| `onBlur`      |          |         | `web`                   |
+| Prop                       | Required | Default | Platforms                |
+| -------------------------- | -------- | ------- | ------------------------ |
+| `key`                      | Yes      |         | `web`, `ios`, `android`  |
+| `disabled`                 |          |         | `web`, `ios`, `android`  |
+| `destructive`              |          |         | `web`, `ios`, `android`  |
+| `onSelect`                 |          |         | `web`, `ios`, `android`  |
+| `shouldDismissMenuOnSelect`|          |         | `web`, `ios`, `android`  |
+| `hidden`                   |          |         | `web`, `ios`, `android`  |
+| `textValue`                |          |         | `web`                    |
+| `style`                    |          |         | `web`                    |
+| `onFocus`                  |          |         | `web`                    |
+| `onBlur`                   |          |         | `web`                    |
 
 On web, `Item` will render its a component as its child and apply styles. On other platforms, it simply renders a native menu item, and styles do not apply.
 
@@ -389,18 +390,19 @@ For more web props, see the Radix UI [docs for `ContextMenu.Group`](https://www.
 
 Usage is similar to [`Item`](#item) with added checkbox features.
 
-| Prop            | Required | Default | Platforms                |
-| --------------- | -------- | ------- | ------------------------ |
-| `key`           | Yes      |         | `web`, `ios`, `android`  |
-| `value`         | Yes      |         | `web`, `ios`, `android`  |
-| `disabled`      |          |         | `web` , `ios`, `android` |
-| `destructive`   |          |         | `web` , `ios`, `android` |
-| `onValueChange` |          |         | `web` , `ios`, `android` |
-| `hidden`        |          |         | `web` , `ios`, `android` |
-| `textValue`     |          |         | `web`                    |
-| `style`         |          |         | `web`                    |
-| `onFocus`       |          |         | `web`                    |
-| `onBlur`        |          |         | `web`                    |
+| Prop                       | Required | Default | Platforms                |
+| -------------------------- | -------- | ------- | ------------------------ |
+| `key`                      | Yes      |         | `web`, `ios`, `android`  |
+| `value`                    | Yes      |         | `web`, `ios`, `android`  |
+| `disabled`                 |          |         | `web`, `ios`, `android`  |
+| `destructive`              |          |         | `web`, `ios`, `android`  |
+| `onValueChange`            |          |         | `web`, `ios`, `android`  |
+| `shouldDismissMenuOnSelect`|          |         | `web`, `ios`, `android`  |
+| `hidden`                   |          |         | `web`, `ios`, `android`  |
+| `textValue`                |          |         | `web`                    |
+| `style`                    |          |         | `web`                    |
+| `onFocus`                  |          |         | `web`                    |
+| `onBlur`                   |          |         | `web`                    |
 
 ```tsx
 <ContextMenu.CheckboxItem
