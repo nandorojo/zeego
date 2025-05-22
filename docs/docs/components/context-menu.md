@@ -566,7 +566,7 @@ An item that opens a submenu. Must be rendered inside `ContextMenu.Sub`.
 | `destructive` |          |         | `web` , `ios`, `android` |
 | `hidden`      |          |         | `ios`, `android`         |
 | `style`       |          |         | `web`                    |
-| `onSelect`    |          |         | `web`                    |
+| `onSelect`    |          |         | `web`, `android`, `ios`  |
 | `textValue`   |          |         | `web`                    |
 | `onFocus`     |          |         | `web`                    |
 | `onBlur`      |          |         | `web`                    |
