@@ -190,3 +190,7 @@ const DropdownMenuExample = () => {
 - [ ] Docs
 - [ ] `zeego/tooltip` (probably?)
 - [ ] `zeego/popover` (probably)
+
+## Used By
+
+Zeego is used in Vercel's iOS apps, such as v0.
