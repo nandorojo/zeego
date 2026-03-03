@@ -79,8 +79,8 @@
     "@react-native-menu/menu": "1.2.3",
     "react": "*",
     "react-native": "*",
-    "react-native-ios-context-menu": "3.1.0",
-    "react-native-ios-utilities": "5.1.5"
+    "react-native-ios-context-menu": "3.2.1",
+    "react-native-ios-utilities": "5.2.0"
   },
   "jest": {
     "preset": "react-native",
