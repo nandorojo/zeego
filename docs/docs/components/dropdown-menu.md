@@ -102,6 +102,7 @@ Required component at the root of your menu.
 | ------------------ | -------- | ------- | ------------ |
 | `onOpenChange`     |          |         | `web`, `ios` |
 | `onOpenWillChange` |          |         | `ios`        |
+| `previewBorderRadius` |       |         | `ios`        |
 
 For more web props, see the Radix UI [docs for `DropdownMenu.Root`](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#root).
 

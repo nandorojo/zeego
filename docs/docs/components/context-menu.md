@@ -105,6 +105,7 @@ Required component at the root of your menu.
 | ------------------ | -------- | ------- | ------------ |
 | `onOpenChange`     |          |         | `web`, `ios` |
 | `onOpenWillChange` |          |         | `ios`        |
+| `previewBorderRadius` |       |         | `ios`        |
 
 For more web props, see the Radix UI [docs for `ContextMenu.Root`](https://www.radix-ui.com/docs/primitives/components/context-menu#root).
 
