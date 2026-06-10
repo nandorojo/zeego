@@ -22,6 +22,19 @@ export type MenuRootProps = RadixDropdownMenu.DropdownMenuProps & {
    * @platform `ios`
    */
   onOpenWillChange?: (willOpen: boolean) => void
+  /**
+   * Corner radius of the trigger's highlight preview, which is the shape the
+   * menu morphs from/to when it opens and closes. Use it to keep rounded or
+   * circular triggers from snapping to sharp corners during the transition.
+   * Equivalent to SwiftUI's `.contentShape(.contextMenuPreview, ...)`.
+   *
+   * Values larger than half the trigger size are clamped, so you can pass a
+   * big number (e.g. `9999`) for a fully-rounded (circle/capsule) shape.
+   *
+   * Ignored when a custom `<Preview />` is rendered.
+   * @platform `ios`
+   */
+  previewBorderRadius?: number
 
   __unsafeIosProps?:
     | ComponentProps<typeof ContextMenuView>

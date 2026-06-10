@@ -618,6 +618,11 @@ If you want to use a custom component as your <Content />, you can use the creat
                 isResizeAnimated: previewProps?.isResizeAnimated,
                 preferredCommitStyle: previewProps?.preferredCommitStyle,
               }
+            : props.previewBorderRadius != null
+            ? {
+                previewType: 'DEFAULT',
+                borderRadius: props.previewBorderRadius,
+              }
             : undefined
         }
         onMenuDidHide={onMenuDidHide}
