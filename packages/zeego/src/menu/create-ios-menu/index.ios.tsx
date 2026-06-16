@@ -14,6 +14,7 @@ import {
   pickChildren,
   isInstanceOfComponent,
 } from '../children'
+import { cloneTriggerWithPressSuppression } from '../clone-trigger-with-press-suppression'
 import { create } from '../display-names'
 import { filterNull } from '../filter-null'
 import type {
@@ -173,6 +174,7 @@ If you want to use a custom component as your <Content />, you can use the creat
   type MenuItem = MenuActionConfig
 
   const Root = create((props: MenuRootProps) => {
+    const suppressNextTriggerPress = useRef(false)
     const trigger = pickChildren<MenuTriggerProps>(props.children, Trigger)
     const content = pickChildren<MenuContentProps | ContextMenuContentProps>(
       props.children,
@@ -525,6 +527,17 @@ If you want to use a custom component as your <Content />, you can use the creat
       shouldOpenOnSingleTap = triggerItem.props.action === 'press'
     }
 
+    const shouldSuppressTriggerPress = !shouldOpenOnSingleTap
+
+    const finalTriggerItem = shouldSuppressTriggerPress
+      ? cloneTriggerWithPressSuppression(
+          triggerItem as
+            | ReactElement<{ children?: React.ReactNode }>
+            | undefined,
+          suppressNextTriggerPress
+        )
+      : triggerItem
+
     const auxiliary =
       Menu === 'ContextMenu'
         ? pickChildren<ContextMenuAuxliliaryProps>(
@@ -620,13 +633,23 @@ If you want to use a custom component as your <Content />, you can use the creat
               }
             : undefined
         }
-        onMenuDidHide={onMenuDidHide}
-        onMenuDidShow={onMenuDidShow}
+        onMenuDidHide={() => {
+          onMenuDidHide?.()
+          setTimeout(() => {
+            suppressNextTriggerPress.current = false
+          }, 250)
+        }}
+        onMenuDidShow={() => {
+          if (shouldSuppressTriggerPress) {
+            suppressNextTriggerPress.current = true
+          }
+          onMenuDidShow?.()
+        }}
         onMenuWillHide={onMenuWillHide}
         onMenuWillShow={onMenuWillShow}
         {...props.__unsafeIosProps}
       >
-        {triggerItem}
+        {finalTriggerItem}
       </Component>
     )
   }, 'Root')

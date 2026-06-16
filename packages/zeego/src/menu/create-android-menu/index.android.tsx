@@ -1,4 +1,4 @@
-import React, { Children, ReactElement, cloneElement } from 'react'
+import React, { Children, ReactElement, cloneElement, useRef } from 'react'
 
 import { MenuView } from '@react-native-menu/menu'
 
@@ -7,6 +7,7 @@ import {
   pickChildren,
   isInstanceOfComponent,
 } from '../children'
+import { cloneTriggerWithPressSuppression } from '../clone-trigger-with-press-suppression'
 import { create } from '../display-names'
 import { filterNull } from '../filter-null'
 import type {
@@ -181,6 +182,7 @@ If you want to use a custom component as your <Content />, you can use the creat
   }
 
   const Root = create((props: MenuRootProps) => {
+    const suppressNextTriggerPress = useRef(false)
     const trigger = pickChildren<MenuTriggerProps>(props.children, Trigger)
     const content = pickChildren<MenuContentProps | ContextMenuContentProps>(
       props.children,
@@ -449,6 +451,15 @@ If you want to use a custom component as your <Content />, you can use the creat
       shouldOpenOnLongPress = triggerItem.props.action === 'longPress'
     }
 
+    const finalTriggerItem = shouldOpenOnLongPress
+      ? cloneTriggerWithPressSuppression(
+          triggerItem as
+            | ReactElement<{ children?: React.ReactNode }>
+            | undefined,
+          suppressNextTriggerPress
+        )
+      : triggerItem
+
     return (
       <MenuView
         title={menuTitle}
@@ -460,14 +471,20 @@ If you want to use a custom component as your <Content />, you can use the creat
         actions={menuItems}
         // @ts-ignore
         onOpenMenu={() => {
+          if (shouldOpenOnLongPress) {
+            suppressNextTriggerPress.current = true
+          }
           props.onOpenChange?.(true)
         }}
         // @ts-ignore
         onCloseMenu={() => {
           props.onOpenChange?.(false)
+          setTimeout(() => {
+            suppressNextTriggerPress.current = false
+          }, 250)
         }}
       >
-        {triggerItem}
+        {finalTriggerItem}
       </MenuView>
     )
   }, 'Root')
